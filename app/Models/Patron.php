@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Patron extends Model
+{
+    protected $fillable = [
+        'codigo','descripcion','color','lat','lng'
+    ];
+}
