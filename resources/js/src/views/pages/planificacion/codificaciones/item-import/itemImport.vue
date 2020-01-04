@@ -65,23 +65,23 @@ v-if="tableData.length && header.length"
      <vs-input v-validate="'min_value:1'" type="hidden" name="codificaciones" v-model="cantCodificaciones"/>
      <span class="text-danger text-sm">{{ errors.first('codificaciones') }}</span>
 
-      <vs-table multiple @input="handleSelectedCodificaciones"
-      v-model="selected" pagination :max-items="10" search :data="tableData">
+      <vs-table @input="handleSelectedCodificaciones"
+       pagination :max-items="10" search :data="tableData"> 
         <template slot="header">
           <h4>{{ sheetName }}</h4>
         </template>
 
         <template slot="thead">
-        <!--  <vs-th>Rut</vs-th>
+          <vs-th>Rut</vs-th>
           <vs-th>Nombre</vs-th>
           <vs-th>Apellido</vs-th>
           <vs-th>Direccion</vs-th>
-          <vs-th>Comuna</vs-th>-->
-          <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>
+          <vs-th>Comuna</vs-th>
+         <!-- <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>-->
         </template>
 
         <template slot-scope="{data}">
-        <!--   <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+           <vs-tr :key="indextr" v-for="(tr, indextr) in data">
            <vs-td :data="tr.Rut">
               {{ tr.Rut }}
               <template slot="edit">
@@ -117,12 +117,12 @@ v-if="tableData.length && header.length"
               </template>
             </vs-td>
             
-          </vs-tr>-->
-           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+          </vs-tr>
+          <!-- <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td :data="col" v-for="(col, indexcol) in data[indextr]" :key="indexcol + col">
               {{ col }}
             </vs-td>
-          </vs-tr>
+          </vs-tr>-->
         </template>
       </vs-table>
     </vx-card>
@@ -195,10 +195,11 @@ export default {
     },
     loadDataInTable({ results, header, meta }) {
      
-      this.cantCodificaciones = 0
+      
       this.header = header
       this.tableData = results
       this.sheetName = meta.sheetName
+      this.cantCodificaciones = results.length
 
     },
     traeOtrosDatos() {
@@ -252,7 +253,7 @@ export default {
      this.$validator.validateAll().then(result =>{
         if (result) {
 
-          this.item.codificaciones = this.selected;
+          this.item.codificaciones = this.tableData;
           this.item.sucursal = this.sucursalFilter;
 
           this.$vs.loading();

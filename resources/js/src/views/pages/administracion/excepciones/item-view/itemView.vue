@@ -42,6 +42,10 @@
                 <td class="font-semibold">Direccion</td>
                 <td>{{ item_data.direccion }} </td>
               </tr>
+                <tr>
+                <td class="font-semibold">Comuna</td>
+                <td>{{ item_data.comuna }} </td>
+              </tr>
             
             </table>
           </div>

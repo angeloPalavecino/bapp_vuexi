@@ -215,7 +215,8 @@ export default {
       marker:null,
       markerSuc:null,
       markersPat : [],
-
+      boundsMarker : null,
+      boundsSucursal : null,
       autocomplete:null,
       
       gpatronesOptions: [],
@@ -310,7 +311,7 @@ export default {
                     this.cargaPatrones(this.patrones);
                 }
                 
-      }, 500);
+      }, 600);
      
   },
   created(){
@@ -326,7 +327,7 @@ export default {
     agregarMarker() {
            const thisIns = this;
           
-          if(this.data_local.direccion){
+          if(this.data_local.lat && this.data_local.lng){
 
            const lat = parseFloat(this.data_local.lat);
            const lng = parseFloat(this.data_local.lng);
@@ -340,6 +341,15 @@ export default {
                 this.marker = null;
               }
 
+              var bounds = new google.maps.LatLngBounds();
+              bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              thisIns.boundsMarker = bounds;
+
+              if(this.boundsSucursal !== null){
+                  bounds = this.boundsSucursal;
+                  bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              }
+              
               var marker = new google.maps.Marker({
                     position: { lat: lat, lng: lng }, 
                     infoText: direccion,
@@ -359,8 +369,9 @@ export default {
                 });
                 
                 var latlng = new google.maps.LatLng(lat, lng);
-                map.setCenter(latlng);
-                map.setZoom(15);
+                //map.setCenter(latlng);
+                //map.setZoom(15);
+                thisIns.map.fitBounds(bounds);
               
                 this.marker = marker;
 
@@ -499,28 +510,39 @@ export default {
     },
     cargaSucursal(sucursal) {
           const thisIns = this;
-          var bounds = new google.maps.LatLngBounds();
+          //var bounds = new google.maps.LatLngBounds();
+          if(sucursal > 0){
+              var item = this.sucursalesOptions.find((u) => u.id === sucursal)
+              const lat = parseFloat(item['lat']);
+              const lng = parseFloat(item['lng']);
+              const nombre = item['nombre'];
 
-          var item = this.sucursalesOptions.find((u) => u.id === sucursal)
-			    const lat = parseFloat(item['lat']);
-          const lng = parseFloat(item['lng']);
-          const nombre = item['nombre'];
-          bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              var bounds = new google.maps.LatLngBounds();
+              bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              thisIns.boundsSucursal = bounds;
+            
+              if(this.boundsMarker !== null){
+                  bounds = this.boundsMarker;
+                  bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              }
 
-          var marker = new google.maps.Marker({
-                position: { lat: lat, lng: lng }, 
-                infoText: nombre,
-                title: nombre,
-                draggable: false,
-                animation: google.maps.Animation.DROP,
-                icon: {
-                  url: require("@assets/images/icons/sucursal7.png") 
-                }        
-          });
-          
-          marker.setMap(thisIns.map);
-          thisIns.markerSuc = marker;         
-          thisIns.map.fitBounds(bounds);
+            // bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+
+              var marker = new google.maps.Marker({
+                    position: { lat: lat, lng: lng }, 
+                    infoText: nombre,
+                    title: nombre,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP,
+                    icon: {
+                      url: require("@assets/images/icons/sucursal7.png") 
+                    }        
+              });
+              
+              marker.setMap(thisIns.map);
+              thisIns.markerSuc = marker;         
+              thisIns.map.fitBounds(bounds);
+          }
 				
     },
     cargaPatrones(patrones){

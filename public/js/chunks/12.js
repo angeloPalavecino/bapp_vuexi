@@ -114,7 +114,17 @@ __webpack_require__.r(__webpack_exports__);
       var lat = parseFloat(this.latsuc);
       var lng = parseFloat(this.lngsuc);
       var nombre = this.sucursal;
-      thisIns.bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+
+      if (this.bounds == null) {
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+        bounds.extend(new google.maps.LatLng(this.lat, this.lng));
+        thisIns.bounds = bounds;
+      } else {
+        thisIns.bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+        thisIns.bounds.extend(new google.maps.LatLng(this.lat, this.lng));
+      }
+
       var marker = new google.maps.Marker({
         position: {
           lat: lat,

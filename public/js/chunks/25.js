@@ -186,6 +186,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -196,6 +202,9 @@ var dict = {
     },
     direccion: {
       required: 'La direccion es requerida'
+    },
+    comuna: {
+      required: 'La comuna es requerida'
     }
   }
 }; // register custom messages
@@ -240,7 +249,18 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   },
   methods: {
     asignaDireccion: function asignaDireccion() {
+      var place = this.autocomplete.getPlace();
       this.data_local.direccion = this.autocomplete.getPlace().formatted_address;
+      this.data_local.lat = this.autocomplete.getPlace().geometry.location.lat().toFixed(5);
+      this.data_local.lng = this.autocomplete.getPlace().geometry.location.lng().toFixed(5); //this.data_local.comuna = place.vicinity; 
+
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+
+        if (addressType == "locality" || addressType == "administrative_area_level_3") {
+          this.data_local.comuna = place.address_components[i]['long_name'];
+        }
+      }
     },
     agregarMarker: function agregarMarker() {
       var thisIns = this;
@@ -295,7 +315,20 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         latLng: pos
       }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
+          var place = results[0];
           thisIns.data_local.direccion = results[0].formatted_address;
+          thisIns.data_local.lat = results[0].geometry.location.lat().toFixed(5);
+          thisIns.data_local.lng = results[0].geometry.location.lng().toFixed(5);
+          thisIns.data_local.comuna = place.vicinity;
+
+          for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+
+            if (addressType == "locality" || addressType == "administrative_area_level_3") {
+              thisIns.data_local.comuna = place.address_components[i]['long_name'];
+            }
+          }
+
           thisIns.map.setCenter(pos);
         } else {
           this.$vs.notify({
@@ -589,6 +622,41 @@ var render = function() {
                   )
                 ]
               )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c("vs-input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                staticClass: "w-full p-1",
+                attrs: {
+                  "label-placeholder": "Comuna",
+                  name: "comuna",
+                  danger: _vm.errors.first("comuna") ? true : false,
+                  "danger-text": _vm.errors.first("comuna")
+                    ? _vm.errors.first("comuna")
+                    : "",
+                  "val-icon-danger": "clear"
+                },
+                model: {
+                  value: _vm.data_local.comuna,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "comuna", $$v)
+                  },
+                  expression: "data_local.comuna"
+                }
+              })
             ],
             1
           ),

@@ -373,10 +373,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_3__["Validator"].localize('en', dict);
       var results = _ref.results,
           header = _ref.header,
           meta = _ref.meta;
-      this.cantCodificaciones = 0;
       this.header = header;
       this.tableData = results;
       this.sheetName = meta.sheetName;
+      this.cantCodificaciones = results.length;
     },
     traeOtrosDatos: function traeOtrosDatos() {
       var _this = this;
@@ -431,7 +431,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_3__["Validator"].localize('en', dict);
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this3.item.codificaciones = _this3.selected;
+          _this3.item.codificaciones = _this3.tableData;
           _this3.item.sucursal = _this3.sucursalFilter;
 
           _this3.$vs.loading();
@@ -787,7 +787,6 @@ var render = function() {
             "vs-table",
             {
               attrs: {
-                multiple: "",
                 pagination: "",
                 "max-items": 10,
                 search: "",
@@ -802,31 +801,169 @@ var render = function() {
                     return _vm._l(data, function(tr, indextr) {
                       return _c(
                         "vs-tr",
-                        { key: indextr, attrs: { data: tr } },
-                        _vm._l(data[indextr], function(col, indexcol) {
-                          return _c(
+                        { key: indextr },
+                        [
+                          _c(
                             "vs-td",
-                            { key: indexcol + col, attrs: { data: col } },
+                            { attrs: { data: tr.Rut } },
                             [
                               _vm._v(
-                                "\n            " + _vm._s(col) + "\n          "
+                                "\n            " +
+                                  _vm._s(tr.Rut) +
+                                  "\n            "
+                              ),
+                              _c(
+                                "template",
+                                { slot: "edit" },
+                                [
+                                  _c("vs-input", {
+                                    staticClass: "inputx",
+                                    attrs: { placeholder: "Rut" },
+                                    model: {
+                                      value: tr.Rut,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "Rut", $$v)
+                                      },
+                                      expression: "tr.Rut"
+                                    }
+                                  })
+                                ],
+                                1
                               )
-                            ]
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            { attrs: { data: tr.Nombre } },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(tr.Nombre) +
+                                  "\n            "
+                              ),
+                              _c(
+                                "template",
+                                { slot: "edit" },
+                                [
+                                  _c("vs-input", {
+                                    staticClass: "inputx",
+                                    attrs: { placeholder: "Nombre" },
+                                    model: {
+                                      value: tr.Nombre,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "Nombre", $$v)
+                                      },
+                                      expression: "tr.Nombre"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            { attrs: { data: tr.Apellido } },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(tr.Apellido) +
+                                  "\n            "
+                              ),
+                              _c(
+                                "template",
+                                { slot: "edit" },
+                                [
+                                  _c("vs-input", {
+                                    staticClass: "inputx",
+                                    attrs: { placeholder: "Apellido" },
+                                    model: {
+                                      value: tr.Apellido,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "Apellido", $$v)
+                                      },
+                                      expression: "tr.Apellido"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            { attrs: { data: tr.Direccion } },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(tr.Direccion) +
+                                  "\n            "
+                              ),
+                              _c(
+                                "template",
+                                { slot: "edit" },
+                                [
+                                  _c("vs-input", {
+                                    staticClass: "inputx",
+                                    attrs: { placeholder: "Direccion" },
+                                    model: {
+                                      value: tr.Direccion,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "Direccion", $$v)
+                                      },
+                                      expression: "tr.Direccion"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            { attrs: { data: tr.Comuna } },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(tr.Comuna) +
+                                  "\n            "
+                              ),
+                              _c(
+                                "template",
+                                { slot: "edit" },
+                                [
+                                  _c("vs-input", {
+                                    staticClass: "inputx",
+                                    attrs: { placeholder: "Comuna" },
+                                    model: {
+                                      value: tr.Comuna,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "Comuna", $$v)
+                                      },
+                                      expression: "tr.Comuna"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            2
                           )
-                        }),
+                        ],
                         1
                       )
                     })
                   }
                 }
-              ]),
-              model: {
-                value: _vm.selected,
-                callback: function($$v) {
-                  _vm.selected = $$v
-                },
-                expression: "selected"
-              }
+              ])
             },
             [
               _c("template", { slot: "header" }, [
@@ -836,13 +973,17 @@ var render = function() {
               _c(
                 "template",
                 { slot: "thead" },
-                _vm._l(_vm.header, function(heading) {
-                  return _c(
-                    "vs-th",
-                    { key: heading, attrs: { "sort-key": heading } },
-                    [_vm._v(_vm._s(heading))]
-                  )
-                }),
+                [
+                  _c("vs-th", [_vm._v("Rut")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("Nombre")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("Apellido")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("Direccion")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("Comuna")])
+                ],
                 1
               )
             ],

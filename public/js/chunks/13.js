@@ -192,6 +192,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
  //Maps
 
@@ -569,6 +573,16 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(_vm._s(_vm.item_data.direccion) + " ")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Comuna")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.comuna) + " ")
                             ])
                           ])
                         ])
