@@ -15,7 +15,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h4", [_vm._v("You are in home.")])
+  return _c("h4")
 }
 var staticRenderFns = []
 render._withStripped = true
