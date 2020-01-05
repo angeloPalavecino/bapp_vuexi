@@ -76192,66 +76192,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         authRequired: true
       }
     }, {
-      path: '/pages/planificacion/matriz/item-view/:itemId',
-      name: 'matriz-view',
-      component: function component() {
-        return __webpack_require__.e(/*! import() */ 77).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/matriz/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/matriz/item-view/itemView.vue"));
-      },
-      meta: {
-        breadcrumb: [{
-          title: 'Home',
-          url: '/'
-        }, {
-          title: 'Matriz de codificacion'
-        }, {
-          title: 'Ver matriz de codificacion',
-          active: true
-        }],
-        pageTitle: 'Ver matriz de codificacion',
-        authRequired: true,
-        parent: 'matriz'
-      }
-    }, {
-      path: '/pages/planificacion/matriz/item-edit/:itemId',
-      name: 'matriz-edit',
-      component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(51)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/matriz/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/matriz/item-edit/itemEdit.vue"));
-      },
-      meta: {
-        breadcrumb: [{
-          title: 'Home',
-          url: '/'
-        }, {
-          title: 'Matriz de codificacion'
-        }, {
-          title: 'Editar matriz de codificacion',
-          active: true
-        }],
-        pageTitle: 'Editar matriz de codificacion',
-        authRequired: true,
-        parent: 'horarios'
-      }
-    }, {
-      path: '/pages/planificacion/matriz/item-add/',
-      name: 'matriz-add',
-      component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(50)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/matriz/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/matriz/item-add/itemAdd.vue"));
-      },
-      meta: {
-        breadcrumb: [{
-          title: 'Home',
-          url: '/'
-        }, {
-          title: 'Matriz de codificacion'
-        }, {
-          title: 'Agregar matriz de codificacion',
-          active: true
-        }],
-        pageTitle: 'Agregar matriz de codificacion',
-        authRequired: true,
-        parent: 'matriz'
-      }
-    }, {
       path: '/page2',
       name: 'page-2',
       component: function component() {

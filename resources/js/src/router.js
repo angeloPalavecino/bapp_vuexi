@@ -1126,56 +1126,7 @@ const router = new Router({
                         authRequired: true
                     }
                   },
-                  {
-                    path: '/pages/planificacion/matriz/item-view/:itemId',
-                    name: 'matriz-view',
-                    component: () => import('@/views/pages/planificacion/matriz/item-view/itemView.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'Matriz de codificacion' },
-                            { title: 'Ver matriz de codificacion', active: true },
-                        ],
-                        pageTitle: 'Ver matriz de codificacion',
-                        authRequired: true,
-                        parent: 'matriz'
-                    },
-                  },
-                  {
-                    path: '/pages/planificacion/matriz/item-edit/:itemId',
-                    name: 'matriz-edit',
-                    component: () => import('@/views/pages/planificacion/matriz/item-edit/itemEdit.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'Matriz de codificacion' },
-                            { title: 'Editar matriz de codificacion', active: true },
-                        ],
-                        pageTitle: 'Editar matriz de codificacion',
-                        authRequired: true,
-                        parent: 'horarios'
-                    },
-                  },
-                  {
-                  path: '/pages/planificacion/matriz/item-add/',
-                  name: 'matriz-add',
-                  component: () => import('@/views/pages/planificacion/matriz/item-add/itemAdd.vue'),
-                  meta: {
-                      breadcrumb: [
-                          { title: 'Home', url: '/' },
-                          { title: 'Matriz de codificacion' },
-                          { title: 'Agregar matriz de codificacion', active: true },
-                      ],
-                      pageTitle: 'Agregar matriz de codificacion',
-                      authRequired: true,
-                      parent: 'matriz'
-                  },
-                  },
-               
               
-              
-              
-
 
               {
                 path: '/page2',

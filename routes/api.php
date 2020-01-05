@@ -300,7 +300,7 @@ Route::prefix('v1')->group(function () {
             Route::get('cars', 'CarController@cars');
             Route::get('carsall', 'CarController@carsall');
             Route::get('combo', 'CarController@combo');
-            // Route::get('cars', 'CarController@cars');
+            Route::get('matriz/{id}', 'CarController@matriz');
             // Route::get('moviles', 'DriverController@moviles');
       //  });
     });

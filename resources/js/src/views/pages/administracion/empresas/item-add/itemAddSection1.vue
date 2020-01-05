@@ -177,7 +177,7 @@
          <tab-content title="Paso 3" class="mb-5" icon="feather icon-map-pin" :before-change="validateStep3">
           <form data-vv-scope="step-3">
           <div>
-               <vs-divider color="primary"><h5>Datos sucursal_direccion</h5></vs-divider>
+               <vs-divider color="primary"><h5>Datos sucursal</h5></vs-divider>
           </div>
            <div class="vx-row">
              <div class="vx-col md:w-auto w-full mt-2">

@@ -18,7 +18,7 @@ class MatrizController extends Controller
 
         return Validator::make($data, [
              'horario_id' => 'required',
-             'car_id' => 'required',
+             'moviles' => 'required',
              'grupopatrones_id' => 'required',
              'sucursal_id' => 'required',
          ]);
@@ -85,25 +85,34 @@ class MatrizController extends Controller
 
         $input = $request->all();
         $horario_id = $input['horario_id'];
-        $car_id = $input['car_id'];
         $grupopatrones_id = $input['grupopatrones_id'];
         $sucursal_id = $input['sucursal_id'];
+        $moviles = $input['moviles'];
+        
 
+        //BORRA LO ANTERIORES        
+        Matriz::where('horario_id', $horario_id)
+        ->where('grupopatrones_id', $grupopatrones_id)
+        ->where('sucursal_id', $sucursal_id)
+        ->delete();
 
-        $matriz = Matriz::create(
-            array(
-                   'horario_id'         => $horario_id, 
-                   'car_id'             => $car_id,
-                   'grupopatrones_id'   => $grupopatrones_id, 
-                   'sucursal_id'        => $sucursal_id,
-                 )
-            );
-            
+        //AGREGA MOVILES MATRIZ
+        foreach ($moviles as $keyres => $movil) {
+            Matriz::create(
+                array(
+                       'horario_id'         => $horario_id, 
+                       'car_id'             => $movil,
+                       'grupopatrones_id'   => $grupopatrones_id, 
+                       'sucursal_id'        => $sucursal_id,
+                     )
+                );           
+        }  
    
         return response()->json(
             [
                 'status' => 'success',
-                'item' => $matriz->toArray()
+                'item' => 'El registro ha sido guardado exitosamente!!',
+                'sucursal' => $sucursal_id
             ], 200);
 
 
@@ -203,19 +212,28 @@ class MatrizController extends Controller
     
             $input = $request->all();
             $horario_id = $input['horario_id'];
-            $car_id = $input['car_id'];
             $grupopatrones_id = $input['grupopatrones_id'];
             $sucursal_id = $input['sucursal_id'];
-           
-
-        $horario = Matriz::where('id', $id)->update(
-         array(
-                'horario_id'         => $horario_id, 
-                'car_id'             => $car_id,
-                'grupopatrones_id'   => $grupopatrones_id, 
-                'sucursal_id'        => $sucursal_id,
-              )
-         );
+            $moviles = $input['moviles'];
+            
+    
+            //BORRA LO ANTERIORES        
+            Matriz::where('horario_id', $horario_id)
+            ->where('grupopatrones_id', $grupopatrones_id)
+            ->where('sucursal_id', $sucursal_id)
+            ->delete();
+    
+            //AGREGA MOVILES MATRIZ
+            foreach ($moviles as $keyres => $movil) {
+                Matriz::create(
+                    array(
+                           'horario_id'         => $horario_id, 
+                           'car_id'             => $movil,
+                           'grupopatrones_id'   => $grupopatrones_id, 
+                           'sucursal_id'        => $sucursal_id,
+                         )
+                    );           
+            }  
 
            
         return response()->json(
@@ -279,4 +297,5 @@ class MatrizController extends Controller
    
          }
     }
+
 }

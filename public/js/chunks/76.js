@@ -13,6 +13,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -114,6 +126,16 @@ __webpack_require__.r(__webpack_exports__);
  // Store Module
 
 
+
+var dict = {
+  custom: {
+    moviles: {
+      required: 'Los moviles son requeridos'
+    }
+  }
+}; // register custom messages
+
+vee_validate__WEBPACK_IMPORTED_MODULE_3__["Validator"].localize('en', dict);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
@@ -122,48 +144,97 @@ __webpack_require__.r(__webpack_exports__);
     return {
       urlApi: "/matriz/matriz/",
       sucursalFilter: {
-        label: 'Todos',
+        label: 'Sin sucursal',
         value: 'all',
         id: 0
       },
-      sucursalOptions: [{
-        label: 'Todos',
-        value: 'all',
-        id: 0
-      }],
+      sucursalOptions: [],
       empresaFilter: {
-        label: 'Todos',
+        label: 'Sin empresa',
         value: 'all',
         id: 0
       },
-      empresaOptions: [{
-        label: 'Todos',
-        value: 'all',
-        id: 0
-      }],
+      empresaOptions: [],
+      movilesOptions: [],
       gpatrones: [],
       horarios: [],
-      matriz: []
+      matriz: [],
+      popupActivo: false,
+      item: {
+        horario_text: null,
+        horario_id: null,
+        grupopatrones_id: null,
+        grupopatrones_text: null,
+        sucursal_id: null,
+        moviles: []
+      }
     };
   },
   watch: {
     sucursalFilter: function sucursalFilter(obj) {
+      this.gpatrones = [];
+      this.horarios = [];
+      this.matriz = [];
       this.traeMatriz(obj.id);
     },
     empresaFilter: function empresaFilter(obj) {
+      this.gpatrones = [];
+      this.horarios = [];
+      this.matriz = [];
       this.traeSucursales(obj.id);
+      this.traeMoviles(obj.id);
     }
   },
   computed: {
     itemsData: function itemsData() {
       return this.$store.state.itemManagement.items;
+    },
+    validateForm: function validateForm() {
+      return !this.errors.any();
     }
   },
   methods: {
+    popupClose: function popupClose() {
+      this.item = {
+        horario_text: null,
+        horario_id: null,
+        grupopatrones_id: null,
+        grupopatrones_text: null,
+        moviles: []
+      };
+      this.errors.clear();
+      this.popupActivo = false;
+    },
+    selectedCell: function selectedCell(horario, grupopatron, moviles) {
+      this.item.horario_id = horario.id;
+      this.item.horario_text = horario.horario;
+      this.item.grupopatrones_id = grupopatron.id;
+      this.item.grupopatrones_text = grupopatron.codigo;
+      this.item.sucursal_id = this.sucursalFilter.id;
+
+      if (moviles.length > 0) {
+        this.item.moviles = moviles.map(function (value, index) {
+          return value['car_id'];
+        });
+      }
+
+      this.errors.clear();
+      this.popupActivo = true;
+    },
+    getStatusColor: function getStatusColor(status) {
+      if (status > 0) return "success";
+      if (status == 0) return "danger";
+      return "danger";
+    },
     resetColFilters: function resetColFilters() {
       // Reset Filter Options
-      this.sucursalFilter = this.empresaFilter = {
-        label: 'Todos',
+      this.sucursalFilter = {
+        label: 'Sin sucursal',
+        value: 'all',
+        id: 0
+      };
+      this.empresaFilter = {
+        label: 'Sin empresa',
         value: 'all',
         id: 0
       };
@@ -179,13 +250,7 @@ __webpack_require__.r(__webpack_exports__);
         //Combo Sucursales
         _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
           //console.log(res.data.items);
-          var sucursales = res.data.items;
-          sucursales.push({
-            label: 'Todos',
-            value: 'all',
-            id: 0
-          });
-          _this.sucursalOptions = sucursales.reverse(); //this.sucursalOptions = res.data.items;  
+          _this.sucursalOptions = res.data.items; //this.sucursalOptions = res.data.items;  
         }).catch(function (err) {
           var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -199,25 +264,19 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         this.sucursalFilter = {
-          label: 'Todos',
+          label: 'Sin sucursal',
           value: 'all',
           id: 0
-        }, this.sucursalOptions = [{
-          label: 'Todos',
-          value: 'all',
-          id: 0
-        }];
+        }, this.sucursalOptions = [];
       }
     },
-    traeMatriz: function traeMatriz(value) {
+    traeMoviles: function traeMoviles(value) {
       var _this2 = this;
 
       if (value > 1) {
-        //Combo Sucursales
-        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1" + this.urlApi + value).then(function (res) {
-          _this2.matriz = res.data.items;
-          _this2.horarios = res.data.horarios;
-          _this2.gpatrones = res.data.gpatrones;
+        //Combo Moviles
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/car/matriz/" + value).then(function (res) {
+          _this2.movilesOptions = res.data.items;
         }).catch(function (err) {
           var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -230,33 +289,43 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       } else {
-        this.sucursalFilter = {
-          label: 'Todos',
-          value: 'all',
-          id: 0
-        }, this.sucursalOptions = [{
-          label: 'Todos',
-          value: 'all',
-          id: 0
-        }];
+        this.movilesOptions = [];
+      }
+    },
+    traeMatriz: function traeMatriz(value) {
+      var _this3 = this;
+
+      if (value > 0) {
+        //Combo Sucursales
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1" + this.urlApi + value).then(function (res) {
+          _this3.matriz = res.data.items;
+          _this3.horarios = res.data.horarios;
+          _this3.gpatrones = res.data.gpatrones;
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this3.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.matriz = [];
       }
     },
     traeOtrosDatos: function traeOtrosDatos() {
-      var _this3 = this;
+      var _this4 = this;
 
       //Combo Empresa
       _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/combo").then(function (res) {
-        var empresas = res.data.items;
-        empresas.push({
-          label: 'Todos',
-          value: 'all',
-          id: 0
-        });
-        _this3.empresaOptions = empresas.reverse();
+        _this4.empresaOptions = res.data.items;
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this3.$vs.notify({
+        _this4.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -264,13 +333,53 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'icon-alert-circle'
         });
       });
+    },
+    save_changes: function save_changes() {
+      var _this5 = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/v1" + _this5.urlApi + "store", _this5.item).then(function (res) {
+            _this5.item = {
+              horario_text: null,
+              horario_id: null,
+              grupopatrones_id: null,
+              grupopatrones_text: null,
+              sucursal_id: res.data.sucursal,
+              moviles: []
+            };
+
+            _this5.errors.clear();
+
+            _this5.traeMatriz(res.data.sucursal);
+
+            _this5.popupActivo = false;
+
+            _this5.$vs.notify({
+              color: 'success',
+              title: 'Guardar registros',
+              text: 'Los registros se han guardado exitosamente.'
+            });
+          }).catch(function (err) {
+            var textError = err.response.status == 300 ? err.response.data.message : err;
+
+            _this5.$vs.notify({
+              title: 'Error',
+              text: textError,
+              color: 'danger',
+              iconPack: 'feather',
+              icon: 'icon-alert-circle'
+            });
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
     this.traeOtrosDatos();
   },
   created: function created() {
-    var _this4 = this;
+    var _this6 = this;
 
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_2__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
@@ -280,7 +389,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(function (err) {
       var textError = err.response.status == 300 ? err.response.data.message : err;
 
-      _this4.$vs.notify({
+      _this6.$vs.notify({
         title: 'Error',
         text: textError,
         color: 'danger',
@@ -305,7 +414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 
 // module
-exports.push([module.i, "#page-item-list .items-list-filters .vs__actions {\n  position: absolute;\n  top: 50%;\n}[dir] #page-item-list .items-list-filters .vs__actions {\n  -webkit-transform: translateY(-58%);\n          transform: translateY(-58%);\n}[dir=ltr] #page-item-list .items-list-filters .vs__actions {\n  right: 0;\n}[dir=rtl] #page-item-list .items-list-filters .vs__actions {\n  left: 0;\n}\n#page-item-list .ag-row-hover {\n  /* putting in !important so it overrides the theme's styling as it hovers the row also */\n}\n[dir] #page-item-list .ag-row-hover {\n  background-color: #dfdfff !important;\n}\n[dir] #page-item-list .ag-column-hover {\n  background-color: #dfffdf;\n}", ""]);
+exports.push([module.i, "#page-item-list .items-list-filters .vs__actions {\n  position: absolute;\n  top: 50%;\n}[dir] #page-item-list .items-list-filters .vs__actions {\n  -webkit-transform: translateY(-58%);\n          transform: translateY(-58%);\n}[dir=ltr] #page-item-list .items-list-filters .vs__actions {\n  right: 0;\n}[dir=rtl] #page-item-list .items-list-filters .vs__actions {\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -431,79 +540,308 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "vx-card p-6" }, [
-        _c(
-          "div",
-          {
-            staticStyle: { width: "100%", height: "100%" },
-            attrs: { id: "grid-wrapper" }
-          },
-          [
+      _c(
+        "vx-card",
+        {
+          staticClass: "items-list-filters mb-8",
+          attrs: { title: "Matriz", collapseAction: "" }
+        },
+        [
+          _c("div", { staticClass: "vx-row" }, [
             _c(
-              "vs-table",
-              {
-                attrs: {
-                  stripe: "",
-                  pagination: "",
-                  "max-items": 10,
-                  search: "",
-                  data: _vm.gpatrones
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var data = ref.data
-                      return _vm._l(data, function(tr, indextr) {
-                        return _c(
-                          "vs-tr",
-                          { key: indextr, attrs: { data: tr } },
-                          _vm._l(data[indextr], function(col, indexcol) {
-                            return _c(
-                              "vs-td",
-                              { key: indexcol + col, attrs: { data: col } },
-                              [
-                                _vm._v(
-                                  "\n            " +
-                                    _vm._s(col) +
-                                    "\n          "
-                                )
-                              ]
-                            )
-                          }),
-                          1
-                        )
-                      })
-                    }
-                  }
-                ])
-              },
+              "div",
+              { staticClass: "vx-col w-full" },
               [
-                _c("template", { slot: "header" }),
-                _vm._v(" "),
                 _c(
-                  "template",
-                  { slot: "thead" },
+                  "div",
+                  { staticClass: "flex items-end px-3" },
                   [
-                    _c("vs-th", [_vm._v("Codigos")]),
+                    _c("feather-icon", {
+                      staticClass: "mr-2",
+                      attrs: { svgClasses: "w-6 h-6", icon: "InfoIcon" }
+                    }),
                     _vm._v(" "),
-                    _vm._l(_vm.horarios, function(horario) {
-                      return _c(
-                        "vs-th",
-                        { key: horario.id, attrs: { "sort-key": horario.id } },
-                        [_vm._v(_vm._s(horario.horario))]
-                      )
-                    })
+                    _c(
+                      "span",
+                      { staticClass: "font-medium text-lg leading-none" },
+                      [_vm._v("Detalle")]
+                    )
                   ],
-                  2
+                  1
+                ),
+                _vm._v(" "),
+                _c("vs-divider")
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm.gpatrones.length && _vm.horarios.length
+            ? _c(
+                "vs-table",
+                {
+                  attrs: {
+                    stripe: "",
+                    pagination: "",
+                    "max-items": 10,
+                    search: "",
+                    data: _vm.gpatrones
+                  },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var data = ref.data
+                          return _vm._l(data, function(tr, indextr) {
+                            return _c(
+                              "vs-tr",
+                              { key: indextr },
+                              [
+                                _c("vs-td", { attrs: { data: tr.codigo } }, [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(tr.codigo) +
+                                      "\n          "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.horarios, function(trh, indexth) {
+                                  return _c("vs-td", { key: indexth }, [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "td vs-table--td",
+                                        staticStyle: { cursor: "pointer" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.selectedCell(
+                                              trh,
+                                              tr,
+                                              _vm.matriz.filter(function(x) {
+                                                return (
+                                                  x.horario_id == trh.id &&
+                                                  x.grupopatrones_id == tr.id
+                                                )
+                                              })
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "vs-chip",
+                                          {
+                                            staticClass: "items-status",
+                                            attrs: {
+                                              color: _vm.getStatusColor(
+                                                _vm.matriz.filter(function(x) {
+                                                  return (
+                                                    x.horario_id == trh.id &&
+                                                    x.grupopatrones_id == tr.id
+                                                  )
+                                                }).length
+                                              )
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.matriz.filter(function(x) {
+                                                  return (
+                                                    x.horario_id == trh.id &&
+                                                    x.grupopatrones_id == tr.id
+                                                  )
+                                                }).length
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          })
+                        }
+                      }
+                    ],
+                    null,
+                    false,
+                    3166219761
+                  )
+                },
+                [
+                  _c("template", { slot: "header" }),
+                  _vm._v(" "),
+                  _c(
+                    "template",
+                    { slot: "thead" },
+                    [
+                      _c("vs-th", [_vm._v("Codigos")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.horarios, function(horario) {
+                        return _c("vs-th", { key: horario.id }, [
+                          _vm._v(_vm._s(horario.horario))
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ],
+                2
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "vs-popup",
+        {
+          attrs: {
+            title:
+              "HORARIO: " +
+              _vm.item.horario_text +
+              " | CODIGO: " +
+              _vm.item.grupopatrones_text,
+            active: _vm.popupActivo
+          },
+          on: {
+            "update:active": function($event) {
+              _vm.popupActivo = $event
+            },
+            close: _vm.popupClose
+          }
+        },
+        [
+          _c(
+            "vs-alert",
+            {
+              staticStyle: { height: "100% !important" },
+              attrs: {
+                active: "true",
+                color: "primary",
+                "icon-pack": "feather",
+                icon: "icon-info"
+              }
+            },
+            [
+              _c("span", [
+                _vm._v("Debe seleccionar al menos "),
+                _c("b", [_vm._v("1")]),
+                _vm._v(" movil")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("div", { staticClass: "vx-row" }, [
+            _c(
+              "div",
+              { staticClass: "vx-col sm:w-1/2 w-full" },
+              [
+                _c(
+                  "vs-select",
+                  {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    ref: "moviles",
+                    staticClass: "w-full",
+                    attrs: {
+                      autocomplete: "",
+                      multiple: "",
+                      label: "Moviles",
+                      name: "moviles",
+                      dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                      danger: _vm.errors.first("moviles") ? true : false,
+                      "danger-text": _vm.errors.first("moviles")
+                        ? _vm.errors.first("moviles")
+                        : ""
+                    },
+                    model: {
+                      value: _vm.item.moviles,
+                      callback: function($$v) {
+                        _vm.$set(_vm.item, "moviles", $$v)
+                      },
+                      expression: "item.moviles"
+                    }
+                  },
+                  _vm._l(_vm.movilesOptions, function(item) {
+                    return _c("vs-select-item", {
+                      key: item.id,
+                      attrs: { value: item.id, text: item.numero_movil }
+                    })
+                  }),
+                  1
                 )
               ],
-              2
-            )
-          ],
-          1
-        )
-      ])
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-col w-full" }, [
+              _c("div", { staticClass: "vx-row" }, [
+                _c("div", { staticClass: "vx-col w-full" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "mt-3 flex flex-wrap items-center justify-end"
+                    },
+                    [
+                      _c(
+                        "vx-tooltip",
+                        { attrs: { color: "primary", text: "Guardar" } },
+                        [
+                          _c(
+                            "vs-button",
+                            {
+                              staticClass: "ml-auto mt-2",
+                              attrs: { disabled: !_vm.validateForm },
+                              on: { click: _vm.save_changes }
+                            },
+                            [_vm._v("Guardar")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vx-tooltip",
+                        { attrs: { color: "primary", text: "Volver" } },
+                        [
+                          _c(
+                            "vs-button",
+                            {
+                              staticClass: "ml-4 mt-2",
+                              attrs: { "icon-pack": "feather", icon: "icon-x" },
+                              on: { click: _vm.popupClose }
+                            },
+                            [_vm._v("Cerrar")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ])
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -742,14 +1080,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue ***!
   \**********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _itemList_vue_vue_type_template_id_08ac2586___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemList.vue?vue&type=template&id=08ac2586& */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue?vue&type=template&id=08ac2586&");
 /* harmony import */ var _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemList.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemList.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemList.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -781,7 +1120,7 @@ component.options.__file = "resources/js/src/views/pages/planificacion/matriz/it
 /*!***********************************************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
