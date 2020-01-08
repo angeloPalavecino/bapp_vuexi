@@ -65,7 +65,7 @@ v-if="tableData.length && header.length"
      <vs-input v-validate="'min_value:1'" type="hidden" name="codificaciones" v-model="cantCodificaciones"/>
      <span class="text-danger text-sm">{{ errors.first('codificaciones') }}</span>
 
-      <vs-table @input="handleSelectedCodificaciones"
+      <vs-table @input="handleSelectedCodificaciones" v-if="tableData.length"
        pagination :max-items="10" search :data="tableData"> 
         <template slot="header">
           <h4>{{ sheetName }}</h4>
@@ -77,6 +77,9 @@ v-if="tableData.length && header.length"
           <vs-th>Apellido</vs-th>
           <vs-th>Direccion</vs-th>
           <vs-th>Comuna</vs-th>
+          <vs-th>Email</vs-th>
+          <vs-th>Telefono</vs-th>
+          <vs-th>Centro Costo</vs-th>
          <!-- <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>-->
         </template>
 
@@ -116,6 +119,27 @@ v-if="tableData.length && header.length"
                 <vs-input v-model="tr.Comuna" class="inputx" placeholder="Comuna" />
               </template>
             </vs-td>
+
+            <vs-td :data="tr.Email">
+              {{ tr.Email }}
+              <template slot="edit">
+                <vs-input v-model="tr.Email" class="inputx" placeholder="Email" />
+              </template>
+            </vs-td>
+
+            <vs-td :data="tr.Telefono">
+              {{ tr.Telefono }}
+              <template slot="edit">
+                <vs-input v-model="tr.Telefono" class="inputx" placeholder="Telefono" />
+              </template>
+            </vs-td>
+
+            <vs-td :data="tr.Centro_costo">
+              {{ tr.Centro_costo }}
+              <template slot="edit">
+                <vs-input v-model="tr.Centro_costo" class="inputx" placeholder="Centro Costo" />
+              </template>
+            </vs-td>
             
           </vs-tr>
           <!-- <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
@@ -143,7 +167,7 @@ const dict = {
             required: 'La sucursal es requerida',
         },
         codificaciones:{
-            min_value: 'Debes seleccionar al menos un registro'
+            min_value: 'Debe cargar al menos un registro'
         }
     }
 };

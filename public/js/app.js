@@ -74752,7 +74752,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // =============================================================================
     path: '',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(79), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./layouts/main/Main.vue */ "./resources/js/src/layouts/main/Main.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(76), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./layouts/main/Main.vue */ "./resources/js/src/layouts/main/Main.vue"));
     },
     children: [// =============================================================================
     // Theme Routes
@@ -74761,7 +74761,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/',
       name: 'home',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 85).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
+        return __webpack_require__.e(/*! import() */ 82).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
       }
     }, // =============================================================================
     // PERFIL
@@ -74770,7 +74770,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/perfil/:itemId',
       name: 'perfil',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 81).then(__webpack_require__.bind(null, /*! @/views/pages/perfil/Perfil.vue */ "./resources/js/src/views/pages/perfil/Perfil.vue"));
+        return __webpack_require__.e(/*! import() */ 78).then(__webpack_require__.bind(null, /*! @/views/pages/perfil/Perfil.vue */ "./resources/js/src/views/pages/perfil/Perfil.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74812,7 +74812,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/users/item-view/:itemId',
       name: 'user-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 72).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/users/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 70).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/users/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74873,7 +74873,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/roles/item-list/itemlist',
       name: 'roles',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(67)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/roles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/roles/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(65)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/roles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/roles/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74892,7 +74892,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/roles/item-view/:itemId',
       name: 'roles-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 68).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/roles/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/roles/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 66).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/roles/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/roles/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74953,7 +74953,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/observaciones/item-list/itemlist',
       name: 'observaciones',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(63)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/observaciones/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(61)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/observaciones/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74972,7 +74972,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/observaciones/item-view/:itemId',
       name: 'observaciones-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 64).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 62).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75033,7 +75033,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/obsinternas/item-list/itemlist',
       name: 'obsinternas',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(65)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/obsinternas/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(63)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/obsinternas/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75052,7 +75052,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/obsinternas/item-view/:itemId',
       name: 'obsinternas-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 66).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 64).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75132,7 +75132,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/fuerazonas/item-view/:itemId',
       name: 'fuerazonas-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 58).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 56).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75193,7 +75193,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/excepciones/item-list/itemlist',
       name: 'excepciones',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(57)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/excepciones/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/excepciones/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75273,7 +75273,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-list/itemlist',
       name: 'empresas',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/empresas/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/empresas/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(53)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/empresas/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/empresas/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75292,7 +75292,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-view/:itemId',
       name: 'empresas-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 56).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 54).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75372,7 +75372,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/asociados/item-view/:itemId',
       name: 'asociados-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 59).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 57).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75433,7 +75433,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/moviles/item-list/itemlist',
       name: 'moviles',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(61)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/moviles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(59)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/moviles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75452,7 +75452,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/moviles/item-view/:itemId',
       name: 'moviles-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 62).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 60).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75532,7 +75532,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/conductores/item-view/:itemId',
       name: 'conductores-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 60).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 58).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75612,7 +75612,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/pasajeros/item-view/:itemId',
       name: 'pasajeros-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 70).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 68).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75692,7 +75692,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/planas/item-view/:itemId',
       name: 'planas-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 71).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/planas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 69).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/planas/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75772,7 +75772,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/kms/item-view/:itemId',
       name: 'kms-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 69).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/kms/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 67).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/kms/item-view/itemView.vue */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75836,7 +75836,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/patrones/item-list/itemlist',
       name: 'patrones',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(78)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/patrones/patrones/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(75)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/patrones/patrones/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75875,7 +75875,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/patrones/item-edit/:itemId',
       name: 'patrones-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 53).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 51).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75895,7 +75895,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/patrones/item-add/',
       name: 'patrones-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 52).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 50).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75996,7 +75996,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/codificaciones/item-list/itemlist',
       name: 'codificaciones',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(73)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/codificaciones/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(71)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/codificaciones/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76075,7 +76075,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/codificaciones/item-import/',
       name: 'codificaciones-import',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(82), __webpack_require__.e(54)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-import/itemImport.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(79), __webpack_require__.e(52)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-import/itemImport.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76096,7 +76096,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/horarios/item-list/itemlist',
       name: 'horarios',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(74)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/horarios/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(72)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/horarios/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76115,7 +76115,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/horarios/item-view/:itemId',
       name: 'horarios-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 75).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 73).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76176,7 +76176,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/matriz/item-list/itemlist',
       name: 'matriz',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 76).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/matriz/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue"));
+        return __webpack_require__.e(/*! import() */ 74).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/matriz/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/matriz/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76195,7 +76195,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/page2',
       name: 'page-2',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 86).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
+        return __webpack_require__.e(/*! import() */ 83).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
       }
     }]
   }, // =============================================================================
@@ -76204,7 +76204,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: '',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 84).then(__webpack_require__.bind(null, /*! @/layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
+      return __webpack_require__.e(/*! import() */ 81).then(__webpack_require__.bind(null, /*! @/layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
     },
     children: [// =============================================================================
     // PAGES
@@ -76213,7 +76213,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/login',
       name: 'page-login',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 80).then(__webpack_require__.bind(null, /*! @/views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 77).then(__webpack_require__.bind(null, /*! @/views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
       },
       meta: {//rule: '*'
       }
@@ -76221,7 +76221,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/error-404',
       name: 'page-error-404',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 83).then(__webpack_require__.bind(null, /*! @/views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
+        return __webpack_require__.e(/*! import() */ 80).then(__webpack_require__.bind(null, /*! @/views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
       },
       meta: {//rule: '*'
       }

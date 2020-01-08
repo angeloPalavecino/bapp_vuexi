@@ -32,7 +32,22 @@
       val-icon-danger="clear" />
       </div>
 
+        <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input type="email" label-placeholder="Email" v-model="data_local.email" class="w-full p-1" name="email" v-validate="'email|required'" 
+      :danger="(errors.first('email') ? true : false)" :danger-text="(errors.first('email') ? errors.first('email') : '')" 
+      val-icon-danger="clear" />
+      </div>
+
       <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input label-placeholder="Telefono" v-model="data_local.telefono" class="w-full p-1" name="telefono" v-validate="'required'" 
+      :danger="(errors.first('telefono') ? true : false)" :danger-text="(errors.first('telefono') ? errors.first('telefono') : '')" 
+      val-icon-danger="clear" />
+      </div>
+
+      <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input label-placeholder="Centro Costo" v-model="data_local.centro_costo" class="w-full p-1" name="centro_costo" v-validate="'required'" 
+      :danger="(errors.first('centro_costo') ? true : false)" :danger-text="(errors.first('centro_costo') ? errors.first('centro_costo') : '')" 
+      val-icon-danger="clear" />
       </div>
       
       <div class="vx-col md:w-1/2 w-full mt-2">
@@ -166,6 +181,16 @@ const dict = {
        comuna: {
             required: 'La comuna es requerida',
         },
+        email: {
+            required: 'El email es requerido',
+            email: 'El email debe ser valido',
+        },
+        telefono: {
+            required: 'El telefono es requerido',
+        },
+        centro_costo: {
+            required: 'El centro de costo es requerido',
+        },
        codigo: {
             required: 'El codigo es requerido',
         },
@@ -204,6 +229,9 @@ export default {
         apellido : this.data.apellido ? this.data.apellido: null,
         direccion : this.data.direccion ? this.data.direccion: null,
         comuna : this.data.comuna ? this.data.comuna: null,
+        email : this.data.email ? this.data.email: null,
+        telefono : this.data.telefono ? this.data.telefono: null,
+        centro_costo : this.data.centro_costo ? this.data.centro_costo: null,
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? parseFloat(this.data.lat): null,
         lng: this.data.lng ? parseFloat(this.data.lng): null,
@@ -705,6 +733,9 @@ export default {
         apellido : this.data.apellido ? this.data.apellido: null,
         direccion : this.data.direccion ? this.data.direccion: null,
         comuna : this.data.comuna ? this.data.comuna: null,
+        email : this.data.email ? this.data.email: null,
+        telefono : this.data.telefono ? this.data.telefono: null,
+        centro_costo : this.data.centro_costo ? this.data.centro_costo: null,
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? this.data.lat: null,
         lng: this.data.lng ? this.data.lng: null,

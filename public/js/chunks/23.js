@@ -223,6 +223,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -236,6 +252,16 @@ var dict = {
     },
     comuna: {
       required: 'La comuna es requerida'
+    },
+    email: {
+      required: 'El email es requerido',
+      email: 'El email debe ser valido'
+    },
+    telefono: {
+      required: 'El telefono es requerido'
+    },
+    centro_costo: {
+      required: 'El centro de costo es requerido'
     },
     codigo: {
       required: 'El codigo es requerido'
@@ -881,7 +907,111 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c("vs-input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "email|required",
+                    expression: "'email|required'"
+                  }
+                ],
+                staticClass: "w-full p-1",
+                attrs: {
+                  type: "email",
+                  "label-placeholder": "Email",
+                  name: "email",
+                  danger: _vm.errors.first("email") ? true : false,
+                  "danger-text": _vm.errors.first("email")
+                    ? _vm.errors.first("email")
+                    : "",
+                  "val-icon-danger": "clear"
+                },
+                model: {
+                  value: _vm.data_local.email,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "email", $$v)
+                  },
+                  expression: "data_local.email"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c("vs-input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                staticClass: "w-full p-1",
+                attrs: {
+                  "label-placeholder": "Telefono",
+                  name: "telefono",
+                  danger: _vm.errors.first("telefono") ? true : false,
+                  "danger-text": _vm.errors.first("telefono")
+                    ? _vm.errors.first("telefono")
+                    : "",
+                  "val-icon-danger": "clear"
+                },
+                model: {
+                  value: _vm.data_local.telefono,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "telefono", $$v)
+                  },
+                  expression: "data_local.telefono"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c("vs-input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                staticClass: "w-full p-1",
+                attrs: {
+                  "label-placeholder": "Centro Costo",
+                  name: "centro_costo",
+                  danger: _vm.errors.first("centro_costo") ? true : false,
+                  "danger-text": _vm.errors.first("centro_costo")
+                    ? _vm.errors.first("centro_costo")
+                    : "",
+                  "val-icon-danger": "clear"
+                },
+                model: {
+                  value: _vm.data_local.centro_costo,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "centro_costo", $$v)
+                  },
+                  expression: "data_local.centro_costo"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",

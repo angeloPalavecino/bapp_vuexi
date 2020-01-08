@@ -292,6 +292,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
  //Maps
 
@@ -702,6 +709,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Email")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item_data.email))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Creado el")
                             ]),
                             _vm._v(" "),
@@ -719,6 +734,24 @@ var render = function() {
                       },
                       [
                         _c("table", [
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Telefono")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item_data.telefono))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Centro Costo")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.centro_costo))
+                            ])
+                          ]),
+                          _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Sucursal")
@@ -743,14 +776,6 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(_vm.item_data.comuna))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
