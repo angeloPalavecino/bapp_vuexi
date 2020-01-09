@@ -19,8 +19,8 @@ class AgendamientosController extends Controller
              //'observaciones_id' => 'required', 
              //'observacionesinternas_id' => 'required', 
              'tipo' => 'required', 
-             'fecha_inicio' => 'required', 
-             'fecha_fin' => 'required', 
+             'fecha' => 'required', 
+             //'fecha_fin' => 'required', 
              'horario_plan' => 'required', 
              //'horario_real' => 'required', 
              'tipo_periodo' => 'required', 
@@ -44,20 +44,23 @@ class AgendamientosController extends Controller
         ->join('drivers', 'agendamientos.drivers_plan_id', '=', 'drivers.id')
         ->join('horarios', 'agendamientos.horario_plan', '=', 'horarios.id')
         ->select(
+            'codificaciones.id',
             'codificaciones.rut',
             'codificaciones.nombre',
             'codificaciones.apellido',
             'codificaciones.direccion',
             'codificaciones.comuna',
+            'codificaciones.email',
+            'codificaciones.telefono',
+            'codificaciones.centro_costo',
             'sucursals.nombre as sucursal',
             'empresas.razon_social',
-            'drivers.name as nombre_conductor',
-            'drivers.lastname as apellido_conductor',
-            'drivers.rut as rut_conductor',
-            'horarios.horario',
-            'cars.numero_movil',
-            'agendamientos.fecha_inicio',
-            'agendamientos.fecha_fin',
+            'drivers.name as nombre_conductor_plan',
+            'drivers.lastname as apellido_conductor_plan',
+            'drivers.rut as rut_conductor_plan',
+            'horarios.horario as horario_plan',
+            'cars.numero_movil as movil_plan',
+            'agendamientos.fecha',
             'agendamientos.tipo_periodo',
             'agendamientos.tipo')
             ->get();
@@ -98,7 +101,40 @@ class AgendamientosController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $agendamiento = Agendamientos::join('codificaciones', 'agendamientos.codificacion_id', '=', 'codificaciones.id')
+        ->join('sucursals', 'codificaciones.sucursal_id', '=', 'sucursals.id')
+        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
+        ->join('cars', 'agendamientos.car_plan_id', '=', 'cars.id')
+        ->join('drivers', 'agendamientos.drivers_plan_id', '=', 'drivers.id')
+        ->join('horarios', 'agendamientos.horario_plan', '=', 'horarios.id')
+        ->select(
+            'codificaciones.id',
+            'codificaciones.rut',
+            'codificaciones.nombre',
+            'codificaciones.apellido',
+            'codificaciones.direccion',
+            'codificaciones.comuna',
+            'codificaciones.email',
+            'codificaciones.telefono',
+            'codificaciones.centro_costo',
+            'sucursals.nombre as sucursal',
+            'empresas.razon_social',
+            'drivers.name as nombre_conductor',
+            'drivers.lastname as apellido_conductor',
+            'drivers.rut as rut_conductor',
+            'horarios.horario as horario_plan',
+            'cars.numero_movil as movil_plan',
+            'agendamientos.fecha',
+            'agendamientos.tipo_periodo',
+            'agendamientos.tipo')
+            ->get('codificaciones.id', $id);
+      
+        return response()->json(
+            [
+                'status' => 'success',
+                'item' => $agendamiento->toArray(),
+            ], 200);
     }
 
     /**

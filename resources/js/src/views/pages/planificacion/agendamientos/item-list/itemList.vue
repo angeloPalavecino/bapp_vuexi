@@ -10,11 +10,8 @@
 <template>
 
   <div id="page-item-list">
-
-    <vx-card ref="filterCard" title="Filtros" class="items-list-filters mb-8" collapseAction refreshContentAction @refresh="resetColFilters" 
-    @remove="resetColFilters">
+     <vx-card ref="filterCard" title="Filtros" class="items-list-filters mb-8" collapseAction refreshContentAction @refresh="resetColFilters" >
       <div class="vx-row">
-
          <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">Empresa</label>
           <v-select :options="empresaOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="empresaFilter" />
@@ -22,7 +19,17 @@
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">Sucursales</label>
           <v-select :options="sucursalOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursalFilter" class="mb-4 md:mb-0" />
-        </div>       
+        </div> 
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Horario</label>
+          <v-select :options="horarioOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="horarioFilter" class="mb-4 md:mb-0" />
+        </div>
+
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Tipo</label>
+          <v-select :options="tipoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="tipoFilter" class="mb-4 md:mb-0" />
+        </div>
+
       </div>
     </vx-card>
 
@@ -61,7 +68,8 @@
           <vx-tooltip color="primary" text="Agregar">
             <vs-button icon-pack="feather" icon="icon-plus" class="sm:mr-4 mb-4 md:mb-0" @click="addRecord">AGREGAR</vs-button>
           </vx-tooltip>
-          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Buscar..." />
+          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" 
+          @input="updateSearchQuery" placeholder="Buscar..." />
          <!--  <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
 
           <!-- ACTION - DROPDOWN -->
@@ -107,33 +115,34 @@
       </div>
 
       <div id="grid-wrapper" style="width:100%; height: 100%">
-          <!-- AgGrid Table -->
-          <ag-grid-vue
-            ref="agGridTable" 
-            :components="components"
-            :gridOptions="gridOptions"
-            class="ag-theme-material w-100 my-3 ag-grid-table"
-            :columnDefs="columnDefs"
-            :defaultColDef="defaultColDef"
-            :rowData="itemsData"
-            rowSelection="multiple"
-            colResizeDefault="shift"
-            :animateRows="true"
-            :floatingFilter="true"
-            :pagination="true"
-            :paginationPageSize="paginationPageSize"
-            :suppressPaginationPanel="true"
-            :enableRtl="$vs.rtl"
-
-            @grid-size-changed="onGridSizeChanged"
+      <!-- AgGrid Table -->
+      <ag-grid-vue
+        ref="agGridTable"
+        :components="components"
+        :gridOptions="gridOptions"
+        class="ag-theme-material w-100 my-3 ag-grid-table"
+        :columnDefs="columnDefs"
+        :defaultColDef="defaultColDef"
+        :rowData="itemsData"
+        rowSelection="multiple"
+        colResizeDefault="shift"
+        :animateRows="true"
+        :floatingFilter="true"
+        :pagination="true"
+        :paginationPageSize="paginationPageSize"
+        :suppressPaginationPanel="true"
+        :enableRtl="$vs.rtl"
+        
+         @grid-size-changed="onGridSizeChanged"
                   
-            :frameworkComponents="frameworkComponents"
-            :loadingOverlayComponent="loadingOverlayComponent"
-            :loadingOverlayComponentParams="loadingOverlayComponentParams"
-            :noRowsOverlayComponent="noRowsOverlayComponent"
-            :noRowsOverlayComponentParams="noRowsOverlayComponentParams"
-            >
-          </ag-grid-vue>
+        :frameworkComponents="frameworkComponents"
+        :loadingOverlayComponent="loadingOverlayComponent"
+        :loadingOverlayComponentParams="loadingOverlayComponentParams"
+        :noRowsOverlayComponent="noRowsOverlayComponent"
+        :noRowsOverlayComponentParams="noRowsOverlayComponentParams"
+        
+        >
+      </ag-grid-vue>
       </div>
       <vs-pagination
         :total="totalPages"
@@ -155,12 +164,12 @@ import axios from "@/axios.js"
 import moduleItemManagement from '@/store/items-management/moduleItemManagement.js'
 
 // Cell Renderer
+
 import CellRendererActions from "./cell-renderer/CellRendererActions.vue"
 
 //Loading
 import CustomLoadingOverlay from "../../../utils/customLoadingOverlay.js";
 import CustomNoRowsOverlay from "../../../utils/customNoRowsOverlay.js";
-
 
 export default {
   components: {
@@ -169,11 +178,20 @@ export default {
 
     // Cell Renderer
     CellRendererActions,
+
   },
   data() {
     return {
-      urlApi: "/horarios/horarios/",
+      urlApi: "/agendamientos/agendamientos/",
       
+      // Filter Options
+      tipoFilter: { label: 'Todos', value: 'all' },
+      tipoOptions: [
+        { label: 'Todos', value: 'all' }, 
+        { label: 'Zarpe', value: 'Zarpe' },
+        { label: 'Recogida', value: 'Recogida' },
+      ],
+
       sucursalFilter: { label: 'Todos', value: 'all', id:0 },
       sucursalOptions: [
         { label: 'Todos', value: 'all', id:0 },
@@ -183,11 +201,15 @@ export default {
         { label: 'Todos', value: 'all', id:0 },
       ],
 
+      horarioFilter: { label: 'Todos', value: 'all' },
+      horarioOptions: [
+        { label: 'Todos', value: 'all' }, 
+      ],
+
       searchQuery: "",
 
       // AgGrid
       gridApi: null,
-      gridOptions: {},
       frameworkComponents : {
         customLoadingOverlay: CustomLoadingOverlay,
         customNoRowsOverlay: CustomNoRowsOverlay
@@ -197,9 +219,10 @@ export default {
       noRowsOverlayComponent : "customNoRowsOverlay",
       noRowsOverlayComponentParams : {
         noRowsMessageFunc: function() {
-          return "No hay registros disponibles " //+ new Date();
+          return "No hay registros disponibles  " //+ new Date();
         }
       },
+      gridOptions: {},
       defaultColDef: {
         sortable: true,
         resizable: true,
@@ -214,30 +237,46 @@ export default {
           checkboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
           headerCheckboxSelection: true,
-          suppressSizeToFit: true
+        },
+        {
+          headerName: 'Fecha',
+          field: 'fecha',
+          filter: true,
+          minWidth: 140,
+          
+        },
+        {
+          headerName: 'Rut',
+          field: 'rut',
+          filter: true,
+          minWidth: 140,
+        },
+        {
+          headerName: 'Nombre',
+          filter: true,
+          colId: "nombre",
+          minWidth: 140,
+          valueGetter: function(params) {
+            return params.data.nombre + " " + params.data.apellido;
+        }
+          
+        },
+        {
+          headerName: 'Tipo',
+          field: 'tipo',
+          filter: true,
+          minWidth: 135,
         },
         {
           headerName: 'Horario',
           field: 'horario',
           filter: true,
-          minWidth: 185,
-        },
-        {
-          headerName: 'Empresa',
-          field: 'razon_social',
-          filter: true,
-          minWidth: 200,
-        },
-         {
-          headerName: 'Sucursal',
-          field: 'sucursal',
-          filter: true,
-          minWidth: 200,
+          minWidth: 135,
         },
         {
           headerName: 'Acciones',
           field: 'transactions',
-          minWidth: 120,
+          minWidth: 155,
           cellRendererFramework: 'CellRendererActions',
         },
       ],
@@ -249,17 +288,22 @@ export default {
     }
   },
   watch: {
+    tipoFilter(obj) {
+      this.setColumnFilter("tipo", obj.value)
+    },
+    horarioFilter(obj) {
+      this.setColumnFilter("horario", obj.value)
+    },
     sucursalFilter(obj) {
-      this.setColumnFilter("sucursal", obj.value)
+      this.traeHorarios(obj.id);
     },
     empresaFilter(obj) {
-      this.setColumnFilter("razon_social", obj.value)
       this.traeSucursales(obj.id);
     },
   },
   computed: {
     itemsData() {
-        return this.$store.state.itemManagement.items
+           return this.$store.state.itemManagement.items
     },
     paginationPageSize() {
       if(this.gridApi) return this.gridApi.paginationGetPageSize()
@@ -281,9 +325,9 @@ export default {
   },
   methods: {
      onGridSizeChanged(params) {
-       var allColumns = params.columnApi.getAllColumns();
-       params.columnApi.setColumnsVisible(allColumns, true);
-       params.api.sizeColumnsToFit();
+        var allColumns = params.columnApi.getAllColumns();
+        params.columnApi.setColumnsVisible(allColumns, true);
+        params.api.sizeColumnsToFit();
     },
     confirmMassiveDeleteRecord() {
      
@@ -327,7 +371,7 @@ export default {
     showMassiveDeleteSuccess() {
             this.$vs.notify({
               color: 'success',
-              title: 'Horarios Eliminados',
+              title: 'Agendamientos Eliminados',
               text: 'Los registros ya fueron eliminados.'
             })
     },
@@ -348,7 +392,7 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.sucursalFilter = this.empresaFilter = { label: 'Todos', value: 'all', id:0 }
+      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = { label: 'Todos', value: 'all' }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },
@@ -357,6 +401,39 @@ export default {
     },
     addRecord() {
             this.$router.push("../item-add/").catch(() => {})
+      },
+      traeHorarios(value) {
+       
+        if(value >  1)  {
+          //Combo Horarios
+          axios.get(`/api/v1/horarios/combo/` + value)
+            .then((res) => {
+              //console.log(res.data.items);
+              var horarios = res.data.items;  
+              horarios.push({label: 'Todos', value: 'all', id:0})   
+              this.horarioOptions = horarios.reverse();
+              //this.sucursalOptions = res.data.items;  
+            })
+            .catch((err) => { 
+
+            var textError = err.response.status == 300 ? err.response.data.message : err;
+            this.$vs.notify({
+                        title:'Error',
+                        text: textError,
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-circle'})  
+
+          })  
+
+        }else{
+
+          this.horarioFilter = { label: 'Todos', value: 'all', id:0 },
+          this.horarioOptions = [
+            { label: 'Todos', value: 'all', id:0 },
+          ]
+        }
+     
     },
     traeSucursales(value) {
        
@@ -428,27 +505,25 @@ export default {
     }
 
     this.traeOtrosDatos();
-    
   },
   created() {
     if(!moduleItemManagement.isRegistered) {
       this.$store.registerModule('itemManagement', moduleItemManagement)
       moduleItemManagement.isRegistered = true
     }
+    this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(err => { 
+      
+      var textError = err.response.status == 300 ? err.response.data.message : err;
+      this.$vs.notify({
+                  title:'Error',
+                  text: textError,
+                  color:'danger',
+                  iconPack: 'feather',
+                  icon:'icon-alert-circle'})         
+              
 
-      this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(err => { 
-        
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-        this.$vs.notify({
-                    title:'Error',
-                    text: textError,
-                    color:'danger',
-                    iconPack: 'feather',
-                    icon:'icon-alert-circle'})         
-                
-
-            
-      })
+          
+    })
   }
 }
 

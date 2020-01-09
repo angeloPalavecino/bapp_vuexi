@@ -427,7 +427,7 @@ Route::prefix('v1')->group(function () {
            Route::post('horarios/store', 'HorariosController@store');
            Route::get('horarios/{id}/edit', 'HorariosController@edit');
            Route::post('horarios/importar', 'HorariosController@importar');
-           Route::get('horarios/combo/{id}', 'HorariosController@combo');
+           Route::get('combo/{id}', 'HorariosController@combo');
       // });
 
       });
@@ -446,7 +446,26 @@ Route::prefix('v1')->group(function () {
            Route::post('matriz/store', 'MatrizController@store');
            Route::get('matriz/{id}/edit', 'MatrizController@edit');
            Route::post('matriz/importar', 'MatrizController@importar');
-           Route::get('matriz/combo/{id}', 'MatrizController@combo');
+       //    Route::get('combo/{id}', 'MatrizController@combo');
+      // });
+
+      });
+
+     //AGENDAMIENTOS
+     Route::prefix('agendamientos')->group(function () {
+          
+      // Route::middleware('auth:api')->group(function () {
+       //AGENDAMIENTOS
+           Route::get('agendamientos', 'AgendamientosController@index');
+           Route::get('agendamientos/create', 'AgendamientosController@create');
+           Route::get('agendamientos/{id}', 'AgendamientosController@show');
+           Route::delete('agendamientos/{id}', 'AgendamientosController@destroy');
+           Route::post('agendamientos/borrar', 'AgendamientosController@borrar');
+           Route::put('agendamientos/{id}', 'AgendamientosController@update');
+           Route::post('agendamientos/store', 'AgendamientosController@store');
+           Route::get('agendamientos/{id}/edit', 'AgendamientosController@edit');
+           Route::post('agendamientos/importar', 'AgendamientosController@importar');
+       //    Route::get('combo/{id}', 'AgendamientosController@combo');
       // });
 
       });

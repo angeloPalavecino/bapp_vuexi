@@ -202,6 +202,14 @@ export default [
     i18n: "TagIcon",
     permiso: "codificaciones.index"
   },
+  {
+    url: "/pages/planificacion/agendamientos/item-list/itemlist",
+    slug: "agendamientos",
+    name: "Agendamientos", 
+    icon: "ListIcon",
+    i18n: "ListIcon",
+    permiso: "agendamientos.index"
+  },
   ]
 }
   

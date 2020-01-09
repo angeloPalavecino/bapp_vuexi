@@ -74541,6 +74541,11 @@ __webpack_require__.r(__webpack_exports__);
       url: '/pages/planificacion/matriz/item-list/itemList',
       icon: 'GridIcon',
       is_bookmarked: false
+    }, {
+      title: 'Agendamientos',
+      url: '/pages/planificacion/agendamientos/item-list/itemList',
+      icon: 'ListIcon',
+      is_bookmarked: false
     }]
   }
 });
@@ -76190,6 +76195,86 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Matriz de codificacion',
         authRequired: true
+      }
+    }, //Agendamientos
+    {
+      path: '/pages/planificacion/agendamientos/item-list/itemlist',
+      name: 'agendamientos',
+      component: function component() {
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(84)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/agendamientos/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/'
+        }, {
+          title: 'Lista de agendamientos'
+        }, {
+          title: 'Lista de agendamientos',
+          active: true
+        }],
+        pageTitle: 'Lista de agendamientos',
+        authRequired: true
+      }
+    }, {
+      path: '/pages/planificacion/agendamientos/item-view/:itemId',
+      name: 'agendamientos-view',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 85).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/'
+        }, {
+          title: 'Agendamiento'
+        }, {
+          title: 'Ver agendamiento',
+          active: true
+        }],
+        pageTitle: 'Ver agendamiento',
+        authRequired: true,
+        parent: 'agendamientos'
+      }
+    }, {
+      path: '/pages/planificacion/agendamientos/item-edit/:itemId',
+      name: 'agendamientos-edit',
+      component: function component() {
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(86)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/'
+        }, {
+          title: 'Agendamiento'
+        }, {
+          title: 'Editar agendamiento',
+          active: true
+        }],
+        pageTitle: 'Editar agendamiento',
+        authRequired: true,
+        parent: 'agendamientos'
+      }
+    }, {
+      path: '/pages/planificacion/agendamientos/item-add/',
+      name: 'agendamientos-add',
+      component: function component() {
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(87)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/'
+        }, {
+          title: 'Agendamiento'
+        }, {
+          title: 'Agregar agendamiento',
+          active: true
+        }],
+        pageTitle: 'Agregar agendamiento',
+        authRequired: true,
+        parent: 'agendamientos'
       }
     }, {
       path: '/page2',

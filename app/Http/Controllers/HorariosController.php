@@ -325,14 +325,18 @@ class HorariosController extends Controller
 
     public function combo($id)
     {
-        $horario = Horarios::select(
-            'id',
-            'horario' )->where('habilitado', 1 )->where('id','!=',$id)->get();
+            $horarios = Horarios::join('horarios_has_sucursales', 'horarios.id', '=', 'horarios_has_sucursales.horario_id')
+            ->select(
+            'horarios.id',
+            'horarios.horario as label',
+            'horarios.horario as value' )
+            ->where('horarios.habilitado', 1 )
+            ->where('horarios_has_sucursales.sucursal_id','!=',$id)->get();
 
         return response()->json(
             [
                 'status' => 'success',
-                'items' => $horario->toArray()
+                'items' => $horarios->toArray()
             ], 200);
     }
 }
