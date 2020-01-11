@@ -32,7 +32,22 @@
       val-icon-danger="clear" />
       </div>
 
+        <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input type="email" label-placeholder="Email" v-model="data_local.email" class="w-full p-1" name="email" v-validate="'email|required'" 
+      :danger="(errors.first('email') ? true : false)" :danger-text="(errors.first('email') ? errors.first('email') : '')" 
+      val-icon-danger="clear" />
+      </div>
+
       <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input label-placeholder="Telefono" v-model="data_local.telefono" class="w-full p-1" name="telefono" v-validate="'required'" 
+      :danger="(errors.first('telefono') ? true : false)" :danger-text="(errors.first('telefono') ? errors.first('telefono') : '')" 
+      val-icon-danger="clear" />
+      </div>
+
+      <div class="vx-col md:w-1/2 w-full mt-2">
+      <vs-input label-placeholder="Centro Costo" v-model="data_local.centro_costo" class="w-full p-1" name="centro_costo" v-validate="'required'" 
+      :danger="(errors.first('centro_costo') ? true : false)" :danger-text="(errors.first('centro_costo') ? errors.first('centro_costo') : '')" 
+      val-icon-danger="clear" />
       </div>
       
       <div class="vx-col md:w-1/2 w-full mt-2">
@@ -166,6 +181,16 @@ const dict = {
        comuna: {
             required: 'La comuna es requerida',
         },
+        email: {
+            required: 'El email es requerido',
+            email: 'El email debe ser valido',
+        },
+        telefono: {
+            required: 'El telefono es requerido',
+        },
+        centro_costo: {
+            required: 'El centro de costo es requerido',
+        },
        codigo: {
             required: 'El codigo es requerido',
         },
@@ -204,6 +229,9 @@ export default {
         apellido : this.data.apellido ? this.data.apellido: null,
         direccion : this.data.direccion ? this.data.direccion: null,
         comuna : this.data.comuna ? this.data.comuna: null,
+        email : this.data.email ? this.data.email: null,
+        telefono : this.data.telefono ? this.data.telefono: null,
+        centro_costo : this.data.centro_costo ? this.data.centro_costo: null,
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? parseFloat(this.data.lat): null,
         lng: this.data.lng ? parseFloat(this.data.lng): null,
@@ -215,7 +243,8 @@ export default {
       marker:null,
       markerSuc:null,
       markersPat : [],
-
+      boundsMarker : null,
+      boundsSucursal : null,
       autocomplete:null,
       
       gpatronesOptions: [],
@@ -310,7 +339,7 @@ export default {
                     this.cargaPatrones(this.patrones);
                 }
                 
-      }, 500);
+      }, 600);
      
   },
   created(){
@@ -326,7 +355,7 @@ export default {
     agregarMarker() {
            const thisIns = this;
           
-          if(this.data_local.direccion){
+          if(this.data_local.lat && this.data_local.lng){
 
            const lat = parseFloat(this.data_local.lat);
            const lng = parseFloat(this.data_local.lng);
@@ -340,6 +369,15 @@ export default {
                 this.marker = null;
               }
 
+              var bounds = new google.maps.LatLngBounds();
+              bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              thisIns.boundsMarker = bounds;
+
+              if(this.boundsSucursal !== null){
+                  bounds = this.boundsSucursal;
+                  bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              }
+              
               var marker = new google.maps.Marker({
                     position: { lat: lat, lng: lng }, 
                     infoText: direccion,
@@ -359,8 +397,9 @@ export default {
                 });
                 
                 var latlng = new google.maps.LatLng(lat, lng);
-                map.setCenter(latlng);
-                map.setZoom(15);
+                //map.setCenter(latlng);
+                //map.setZoom(15);
+                thisIns.map.fitBounds(bounds);
               
                 this.marker = marker;
 
@@ -499,28 +538,39 @@ export default {
     },
     cargaSucursal(sucursal) {
           const thisIns = this;
-          var bounds = new google.maps.LatLngBounds();
+          //var bounds = new google.maps.LatLngBounds();
+          if(sucursal > 0){
+              var item = this.sucursalesOptions.find((u) => u.id === sucursal)
+              const lat = parseFloat(item['lat']);
+              const lng = parseFloat(item['lng']);
+              const nombre = item['nombre'];
 
-          var item = this.sucursalesOptions.find((u) => u.id === sucursal)
-			    const lat = parseFloat(item['lat']);
-          const lng = parseFloat(item['lng']);
-          const nombre = item['nombre'];
-          bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              var bounds = new google.maps.LatLngBounds();
+              bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              thisIns.boundsSucursal = bounds;
+            
+              if(this.boundsMarker !== null){
+                  bounds = this.boundsMarker;
+                  bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+              }
 
-          var marker = new google.maps.Marker({
-                position: { lat: lat, lng: lng }, 
-                infoText: nombre,
-                title: nombre,
-                draggable: false,
-                animation: google.maps.Animation.DROP,
-                icon: {
-                  url: require("@assets/images/icons/sucursal7.png") 
-                }        
-          });
-          
-          marker.setMap(thisIns.map);
-          thisIns.markerSuc = marker;         
-          thisIns.map.fitBounds(bounds);
+            // bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+
+              var marker = new google.maps.Marker({
+                    position: { lat: lat, lng: lng }, 
+                    infoText: nombre,
+                    title: nombre,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP,
+                    icon: {
+                      url: require("@assets/images/icons/sucursal7.png") 
+                    }        
+              });
+              
+              marker.setMap(thisIns.map);
+              thisIns.markerSuc = marker;         
+              thisIns.map.fitBounds(bounds);
+          }
 				
     },
     cargaPatrones(patrones){
@@ -683,6 +733,9 @@ export default {
         apellido : this.data.apellido ? this.data.apellido: null,
         direccion : this.data.direccion ? this.data.direccion: null,
         comuna : this.data.comuna ? this.data.comuna: null,
+        email : this.data.email ? this.data.email: null,
+        telefono : this.data.telefono ? this.data.telefono: null,
+        centro_costo : this.data.centro_costo ? this.data.centro_costo: null,
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? this.data.lat: null,
         lng: this.data.lng ? this.data.lng: null,

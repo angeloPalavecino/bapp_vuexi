@@ -1126,56 +1126,68 @@ const router = new Router({
                         authRequired: true
                     }
                   },
-                  {
-                    path: '/pages/planificacion/matriz/item-view/:itemId',
-                    name: 'matriz-view',
-                    component: () => import('@/views/pages/planificacion/matriz/item-view/itemView.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'Matriz de codificacion' },
-                            { title: 'Ver matriz de codificacion', active: true },
-                        ],
-                        pageTitle: 'Ver matriz de codificacion',
-                        authRequired: true,
-                        parent: 'matriz'
-                    },
-                  },
-                  {
-                    path: '/pages/planificacion/matriz/item-edit/:itemId',
-                    name: 'matriz-edit',
-                    component: () => import('@/views/pages/planificacion/matriz/item-edit/itemEdit.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'Matriz de codificacion' },
-                            { title: 'Editar matriz de codificacion', active: true },
-                        ],
-                        pageTitle: 'Editar matriz de codificacion',
-                        authRequired: true,
-                        parent: 'horarios'
-                    },
-                  },
-                  {
-                  path: '/pages/planificacion/matriz/item-add/',
-                  name: 'matriz-add',
-                  component: () => import('@/views/pages/planificacion/matriz/item-add/itemAdd.vue'),
+
+                //Agendamientos
+                 {
+                  path: '/pages/planificacion/agendamientos/item-list/itemlist',
+                  name: 'agendamientos',
+                  component: () => import('./views/pages/planificacion/agendamientos/item-list/itemList.vue'),
+                  meta: {
+                    breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Lista de agendamientos'},
+                      { title: 'Lista de agendamientos', active: true },
+                      ],
+                      pageTitle: 'Lista de agendamientos',
+                      authRequired: true
+                  }
+                },
+                {
+                  path: '/pages/planificacion/agendamientos/item-view/:itemId',
+                  name: 'agendamientos-view',
+                  component: () => import('@/views/pages/planificacion/agendamientos/item-view/itemView.vue'),
                   meta: {
                       breadcrumb: [
                           { title: 'Home', url: '/' },
-                          { title: 'Matriz de codificacion' },
-                          { title: 'Agregar matriz de codificacion', active: true },
+                          { title: 'Agendamiento' },
+                          { title: 'Ver agendamiento', active: true },
                       ],
-                      pageTitle: 'Agregar matriz de codificacion',
+                      pageTitle: 'Ver agendamiento',
                       authRequired: true,
-                      parent: 'matriz'
+                      parent: 'agendamientos'
                   },
+                },
+                {
+                  path: '/pages/planificacion/agendamientos/item-edit/:itemId',
+                  name: 'agendamientos-edit',
+                  component: () => import('@/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue'),
+                  meta: {
+                      breadcrumb: [
+                          { title: 'Home', url: '/' },
+                          { title: 'Agendamiento' },
+                          { title: 'Editar agendamiento', active: true },
+                      ],
+                      pageTitle: 'Editar agendamiento',
+                      authRequired: true,
+                      parent: 'agendamientos'
                   },
-               
+                },
+                {
+                path: '/pages/planificacion/agendamientos/item-add/',
+                name: 'agendamientos-add',
+                component: () => import('@/views/pages/planificacion/agendamientos/item-add/itemAdd.vue'),
+                meta: {
+                    breadcrumb: [
+                        { title: 'Home', url: '/' },
+                        { title: 'Agendamiento' },
+                        { title: 'Agregar agendamiento', active: true },
+                    ],
+                    pageTitle: 'Agregar agendamiento',
+                    authRequired: true,
+                    parent: 'agendamientos'
+                },
+                },
               
-              
-              
-
 
               {
                 path: '/page2',

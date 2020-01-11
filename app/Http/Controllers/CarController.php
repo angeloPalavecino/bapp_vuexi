@@ -528,4 +528,19 @@ class CarController extends Controller
             ], 200);
     }
 
+    public function matriz($id)
+    {
+        $cars = Car::select(
+            'cars.id',
+            'cars.numero_movil', )->where('empresa_id',$id)->get();
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'items' => $cars->toArray()
+            ], 200);
+    }
+
+    
+
 }

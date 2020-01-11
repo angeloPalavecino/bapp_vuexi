@@ -114,7 +114,17 @@ __webpack_require__.r(__webpack_exports__);
       var lat = parseFloat(this.latsuc);
       var lng = parseFloat(this.lngsuc);
       var nombre = this.sucursal;
-      thisIns.bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+
+      if (this.bounds == null) {
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+        bounds.extend(new google.maps.LatLng(this.lat, this.lng));
+        thisIns.bounds = bounds;
+      } else {
+        thisIns.bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
+        thisIns.bounds.extend(new google.maps.LatLng(this.lat, this.lng));
+      }
+
       var marker = new google.maps.Marker({
         position: {
           lat: lat,
@@ -162,6 +172,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
 /* harmony import */ var _GoogleMapBasic_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleMapBasic.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-view/GoogleMapBasic.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -692,6 +709,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Email")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item_data.email))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Creado el")
                             ]),
                             _vm._v(" "),
@@ -709,6 +734,24 @@ var render = function() {
                       },
                       [
                         _c("table", [
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Telefono")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item_data.telefono))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Centro Costo")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.centro_costo))
+                            ])
+                          ]),
+                          _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Sucursal")
@@ -733,14 +776,6 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(_vm.item_data.comuna))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
                           ]),
                           _vm._v(" "),
                           _c("tr", [

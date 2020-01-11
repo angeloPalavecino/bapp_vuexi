@@ -21,6 +21,7 @@ export default {
       {title: 'Codificaciones',           url: '/pages/planificacion/codificaciones/item-list/itemList', icon: 'TagIcon', is_bookmarked: false},
       {title: 'Horarios',                 url: '/pages/planificacion/horarios/item-list/itemList', icon: 'ClockIcon', is_bookmarked: false},
       {title: 'Matriz codificacion',      url: '/pages/planificacion/matriz/item-list/itemList', icon: 'GridIcon', is_bookmarked: false},
+      {title: 'Agendamientos',            url: '/pages/planificacion/agendamientos/item-list/itemList', icon: 'ListIcon', is_bookmarked: false},
   
     ]
   }

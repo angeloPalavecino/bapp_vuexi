@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import itemAddSection1    from "./itemAddSection1.vue"
+import itemAddSection1     from "./itemAddSection1.vue"
+
 
 // Store Module
 import moduleItemManagement from '@/store/items-management/moduleItemManagement.js'
@@ -28,12 +29,8 @@ export default {
   },
   data() {
     return {
-      urlApi: "/horarios/horarios/",
+      urlApi: "/agendamientos/agendamientos/",
     }
-  },
-  watch: {
-  },
-  methods: {
   },
   created() {
     // Register Module UserManagement Module

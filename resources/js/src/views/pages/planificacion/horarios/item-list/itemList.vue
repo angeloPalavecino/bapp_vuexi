@@ -249,7 +249,7 @@ export default {
     }
   },
   watch: {
-     sucursalFilter(obj) {
+    sucursalFilter(obj) {
       this.setColumnFilter("sucursal", obj.value)
     },
     empresaFilter(obj) {

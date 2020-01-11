@@ -50,7 +50,10 @@
                 <td class="font-semibold">Codigo</td>
                 <td>{{ item_data.codigo }} </td>
               </tr>
-             
+              <tr>
+                <td class="font-semibold">Email</td>
+                <td>{{ item_data.email }}</td>
+              </tr>
                <tr>
                 <td class="font-semibold">Creado el</td>
                 <td>{{ item_data.created_at }}</td>
@@ -61,7 +64,15 @@
           <!-- /Information - Col 1 --> 
             <!-- Information - Col 2 -->
           <div class="vx-col flex-1" id="account-info-col-2">
-            <table>  
+            <table> 
+               <tr>
+                <td class="font-semibold">Telefono</td>
+                <td>{{ item_data.telefono }}</td>
+              </tr> 
+               <tr>
+                <td class="font-semibold">Centro Costo</td>
+                <td>{{ item_data.centro_costo }}</td>
+              </tr>
               <tr>
                 <td class="font-semibold">Sucursal</td>
                 <td>{{ item_data.sucursal }} </td>
@@ -73,10 +84,6 @@
                <tr>
                 <td class="font-semibold">Comuna</td>
                 <td>{{ item_data.comuna }}</td>
-              </tr>
-               <tr>
-                <td class="font-semibold">&nbsp;</td>
-                <td>&nbsp;</td>
               </tr>
                <tr>
                 <td class="font-semibold">Ultima Actualizacion</td>

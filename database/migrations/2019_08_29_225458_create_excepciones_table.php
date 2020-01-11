@@ -17,6 +17,7 @@ class CreateExcepcionesTable extends Migration
             $table->bigIncrements('id');
             $table->string('rut')->unique();
             $table->string('direccion');
+            $table->string('comuna');
             $table->decimal('lat', 10 , 5);
             $table->decimal('lng', 10 , 5);
             $table->timestamps();

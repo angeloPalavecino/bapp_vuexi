@@ -10,15 +10,16 @@
 <template>
   <div id="page-item-edit">
 
-    <vs-alert color="danger" title="Horario no encontrado" :active.sync="item_not_found">
-      <span>El horario con id: {{ $route.params.itemId }} no fue encontrado. </span>
+    <vs-alert color="danger" title="Empresa no encontrada" :active.sync="item_not_found">
+      <span>La empresa con id: {{ $route.params.itemId }} no fue encontrada. </span>
       <span>
-        <span>Mira  </span><router-link :to="{name:'horarios'}" class="text-inherit underline">Todos los horarios</router-link>
+        <span>Mira  </span><router-link :to="{name:'empresas'}" class="text-inherit underline">Todos las empresas</router-link>
       </span>
     </vs-alert>
 
     <vx-card v-if="item_data">
-      <item-edit-section1 class="mt-4" :data="item_data" :data_sucursales="item_data_sucursales"/>
+      <item-edit-section1 class="mt-4" :data="item_data"  :data_responsables="item_data_responsables" :data_sucursales="item_data_sucursales"
+      :data_cicfacturacion="item_data_ciclo_facturacion" :data_cicproduccion="item_data_ciclo_produccion"/>
     </vx-card>
   </div>
 </template>
@@ -36,9 +37,8 @@ export default {
   data() {
     return {
       item_data: null,
-      item_data_sucursales: null,
       item_not_found: false,
-      urlApi: "/horarios/horarios/",
+      urlApi: "/agendamientos/agendamientos/",
     }
   },
   watch: {
@@ -51,10 +51,8 @@ export default {
       
       this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: this.urlApi  })
         .then(res => { 
-          this.item_data = res.data.item[0]
-          this.item_data_sucursales = res.data.sucursales
-          this.item_data.empresa_id = res.data.sucursales[0].empresa_id
-          })
+          this.item_data = res.data.item        
+        })
         .catch(err => {
           if(err.response.status === 404) {
             this.item_not_found = true
@@ -80,7 +78,7 @@ export default {
       })
 
 
-    },
+    }
   },
   created() {
     // Register Module UserManagement Module

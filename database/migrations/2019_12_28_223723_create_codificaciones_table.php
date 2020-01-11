@@ -22,6 +22,9 @@ class CreateCodificacionesTable extends Migration
             $table->string('apellido');
             $table->string('direccion');
             $table->string('comuna');
+            $table->string('email')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('centro_costo')->nullable();
             $table->decimal('lat',10,5)->nullable();
             $table->decimal('lng',10,5)->nullable();
             $table->decimal('distancia',9,2);

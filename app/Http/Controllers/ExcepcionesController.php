@@ -15,7 +15,8 @@ class ExcepcionesController extends Controller
 
         return Validator::make($data, [
              'rut' => 'required',       
-             'direccion' => 'required',            
+             'direccion' => 'required', 
+             'comuna' => 'required',            
          ]);
     }
     /**
@@ -67,6 +68,7 @@ class ExcepcionesController extends Controller
         $input = $request->all();
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
         $direccion = $input['direccion'];
+        $comuna = $input['comuna'];
 
         $existe_excepcion = Excepciones::where('rut', $rut)->first();
         if ($existe_excepcion != null) {
@@ -77,42 +79,50 @@ class ExcepcionesController extends Controller
                     'message' => 'El rut ya se encuentra registrado',
                 ], 300);           
         }
-      
         
-        try {
-            
-           
-            $geocode = app('geocoder')->geocode($direccion)->get()->first();
-           
-            if($geocode){
+        $lat = isset($input['lat']) ? $input['lat'] : null;
+        $lng = isset($input['lng']) ? $input['lng'] : null;
+        
+        if(empty($lat) || $lat == " " || empty($lng) || $lng == " ") {
 
-                $lat = $geocode->getCoordinates()->getLatitude();
-                $lng = $geocode->getCoordinates()->getLongitude();
+                $direccion_completa = strtoupper($direccion);
 
-            }else{
+                try {
+                    
+                
+                    $geocode = app('geocoder')->geocode($direccion_completa)->get()->first();
+                
+                    if($geocode){
 
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'message' => 'Error al determinar las coordenadas de la direccion.',
-                ], 300);
+                        $lat = $geocode->getCoordinates()->getLatitude();
+                        $lng = $geocode->getCoordinates()->getLongitude();
 
-            }
-            
-  
-          } catch (Exception $e) {
-            
-            return response()->json(
-                [
-                    'status' => 'error',
-                    'message' => 'Error al determinar las coordenadas de la direccion.',
-            ], 300);
-         }
+                    }else{
+
+                        return response()->json(
+                            [
+                                'status' => 'error',
+                                'message' => 'Error al determinar las coordenadas de la direccion.',
+                        ], 300);
+
+                    }
+                    
+        
+                } catch (Exception $e) {
+                    
+                    return response()->json(
+                        [
+                            'status' => 'error',
+                            'message' => 'Error al determinar las coordenadas de la direccion.',
+                    ], 300);
+                }
+        }
 
         $excepcion = Excepciones::create(
          array(
                  'rut'   => $rut,
                  'direccion'   => $direccion,
+                 'comuna'   => $comuna, 
                  'lat'   => $lat,
                  'lng'   => $lng, 
               )
@@ -182,39 +192,49 @@ class ExcepcionesController extends Controller
             $input = $request->all();
             $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
             $direccion = $input['direccion'];
-            
-            try {
+            $comuna = $input['comuna'];
 
-                $geocode = app('geocoder')->geocode($direccion)->get()->first();
-                if($geocode){
-    
-                    $lat = $geocode->getCoordinates()->getLatitude();
-                    $lng = $geocode->getCoordinates()->getLongitude();
-    
-                }else{
-    
-                    return response()->json(
-                        [
-                            'status' => 'error',
-                            'message' => 'Error al determinar las coordenadas de la direccion.',
-                    ], 300);
-    
-                }
-                
-      
-              } catch (Exception $e) {
-                
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'message' => 'Error al determinar las coordenadas de la direccion.',
-                ], 300);
-             }         
+            $lat = isset($input['lat']) ? $input['lat'] : null;
+            $lng = isset($input['lng']) ? $input['lng'] : null;
+            
+            if(empty($lat) || $lat == " " || empty($lng) || $lng == " ") {
+
+                    $direccion_completa = strtoupper($direccion);
+                    
+                    try {
+
+                        $geocode = app('geocoder')->geocode($direccion_completa)->get()->first();
+                        if($geocode){
+            
+                            $lat = $geocode->getCoordinates()->getLatitude();
+                            $lng = $geocode->getCoordinates()->getLongitude();
+            
+                        }else{
+            
+                            return response()->json(
+                                [
+                                    'status' => 'error',
+                                    'message' => 'Error al determinar las coordenadas de la direccion.',
+                            ], 300);
+            
+                        }
+                        
+            
+                    } catch (Exception $e) {
+                        
+                        return response()->json(
+                            [
+                                'status' => 'error',
+                                'message' => 'Error al determinar las coordenadas de la direccion.',
+                        ], 300);
+                    }    
+            }     
 
         $excepcion = Excepciones::where('id', $id)->update(
          array(
                     'rut'   => $rut,
                     'direccion'   => $direccion,
+                    'comuna'   => $comuna,                    
                     'lat'   => $lat,
                     'lng'   => $lng, 
               )

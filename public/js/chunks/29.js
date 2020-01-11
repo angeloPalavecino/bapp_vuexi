@@ -1577,7 +1577,7 @@ var render = function() {
                     "div",
                     [
                       _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Datos sucursal_direccion")])
+                        _c("h5", [_vm._v("Datos sucursal")])
                       ])
                     ],
                     1

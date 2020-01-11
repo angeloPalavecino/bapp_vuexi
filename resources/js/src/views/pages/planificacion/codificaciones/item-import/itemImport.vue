@@ -65,23 +65,26 @@ v-if="tableData.length && header.length"
      <vs-input v-validate="'min_value:1'" type="hidden" name="codificaciones" v-model="cantCodificaciones"/>
      <span class="text-danger text-sm">{{ errors.first('codificaciones') }}</span>
 
-      <vs-table multiple @input="handleSelectedCodificaciones"
-      v-model="selected" pagination :max-items="10" search :data="tableData">
+      <vs-table @input="handleSelectedCodificaciones" v-if="tableData.length"
+       pagination :max-items="10" search :data="tableData"> 
         <template slot="header">
           <h4>{{ sheetName }}</h4>
         </template>
 
         <template slot="thead">
-        <!--  <vs-th>Rut</vs-th>
+          <vs-th>Rut</vs-th>
           <vs-th>Nombre</vs-th>
           <vs-th>Apellido</vs-th>
           <vs-th>Direccion</vs-th>
-          <vs-th>Comuna</vs-th>-->
-          <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>
+          <vs-th>Comuna</vs-th>
+          <vs-th>Email</vs-th>
+          <vs-th>Telefono</vs-th>
+          <vs-th>Centro Costo</vs-th>
+         <!-- <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>-->
         </template>
 
         <template slot-scope="{data}">
-        <!--   <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+           <vs-tr :key="indextr" v-for="(tr, indextr) in data">
            <vs-td :data="tr.Rut">
               {{ tr.Rut }}
               <template slot="edit">
@@ -116,13 +119,34 @@ v-if="tableData.length && header.length"
                 <vs-input v-model="tr.Comuna" class="inputx" placeholder="Comuna" />
               </template>
             </vs-td>
+
+            <vs-td :data="tr.Email">
+              {{ tr.Email }}
+              <template slot="edit">
+                <vs-input v-model="tr.Email" class="inputx" placeholder="Email" />
+              </template>
+            </vs-td>
+
+            <vs-td :data="tr.Telefono">
+              {{ tr.Telefono }}
+              <template slot="edit">
+                <vs-input v-model="tr.Telefono" class="inputx" placeholder="Telefono" />
+              </template>
+            </vs-td>
+
+            <vs-td :data="tr.Centro_costo">
+              {{ tr.Centro_costo }}
+              <template slot="edit">
+                <vs-input v-model="tr.Centro_costo" class="inputx" placeholder="Centro Costo" />
+              </template>
+            </vs-td>
             
-          </vs-tr>-->
-           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+          </vs-tr>
+          <!-- <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td :data="col" v-for="(col, indexcol) in data[indextr]" :key="indexcol + col">
               {{ col }}
             </vs-td>
-          </vs-tr>
+          </vs-tr>-->
         </template>
       </vs-table>
     </vx-card>
@@ -143,7 +167,7 @@ const dict = {
             required: 'La sucursal es requerida',
         },
         codificaciones:{
-            min_value: 'Debes seleccionar al menos un registro'
+            min_value: 'Debe cargar al menos un registro'
         }
     }
 };
@@ -195,10 +219,11 @@ export default {
     },
     loadDataInTable({ results, header, meta }) {
      
-      this.cantCodificaciones = 0
+      
       this.header = header
       this.tableData = results
       this.sheetName = meta.sheetName
+      this.cantCodificaciones = results.length
 
     },
     traeOtrosDatos() {
@@ -252,7 +277,7 @@ export default {
      this.$validator.validateAll().then(result =>{
         if (result) {
 
-          this.item.codificaciones = this.selected;
+          this.item.codificaciones = this.tableData;
           this.item.sucursal = this.sucursalFilter;
 
           this.$vs.loading();

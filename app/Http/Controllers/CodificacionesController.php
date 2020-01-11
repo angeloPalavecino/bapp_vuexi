@@ -25,6 +25,9 @@ class CodificacionesController extends Controller
              'apellido' => 'required', 
              'direccion' => 'required', 
              'comuna' => 'required', 
+             'email' => 'email|required', 
+             'telefono' => 'required', 
+             'centro_costo' => 'required', 
              'codigo' => 'required', 
              'lat' => 'required', 
              'lng' => 'required', 
@@ -107,6 +110,9 @@ class CodificacionesController extends Controller
         $apellido = $input['apellido'];
         $direccion = $input['direccion'];
         $comuna = $input['comuna'];
+        $email = $input['email'];
+        $telefono = $input['telefono'];
+        $centro_costo = $input['centro_costo'];
         $lat = $input['lat'];
         $lng = $input['lng'];
         $distancia = 0 ;
@@ -126,7 +132,10 @@ class CodificacionesController extends Controller
                 'nombre'            => $nombre, 
                 'apellido'          => $apellido, 
                 'direccion'         => $direccion,     
-                'comuna'            => $comuna,     
+                'comuna'            => $comuna,  
+                'email'             => $email,  
+                'telefono'          => $telefono,  
+                'centro_costo'      => $centro_costo,     
                 'lat'               => $lat,     
                 'lng'               => $lng,     
                 'grupo_patron_id'   => $codigo,     
@@ -160,6 +169,9 @@ class CodificacionesController extends Controller
             'codificaciones.grupo_patron_id',
             'codificaciones.direccion', 
             'codificaciones.comuna',
+            'codificaciones.email',
+            'codificaciones.telefono',
+            'codificaciones.centro_costo',
             'codificaciones.sucursal_id',
             'codificaciones.lat',
             'codificaciones.lng',
@@ -239,6 +251,9 @@ class CodificacionesController extends Controller
             $apellido = $input['apellido'];
             $direccion = $input['direccion'];
             $comuna = $input['comuna'];
+            $email = $input['email'];
+            $telefono = $input['telefono'];
+            $centro_costo = $input['centro_costo'];
             $lat = $input['lat'];
             $lng = $input['lng'];
             $distancia = 0 ;
@@ -259,6 +274,9 @@ class CodificacionesController extends Controller
                 'apellido'          => $apellido, 
                 'direccion'         => $direccion,     
                 'comuna'            => $comuna,     
+                'email'             => $email,  
+                'telefono'          => $telefono,  
+                'centro_costo'      => $centro_costo,    
                 'lat'               => $lat,     
                 'lng'               => $lng,     
                 'grupo_patron_id'   => $codigo,     
@@ -494,16 +512,22 @@ class CodificacionesController extends Controller
 
         foreach ($codificaciones as $codificacion) {
             
-            $rut        = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $codificacion['Rut'])); 
-            $direccion  = self::limpiar_string($codificacion['Direccion']);
-            $comuna     = self::limpiar_string($codificacion['Comuna']); 
+            $rut        = isset($codificacion['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($codificacion['Rut']))) : " "; 
+            $direccion  = isset($codificacion['Direccion']) ? self::limpiar_string($codificacion['Direccion']) : "";
+            $comuna     = isset($codificacion['Comuna']) ? self::limpiar_string($codificacion['Comuna']) : ""; 
 
-            if($rut !== "" || $direccion !== "" || $comuna !== "") {
-
+                if(empty($rut) || $rut == " " || empty($direccion) || $direccion == " " || empty($comuna) || $comuna == " "){
+                    
+                }else{
+                    
                     $nombre     = (isset($codificacion['Nombre'])) ? self::limpiar_string($codificacion['Nombre']) : "NN"; 
                     $apellido   = (isset($codificacion['Apellido'])) ? self::limpiar_string($codificacion['Apellido']) : "NN"; 
+                    $email   = (isset($codificacion['Email'])) ? self::limpiar_string($codificacion['Email']) : 'Sin mail'; 
+                    $telefono   = (isset($codificacion['Telefono'])) ? self::limpiar_string($codificacion['Telefono']) : "Sin telefono"; 
+                    $centro_costo   = (isset($codificacion['Centro_costo'])) ? self::limpiar_string($codificacion['Centro_costo']) : "Sin centro costo"; 
                     $direccion_completa = strtoupper($direccion.",".$comuna.",Chile");
                     $codigo = null;
+                    $sucursal = Sucursal::findorfail($sucursal_id);
                     
                     //OBTIENE LAT Y LNG - CALCULA DISTANCIA
                     $geocode = app('geocoder')->geocode($direccion_completa)->get()->first();
@@ -513,9 +537,8 @@ class CodificacionesController extends Controller
                         $lng = $geocode->getCoordinates()->getLongitude();
                         $distancia = 0;   
 
-                        $sucursal = Sucursal::findorfail($sucursal_id);
-                        if(!is_null($sucursal)){
                         
+                        if(!is_null($sucursal)){
                             $latSuc = $sucursal['lat'];
                             $lngSuc = $sucursal['lng'];
                             $distancia = self::calculoDistancia($lat, $lng, $latSuc,$lngSuc);
@@ -523,13 +546,20 @@ class CodificacionesController extends Controller
 
                     }else{
 
-                        $excepcion = Excepciones::where('rut', $rut)->get();
+                        $excepcion = Excepciones::where('rut', $rut)->first();
 
                         if($excepcion){
-
+                
                             $lat = $excepcion['lat'];
                             $lng = $excepcion['lng']; 
-                            $distancia = self::calculoDistancia($lat, $lng, $latSuc,$lngSuc);
+                            $direccion = $excepcion['direccion'];
+                            $comuna = $excepcion['comuna'];
+                    
+                            if(!is_null($sucursal)){
+                                $latSuc = $sucursal['lat'];
+                                $lngSuc = $sucursal['lng'];
+                                $distancia = self::calculoDistancia($lat, $lng, $latSuc,$lngSuc);
+                            }
 
                         }else{
                             
@@ -589,6 +619,9 @@ class CodificacionesController extends Controller
                                 'apellido'          => $apellido, 
                                 'direccion'         => $direccion,     
                                 'comuna'            => $comuna,     
+                                'email'             => $email,     
+                                'telefono'          => $telefono,     
+                                'centro_costo'      => $centro_costo,     
                                 'lat'               => $lat,     
                                 'lng'               => $lng,     
                                 'grupo_patron_id'   => $codigo,     
@@ -607,7 +640,10 @@ class CodificacionesController extends Controller
                                    'nombre'            => $nombre, 
                                    'apellido'          => $apellido, 
                                    'direccion'         => $direccion,     
-                                   'comuna'            => $comuna,     
+                                   'comuna'            => $comuna, 
+                                   'email'             => $email,     
+                                   'telefono'          => $telefono,     
+                                   'centro_costo'      => $centro_costo,      
                                    'lat'               => $lat,     
                                    'lng'               => $lng,     
                                    'grupo_patron_id'   => $codigo,     
@@ -616,7 +652,7 @@ class CodificacionesController extends Controller
                             );
 
                     }
-            }				    
+                }				    
 
 
 

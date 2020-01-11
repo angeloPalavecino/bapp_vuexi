@@ -10,16 +10,16 @@
 <template>
   <div id="page-item-view">
 
-    <vs-alert color="danger" title="Horario no encontrada" :active.sync="item_not_found">
-      <span>El horario con id: {{ $route.params.itemId }} no fue encontrada. </span>
+    <vs-alert color="danger" title="Agendamiento no encontrada" :active.sync="item_not_found">
+      <span>El agendamiento con id: {{ $route.params.itemId }} no fue encontrado. </span>
       <span>
-        <span>Mira </span><router-link :to="{name:'horarios'}" class="text-inherit underline">Todos los horarios</router-link>
+        <span>Mira </span><router-link :to="{name:'agendamientos'}" class="text-inherit underline">Todos los agendamientos</router-link>
       </span>
     </vs-alert>
 
     <div id="item-data" v-if="item_data">
 
-      <!-- DATOS HORARIO -->
+      <!-- DATOS AGENDAMIENTO -->
       <vx-card title="Informacion" class="mb-base">
         <div class="vx-row">
                 <div class="vx-col w-full">
@@ -30,28 +30,61 @@
                   <vs-divider />
                 </div>
               </div>
-        <div class="vx-row">          
+    
+        <div class="vx-row">        
           <!-- Information - Col 1 -->
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Horario</td>
-                <td>{{ item_data.horario }} </td>
+                <td class="font-semibold">Rut</td>
+                <td>{{ item_data.rut }} </td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Nombre</td>
+                <td>{{ item_data.nombre }} - {{ item_data.apellido }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Direccion</td>
+                <td>{{ item_data.direccion }}</td>
               </tr>
                <tr>
+                <td class="font-semibold">Comuna</td>
+                <td>{{ item_data.comuna }}</td>
+              </tr>
+               <tr>
+                <td class="font-semibold">Empresa</td>
+                <td>{{ item_data.razon_social }}</td>
+              </tr>
+              <tr>
                 <td class="font-semibold">Creado el</td>
                 <td>{{ item_data.created_at }}</td>
               </tr>
-            
             </table>
           </div>
-          <!-- /Information - Col 1 --> 
-            <!-- Information - Col 2 -->
+          <!-- /Information - Col 1 -->
+
+          <!-- Information - Col 2 -->
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
-                <td class="font-semibold">Habilitado</td>
-                <td>{{ item_data.habilitado === 1 ? 'Si' : 'No'}}</td>
+                <td class="font-semibold">Email</td>
+                <td>{{ item_data.email }}</td>
+              </tr>
+               <tr>
+                <td class="font-semibold">Telefono</td>
+                <td>{{ item_data.telefono }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Centro de costo</td>
+                <td>{{ item_data.centro_costo }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+               <tr>
+                <td class="font-semibold">Sucursal</td>
+                <td>{{ item_data.sucursal }}</td>
               </tr>
                <tr>
                 <td class="font-semibold">Ultima Actualizacion</td>
@@ -62,77 +95,59 @@
           <!-- Information - Col 2 -->
        </div>
 
-      </vx-card> 
-       <!-- DATOS HORARIO -->
-
-       <!-- SUCURSALES -->
-       
-       
-        <vx-card class="mb-base" title="Sucursales" collapseAction>
-
-      <div class="vx-row">
-        <div class="vx-col w-full">
-          <div class="flex items-end px-3">
-            <feather-icon svgClasses="w-6 h-6" icon="HomeIcon" class="mr-2" />
-            <span class="font-medium text-lg leading-none">Detalle</span>
+        <div class="vx-row">   
+          <vs-divider color="primary" ><h5>Agendamiento</h5></vs-divider>
+         <!-- Information - Col 3 -->
+          <div class="vx-col flex-1" id="account-info-col-2">
+            
+            <table>
+              <tr>
+                <td class="font-semibold">Fecha</td>
+                <td>{{ item_data.fecha }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Movil Plan</td>
+                <td>{{ item_data.movil_plan }}</td>
+              </tr>
+                <tr>
+                <td class="font-semibold">Horario Plan</td>
+                <td>{{ item_data.horario_plan }}</td>
+              </tr>
+              
+            </table>
           </div>
-          <vs-divider />
+          <!-- Information - Col 3 -->
+
+          <!-- Information - Col 4 -->
+          <div class="vx-col flex-1" id="account-info-col-2">
+            <table>
+             <tr>
+                <td class="font-semibold">Conductor Plan</td>
+                <td>{{ item_data.nombre_conductor_plan }} {{ item_data.apellido_conductor_plan }}</td>
+              </tr>
+               <tr>
+                <td class="font-semibold">Tipo</td>
+                <td>{{ item_data.tipo }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Tipo Periodo</td>
+                <td>{{ item_data.tipo_periodo }}</td>
+              </tr>
+            </table>
+          </div>
+          <!-- Information - Col 4 -->
         </div>
-      </div>
-
-      <div class="block overflow-x-auto mt-4" >
-        <vs-table max-items="4" pagination  :data="item_data_sucursales">
-                  <template slot="header">
-                    <h2 class="mb-4"> Empresa : {{ item_data_sucursales[0].razon_social }}</h2>
-                  </template>
-                  <template slot="thead">
-                    <vs-th colspan="2">
-                       Nombre
-                    </vs-th>
-                 <!--   <vs-th>
-                       Rut
-                    </vs-th>-->
-                    <vs-th>
-                      Direccion
-                    </vs-th>  
-                     <vs-th>
-                      Matriz
-                    </vs-th>                                     
-                  </template>
-
-                  <template slot-scope="{data}">
-                    <vs-tr :key="indextrsuc" v-for="(trsuc, indextrsuc) in data" >
-                      <vs-td colspan="2">
-                      {{ trsuc.nombre }}
-                      </vs-td>
-                   <!--   <vs-td>
-                       {{ trcon.rut }}  
-                      </vs-td>      -->            
-                      <vs-td >
-                        {{ trsuc.direccion }}
-                     </vs-td>
-                     <vs-td >
-                       {{ trsuc.matriz == 1 ? 'Si' : 'No' }}
-                     </vs-td>
-
-                    </vs-tr>
-                  </template>
-                </vs-table>
-      </div>
-
-        </vx-card>
-        
-   
-       <!-- SUCURSALES -->
-  
+      
+      </vx-card> 
+       <!-- DATOS AGENDAMIENTO -->
  
          <!-- Buttons -->
           <div class="vx-col w-full flex mt-4" id="account-manage-buttons">
             <vx-tooltip color="primary" text="Editar">
-              <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'horarios-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
+              <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'agendamientos-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Volver">
-              <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" :to="{name: 'horarios'}">Volver</vs-button>
+              <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" :to="{name: 'agendamientos'}">Volver</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Eliminar">
               <vs-button type="border" color="danger" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRecord">Eliminar</vs-button>
@@ -148,21 +163,14 @@
 
 <script>
 import axios from "@/axios.js"
-
 import moduleItemManagement from '@/store/items-management/moduleItemManagement.js'
 
 export default {
-   components: {
-  },
   data() {
     return {
       item_data:null,
-      item_data_sucursales:null,
       item_not_found: false,
-      urlApi: "/horarios/horarios/",
-      //center: { lat: -33.4533624, lng: -70.6642131 },
-      //zoom:11,
-      //map:null,
+      urlApi: "/agendamientos/agendamientos/",
     }
   },
   computed: {
@@ -173,7 +181,7 @@ export default {
         type: 'confirm',
         color: 'danger',
         title: `Confirmar Eliminacion`,
-        text: `Este seguro que desea eliminar el siguiente horario "${this.item_data.horario}"`,
+        text: `Este seguro que desea eliminar el siguiente agendamiento "${this.item_data.rut}"`,
         accept: this.deleteRecord,
         acceptText: "Eliminar"
       })
@@ -185,7 +193,7 @@ export default {
 
       /* UnComment below lines for enabling true flow if deleting user */
        this.$store.dispatch("itemManagement/borrarItem", {	Id: this.item_data.id, Url: this.urlApi  })
-         .then(()   => { this.$router.push({name:'horarios'}); this.showDeleteSuccess() })
+         .then(()   => { this.$router.push({name:'agendamientos'}); this.showDeleteSuccess() })
          .catch(err => { 
            
           var textError = err.response.status == 300 ? err.response.data.message : err;
@@ -200,16 +208,10 @@ export default {
     showDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Horario Eliminado',
-        text: 'El horario seleccionado ya fue eliminado'
+        title: 'Agendamiento Eliminado',
+        text: 'El agendamiento seleccionado ya fue eliminada'
       })
-    },
-  },
-  mounted() {
-     /* var center = 11;
-      var zoom = this.zoom;
-      var map = new google.maps.Map(document.getElementById('map'), {zoom: zoom, center: center});
-      this.map = map;*/
+    }
   },
   created() {
     // Register Module UserManagement Module
@@ -222,10 +224,17 @@ export default {
     const urlApi = this.urlApi
     this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: urlApi  })
       .then(res => { 
+          
+            this.item_data = res.data.item
+            if(res.data.item.tipo_periodo === 1){
+              this.item_data.tipo_periodo = "Diario";
+            }else if(res.data.item.tipo_periodo === 2){
+              this.item_data.tipo_periodo = "Mensual";
+            }else{
+              this.item_data.tipo_periodo = "Permanente";
+            }
 
-          this.item_data = res.data.item[0]
-          this.item_data_sucursales = res.data.sucursales
-         
+          
         })
       .catch(err => {
         if(err.response.status === 404) {
