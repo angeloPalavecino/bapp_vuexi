@@ -334,7 +334,11 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, ".permisos .vs-checkbox {\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n}\n.permisos th .vs-table-text {\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n}\n[dir] .permisos td {\n  padding: 4px !important;\n}", ""]);
+=======
+exports.push([module.i, "[dir] .vs-input-number {\n  margin:0px !important;\n}\r\n", ""]);
+>>>>>>> fa4b4ce212787f9da8cf2cedd90233631692640c
 
 // exports
 
