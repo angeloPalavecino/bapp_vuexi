@@ -1,317 +1,246 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[85],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
-/* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      item_data: null,
-      item_not_found: false,
-      urlApi: "/agendamientos/agendamientos/"
-    };
-  },
-  computed: {},
-  methods: {
-    confirmDeleteRecord: function confirmDeleteRecord() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar el siguiente agendamiento \"".concat(this.item_data.rut, "\""),
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      });
-    },
-    deleteRecord: function deleteRecord() {
-      var _this = this;
-
-      /* Below two lines are just for demo purpose */
-      //this.$router.push({name:'users'});
-      //this.showDeleteSuccess()
-
-      /* UnComment below lines for enabling true flow if deleting user */
-      this.$store.dispatch("itemManagement/borrarItem", {
-        Id: this.item_data.id,
-        Url: this.urlApi
-      }).then(function () {
-        _this.$router.push({
-          name: 'agendamientos'
-        });
-
-        _this.showDeleteSuccess();
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-
-        _this.$vs.notify({
-          title: 'Error',
-          text: textError,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      });
-    },
-    showDeleteSuccess: function showDeleteSuccess() {
-      this.$vs.notify({
-        color: 'success',
-        title: 'Agendamiento Eliminado',
-        text: 'El agendamiento seleccionado ya fue eliminada'
-      });
-    }
-  },
-  created: function created() {
-    var _this2 = this;
-
-    // Register Module UserManagement Module
-    if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
-      this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
-      _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
-    }
-
-    var itemId = this.$route.params.itemId;
-    var urlApi = this.urlApi;
-    this.$store.dispatch("itemManagement/traerItem", {
-      Id: itemId,
-      Url: urlApi
-    }).then(function (res) {
-      _this2.item_data = res.data.item;
-
-      if (res.data.item.tipo_periodo === 1) {
-        _this2.item_data.tipo_periodo = "Diario";
-      } else if (res.data.item.tipo_periodo === 2) {
-        _this2.item_data.tipo_periodo = "Mensual";
-      } else {
-        _this2.item_data.tipo_periodo = "Permanente";
-      }
-    }).catch(function (err) {
-      if (err.response.status === 404) {
-        _this2.item_not_found = true;
-        return;
-      } else if (err.response.status == 300) {
-        _this2.$vs.notify({
-          title: 'Error',
-          text: err.response.data.message,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      } else {
-        _this2.$vs.notify({
-          title: 'Error',
-          text: err,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      }
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/flatpickr/dist/plugins/monthSelect/style.css":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/postcss-loader/src??ref--7-2!./node_modules/flatpickr/dist/plugins/monthSelect/style.css ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "#avatar-col {\n  width: 10rem;\n}\n#page-item-view table {\n  /* &:not(.permissions-table) {\n     td {\n       @media screen and (max-width:370px) {\n         display: block;\n       }\n     }\n   }*/\n}\n#page-item-view table td {\n  vertical-align: top;\n  min-width: 140px;\n  word-break: break-all;\n}\n[dir] #page-item-view table td {\n  padding-bottom: 0.8rem;\n}\n@media screen and (min-width: 1201px) and (max-width: 1211px), only screen and (min-width: 636px) and (max-width: 991px) {\n#account-info-col-1 {\n    width: calc(100% - 12rem) !important;\n}\n}", ""]);
+exports.push([module.i, ".flatpickr-monthSelect-months {\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n}[dir] .flatpickr-monthSelect-months {\n  margin: 10px 1px 3px 1px;\n}\n\n.flatpickr-monthSelect-month {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #393939;\n  display: inline-block;\n  font-weight: 400;\n  justify-content: center;\n  position: relative;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  width: 33%;\n}\n\n[dir] .flatpickr-monthSelect-month {\n  background: none;\n  border: 0;\n  border-radius: 2px;\n  cursor: pointer;\n  margin: 0.5px;\n  padding: 10px;\n  text-align: center;\n}\n\n.flatpickr-monthSelect-month.disabled {\n  color: #eee;\n}\n\n[dir] .flatpickr-monthSelect-month.disabled:hover, [dir] .flatpickr-monthSelect-month.disabled:focus {\n  cursor: not-allowed;\n  background: none !important;\n}\n\n[dir] .flatpickr-monthSelect-theme-dark {\n  background: #3f4458;\n}\n\n.flatpickr-monthSelect-theme-dark .flatpickr-current-month input.cur-year {\n  color: #fff;\n}\n\n.flatpickr-monthSelect-theme-dark .flatpickr-months .flatpickr-prev-month,\n.flatpickr-monthSelect-theme-dark .flatpickr-months .flatpickr-next-month {\n  color: #fff;\n  fill: #fff;\n}\n\n.flatpickr-monthSelect-theme-dark .flatpickr-monthSelect-month {\n  color: rgba(255, 255, 255, 0.95);\n}\n\n.flatpickr-monthSelect-month:hover,\n.flatpickr-monthSelect-month:focus {\n  outline: 0;\n}\n\n[dir] .flatpickr-monthSelect-month:hover, [dir] .flatpickr-monthSelect-month:focus {\n  background: #e6e6e6;\n  cursor: pointer;\n}\n\n[dir] .flatpickr-monthSelect-theme-dark .flatpickr-monthSelect-month:hover, [dir] .flatpickr-monthSelect-theme-dark .flatpickr-monthSelect-month:focus {\n  background: #646c8c;\n  border-color: #646c8c;\n}\n\n.flatpickr-monthSelect-month.selected {\n  color: #fff;\n}\n\n[dir] .flatpickr-monthSelect-month.selected {\n  background-color: #569ff7;\n}\n\n.flatpickr-monthSelect-theme-dark .flatpickr-monthSelect-month.selected {\n  -webkit-box-shadow: none;\n  color: #fff;\n}\n\n[dir] .flatpickr-monthSelect-theme-dark .flatpickr-monthSelect-month.selected {\n  background: #80cbc4;\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  border-color: #80cbc4;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/flatpickr/dist/plugins/monthSelect/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/flatpickr/dist/plugins/monthSelect/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+     true ? module.exports = factory() :
+    undefined;
+}(this, function () { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    var monthToStr = function (monthNumber, shorthand, locale) { return locale.months[shorthand ? "shorthand" : "longhand"][monthNumber]; };
+
+    var defaultConfig = {
+        shorthand: false,
+        dateFormat: "F Y",
+        altFormat: "F Y",
+        theme: "light"
+    };
+    function monthSelectPlugin(pluginConfig) {
+        var config = __assign({}, defaultConfig, pluginConfig);
+        return function (fp) {
+            fp.config.dateFormat = config.dateFormat;
+            fp.config.altFormat = config.altFormat;
+            var self = { monthsContainer: null };
+            function clearUnnecessaryDOMElements() {
+                if (!fp.rContainer || !fp.daysContainer || !fp.weekdayContainer)
+                    return;
+                fp.rContainer.removeChild(fp.daysContainer);
+                fp.rContainer.removeChild(fp.weekdayContainer);
+                for (var index = 0; index < fp.monthElements.length; index++) {
+                    var element = fp.monthElements[index];
+                    if (!element.parentNode)
+                        continue;
+                    element.parentNode.removeChild(element);
+                }
+            }
+            function addListeners() {
+                fp._bind(fp.prevMonthNav, "click", function () {
+                    fp.currentYear -= 1;
+                    selectYear();
+                });
+                fp._bind(fp.nextMonthNav, "mousedown", function () {
+                    fp.currentYear += 1;
+                    selectYear();
+                });
+            }
+            function addMonths() {
+                if (!fp.rContainer)
+                    return;
+                self.monthsContainer = fp._createElement("div", "flatpickr-monthSelect-months");
+                self.monthsContainer.tabIndex = -1;
+                fp.calendarContainer.classList.add("flatpickr-monthSelect-theme-" + config.theme);
+                for (var i = 0; i < 12; i++) {
+                    var month = fp._createElement("span", "flatpickr-monthSelect-month");
+                    month.dateObj = new Date(fp.currentYear, i);
+                    month.$i = i;
+                    month.textContent = monthToStr(i, config.shorthand, fp.l10n);
+                    month.tabIndex = -1;
+                    month.addEventListener("click", selectMonth);
+                    self.monthsContainer.appendChild(month);
+                    if ((fp.config.minDate && month.dateObj < fp.config.minDate) || (fp.config.maxDate && month.dateObj > fp.config.maxDate)) {
+                        month.classList.add("disabled");
+                    }
+                }
+                fp.rContainer.appendChild(self.monthsContainer);
+            }
+            function setCurrentlySelected() {
+                if (!fp.rContainer)
+                    return;
+                var currentlySelected = fp.rContainer.querySelectorAll(".flatpickr-monthSelect-month.selected");
+                for (var index = 0; index < currentlySelected.length; index++) {
+                    currentlySelected[index].classList.remove("selected");
+                }
+                var month = fp.rContainer.querySelector(".flatpickr-monthSelect-month:nth-child(" + (fp.currentMonth + 1) + ")");
+                if (month) {
+                    month.classList.add("selected");
+                }
+            }
+            function selectYear() {
+                var selectedDate = fp.selectedDates[0];
+                if (selectedDate) {
+                    selectedDate = new Date(selectedDate);
+                    selectedDate.setFullYear(fp.currentYear);
+                    if (fp.config.minDate && selectedDate < fp.config.minDate) {
+                        selectedDate = fp.config.minDate;
+                    }
+                    if (fp.config.maxDate && selectedDate > fp.config.maxDate) {
+                        selectedDate = fp.config.maxDate;
+                    }
+                    fp.currentYear = selectedDate.getFullYear();
+                    fp.currentYearElement.value = String(fp.currentYear);
+                    setCurrentlySelected();
+                }
+                if (fp.rContainer) {
+                    var months = fp.rContainer.querySelectorAll(".flatpickr-monthSelect-month");
+                    months.forEach(function (month) {
+                        month.dateObj.setFullYear(fp.currentYear);
+                        if ((fp.config.minDate && month.dateObj < fp.config.minDate) || (fp.config.maxDate && month.dateObj > fp.config.maxDate)) {
+                            month.classList.add("disabled");
+                        }
+                        else {
+                            month.classList.remove("disabled");
+                        }
+                    });
+                }
+            }
+            function selectMonth(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.target instanceof Element && !e.target.classList.contains("disabled")) {
+                    setMonth(e.target.dateObj);
+                    fp.close();
+                }
+            }
+            function setMonth(date) {
+                var selectedDate = new Date(date);
+                selectedDate.setFullYear(fp.currentYear);
+                fp.currentMonth = selectedDate.getMonth();
+                fp.setDate(selectedDate, true);
+                setCurrentlySelected();
+            }
+            var shifts = {
+                37: -1,
+                39: 1,
+                40: 3,
+                38: -3
+            };
+            function onKeyDown(_, __, ___, e) {
+                var shouldMove = shifts[e.keyCode] !== undefined;
+                if (!shouldMove && e.keyCode !== 13) {
+                    return;
+                }
+                if (!fp.rContainer || !self.monthsContainer)
+                    return;
+                var currentlySelected = fp.rContainer.querySelector(".flatpickr-monthSelect-month.selected");
+                var index = Array.prototype.indexOf.call(self.monthsContainer.children, document.activeElement);
+                if (index === -1) {
+                    var target = currentlySelected || self.monthsContainer.firstElementChild;
+                    target.focus();
+                    index = target.$i;
+                }
+                if (shouldMove) {
+                    self.monthsContainer.children[(12 + index + shifts[e.keyCode]) % 12].focus();
+                }
+                else if (e.keyCode === 13 &&
+                    self.monthsContainer.contains(document.activeElement)) {
+                    setMonth(document.activeElement.dateObj);
+                }
+            }
+            function destroyPluginInstance() {
+                if (self.monthsContainer !== null) {
+                    var months = self.monthsContainer.querySelectorAll(".flatpickr-monthSelect-month");
+                    for (var index = 0; index < months.length; index++) {
+                        months[index].removeEventListener("click", selectMonth);
+                    }
+                }
+            }
+            return {
+                onParseConfig: function () {
+                    fp.config.mode = "single";
+                    fp.config.enableTime = false;
+                },
+                onValueUpdate: setCurrentlySelected,
+                onKeyDown: onKeyDown,
+                onReady: [
+                    clearUnnecessaryDOMElements,
+                    addListeners,
+                    addMonths,
+                    setCurrentlySelected,
+                    function () {
+                        fp.loadedPlugins.push("monthSelect");
+                    },
+                ],
+                onDestroy: destroyPluginInstance
+            };
+        };
+    }
+
+    return monthSelectPlugin;
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/flatpickr/dist/plugins/monthSelect/style.css":
+/*!*******************************************************************!*\
+  !*** ./node_modules/flatpickr/dist/plugins/monthSelect/style.css ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../css-loader??ref--7-1!../../../../postcss-loader/src??ref--7-2!./style.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/flatpickr/dist/plugins/monthSelect/style.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -325,736 +254,11 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&":
-/*!******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4& ***!
-  \******************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "page-item-view" } },
-    [
-      _c(
-        "vs-alert",
-        {
-          attrs: {
-            color: "danger",
-            title: "Agendamiento no encontrada",
-            active: _vm.item_not_found
-          },
-          on: {
-            "update:active": function($event) {
-              _vm.item_not_found = $event
-            }
-          }
-        },
-        [
-          _c("span", [
-            _vm._v(
-              "El agendamiento con id: " +
-                _vm._s(_vm.$route.params.itemId) +
-                " no fue encontrado. "
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "span",
-            [
-              _c("span", [_vm._v("Mira ")]),
-              _c(
-                "router-link",
-                {
-                  staticClass: "text-inherit underline",
-                  attrs: { to: { name: "agendamientos" } }
-                },
-                [_vm._v("Todos los agendamientos")]
-              )
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.item_data
-        ? _c(
-            "div",
-            { attrs: { id: "item-data" } },
-            [
-              _c(
-                "vx-card",
-                { staticClass: "mb-base", attrs: { title: "Informacion" } },
-                [
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col w-full" },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "flex items-end px-3" },
-                          [
-                            _c("feather-icon", {
-                              staticClass: "mr-2",
-                              attrs: { svgClasses: "w-6 h-6", icon: "InfoIcon" }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                staticClass: "font-medium text-lg leading-none"
-                              },
-                              [_vm._v("Detalle")]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("vs-divider")
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col flex-1",
-                        attrs: { id: "account-info-col-1" }
-                      },
-                      [
-                        _c("table", [
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Rut")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.rut) + " ")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Nombre")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm.item_data.nombre) +
-                                  " - " +
-                                  _vm._s(_vm.item_data.apellido)
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Direccion")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.direccion))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Comuna")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.comuna))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Empresa")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.item_data.razon_social))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Creado el")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.created_at))])
-                          ])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col flex-1",
-                        attrs: { id: "account-info-col-2" }
-                      },
-                      [
-                        _c("table", [
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Email")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Telefono")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.telefono))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Centro de costo")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.item_data.centro_costo))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Sucursal")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.sucursal))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Ultima Actualizacion")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.updated_at))])
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-row" },
-                    [
-                      _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Agendamiento")])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "vx-col flex-1",
-                          attrs: { id: "account-info-col-2" }
-                        },
-                        [
-                          _c("table", [
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Fecha")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item_data.fecha))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Movil Plan")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.item_data.movil_plan))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Horario Plan")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.item_data.horario_plan))
-                              ])
-                            ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "vx-col flex-1",
-                          attrs: { id: "account-info-col-2" }
-                        },
-                        [
-                          _c("table", [
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Conductor Plan")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(_vm.item_data.nombre_conductor_plan) +
-                                    " " +
-                                    _vm._s(
-                                      _vm.item_data.apellido_conductor_plan
-                                    )
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Tipo")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item_data.tipo))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Tipo Periodo")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.item_data.tipo_periodo))
-                              ])
-                            ])
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "vx-col w-full flex mt-4",
-                  attrs: { id: "account-manage-buttons" }
-                },
-                [
-                  _c(
-                    "vx-tooltip",
-                    { attrs: { color: "primary", text: "Editar" } },
-                    [
-                      _c(
-                        "vs-button",
-                        {
-                          staticClass: "mr-4",
-                          attrs: {
-                            "icon-pack": "feather",
-                            icon: "icon-edit",
-                            to: {
-                              name: "agendamientos-edit",
-                              params: { itemId: _vm.$route.params.itemId }
-                            }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vx-tooltip",
-                    { attrs: { color: "primary", text: "Volver" } },
-                    [
-                      _c(
-                        "vs-button",
-                        {
-                          staticClass: "mr-4",
-                          attrs: {
-                            "icon-pack": "feather",
-                            icon: "icon-arrow-left",
-                            to: { name: "agendamientos" }
-                          }
-                        },
-                        [_vm._v("Volver")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vx-tooltip",
-                    { attrs: { color: "primary", text: "Eliminar" } },
-                    [
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            type: "border",
-                            color: "danger",
-                            "icon-pack": "feather",
-                            icon: "icon-trash"
-                          },
-                          on: { click: _vm.confirmDeleteRecord }
-                        },
-                        [_vm._v("Eliminar")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./resources/js/src/store/items-management/moduleItemManagement.js":
-/*!*************************************************************************!*\
-  !*** ./resources/js/src/store/items-management/moduleItemManagement.js ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _moduleItemManagementState_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleItemManagementState.js */ "./resources/js/src/store/items-management/moduleItemManagementState.js");
-/* harmony import */ var _moduleItemManagementMutations_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleItemManagementMutations.js */ "./resources/js/src/store/items-management/moduleItemManagementMutations.js");
-/* harmony import */ var _moduleItemManagementActions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleItemManagementActions.js */ "./resources/js/src/store/items-management/moduleItemManagementActions.js");
-/* harmony import */ var _moduleItemManagementGetters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleItemManagementGetters.js */ "./resources/js/src/store/items-management/moduleItemManagementGetters.js");
-/*=========================================================================================
-  File Name: moduleItemManagement.js
-  Description: Calendar Module
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  isRegistered: false,
-  namespaced: true,
-  state: _moduleItemManagementState_js__WEBPACK_IMPORTED_MODULE_0__["default"],
-  mutations: _moduleItemManagementMutations_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  actions: _moduleItemManagementActions_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-  getters: _moduleItemManagementGetters_js__WEBPACK_IMPORTED_MODULE_3__["default"]
-});
-
-/***/ }),
-
-/***/ "./resources/js/src/store/items-management/moduleItemManagementActions.js":
-/*!********************************************************************************!*\
-  !*** ./resources/js/src/store/items-management/moduleItemManagementActions.js ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
-/*=========================================================================================
-  File Name: moduleCalendarActions.js
-  Description: Calendar Module Actions
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  agregarItem: function agregarItem(_ref, data) {
-    _objectDestructuringEmpty(_ref);
-
-    //commit
-    return new Promise(function (resolve, reject) {
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/v1" + data.Url + "store", data.item).then(function (res) {
-        //commit('ADD_ITEM', Object.assign(data.item, {id: res.data.id}))
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  },
-  editarItem: function editarItem(_ref2, data) {
-    _objectDestructuringEmpty(_ref2);
-
-    //commit
-    return new Promise(function (resolve, reject) {
-      var url = "";
-
-      if (data.item.id) {
-        url = data.Url + data.item.id;
-      } else {
-        url = data.Url;
-      }
-
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].put("/api/v1" + url, data.item).then(function (res) {
-        // commit('ADD_ITEM', Object.assign(data.item, {id: res.data.id}))
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  },
-  traerItems: function traerItems(_ref3, Url) {
-    var commit = _ref3.commit;
-    return new Promise(function (resolve, reject) {
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/v1" + Url).then(function (res) {
-        commit('SET_ITEMS', res.data.items);
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  },
-  traerItem: function traerItem(_ref4, data) {
-    _objectDestructuringEmpty(_ref4);
-
-    return new Promise(function (resolve, reject) {
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/v1" + data.Url + "".concat(data.Id)).then(function (res) {
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  },
-  borrarItem: function borrarItem(_ref5, data) {
-    var commit = _ref5.commit;
-    return new Promise(function (resolve, reject) {
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].delete("/api/v1" + data.Url + "".concat(data.Id)).then(function (res) {
-        commit('REMOVE_RECORD', data.Id);
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  },
-  borrarMasivoItem: function borrarMasivoItem(_ref6, data) {
-    var commit = _ref6.commit;
-    return new Promise(function (resolve, reject) {
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/v1" + data.Url + "borrar", data.Items).then(function (res) {
-        commit('REMOVE_MASSIVE_RECORD', data.Items);
-        resolve(res);
-      }).catch(function (err) {
-        reject(err);
-      });
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/src/store/items-management/moduleItemManagementGetters.js":
-/*!********************************************************************************!*\
-  !*** ./resources/js/src/store/items-management/moduleItemManagementGetters.js ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*=========================================================================================
-  File Name: moduleCalendarGetters.js
-  Description: Calendar Module Getters
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-/* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-
-/***/ "./resources/js/src/store/items-management/moduleItemManagementMutations.js":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/src/store/items-management/moduleItemManagementMutations.js ***!
-  \**********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*=========================================================================================
-  File Name: moduleCalendarMutations.js
-  Description: Calendar Module Mutations
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-/* harmony default export */ __webpack_exports__["default"] = ({
-  SET_ITEMS: function SET_ITEMS(state, items) {
-    state.items = items;
-  },
-  REMOVE_RECORD: function REMOVE_RECORD(state, itemId) {
-    var itemIndex = state.items.findIndex(function (u) {
-      return u.id == itemId;
-    });
-    state.items.splice(itemIndex, 1);
-  },
-  REMOVE_MASSIVE_RECORD: function REMOVE_MASSIVE_RECORD(state, itemsDelete) {
-    itemsDelete.forEach(function (element) {
-      var itemIndex = state.items.findIndex(function (u) {
-        return u.id == element.id;
-      });
-      state.items.splice(itemIndex, 1);
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/src/store/items-management/moduleItemManagementState.js":
-/*!******************************************************************************!*\
-  !*** ./resources/js/src/store/items-management/moduleItemManagementState.js ***!
-  \******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*=========================================================================================
-  File Name: moduleCalendarState.js
-  Description: Calendar Module State
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-/* harmony default export */ __webpack_exports__["default"] = ({
-  items: []
-});
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue ***!
-  \*****************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=7604c4e4& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&");
-/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \***************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&":
-/*!************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4& ***!
-  \************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=7604c4e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
 
 /***/ })
 

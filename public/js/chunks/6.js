@@ -850,10 +850,7 @@ var render = function() {
               [
                 _c(
                   "vs-dropdown",
-                  {
-                    staticClass: "cursor-pointer",
-                    attrs: { "vs-trigger-click": "" }
-                  },
+                  { staticClass: "cursor-pointer" },
                   [
                     _c(
                       "div",
@@ -984,10 +981,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "vs-dropdown",
-              {
-                staticClass: "cursor-pointer",
-                attrs: { "vs-trigger-click": "" }
-              },
+              { staticClass: "cursor-pointer" },
               [
                 _c(
                   "div",

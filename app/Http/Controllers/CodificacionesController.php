@@ -664,4 +664,34 @@ class CodificacionesController extends Controller
                 'message' => 'Los registros han sido guardados exitosamente!'
             ], 200);
     }
+
+    public function combo($id){
+        
+        $codificaciones = Codificaciones::select(
+            'codificaciones.id',
+            'codificaciones.rut',
+            'codificaciones.nombre',
+            'codificaciones.apellido',
+         //  'codificaciones.grupo_patron_id',
+            'codificaciones.direccion', 
+            'codificaciones.comuna',
+         //   'codificaciones.email',
+         //   'codificaciones.telefono',
+         //   'codificaciones.centro_costo',
+         //   'codificaciones.sucursal_id',
+         //   'codificaciones.lat',
+         //   'codificaciones.lng',
+         //   'codificaciones.created_at',
+         //   'codificaciones.updated_at',
+         )
+            ->where('codificaciones.sucursal_id', $id)
+            ->get();
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'items' => $codificaciones->toArray(),
+                ], 200);
+
+    }
 }

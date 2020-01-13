@@ -31,6 +31,14 @@
         </div>
 
       </div>
+
+      <div class="vx-row">
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Estado</label>
+          <v-select :options="estadoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="estadoFilter" class="mb-4 md:mb-0" />
+        </div>
+
+      </div>
     </vx-card>
 
     <div class="vx-card p-6">
@@ -39,7 +47,7 @@
 
         <!-- ITEMS PER PAGE -->
         <div class="flex-grow">
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <vs-dropdown   class="cursor-pointer">
             <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
               <span class="mr-2">{{ currentPage * paginationPageSize - (paginationPageSize - 1) }} - {{ itemsData.length - currentPage * paginationPageSize > 0 ? currentPage * paginationPageSize : itemsData.length }} of {{ itemsData.length }}</span>
               <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
@@ -73,7 +81,7 @@
          <!--  <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
 
           <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <vs-dropdown class="cursor-pointer">
 
             <div class="p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32">
               <span class="mr-2 leading-none">Acciones</span>
@@ -166,6 +174,7 @@ import moduleItemManagement from '@/store/items-management/moduleItemManagement.
 // Cell Renderer
 
 import CellRendererActions from "./cell-renderer/CellRendererActions.vue"
+import CellRendererStatus from "./cell-renderer/CellRendererStatus.vue"
 
 //Loading
 import CustomLoadingOverlay from "../../../utils/customLoadingOverlay.js";
@@ -178,6 +187,7 @@ export default {
 
     // Cell Renderer
     CellRendererActions,
+    CellRendererStatus
 
   },
   data() {
@@ -191,6 +201,14 @@ export default {
         { label: 'Zarpe', value: 'Zarpe' },
         { label: 'Recogida', value: 'Recogida' },
       ],
+
+      estadoFilter: { label: 'Todos', value: 'all' },
+      estadoOptions: [
+        { label: 'Todos', value: 'all' }, 
+        { label: 'Activo', value: true },
+        { label: 'Vencido', value: false },
+      ],
+
 
       sucursalFilter: { label: 'Todos', value: 'all', id:0 },
       sucursalOptions: [
@@ -239,11 +257,45 @@ export default {
           headerCheckboxSelection: true,
         },
         {
-          headerName: 'Fecha',
-          field: 'fecha',
+          headerName: 'Estado',
+          colId: 'estado',
           filter: true,
-          minWidth: 140,
+          minWidth: 130,
+          valueGetter: function(params) {
+            var fecha = new Date().toLocaleDateString('en-GB');
+            var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
+            var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
+              
+
+            if(fecha >= fecha_inicio && fecha <= fecha_fin){
+               return true;
+            }else{
+               return false;
+            }
+
+          },
+          cellRendererFramework: 'CellRendererStatus'       
           
+        },
+         {
+          headerName: 'Inicio',
+          field: 'fecha_inicio',
+          filter: true,
+          minWidth: 130,
+            valueGetter: function(params) {
+            var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
+            return fecha_inicio;
+          },
+        },
+         {
+          headerName: 'Termino',
+          field: 'fecha_fin',
+          filter: true,
+          minWidth: 130,
+            valueGetter: function(params) {
+            var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
+            return fecha_fin;
+          },
         },
         {
           headerName: 'Rut',
@@ -269,7 +321,7 @@ export default {
         },
         {
           headerName: 'Horario',
-          field: 'horario',
+          field: 'horario_plan',
           filter: true,
           minWidth: 135,
         },
@@ -281,13 +333,18 @@ export default {
         },
       ],
 
+
       // Cell Renderer Components
       components: {
         CellRendererActions,
+        CellRendererStatus
       }
     }
   },
   watch: {
+    estadoFilter(obj){
+      this.setColumnFilter("estado",obj.value)
+    },
     tipoFilter(obj) {
       this.setColumnFilter("tipo", obj.value)
     },
@@ -392,7 +449,7 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = { label: 'Todos', value: 'all' }
+      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = { label: 'Todos', value: 'all' }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },

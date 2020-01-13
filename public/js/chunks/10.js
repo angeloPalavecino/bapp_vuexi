@@ -524,10 +524,7 @@ var render = function() {
               [
                 _c(
                   "vs-dropdown",
-                  {
-                    staticClass: "cursor-pointer",
-                    attrs: { "vs-trigger-click": "" }
-                  },
+                  { staticClass: "cursor-pointer" },
                   [
                     _c(
                       "div",

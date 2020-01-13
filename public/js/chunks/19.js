@@ -1,16 +1,23 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue");
+/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34,30 +41,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    itemAddSection1: _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    itemEditSection1: _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      urlApi: "/tarifas/kms/"
+      item_data: null,
+      item_not_found: false,
+      urlApi: "/roles/roles/"
     };
   },
-  watch: {},
-  methods: {},
+  watch: {
+    activeTab: function activeTab() {
+      this.fetch_item_data(this.$route.params.itemId);
+    }
+  },
+  methods: {
+    fetch_item_data: function fetch_item_data(itemId) {
+      var _this = this;
+
+      this.$store.dispatch("itemManagement/traerItem", {
+        Id: itemId,
+        Url: this.urlApi
+      }).then(function (res) {
+        _this.item_data = res.data.item[0];
+      }).catch(function (err) {
+        if (err.response.status === 404) {
+          _this.item_not_found = true;
+          return;
+        } else if (err.response.status == 300) {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.message,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        } else {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        }
+      });
+    }
+  },
   created: function created() {
     // Register Module UserManagement Module
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
     }
+
+    this.fetch_item_data(this.$route.params.itemId);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -164,48 +211,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 var dict = {
   custom: {
-    descripcion: {
-      required: 'El campo es requerido'
+    name: {
+      required: 'El nombre es requerido'
     },
-    cant_psjs: {
-      required: 'El campo es requerido'
-    },
-    min_servicio: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    kms: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    min: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    bajada_bandera: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    porticos: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
+    permisos: {
+      required: "Debe seleccionar al menos 1 permiso"
     }
   }
 }; // register custom messages
@@ -215,14 +230,21 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: {},
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
-      urlApi: "/tarifas/kms/",
+      urlApi: "/roles/roles/",
       data_local: {
-        cant_psjs: 1
+        id: this.data.id ? this.data.id : null,
+        name: this.data.name ? this.data.name : null,
+        permisos: this.data.permisos ? this.data.permisos : null
       },
-      empresasOptions: []
+      permisosOptions: []
     };
   },
   computed: {
@@ -230,19 +252,21 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       return !this.errors.any();
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.traeOtrosDatos();
+  },
   methods: {
     save_changes: function save_changes() {
       var _this = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$store.dispatch("itemManagement/agregarItem", {
+          _this.$store.dispatch("itemManagement/editarItem", {
             item: _this.data_local,
             Url: _this.urlApi
           }).then(function () {
             _this.$router.push({
-              name: 'kms'
+              name: 'roles'
             });
 
             _this.showDeleteSuccess();
@@ -269,16 +293,18 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        cant_psjs: 1
+        id: this.data.id ? this.data.id : null,
+        name: this.data.name ? this.data.name : null,
+        permisos: this.data.permisos ? this.data.permisos : null
       };
       this.errors.clear();
     },
     traeOtrosDatos: function traeOtrosDatos() {
       var _this2 = this;
 
-      //Empresa
-      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/empresas").then(function (res) {
-        _this2.empresasOptions = res.data.items;
+      //Trae Permisos
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/permisos/permisos").then(function (res) {
+        _this2.permisosOptions = res.data.permisos_aux;
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -291,42 +317,39 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         });
       });
     }
-  },
-  created: function created() {
-    this.traeOtrosDatos();
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "[dir] .vs-input-number {\n  margin:0px !important;\n}\n", ""]);
+exports.push([module.i, ".permisos .vs-checkbox {\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n}\n.permisos th .vs-table-text {\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n}\n[dir] .permisos td {\n  padding: 4px !important;\n}", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader??ref--7-1!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -340,7 +363,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -348,10 +371,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815&":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815& ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -365,8 +388,62 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-item-add" } },
-    [_c("vx-card", [_c("item-add-section1", { staticClass: "mt-4" })], 1)],
+    { attrs: { id: "page-item-edit" } },
+    [
+      _c(
+        "vs-alert",
+        {
+          attrs: {
+            color: "danger",
+            title: "Rol no encontrado",
+            active: _vm.item_not_found
+          },
+          on: {
+            "update:active": function($event) {
+              _vm.item_not_found = $event
+            }
+          }
+        },
+        [
+          _c("span", [
+            _vm._v(
+              "El rol con id: " +
+                _vm._s(_vm.$route.params.itemId) +
+                " no fue encontrado. "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            [
+              _c("span", [_vm._v("Mira  ")]),
+              _c(
+                "router-link",
+                {
+                  staticClass: "text-inherit underline",
+                  attrs: { to: { name: "roles" } }
+                },
+                [_vm._v("Todos los roles")]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.item_data
+        ? _c(
+            "vx-card",
+            [
+              _c("item-edit-section1", {
+                staticClass: "mt-4",
+                attrs: { data: _vm.item_data }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
     1
   )
 }
@@ -377,10 +454,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4&":
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -392,22 +469,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "item-add" } }, [
-    _c(
-      "div",
-      { staticClass: "vx-row mt-6" },
-      [
-        _c("vs-divider", { attrs: { color: "primary" } }, [
-          _c("h5", [_vm._v("Datos Tarifa")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c(
-              "vs-select",
-              {
+  return _c(
+    "div",
+    { attrs: { id: "item-edit" } },
+    [
+      _c(
+        "div",
+        { staticClass: "vx-row mt-6" },
+        [
+          _c("vs-divider", { attrs: { color: "primary" } }, [
+            _c("h5", [_vm._v("Datos Rol")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c("vs-input", {
                 directives: [
                   {
                     name: "validate",
@@ -416,381 +494,261 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                staticClass: "w-full ",
+                staticClass: "w-full p-1",
                 attrs: {
-                  label: "Empresas",
-                  name: "empresas",
-                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                  danger: _vm.errors.first("empresas") ? true : false,
-                  "danger-text": _vm.errors.first("empresas")
-                    ? _vm.errors.first("empresas")
-                    : ""
+                  "label-placeholder": "Nombre",
+                  name: "name",
+                  danger: _vm.errors.first("name") ? true : false,
+                  "danger-text": _vm.errors.first("name")
+                    ? _vm.errors.first("name")
+                    : "",
+                  "val-icon-danger": "clear"
                 },
                 model: {
-                  value: _vm.data_local.empresa_id,
+                  value: _vm.data_local.name,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "empresa_id", $$v)
+                    _vm.$set(_vm.data_local, "name", $$v)
                   },
-                  expression: "data_local.empresa_id"
+                  expression: "data_local.name"
                 }
-              },
-              _vm._l(_vm.empresasOptions, function(item) {
-                return _c("vs-select-item", {
-                  key: item.id,
-                  attrs: { value: item.id, text: item.razon_social }
-                })
-              }),
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Descripcion",
-                name: "descripcion",
-                danger: _vm.errors.first("descripcion") ? true : false,
-                "danger-text": _vm.errors.first("descripcion")
-                  ? _vm.errors.first("descripcion")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.descripcion,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "descripcion", $$v)
-                },
-                expression: "data_local.descripcion"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-4" },
-          [
-            _c("span", { staticClass: " text-sm" }, [_vm._v("N° Pasajeros")]),
-            _vm._v(" "),
-            _c("vs-input-number", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                name: "cant_psjs",
-                min: "1",
-                "icon-inc": "expand_less",
-                "icon-dec": "expand_more"
-              },
-              model: {
-                value: _vm.data_local.cant_psjs,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "cant_psjs", $$v)
-                },
-                expression: "data_local.cant_psjs"
-              }
-            }),
-            _vm._v(" "),
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "vx-card",
+        {
+          staticClass: "mt-base",
+          attrs: { "no-shadow": "", "card-border": "" }
+        },
+        [
+          _c("div", { staticClass: "vx-row" }, [
             _c(
-              "span",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("cant_psjs"),
-                    expression: "errors.has('cant_psjs')"
-                  }
-                ],
-                staticClass: "text-danger text-sm"
-              },
-              [_vm._v(_vm._s(_vm.errors.first("cant_psjs")))]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Minima",
-                "icon-pack": "feather",
-                icon: "icon-dollar-sign",
-                "icon-no-border": "",
-                name: "min_servicio",
-                danger: _vm.errors.first("min_servicio") ? true : false,
-                "danger-text": _vm.errors.first("min_servicio")
-                  ? _vm.errors.first("min_servicio")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.min_servicio,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "min_servicio", $$v)
-                },
-                expression: "data_local.min_servicio"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "KMS",
-                "icon-pack": "feather",
-                icon: "icon-dollar-sign",
-                "icon-no-border": "",
-                name: "kms",
-                danger: _vm.errors.first("kms") ? true : false,
-                "danger-text": _vm.errors.first("kms")
-                  ? _vm.errors.first("kms")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.kms,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "kms", $$v)
-                },
-                expression: "data_local.kms"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Minuto",
-                "icon-pack": "feather",
-                icon: "icon-dollar-sign",
-                "icon-no-border": "",
-                name: "min",
-                danger: _vm.errors.first("min") ? true : false,
-                "danger-text": _vm.errors.first("min")
-                  ? _vm.errors.first("min")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.min,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "min", $$v)
-                },
-                expression: "data_local.min"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Baja Bandera",
-                "icon-pack": "feather",
-                icon: "icon-dollar-sign",
-                "icon-no-border": "",
-                name: "bajada_bandera",
-                danger: _vm.errors.first("bajada_bandera") ? true : false,
-                "danger-text": _vm.errors.first("bajada_bandera")
-                  ? _vm.errors.first("bajada_bandera")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.bajada_bandera,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "bajada_bandera", $$v)
-                },
-                expression: "data_local.bajada_bandera"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Porticos",
-                "icon-pack": "feather",
-                icon: "icon-dollar-sign",
-                "icon-no-border": "",
-                name: "porticos",
-                danger: _vm.errors.first("porticos") ? true : false,
-                "danger-text": _vm.errors.first("porticos")
-                  ? _vm.errors.first("porticos")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.porticos,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "porticos", $$v)
-                },
-                expression: "data_local.porticos"
-              }
-            })
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "vx-row" }, [
-      _c("div", { staticClass: "vx-col w-full" }, [
-        _c(
-          "div",
-          { staticClass: "mt-8 flex flex-wrap items-center justify-end" },
-          [
-            _c(
-              "vx-tooltip",
-              { attrs: { color: "primary", text: "Guardar" } },
+              "div",
+              { staticClass: "vx-col w-full" },
               [
                 _c(
-                  "vs-button",
-                  {
-                    staticClass: "ml-auto mt-2",
-                    attrs: { disabled: !_vm.validateForm },
-                    on: { click: _vm.save_changes }
-                  },
-                  [_vm._v("Guardar Cambios")]
-                )
+                  "div",
+                  { staticClass: "flex items-end px-3" },
+                  [
+                    _c("feather-icon", {
+                      staticClass: "mr-2",
+                      attrs: { svgClasses: "w-6 h-6", icon: "LockIcon" }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "font-medium text-lg leading-none" },
+                      [_vm._v("Permisos")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("vs-divider")
               ],
               1
-            ),
-            _vm._v(" "),
-            _c(
-              "vx-tooltip",
-              { attrs: { color: "primary", text: "Volver" } },
-              [
-                _c(
-                  "vs-button",
-                  {
-                    staticClass: "ml-4 mt-2",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-arrow-left",
-                      to: { name: "kms" }
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("permisos"),
+                  expression: "errors.has('permisos')"
+                }
+              ],
+              staticClass: "text-danger text-sm"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("permisos")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "block overflow-x-auto" },
+            [
+              _c(
+                "vs-table",
+                {
+                  staticClass: "permisos",
+                  attrs: {
+                    data: _vm.permisosOptions,
+                    pagination: "",
+                    "max-items": "20"
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(ref) {
+                        var data = ref.data
+                        return _vm._l(data, function(tr, indextr) {
+                          return _c(
+                            "vs-tr",
+                            { key: indextr },
+                            [
+                              _c(
+                                "vs-td",
+                                { attrs: { data: data[indextr].modulos } },
+                                [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(data[indextr].modulos) +
+                                      "\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(data[indextr].roles, function(td, index) {
+                                return _c(
+                                  "vs-td",
+                                  { key: index },
+                                  [
+                                    _c("vs-checkbox", {
+                                      directives: [
+                                        {
+                                          name: "validate",
+                                          rawName: "v-validate",
+                                          value: "required",
+                                          expression: "'required'"
+                                        }
+                                      ],
+                                      attrs: {
+                                        name: "permisos",
+                                        "icon-pack": "feather",
+                                        icon: "icon-check",
+                                        "vs-value": td.id
+                                      },
+                                      model: {
+                                        value: _vm.data_local.permisos,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_local,
+                                            "permisos",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_local.permisos"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        })
+                      }
                     }
-                  },
-                  [_vm._v("Volver")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "vx-tooltip",
-              { attrs: { color: "primary", text: "Limpiar" } },
-              [
-                _c(
-                  "vs-button",
-                  {
-                    staticClass: "ml-4 mt-2",
-                    attrs: { type: "border", color: "warning" },
-                    on: { click: _vm.reset_data }
-                  },
-                  [_vm._v("Limpiar")]
-                )
-              ],
-              1
-            )
-          ],
-          1
-        )
+                  ])
+                },
+                [
+                  _c(
+                    "template",
+                    { slot: "thead" },
+                    [
+                      _c("vs-th", [_vm._v("Modulo")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Agregar")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Crear")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Inicio")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Actualizar")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Ver")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Eliminar")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Editar")])
+                    ],
+                    1
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "vx-row" }, [
+        _c("div", { staticClass: "vx-col w-full" }, [
+          _c(
+            "div",
+            { staticClass: "mt-8 flex flex-wrap items-center justify-end" },
+            [
+              _c(
+                "vx-tooltip",
+                { attrs: { color: "primary", text: "Guardar" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "ml-auto mt-2",
+                      attrs: { disabled: !_vm.validateForm },
+                      on: { click: _vm.save_changes }
+                    },
+                    [_vm._v("Guardar Cambios")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-tooltip",
+                { attrs: { color: "primary", text: "Volver" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "ml-4 mt-2",
+                      attrs: {
+                        "icon-pack": "feather",
+                        icon: "icon-arrow-left",
+                        to: { name: "roles" }
+                      }
+                    },
+                    [_vm._v("Volver")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-tooltip",
+                { attrs: { color: "primary", text: "Limpiar" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "ml-4 mt-2",
+                      attrs: { type: "border", color: "warning" },
+                      on: { click: _vm.reset_data }
+                    },
+                    [_vm._v("Limpiar")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1022,18 +980,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue ***!
-  \**************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=5175520c& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c&");
-/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=13f9a815& */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815&");
+/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1042,9 +1000,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1054,56 +1012,56 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c&":
-/*!*********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c& ***!
-  \*********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815& ***!
+  \*****************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=5175520c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAdd.vue?vue&type=template&id=5175520c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=13f9a815& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEdit.vue?vue&type=template&id=13f9a815&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_5175520c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_13f9a815___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=df329df4& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4&");
-/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=2371b721& */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1113,9 +1071,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1125,54 +1083,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader??ref--7-1!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4&":
-/*!*****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4& ***!
-  \*****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721& ***!
+  \*************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=df329df4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-add/itemAddSection1.vue?vue&type=template&id=df329df4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=2371b721& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/roles/item-edit/itemEditSection1.vue?vue&type=template&id=2371b721&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_df329df4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_2371b721___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

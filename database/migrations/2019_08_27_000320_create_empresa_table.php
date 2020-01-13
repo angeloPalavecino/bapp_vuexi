@@ -20,7 +20,7 @@ class CreateEmpresaTable extends Migration
             $table->string('razon_social');
             $table->string('giro')->nullable(); 
             $table->boolean('habilitado');
-            $table->timestamp('fecha_incorporacion');         
+            $table->dateTime('fecha_incorporacion');         
             $table->timestamps();
 
 

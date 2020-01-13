@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[57],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -253,85 +253,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       item_data: null,
-      item_data_documents: null,
-      item_data_conductores: null,
-      item_data_moviles: null,
+      item_data_responsables: null,
+      item_data_sucursales: null,
+      item_data_ciclo_facturacion: null,
+      item_data_ciclo_produccion: null,
       item_not_found: false,
-      urlApi: "/asociado/asociado/"
+      urlApi: "/empresas/empresas/"
     };
   },
   computed: {},
   methods: {
-    downloadDocument: function downloadDocument(id, name) {
+    confirmDeleteRecord: function confirmDeleteRecord() {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Confirmar Eliminacion",
+        text: "Este seguro que desea eliminar la siguiente empresa \"".concat(this.item_data.razon_social, "\""),
+        accept: this.deleteRecord,
+        acceptText: "Eliminar"
+      });
+    },
+    deleteRecord: function deleteRecord() {
       var _this = this;
 
-      _axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/v1/asociado/asociado/document/" + id, {
-        responseType: 'blob'
-      }).then(function (res) {
-        var a = document.createElement('a');
-        var url = window.URL.createObjectURL(res.data);
-        a.href = url;
-        a.download = name;
-        document.body.append(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
+      /* Below two lines are just for demo purpose */
+      //this.$router.push({name:'users'});
+      //this.showDeleteSuccess()
+
+      /* UnComment below lines for enabling true flow if deleting user */
+      this.$store.dispatch("itemManagement/borrarItem", {
+        Id: this.item_data.id,
+        Url: this.urlApi
+      }).then(function () {
+        _this.$router.push({
+          name: 'empresas'
+        });
+
+        _this.showDeleteSuccess();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -344,62 +308,16 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    getStatusDocs: function getStatusDocs(fecha) {
-      var factual = new Date();
-      var fvencimiento = new Date(fecha);
-      if (fvencimiento.getTime() >= factual.getTime()) return "success";
-      if (fvencimiento.getTime() <= factual.getTime()) return "danger";
-      return "danger";
-    },
-    confirmDeleteRecord: function confirmDeleteRecord() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar el siguiente asociado \"".concat(this.item_data.name, "\""),
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      });
-    },
-    deleteRecord: function deleteRecord() {
-      var _this2 = this;
-
-      /* Below two lines are just for demo purpose */
-      //this.$router.push({name:'users'});
-      //this.showDeleteSuccess()
-
-      /* UnComment below lines for enabling true flow if deleting user */
-      this.$store.dispatch("itemManagement/borrarItem", {
-        Id: this.item_data.id,
-        Url: this.urlApi
-      }).then(function () {
-        _this2.$router.push({
-          name: 'asociados'
-        });
-
-        _this2.showDeleteSuccess();
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-
-        _this2.$vs.notify({
-          title: 'Error',
-          text: textError,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      });
-    },
     showDeleteSuccess: function showDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Asociado Eliminado',
-        text: 'El asociado seleccionado ya fue eliminado'
+        title: 'Empresa Eliminada',
+        text: 'La empresa seleccionada ya fue eliminada'
       });
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this2 = this;
 
     // Register Module UserManagement Module
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
@@ -413,16 +331,17 @@ __webpack_require__.r(__webpack_exports__);
       Id: itemId,
       Url: urlApi
     }).then(function (res) {
-      _this3.item_data = res.data.item;
-      _this3.item_data_documents = res.data.documents;
-      _this3.item_data_conductores = res.data.conductores;
-      _this3.item_data_moviles = res.data.moviles;
+      _this2.item_data = res.data.item;
+      _this2.item_data_responsables = res.data.responsables;
+      _this2.item_data_sucursales = res.data.sucursales;
+      _this2.item_data_ciclo_facturacion = res.data.cicfac[0];
+      _this2.item_data_ciclo_produccion = res.data.cicpro[0];
     }).catch(function (err) {
       if (err.response.status === 404) {
-        _this3.item_not_found = true;
+        _this2.item_not_found = true;
         return;
       } else if (err.response.status == 300) {
-        _this3.$vs.notify({
+        _this2.$vs.notify({
           title: 'Error',
           text: err.response.data.message,
           color: 'danger',
@@ -430,7 +349,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'icon-alert-circle'
         });
       } else {
-        _this3.$vs.notify({
+        _this2.$vs.notify({
           title: 'Error',
           text: err,
           color: 'danger',
@@ -444,14 +363,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -463,15 +382,15 @@ exports.push([module.i, "#avatar-col {\n  width: 10rem;\n}\n#page-item-view tabl
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -485,7 +404,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -493,10 +412,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c&":
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -517,7 +436,7 @@ var render = function() {
         {
           attrs: {
             color: "danger",
-            title: "Asociado no encontrado",
+            title: "Empresa no encontrada",
             active: _vm.item_not_found
           },
           on: {
@@ -529,7 +448,7 @@ var render = function() {
         [
           _c("span", [
             _vm._v(
-              "El asociado con id: " +
+              "La empresa con id: " +
                 _vm._s(_vm.$route.params.itemId) +
                 " no fue encontrado. "
             )
@@ -543,9 +462,9 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "text-inherit underline",
-                  attrs: { to: { name: "asociados" } }
+                  attrs: { to: { name: "empresas" } }
                 },
-                [_vm._v("Todos los asociados")]
+                [_vm._v("Todos las empresas")]
               )
             ],
             1
@@ -604,56 +523,34 @@ var render = function() {
                         _c("table", [
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Nombre")
+                              _vm._v("Razon social")
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.name) + " ")])
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.razon_social) + " ")
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Apellido")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.lastname))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("RUT")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.rut))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Email")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Telefono")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.telefono))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Conductor")
+                              _vm._v("Rut")
                             ]),
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                _vm._s(
-                                  _vm.item_data.conductor === 1 ? "Si" : "No"
-                                )
+                                _vm._s(_vm.item_data.rut) +
+                                  " - " +
+                                  _vm._s(_vm.item_data.dv)
                               )
                             ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Giro")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item_data.giro))])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
@@ -677,50 +574,34 @@ var render = function() {
                         _c("table", [
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Clase")
+                              _vm._v("Fecha Incorporacion")
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.clase))])
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.fecha_incorporacion))
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Direccion")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.direccion))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Comuna")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.comuna))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Numeracion")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.numeracion))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Conductor por defecto")
+                              _vm._v("Habilitado")
                             ]),
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.item_data.driver_default === 1
-                                    ? "Si"
-                                    : "No"
+                                  _vm.item_data.habilitado === 1 ? "Si" : "No"
                                 )
                               )
                             ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v(" ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(" ")])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
@@ -733,319 +614,151 @@ var render = function() {
                         ])
                       ]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "vx-col flex-1",
+                        attrs: { id: "account-info-col-2" }
+                      },
+                      [
+                        _c("vs-divider", { attrs: { color: "primary" } }, [
+                          _c("h5", [_vm._v("Ciclo produccion")])
+                        ]),
+                        _vm._v(" "),
+                        _c("table", [
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Tipo")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_produccion.dias === 0
+                                    ? "Personalizado"
+                                    : "Por defecto (Mes Completo)"
+                                )
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Desde")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_produccion.dias === 0
+                                    ? "Dia " +
+                                        _vm.item_data_ciclo_produccion.inicio
+                                    : "-"
+                                )
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Hasta")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_produccion.dias === 0
+                                    ? "Dia " +
+                                        _vm.item_data_ciclo_produccion.fin
+                                    : "-"
+                                )
+                              )
+                            ])
+                          ])
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "vx-col flex-1",
+                        attrs: { id: "account-info-col-2" }
+                      },
+                      [
+                        _c("vs-divider", { attrs: { color: "primary" } }, [
+                          _c("h5", [_vm._v("Ciclo facturacion")])
+                        ]),
+                        _vm._v(" "),
+                        _c("table", [
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Tipo")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_facturacion.dias === 0
+                                    ? "Personalizado"
+                                    : "Por " +
+                                        _vm.item_data_ciclo_facturacion.dias +
+                                        " dias"
+                                )
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Desde")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_facturacion.dias === 0
+                                    ? "Dia " +
+                                        _vm.item_data_ciclo_facturacion.inicio
+                                    : "-"
+                                )
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Hasta")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.item_data_ciclo_facturacion.dias === 0
+                                    ? "Dia " +
+                                        _vm.item_data_ciclo_facturacion.fin
+                                    : "-"
+                                )
+                              )
+                            ])
+                          ])
+                        ])
+                      ],
+                      1
+                    )
                   ])
                 ]
               ),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c(
-                      "vx-card",
-                      {
-                        staticClass: "mb-base",
-                        attrs: { title: "Conductores", collapseAction: "" }
-                      },
-                      [
-                        _c("div", { staticClass: "vx-row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "vx-col w-full" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "flex items-end px-3" },
-                                [
-                                  _c("feather-icon", {
-                                    staticClass: "mr-2",
-                                    attrs: {
-                                      svgClasses: "w-6 h-6",
-                                      icon: "UsersIcon"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "font-medium text-lg leading-none"
-                                    },
-                                    [_vm._v("Detalle")]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("vs-divider")
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "block overflow-x-auto" },
-                          [
-                            _c(
-                              "vs-table",
-                              {
-                                attrs: {
-                                  "max-items": "4",
-                                  pagination: "",
-                                  data: _vm.item_data_conductores
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var data = ref.data
-                                        return _vm._l(data, function(
-                                          trcon,
-                                          indextrcon
-                                        ) {
-                                          return _c(
-                                            "vs-tr",
-                                            { key: indextrcon },
-                                            [
-                                              _c(
-                                                "vs-td",
-                                                { attrs: { colspan: "2" } },
-                                                [
-                                                  _vm._v(
-                                                    "\n                    " +
-                                                      _vm._s(trcon.name) +
-                                                      " " +
-                                                      _vm._s(trcon.lastname) +
-                                                      "\n                    "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("vs-td", [
-                                                _vm._v(
-                                                  "\n                      " +
-                                                    _vm._s(trcon.numero_movil) +
-                                                    "\n                   "
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("vs-td", [
-                                                _vm._v(
-                                                  "\n                     " +
-                                                    _vm._s(
-                                                      trcon.driver_default === 1
-                                                        ? "Si"
-                                                        : "No"
-                                                    ) +
-                                                    "\n                   "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
-                                        })
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  991897198
-                                )
-                              },
-                              [
-                                _c("template", { slot: "header" }),
-                                _vm._v(" "),
-                                _c(
-                                  "template",
-                                  { slot: "thead" },
-                                  [
-                                    _c("vs-th", { attrs: { colspan: "2" } }, [
-                                      _vm._v(
-                                        "\n                     Nombre\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [
-                                      _vm._v(
-                                        "\n                    N° movil\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [
-                                      _vm._v(
-                                        "\n                    Por defecto\n                  "
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              2
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c(
-                      "vx-card",
-                      {
-                        staticClass: "mb-base",
-                        attrs: { title: "Moviles", collapseAction: "" }
-                      },
-                      [
-                        _c("div", { staticClass: "vx-row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "vx-col w-full" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "flex items-end px-3" },
-                                [
-                                  _c("feather-icon", {
-                                    staticClass: "mr-2",
-                                    attrs: {
-                                      svgClasses: "w-6 h-6",
-                                      icon: "TruckIcon"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "font-medium text-lg leading-none"
-                                    },
-                                    [_vm._v("Detalle")]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("vs-divider")
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "block overflow-x-auto" },
-                          [
-                            _c(
-                              "vs-table",
-                              {
-                                attrs: {
-                                  "max-items": "4",
-                                  pagination: "",
-                                  data: _vm.item_data_moviles
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var data = ref.data
-                                        return _vm._l(data, function(
-                                          trmov,
-                                          indextrmov
-                                        ) {
-                                          return _c(
-                                            "vs-tr",
-                                            { key: indextrmov },
-                                            [
-                                              _c("vs-td", [
-                                                _vm._v(
-                                                  "\n                    " +
-                                                    _vm._s(trmov.patente) +
-                                                    " \n                    "
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("vs-td", [
-                                                _vm._v(
-                                                  "\n                      " +
-                                                    _vm._s(trmov.numero_movil) +
-                                                    "\n                   "
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("vs-td", [
-                                                _vm._v(
-                                                  "\n                     " +
-                                                    _vm._s(trmov.asientos) +
-                                                    "\n                   "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
-                                        })
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  2243654254
-                                )
-                              },
-                              [
-                                _c("template", { slot: "header" }),
-                                _vm._v(" "),
-                                _c(
-                                  "template",
-                                  { slot: "thead" },
-                                  [
-                                    _c("vs-th", [
-                                      _vm._v(
-                                        "\n                     Patente\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [
-                                      _vm._v(
-                                        "\n                    N° movil\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [
-                                      _vm._v(
-                                        "\n                    N° asientos\n                  "
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              2
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
               _vm._v(" "),
               _c(
                 "vx-card",
                 {
                   staticClass: "mb-base",
-                  attrs: { title: "Documentos", collapseAction: "" }
+                  attrs: { title: "Responsables", collapseAction: "" }
                 },
                 [
                   _c("div", { staticClass: "vx-row" }, [
@@ -1059,7 +772,10 @@ var render = function() {
                           [
                             _c("feather-icon", {
                               staticClass: "mr-2",
-                              attrs: { svgClasses: "w-6 h-6", icon: "FileIcon" }
+                              attrs: {
+                                svgClasses: "w-6 h-6",
+                                icon: "UsersIcon"
+                              }
                             }),
                             _vm._v(" "),
                             _c(
@@ -1089,7 +805,7 @@ var render = function() {
                           attrs: {
                             "max-items": "4",
                             pagination: "",
-                            data: _vm.item_data_documents
+                            data: _vm.item_data_responsables
                           },
                           scopedSlots: _vm._u(
                             [
@@ -1098,79 +814,36 @@ var render = function() {
                                 fn: function(ref) {
                                   var data = ref.data
                                   return _vm._l(data, function(
-                                    trdoc,
-                                    indextrdoc
+                                    trres,
+                                    indextrres
                                   ) {
                                     return _c(
                                       "vs-tr",
-                                      { key: indextrdoc },
+                                      { key: indextrres },
                                       [
-                                        _c(
-                                          "vs-td",
-                                          { attrs: { colspan: "2" } },
-                                          [
-                                            _vm._v(
-                                              "\n                      " +
-                                                _vm._s(
-                                                  trdoc.name.split(/[.,\/-]/)[1]
-                                                ) +
-                                                "\n                    "
-                                            )
-                                          ]
-                                        ),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                      " +
+                                              _vm._s(trres.name) +
+                                              "\n                    "
+                                          )
+                                        ]),
                                         _vm._v(" "),
-                                        _c(
-                                          "vs-td",
-                                          [
-                                            _c(
-                                              "vs-chip",
-                                              {
-                                                attrs: {
-                                                  color: _vm.getStatusDocs(
-                                                    trdoc.fecha_vencimiento
-                                                  )
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    trdoc.fecha_vencimiento
-                                                  )
-                                                )
-                                              ]
-                                            )
-                                          ],
-                                          1
-                                        ),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                       " +
+                                              _vm._s(trres.email) +
+                                              "\n                    "
+                                          )
+                                        ]),
                                         _vm._v(" "),
-                                        _c(
-                                          "vs-td",
-                                          {
-                                            attrs: {
-                                              data: data[indextrdoc].url
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticStyle: {
-                                                  cursor: "pointer"
-                                                },
-                                                attrs: { rel: "nofollow" },
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.downloadDocument(
-                                                      data[indextrdoc].id,
-                                                      data[indextrdoc].name
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Descargar")]
-                                            )
-                                          ]
-                                        )
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                       " +
+                                              _vm._s(trres.telefono) +
+                                              "\n                    "
+                                          )
+                                        ])
                                       ],
                                       1
                                     )
@@ -1180,7 +853,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            3612295370
+                            4230713682
                           )
                         },
                         [
@@ -1190,21 +863,161 @@ var render = function() {
                             "template",
                             { slot: "thead" },
                             [
-                              _c("vs-th", { attrs: { colspan: "2" } }, [
+                              _c("vs-th", [
                                 _vm._v(
-                                  "\n                     Documento\n                  "
+                                  "\n                     Nombre\n                  "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("vs-th", [
                                 _vm._v(
-                                  "\n                     Vencimiento\n                  "
+                                  "\n                     Email\n                  "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("vs-th", [
                                 _vm._v(
-                                  "\n                    Descarga\n                  "
+                                  "\n                    Telefono\n                  "
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-card",
+                {
+                  staticClass: "mb-base",
+                  attrs: { title: "Sucursales", collapseAction: "" }
+                },
+                [
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "vx-col w-full" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "flex items-end px-3" },
+                          [
+                            _c("feather-icon", {
+                              staticClass: "mr-2",
+                              attrs: {
+                                svgClasses: "w-6 h-6",
+                                icon: "MapPinIcon"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "font-medium text-lg leading-none"
+                              },
+                              [_vm._v("Detalle")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("vs-divider")
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "block overflow-x-auto" },
+                    [
+                      _c(
+                        "vs-table",
+                        {
+                          attrs: {
+                            "max-items": "4",
+                            pagination: "",
+                            data: _vm.item_data_sucursales
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "default",
+                                fn: function(ref) {
+                                  var data = ref.data
+                                  return _vm._l(data, function(
+                                    trsuc,
+                                    indextrsuc
+                                  ) {
+                                    return _c(
+                                      "vs-tr",
+                                      { key: indextrsuc },
+                                      [
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                      " +
+                                              _vm._s(trsuc.nombre) +
+                                              "\n                    "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                      " +
+                                              _vm._s(trsuc.direccion) +
+                                              "\n                    "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                      " +
+                                              _vm._s(
+                                                trsuc.matriz === 1 ? "Si" : "No"
+                                              ) +
+                                              "\n                    "
+                                          )
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  })
+                                }
+                              }
+                            ],
+                            null,
+                            false,
+                            2616758121
+                          )
+                        },
+                        [
+                          _c("template", { slot: "header" }),
+                          _vm._v(" "),
+                          _c(
+                            "template",
+                            { slot: "thead" },
+                            [
+                              _c("vs-th", [
+                                _vm._v(
+                                  "\n                     Nombre\n                  "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("vs-th", [
+                                _vm._v(
+                                  "\n                     Direccion\n                  "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("vs-th", [
+                                _vm._v(
+                                  "\n                    Matriz\n                  "
                                 )
                               ])
                             ],
@@ -1238,7 +1051,7 @@ var render = function() {
                             "icon-pack": "feather",
                             icon: "icon-edit",
                             to: {
-                              name: "asociados-edit",
+                              name: "empresas-edit",
                               params: { itemId: _vm.$route.params.itemId }
                             }
                           }
@@ -1260,7 +1073,7 @@ var render = function() {
                           attrs: {
                             "icon-pack": "feather",
                             icon: "icon-arrow-left",
-                            to: { name: "asociados" }
+                            to: { name: "empresas" }
                           }
                         },
                         [_vm._v("Volver")]
@@ -1530,19 +1343,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=54ca0d5c& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c&");
-/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=e7c8eebc& */ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc&");
+/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1553,8 +1366,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1564,54 +1377,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!********************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \********************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c&":
-/*!*****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c& ***!
-  \*****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc& ***!
+  \********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=54ca0d5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-view/itemView.vue?vue&type=template&id=54ca0d5c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=e7c8eebc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-view/itemView.vue?vue&type=template&id=e7c8eebc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_54ca0d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_e7c8eebc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

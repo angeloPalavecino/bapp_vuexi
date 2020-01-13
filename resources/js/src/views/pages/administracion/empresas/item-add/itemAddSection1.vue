@@ -119,7 +119,7 @@
                <vs-divider color="primary"><h5>Responsables</h5></vs-divider>
             </div>
 
-           <vs-input v-validate="'required|min:1'" type="hidden" name="responsable_cantidad" v-model="cantidadResponsables"/>
+           <vs-input v-validate="'required|min_value:1'" type="hidden" name="responsable_cantidad" v-model="cantidadResponsables"/>
            <span class="text-danger text-sm" v-show="errors.has('step-2.responsable_cantidad')" >{{ errors.first('step-2.responsable_cantidad') }}</span>
   
 
@@ -242,7 +242,7 @@
                <vs-divider color="primary"><h5>Sucursales</h5></vs-divider>
             </div>
 
-           <vs-input v-validate="'required|min:1'" type="hidden" name="sucursal_cantidad" v-model="cantidadSucursales"/>
+           <vs-input v-validate="'required|min_value:1'" type="hidden" name="sucursal_cantidad" v-model="cantidadSucursales"/>
            <span class="text-danger text-sm" v-show="errors.has('step-3.sucursal_cantidad')" >{{ errors.first('step-3.sucursal_cantidad') }}</span>
   
 
@@ -436,7 +436,7 @@ const dict = {
         },
         responsable_cantidad :{
             required: 'Debe ingresar al menos un responsable',
-            min: 'Debe ingresar al menos un responsable'
+            min_value: 'Debe ingresar al menos un responsable'
         },
         sucursal_nombre : {
             required: 'El nombre es requerido',
@@ -446,7 +446,7 @@ const dict = {
         },
         sucursal_cantidad :{
             required: 'Debe ingresar al menos una sucursal',
-            min: 'Debe ingresar al menos una sucursal'
+            min_value: 'Debe ingresar al menos una sucursal'
         },
         cicprod_tipo:{
             required: 'El tipo es requerido',
@@ -545,9 +545,11 @@ export default {
     },
      eliminarSucursal(index, data){
         this.sucursales.splice(index, 1)
+        this.cantidadSucursales = this.sucursales.length;
     },
     limpiarSucursal(){
         this.sucursal = {};
+        this.errors.clear();
     },
     agregarSucursal() {
            this.$validator.validateAll("suc").then(result => {
@@ -565,7 +567,7 @@ export default {
                       this.sucursal = {
                           matriz:0,
                       };
-
+                      this.errors.clear();
                       //resolve(true);
                    
                    } else {
@@ -575,9 +577,11 @@ export default {
      },
     eliminarResponsable(index, data){
         this.responsables.splice(index, 1)
+        this.cantidadResponsables = this.responsables.length;
     },
     limpiarResponsable(){
         this.responsable = {};
+        this.errors.clear();
     },
     agregarResponsable() {
            this.$validator.validateAll("res").then(result => {
@@ -586,6 +590,7 @@ export default {
                       this.responsables.push(this.responsable);
                       this.cantidadResponsables = this.responsables.length;
                       this.responsable = {};
+                      this.errors.clear();
                      // resolve(true);
                    
                    } else {

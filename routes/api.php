@@ -408,7 +408,7 @@ Route::prefix('v1')->group(function () {
            Route::post('codificaciones/store', 'CodificacionesController@store');
            Route::get('codificaciones/{id}/edit', 'CodificacionesController@edit');
            Route::post('codificaciones/importar', 'CodificacionesController@importar');
-      //     Route::get('patrones/combo/{id}', 'CodificacionesController@combo');
+           Route::get('combo/{id}', 'CodificacionesController@combo');
       // });
 
       });

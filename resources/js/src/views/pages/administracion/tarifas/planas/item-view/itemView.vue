@@ -36,7 +36,7 @@
          <template slot="header">
 
 <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <vs-dropdown   class="cursor-pointer">
 
             <div class="p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32">
               <span class="mr-2 leading-none">Acciones</span>

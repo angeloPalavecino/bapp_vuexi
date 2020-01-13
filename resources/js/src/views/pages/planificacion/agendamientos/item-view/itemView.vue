@@ -36,27 +36,27 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Rut</td>
+                <td class="font-semibold">Rut : </td>
                 <td>{{ item_data.rut }} </td>
               </tr>
               <tr>
-                <td class="font-semibold">Nombre</td>
+                <td class="font-semibold">Nombre : </td>
                 <td>{{ item_data.nombre }} - {{ item_data.apellido }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Direccion</td>
+                <td class="font-semibold">Direccion : </td>
                 <td>{{ item_data.direccion }}</td>
               </tr>
                <tr>
-                <td class="font-semibold">Comuna</td>
+                <td class="font-semibold">Comuna : </td>
                 <td>{{ item_data.comuna }}</td>
               </tr>
                <tr>
-                <td class="font-semibold">Empresa</td>
+                <td class="font-semibold">Empresa : </td>
                 <td>{{ item_data.razon_social }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Creado el</td>
+                <td class="font-semibold">Creado el : </td>
                 <td>{{ item_data.created_at }}</td>
               </tr>
             </table>
@@ -67,15 +67,15 @@
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
-                <td class="font-semibold">Email</td>
+                <td class="font-semibold">Email : </td>
                 <td>{{ item_data.email }}</td>
               </tr>
                <tr>
-                <td class="font-semibold">Telefono</td>
+                <td class="font-semibold">Telefono : </td>
                 <td>{{ item_data.telefono }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Centro de costo</td>
+                <td class="font-semibold">Centro de costo : </td>
                 <td>{{ item_data.centro_costo }}</td>
               </tr>
               <tr>
@@ -83,11 +83,11 @@
                 <td>&nbsp;</td>
               </tr>
                <tr>
-                <td class="font-semibold">Sucursal</td>
+                <td class="font-semibold">Sucursal : </td>
                 <td>{{ item_data.sucursal }}</td>
               </tr>
                <tr>
-                <td class="font-semibold">Ultima Actualizacion</td>
+                <td class="font-semibold">Ultima Actualizacion : </td>
                 <td>{{ item_data.updated_at }}</td>
               </tr>
             </table>
@@ -102,16 +102,20 @@
             
             <table>
               <tr>
-                <td class="font-semibold">Fecha</td>
-                <td>{{ item_data.fecha }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Movil Plan</td>
-                <td>{{ item_data.movil_plan }}</td>
+                <td class="font-semibold">Fecha Inicio : </td>
+                <td>{{ new Date(item_data.fecha_inicio).toLocaleDateString('en-GB') }}</td>
               </tr>
                 <tr>
-                <td class="font-semibold">Horario Plan</td>
+                <td class="font-semibold">Horario Plan : </td>
                 <td>{{ item_data.horario_plan }}</td>
+              </tr>
+                 <tr>
+                <td class="font-semibold">Estado : </td>
+                <td>
+                  <vs-chip class="ag-grid-cell-chip mt-2" :color="chipColor(item_data.estado)">
+                  <span>{{ item_data.estado === true ? 'Activo':'Vencido' }}</span>
+                  </vs-chip>    
+                </td>
               </tr>
               
             </table>
@@ -122,16 +126,12 @@
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
              <tr>
-                <td class="font-semibold">Conductor Plan</td>
-                <td>{{ item_data.nombre_conductor_plan }} {{ item_data.apellido_conductor_plan }}</td>
+                <td class="font-semibold">Fecha Termino : </td>
+                <td>{{ new Date(item_data.fecha_fin).toLocaleDateString('en-GB') }}</td>
               </tr>
                <tr>
-                <td class="font-semibold">Tipo</td>
+                <td class="font-semibold">Tipo : </td>
                 <td>{{ item_data.tipo }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Tipo Periodo</td>
-                <td>{{ item_data.tipo_periodo }}</td>
               </tr>
             </table>
           </div>
@@ -176,6 +176,12 @@ export default {
   computed: {
   },
   methods: {
+    chipColor(value) {
+        if(value === true) return "success"
+        else if(value === false) return "danger"
+        else return "success"
+  
+    },
     confirmDeleteRecord() {
       this.$vs.dialog({
         type: 'confirm',
@@ -226,14 +232,17 @@ export default {
       .then(res => { 
           
             this.item_data = res.data.item
-            if(res.data.item.tipo_periodo === 1){
-              this.item_data.tipo_periodo = "Diario";
-            }else if(res.data.item.tipo_periodo === 2){
-              this.item_data.tipo_periodo = "Mensual";
-            }else{
-              this.item_data.tipo_periodo = "Permanente";
-            }
 
+            var fecha = new Date().toLocaleDateString('en-GB');
+            var fecha_inicio = new Date(res.data.item.fecha_inicio).toLocaleDateString('en-GB');
+            var fecha_fin = new Date(res.data.item.fecha_fin).toLocaleDateString('en-GB');
+              
+
+            if(fecha >= fecha_inicio && fecha <= fecha_fin){
+               this.item_data.estado = true;
+            }else{
+               this.item_data.estado = false;
+            }
           
         })
       .catch(err => {
@@ -317,6 +326,24 @@ only screen and (min-width:636px) and (max-width:991px) {
   //   }
   // }
 
+}
+
+.ag-grid-cell-chip {
+  &.vs-chip-success {
+    background: rgba(var(--vs-success),.15);
+    color: rgba(var(--vs-success),1) !important;
+    font-weight: 500;
+  }
+  &.vs-chip-warning {
+    background: rgba(var(--vs-warning),.15);
+    color: rgba(var(--vs-warning),1) !important;
+    font-weight: 500;
+  }
+  &.vs-chip-danger {
+    background: rgba(var(--vs-danger),.15);
+    color: rgba(var(--vs-danger),1) !important;
+    font-weight: 500;
+  }
 }
 
 </style>
