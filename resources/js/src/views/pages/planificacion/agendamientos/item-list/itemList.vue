@@ -32,10 +32,15 @@
 
       </div>
 
-      <div class="vx-row">
+      <div class="vx-row mt-2">
          <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">Estado</label>
           <v-select :options="estadoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="estadoFilter" class="mb-4 md:mb-0" />
+        </div>
+
+        <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Periodo</label>
+          <v-select :options="periodoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="periodoFilter" class="mb-4 md:mb-0" />
         </div>
 
       </div>
@@ -209,6 +214,14 @@ export default {
         { label: 'Vencido', value: false },
       ],
 
+      periodoFilter: { label: 'Todos', value: 'all' },
+      periodoOptions: [
+        { label: 'Todos', value: 'all' }, 
+        { label: 'Diario', value: 'Diario' },
+        { label: 'Mensual', value: 'Mensual' },
+        { label: 'Permanente', value: 'Permanente' },
+      ],
+
 
       sucursalFilter: { label: 'Todos', value: 'all', id:0 },
       sucursalOptions: [
@@ -260,22 +273,38 @@ export default {
           headerName: 'Estado',
           colId: 'estado',
           filter: true,
-          minWidth: 130,
+          minWidth: 110,
           valueGetter: function(params) {
-            var fecha = new Date().toLocaleDateString('en-GB');
-            var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
-            var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
-              
-
-            if(fecha >= fecha_inicio && fecha <= fecha_fin){
-               return true;
-            }else{
+            var fecha = new Date();
+            var fecha_fin = new Date(params.data.fecha_fin);
+            
+            if(fecha > fecha_fin){
                return false;
+            }else{
+               return true;
             }
 
           },
           cellRendererFramework: 'CellRendererStatus'       
           
+        },
+        {
+          headerName: 'Periodo',
+          field: 'periodo',
+          filter: true,
+          minWidth: 140,
+            valueGetter: function(params) {
+            
+            if(params.data.tipo_fecha == 1){
+              var periodo = "Diario";
+            }else if(params.data.tipo_fecha == 2){
+              var periodo = "Mensual";
+            }else{
+              var periodo = "Permanente";
+            }
+
+            return periodo;
+          },
         },
          {
           headerName: 'Inicio',
@@ -342,6 +371,9 @@ export default {
     }
   },
   watch: {
+    periodoFilter(obj){
+      this.setColumnFilter("periodo",obj.value)
+    },
     estadoFilter(obj){
       this.setColumnFilter("estado",obj.value)
     },
@@ -449,7 +481,7 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = { label: 'Todos', value: 'all' }
+      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = this.periodoFilter  = { label: 'Todos', value: 'all' }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },

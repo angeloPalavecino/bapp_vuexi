@@ -300,6 +300,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -351,6 +356,23 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Vencido',
         value: false
+      }],
+      periodoFilter: {
+        label: 'Todos',
+        value: 'all'
+      },
+      periodoOptions: [{
+        label: 'Todos',
+        value: 'all'
+      }, {
+        label: 'Diario',
+        value: 'Diario'
+      }, {
+        label: 'Mensual',
+        value: 'Mensual'
+      }, {
+        label: 'Permanente',
+        value: 'Permanente'
       }],
       sucursalFilter: {
         label: 'Todos',
@@ -415,19 +437,34 @@ __webpack_require__.r(__webpack_exports__);
         headerName: 'Estado',
         colId: 'estado',
         filter: true,
-        minWidth: 130,
+        minWidth: 110,
         valueGetter: function valueGetter(params) {
-          var fecha = new Date().toLocaleDateString('en-GB');
-          var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
-          var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
+          var fecha = new Date();
+          var fecha_fin = new Date(params.data.fecha_fin);
 
-          if (fecha >= fecha_inicio && fecha <= fecha_fin) {
-            return true;
-          } else {
+          if (fecha > fecha_fin) {
             return false;
+          } else {
+            return true;
           }
         },
         cellRendererFramework: 'CellRendererStatus'
+      }, {
+        headerName: 'Periodo',
+        field: 'periodo',
+        filter: true,
+        minWidth: 140,
+        valueGetter: function valueGetter(params) {
+          if (params.data.tipo_fecha == 1) {
+            var periodo = "Diario";
+          } else if (params.data.tipo_fecha == 2) {
+            var periodo = "Mensual";
+          } else {
+            var periodo = "Permanente";
+          }
+
+          return periodo;
+        }
       }, {
         headerName: 'Inicio',
         field: 'fecha_inicio',
@@ -483,6 +520,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
+    periodoFilter: function periodoFilter(obj) {
+      this.setColumnFilter("periodo", obj.value);
+    },
     estadoFilter: function estadoFilter(obj) {
       this.setColumnFilter("estado", obj.value);
     },
@@ -589,7 +629,7 @@ __webpack_require__.r(__webpack_exports__);
       this.gridApi.setFilterModel(null);
       this.gridApi.onFilterChanged(); // Reset Filter Options
 
-      this.horarioFilter = this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = {
+      this.horarioFilter = this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = this.periodoFilter = {
         label: 'Todos',
         value: 'all'
       };
@@ -1066,7 +1106,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
+          _c("div", { staticClass: "vx-row mt-2" }, [
             _c(
               "div",
               { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
@@ -1088,6 +1128,33 @@ var render = function() {
                       _vm.estadoFilter = $$v
                     },
                     expression: "estadoFilter"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
+              [
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Periodo")
+                ]),
+                _vm._v(" "),
+                _c("v-select", {
+                  staticClass: "mb-4 md:mb-0",
+                  attrs: {
+                    options: _vm.periodoOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.periodoFilter,
+                    callback: function($$v) {
+                      _vm.periodoFilter = $$v
+                    },
+                    expression: "periodoFilter"
                   }
                 })
               ],

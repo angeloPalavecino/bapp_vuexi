@@ -252,14 +252,13 @@ __webpack_require__.r(__webpack_exports__);
       Url: urlApi
     }).then(function (res) {
       _this2.item_data = res.data.item;
-      var fecha = new Date().toLocaleDateString('en-GB');
-      var fecha_inicio = new Date(res.data.item.fecha_inicio).toLocaleDateString('en-GB');
-      var fecha_fin = new Date(res.data.item.fecha_fin).toLocaleDateString('en-GB');
+      var fecha = new Date();
+      var fecha_fin = new Date(res.data.item.fecha_fin);
 
-      if (fecha >= fecha_inicio && fecha <= fecha_fin) {
-        _this2.item_data.estado = true;
-      } else {
+      if (fecha > fecha_fin) {
         _this2.item_data.estado = false;
+      } else {
+        _this2.item_data.estado = true;
       }
     }).catch(function (err) {
       if (err.response.status === 404) {
@@ -631,9 +630,9 @@ var render = function() {
                                       _c("span", [
                                         _vm._v(
                                           _vm._s(
-                                            _vm.item_data.estado === true
-                                              ? "Activo"
-                                              : "Vencido"
+                                            _vm.item_data.estado == false
+                                              ? "Vencido"
+                                              : "Activo"
                                           )
                                         )
                                       ])

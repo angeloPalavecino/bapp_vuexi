@@ -113,7 +113,7 @@
                 <td class="font-semibold">Estado : </td>
                 <td>
                   <vs-chip class="ag-grid-cell-chip mt-2" :color="chipColor(item_data.estado)">
-                  <span>{{ item_data.estado === true ? 'Activo':'Vencido' }}</span>
+                  <span>{{ item_data.estado == false ? 'Vencido':'Activo' }}</span>
                   </vs-chip>    
                 </td>
               </tr>
@@ -233,15 +233,13 @@ export default {
           
             this.item_data = res.data.item
 
-            var fecha = new Date().toLocaleDateString('en-GB');
-            var fecha_inicio = new Date(res.data.item.fecha_inicio).toLocaleDateString('en-GB');
-            var fecha_fin = new Date(res.data.item.fecha_fin).toLocaleDateString('en-GB');
+            var fecha = new Date();
+            var fecha_fin = new Date(res.data.item.fecha_fin);
               
-
-            if(fecha >= fecha_inicio && fecha <= fecha_fin){
-               this.item_data.estado = true;
-            }else{
+            if(fecha > fecha_fin){
                this.item_data.estado = false;
+            }else{
+               this.item_data.estado = true;
             }
           
         })

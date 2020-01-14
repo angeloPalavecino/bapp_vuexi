@@ -25,7 +25,7 @@ __webpack_require__.r(__webpack_exports__);
       /*
         Below line will be for actual product
         Currently it's commented due to demo purpose - Above url is for demo purpose
-          this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
+         this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
       */
     },
     editRecord: function editRecord() {
@@ -33,7 +33,7 @@ __webpack_require__.r(__webpack_exports__);
       /*
         Below line will be for actual product
         Currently it's commented due to demo purpose - Above url is for demo purpose
-          this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
+         this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
       */
     },
     confirmDeleteRecord: function confirmDeleteRecord() {

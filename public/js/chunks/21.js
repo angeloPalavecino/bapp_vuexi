@@ -335,7 +335,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../../no
 
 
 // module
-exports.push([module.i, "[dir] .vs-input-number {\n  margin:0px !important;\n}\r\n", ""]);
+exports.push([module.i, "[dir] .vs-input-number {\n  margin:0px !important;\n}\n", ""]);
 
 // exports
 
