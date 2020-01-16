@@ -41,7 +41,7 @@
               </tr>
               <tr>
                 <td class="font-semibold">Nombre : </td>
-                <td>{{ item_data.nombre }} - {{ item_data.apellido }}</td>
+                <td>{{ item_data.nombre }}  {{ item_data.apellido }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Direccion : </td>

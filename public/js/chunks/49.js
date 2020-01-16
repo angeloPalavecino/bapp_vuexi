@@ -71,12 +71,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var flatpickr_dist_plugins_monthSelect_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flatpickr/dist/plugins/monthSelect/index.js */ "./node_modules/flatpickr/dist/plugins/monthSelect/index.js");
-/* harmony import */ var flatpickr_dist_plugins_monthSelect_index_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_plugins_monthSelect_index_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var flatpickr_dist_plugins_monthSelect_style_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! flatpickr/dist/plugins/monthSelect/style.css */ "./node_modules/flatpickr/dist/plugins/monthSelect/style.css");
-/* harmony import */ var flatpickr_dist_plugins_monthSelect_style_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_plugins_monthSelect_style_css__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__);
 //
 //
 //
@@ -317,9 +313,9 @@ var dict = {
 vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
 
+ //import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect/index.js';
 
-
-
+ //import 'flatpickr/dist/plugins/monthSelect/style.css';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -462,10 +458,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   },
   watch: {
     empresa: function empresa(obj) {
-      this.traeSucursales(obj);
+      this.sucursal = null, this.data_local.horario = null, this.sucursalesOptions = [], this.horariosOptions = [], this.traeSucursales(obj);
     },
     sucursal: function sucursal(obj) {
-      this.traeHorarios(obj);
+      this.data_local.horario = null, this.horariosOptions = [], this.codificacionesOptions = [], this.cantidadCodificaciones = null, this.selected = [], this.traeHorarios(obj);
       this.traecodificaciones(obj);
     }
   },

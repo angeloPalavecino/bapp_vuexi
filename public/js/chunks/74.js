@@ -461,7 +461,7 @@ var render = function() {
                             _c("td", [
                               _vm._v(
                                 _vm._s(_vm.item_data.nombre) +
-                                  " - " +
+                                  "  " +
                                   _vm._s(_vm.item_data.apellido)
                               )
                             ])

@@ -18,8 +18,7 @@
     </vs-alert>
 
     <vx-card v-if="item_data">
-      <item-edit-section1 class="mt-4" :data="item_data"  :data_responsables="item_data_responsables" :data_sucursales="item_data_sucursales"
-      :data_cicfacturacion="item_data_ciclo_facturacion" :data_cicproduccion="item_data_ciclo_produccion"/>
+      <item-edit-section1 class="mt-4" :data="item_data" />
     </vx-card>
   </div>
 </template>
@@ -51,7 +50,12 @@ export default {
       
       this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: this.urlApi  })
         .then(res => { 
-          this.item_data = res.data.item        
+          this.item_data = res.data.item 
+          if(this.item_data.tipo_fecha === 2){
+            var fecha = new Date(res.data.item.fecha_inicio)
+            this.item_data.ano = fecha.getFullYear();
+            this.item_data.mes = fecha.getMonth() + 1;
+          }    
         })
         .catch(err => {
           if(err.response.status === 404) {

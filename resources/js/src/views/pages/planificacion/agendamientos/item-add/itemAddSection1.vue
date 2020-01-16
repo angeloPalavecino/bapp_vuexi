@@ -241,9 +241,9 @@ Validator.localize('en', dict);
 import { FormWizard, TabContent } from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import flatPickr from 'vue-flatpickr-component';
-import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect/index.js';
+//import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect/index.js';
 import 'flatpickr/dist/flatpickr.css';
-import 'flatpickr/dist/plugins/monthSelect/style.css';
+//import 'flatpickr/dist/plugins/monthSelect/style.css';
 
 
 export default {
@@ -327,9 +327,23 @@ export default {
   },
   watch: {
     empresa(obj) {
+
+      this.sucursal = null,
+      this.data_local.horario = null,
+      this.sucursalesOptions = [],
+      this.horariosOptions = [],      
+
       this.traeSucursales(obj)
     },
     sucursal(obj){     
+   
+      this.data_local.horario = null,
+      this.horariosOptions = [],  
+      
+      this.codificacionesOptions = [],
+      this.cantidadCodificaciones = null,
+      this.selected = [], 
+
       this.traeHorarios(obj);
       this.traecodificaciones(obj);
     },

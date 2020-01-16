@@ -36,7 +36,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
  // Store Module
 
 
@@ -65,6 +64,12 @@ __webpack_require__.r(__webpack_exports__);
         Url: this.urlApi
       }).then(function (res) {
         _this.item_data = res.data.item;
+
+        if (_this.item_data.tipo_fecha === 2) {
+          var fecha = new Date(res.data.item.fecha_inicio);
+          _this.item_data.ano = fecha.getFullYear();
+          _this.item_data.mes = fecha.getMonth() + 1;
+        }
       }).catch(function (err) {
         if (err.response.status === 404) {
           _this.item_not_found = true;
@@ -115,301 +120,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -553,378 +267,232 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
+ //import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect/index.js';
+
+ //import 'flatpickr/dist/plugins/monthSelect/style.css';
 
 var dict = {
   custom: {
-    razon_social: {
-      required: 'El nombre es requerido'
+    horario: {
+      required: 'El horario es requerido'
     },
-    rut: {
-      required: 'El rut es requerido',
-      numeric: 'Debe ingresar solo numeros'
-    },
-    dv: {
-      required: 'El digito verificador es requerido',
-      max: 'Debe ingresar solo 1 caracter'
-    },
-    fecha_incorporacion: {
-      required: 'La fecha de incorporacion es requerido'
-    },
-    responsable_nombre: {
-      required: 'El nombre es requerido'
-    },
-    responsable_telefono: {
-      required: 'El telefono es requerido',
-      numeric: 'El numero de telefono debe ser valido'
-    },
-    responsable_email: {
-      required: 'El email es requerido',
-      email: 'Ingrese un email valido'
-    },
-    responsable_cantidad: {
-      required: 'Debe ingresar al menos un responsable',
-      min: 'Debe ingresar al menos un responsable'
-    },
-    sucursal_nombre: {
-      required: 'El nombre es requerido'
-    },
-    sucursal_direccion: {
-      required: 'La direccion es requerido'
-    },
-    sucursal_cantidad: {
-      required: 'Debe ingresar al menos una sucursal',
-      min: 'Debe ingresar al menos una sucursal'
-    },
-    cicprod_tipo: {
+    tipo: {
       required: 'El tipo es requerido'
     },
-    cicprod_desde: {
-      required: 'El campo es requerido',
-      numeric: 'Debe ingresar solo numeros'
+    tipo_fecha: {
+      required: 'El periodo es requerido'
     },
-    cicprod_hasta: {
-      required: 'El campo es requerido',
-      numeric: 'Debe ingresar solo numeros'
+    meses: {
+      required: 'Debe seleccionar al menos un mes'
     },
-    cicfac_tipo: {
-      required: 'El tipo es requerido'
+    ano: {
+      required: 'Debe seleccionar el año'
     },
-    cicfac_desde: {
-      required: 'El campo es requerido',
-      numeric: 'Debe ingresar solo numeros'
-    },
-    cicfac_hasta: {
-      required: 'El campo es requerido',
-      numeric: 'Debe ingresar solo numeros'
+    periodos_fecha_dias: {
+      required: 'Debe seleccionar al menos un dia'
     }
   }
 }; // register custom messages
 
 vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
-
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a,
-    FormWizard: vue_form_wizard__WEBPACK_IMPORTED_MODULE_3__["FormWizard"],
-    TabContent: vue_form_wizard__WEBPACK_IMPORTED_MODULE_3__["TabContent"],
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5___default.a
+    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default.a
   },
   props: {
     data: {
       type: Object,
       required: true
-    },
-    data_responsables: {
-      type: Array,
-      required: true
-    },
-    data_sucursales: {
-      type: Array,
-      required: true
-    },
-    data_cicfacturacion: {
-      type: Object,
-      required: true
-    },
-    data_cicproduccion: {
-      type: Object,
-      required: true
     }
   },
   data: function data() {
-    var _data_local;
-
     return {
-      urlApi: "/empresas/empresas/",
-      email: null,
-      telefono: null,
-      data_local: (_data_local = {
+      urlApi: "/agendamientos/agendamientos/",
+      data_local: {
+        id: this.data.id ? this.data.id : null,
+        codificacion_id: this.data.codificacion_id ? this.data.codificacion_id : null,
+        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        sucursal_id: this.data.sucursal_id ? this.data.sucursal_id : null,
+        mes: this.data.mes ? this.data.mes : null,
+        ano: this.data.ano ? this.data.ano : null,
+        tipo: this.data.tipo ? this.data.tipo : null,
+        fecha: this.data.fecha_inicio ? this.data.fecha_inicio : null,
+        tipo_fecha: this.data.tipo_fecha ? this.data.tipo_fecha : null,
+        horario: this.data.horario_id ? this.data.horario_id : null,
         rut: this.data.rut ? this.data.rut : null,
-        dv: this.data.dv ? this.data.dv : null,
-        razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_data_local, "habilitado", this.data.habilitado), _defineProperty(_data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_data_local, "id", this.data.id ? this.data.id : null), _data_local),
-      cicloProduccionOptions: [{
-        text: "Por defecto (Mes Completo)",
-        value: 31
+        nombre: this.data.nombre ? this.data.nombre : null,
+        apellido: this.data.apellido ? this.data.apellido : null,
+        comuna: this.data.comuna ? this.data.comuna : null,
+        direccion: this.data.direccion ? this.data.direccion : null,
+        email: this.data.email ? this.data.email : null,
+        telefono: this.data.telefono ? this.data.telefono : null,
+        centro_costo: this.data.centro_costo ? this.data.centro_costo : null
+      },
+      empresasOptions: [],
+      sucursalesOptions: [],
+      horariosOptions: [],
+      tipoOptions: [{
+        label: 'Zarpe',
+        value: 'Zarpe'
       }, {
-        text: "Personalizado",
-        value: 0
+        label: 'Recogida',
+        value: 'Recogida'
       }],
-      ciclofacturacionOptions: [{
-        text: "Por 15 dias",
-        value: 15
+      tipofechaOptions: [{
+        label: 'Diario',
+        value: 1
       }, {
-        text: "Por 30 dias",
-        value: 30
+        label: 'Mensual',
+        value: 2
       }, {
-        text: "Por 90 dias",
-        value: 90
-      }, {
-        text: "Personalizado",
-        value: 0
+        label: 'Permanente',
+        value: 3
       }],
-      responsable: {},
-      responsables: this.data_responsables,
-      cantidadResponsables: this.data_responsables.length,
-      sucursal: {
-        matriz: 0
-      },
-      sucursales: this.data_sucursales,
-      cantidadSucursales: this.data_sucursales.length,
-      ciclofacturacion: {
-        id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
-        empresa_id: this.data_cicfacturacion.empresa_id ? this.data_cicfacturacion.empresa_id : null,
-        inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio : null,
-        fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin : null,
-        dias: this.data_cicfacturacion.dias
-      },
-      disabledcicfac: this.data_cicfacturacion.dias === 0 ? false : true,
-      cicloproduccion: {
-        id: this.data_cicproduccion.id ? this.data_cicproduccion.id : null,
-        empresa_id: this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id : null,
-        inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio : null,
-        fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
-        dias: this.data_cicproduccion.dias
-      },
-      disabledcicpro: this.data_cicproduccion.dias === 0 ? false : true
+      anosOptions: [{
+        label: '2020',
+        value: 2020
+      }, {
+        label: '2021',
+        value: 2021
+      }, {
+        label: '2022',
+        value: 2022
+      }, {
+        label: '2023',
+        value: 2023
+      }, {
+        label: '2024',
+        value: 2024
+      }, {
+        label: '2025',
+        value: 2025
+      }, {
+        label: '2026',
+        value: 2026
+      }, {
+        label: '2027',
+        value: 2027
+      }, {
+        label: '2028',
+        value: 2028
+      }, {
+        label: '2029',
+        value: 2029
+      }, {
+        label: '2030',
+        value: 2030
+      }, {
+        label: '2031',
+        value: 2031
+      }, {
+        label: '2032',
+        value: 2032
+      }, {
+        label: '2033',
+        value: 2033
+      }, {
+        label: '2034',
+        value: 2034
+      }, {
+        label: '2035',
+        value: 2035
+      }, {
+        label: '2036',
+        value: 2036
+      }, {
+        label: '2037',
+        value: 2037
+      }],
+      mesesOptions: [{
+        label: 'Enero',
+        value: 1
+      }, {
+        label: 'Febrero',
+        value: 2
+      }, {
+        label: 'Marzo',
+        value: 3
+      }, {
+        label: 'Abril',
+        value: 4
+      }, {
+        label: 'Mayo',
+        value: 5
+      }, {
+        label: 'Junio',
+        value: 6
+      }, {
+        label: 'Julio',
+        value: 7
+      }, {
+        label: 'Agosto',
+        value: 8
+      }, {
+        label: 'Septiembre',
+        value: 9
+      }, {
+        label: 'Octubre',
+        value: 10
+      }, {
+        label: 'Noviembre',
+        value: 11
+      }, {
+        label: 'Diciembre',
+        value: 12
+      }],
+      configDiasdateTimePicker: {
+        //minDate: new Date(),
+        maxDate: '2037-12-31',
+        dateFormat: "Y/m/d",
+        mode: "single"
+      }
     };
+  },
+  watch: {
+    empresa: function empresa(obj) {
+      this.data_local.sucursal_id = null, this.data_local.horario = null, this.sucursalesOptions = [], this.horariosOptions = [], this.traeSucursales(obj);
+    },
+    sucursal: function sucursal(obj) {
+      this.data_local.horario = null, this.horariosOptions = [], this.traeHorarios(obj);
+    }
   },
   computed: {
     validateForm: function validateForm() {
       return !this.errors.any();
+    },
+    sucursal: function sucursal() {
+      return this.data_local.sucursal_id;
+    },
+    empresa: function empresa() {
+      return this.data_local.empresa_id;
     }
   },
   mounted: function mounted() {
-    this.autocomplete = new google.maps.places.Autocomplete(this.$refs.autocomplete, {
-      types: ['geocode']
-    });
-    this.autocomplete.addListener('place_changed', this.asignaDireccion);
+    this.traeOtrosDatos();
+    this.traeSucursales(this.data_local.empresa_id);
+    this.traeHorarios(this.data_local.sucursal_id);
   },
   methods: {
-    asignaDireccion: function asignaDireccion() {
-      this.sucursal.direccion = this.autocomplete.getPlace().formatted_address;
-    },
-    eliminarSucursal: function eliminarSucursal(index, data) {
-      this.sucursales.splice(index, 1);
-    },
-    editarSucursal: function editarSucursal(index, data) {
-      this.sucursal = {
-        id: data.id,
-        empresa_id: data.empresa_id,
-        nombre: data.nombre,
-        direccion: data.direccion,
-        matriz: data.matriz,
-        lat: data.lat,
-        lng: data.lng
-      };
-    },
-    limpiarSucursal: function limpiarSucursal() {
-      this.sucursal = {};
-      this.errors.clear();
-    },
-    guardarSucursal: function guardarSucursal() {
-      var _this = this;
-
-      this.$validator.validateAll("suc").then(function (result) {
-        if (result) {
-          if (_this.sucursal.matriz === 1 || _this.sucursal.matriz === true) {
-            for (var x in _this.sucursales) {
-              _this.sucursales[x].matriz = false;
-            }
-          }
-
-          if (_this.sucursal.id >= 0) {
-            var itemIndex = _this.sucursales.findIndex(function (u) {
-              return u.id == _this.sucursal.id;
-            });
-
-            _this.sucursales.splice(itemIndex, 1, _this.sucursal);
-
-            _this.cantidadSucursales = _this.sucursales.length;
-            _this.sucursal = {
-              matriz: 0
-            };
-          } else {
-            _this.sucursales.push(_this.sucursal);
-
-            _this.cantidadSucursales = _this.sucursales.length;
-            _this.sucursal = {
-              matriz: 0
-            };
-          } //resolve(true);
-
-        } else {//  reject("correct all values");
-          }
-      });
-    },
-    editarResponsable: function editarResponsable(index, data) {
-      this.responsable = {
-        id: data.id,
-        empresa_id: data.empresa_id,
-        name: data.name,
-        email: data.email,
-        telefono: data.telefono
-      };
-    },
-    eliminarResponsable: function eliminarResponsable(index, data) {
-      this.responsables.splice(index, 1);
-    },
-    limpiarResponsable: function limpiarResponsable() {
-      this.responsable = {};
-      this.errors.clear();
-    },
-    guardarResponsable: function guardarResponsable() {
-      var _this2 = this;
-
-      this.$validator.validateAll("res").then(function (result) {
-        if (result) {
-          if (_this2.responsable.id >= 0) {
-            var itemIndex = _this2.responsables.findIndex(function (u) {
-              return u.id == _this2.responsable.id;
-            });
-
-            _this2.responsables.splice(itemIndex, 1, _this2.responsable);
-
-            _this2.cantidadResponsables = _this2.responsables.length;
-            _this2.responsable = {};
-          } else {
-            _this2.responsables.push(_this2.responsable);
-
-            _this2.cantidadResponsables = _this2.responsables.length;
-            _this2.responsable = {};
-          } // resolve(true);
-
-        } else {// reject("correct all values");
-          }
-      });
-    },
-    changecicprod: function changecicprod(event) {
-      if (this.cicloproduccion.dias === 0) {
-        this.disabledcicpro = false;
-      } else {
-        this.disabledcicpro = true;
-        this.cicloproduccion.inicio = 1;
-        this.cicloproduccion.fin = 1;
-        this.errors.clear();
-      }
-    },
-    changecicfac: function changecicfac(event) {
-      if (this.ciclofacturacion.dias === 0) {
-        this.disabledcicfac = false;
-      } else {
-        this.disabledcicfac = true;
-        this.ciclofacturacion.inicio = 1;
-        this.ciclofacturacion.fin = 1;
-        this.errors.clear();
-      }
-    },
-    validateStep1: function validateStep1() {
-      var _this3 = this;
-
-      return new Promise(function (resolve, reject) {
-        _this3.$validator.validateAll('step-1').then(function (result) {
-          if (result) {
-            resolve(true);
-          } else {
-            reject("correct all values");
-          }
-        });
-      });
-    },
-    validateStep2: function validateStep2() {
-      var _this4 = this;
-
-      return new Promise(function (resolve, reject) {
-        _this4.$validator.validateAll("step-2").then(function (result) {
-          if (result) {
-            resolve(true);
-          } else {
-            reject("correct all values");
-          }
-        });
-      });
-    },
-    validateStep3: function validateStep3() {
-      var _this5 = this;
-
-      return new Promise(function (resolve, reject) {
-        _this5.$validator.validateAll("step-3").then(function (result) {
-          if (result) {
-            resolve(true);
-          } else {
-            reject("correct all values");
-          }
-        });
-      });
-    },
-    validateStep4: function validateStep4() {
-      var _this6 = this;
-
-      return new Promise(function (resolve, reject) {
-        _this6.$validator.validateAll("step-4").then(function (result) {
-          if (result) {
-            _this6.save_changes();
-
-            resolve(true);
-          } else {
-            reject("correct all values");
-          }
-        });
-      });
-    },
     save_changes: function save_changes() {
-      var _this7 = this;
+      var _this = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this7.datos = [];
-
-          _this7.datos.push(_this7.data_local);
-
-          _this7.datos.push(_this7.responsables);
-
-          _this7.datos.push(_this7.sucursales);
-
-          _this7.datos.push(_this7.ciclofacturacion);
-
-          _this7.datos.push(_this7.cicloproduccion);
-
-          _this7.$store.dispatch("itemManagement/editarItem", {
-            item: _this7.datos,
-            Url: _this7.urlApi + _this7.data_local.id
+          _this.$store.dispatch("itemManagement/editarItem", {
+            item: _this.data_local,
+            Url: _this.urlApi
           }).then(function () {
-            _this7.$router.push({
-              name: 'empresas'
+            _this.$router.push({
+              name: 'agendamientos'
             });
 
-            _this7.showDeleteSuccess();
+            _this.showDeleteSuccess();
           }).catch(function (err) {
             var textError = err.response.status == 300 ? err.response.data.message : err;
 
-            _this7.$vs.notify({
+            _this.$vs.notify({
               title: 'Error',
               text: textError,
               color: 'danger',
@@ -943,28 +511,91 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       });
     },
     reset_data: function reset_data() {
-      var _this$data_local;
-
-      this.data_local = (_this$data_local = {
+      this.data_local = {
+        id: this.data.id ? this.data.id : null,
+        codificacion_id: this.data.codificacion_id ? this.data.codificacion_id : null,
+        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        sucursal_id: this.data.sucursal_id ? this.data.sucursal_id : null,
+        mes: this.data.mes ? this.data.mes : null,
+        ano: this.data.ano ? this.data.ano : null,
+        tipo: this.data.tipo ? this.data.tipo : null,
+        fecha: this.data.fecha_inicio ? this.data.fecha_inicio : null,
+        tipo_fecha: this.data.tipo_fecha ? this.data.tipo_fecha : null,
+        horario: this.data.horario_id ? this.data.horario_id : null,
         rut: this.data.rut ? this.data.rut : null,
-        dv: this.data.dv ? this.data.dv : null,
-        razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _this$data_local), this.responsable = {}, this.responsables = this.data_responsables, this.cantidadResponsables = this.data_responsables.length, this.sucursal = {
-        matriz: 0
-      }, this.sucursales = this.data_sucursales, this.cantidadSucursales = this.data_sucursales.length, this.ciclofacturacion = {
-        id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
-        empresa_id: this.data_cicfacturacion.empresa_id ? this.data_cicfacturacion.empresa_id : null,
-        inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio : null,
-        fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin : null,
-        dias: this.data_cicfacturacion.dias
-      }, this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true, this.cicloproduccion = {
-        id: this.data_cicproduccion.id ? this.data_cicproduccion.id : null,
-        empresa_id: this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id : null,
-        inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio : null,
-        fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
-        dias: this.data_cicproduccion.dias
-      }, this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true, this.$refs.wizard.reset();
+        nombre: this.data.nombre ? this.data.nombre : null,
+        apellido: this.data.apellido ? this.data.apellido : null,
+        comuna: this.data.comuna ? this.data.comuna : null,
+        direccion: this.data.direccion ? this.data.direccion : null,
+        email: this.data.email ? this.data.email : null,
+        telefono: this.data.telefono ? this.data.telefono : null,
+        centro_costo: this.data.centro_costo ? this.data.centro_costo : null
+      };
       this.errors.clear();
+    },
+    traeHorarios: function traeHorarios(value) {
+      var _this2 = this;
+
+      if (value > 0) {
+        //Combo Horarios
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/horarios/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          _this2.horariosOptions = res.data.items;
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this2.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.horariosOptions = [];
+      }
+    },
+    traeSucursales: function traeSucursales(value) {
+      var _this3 = this;
+
+      if (value > 1) {
+        //Combo Sucursales
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          _this3.sucursalesOptions = res.data.items;
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this3.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.sucursalesOptions = [];
+      }
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this4 = this;
+
+      //Combo Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/listemp").then(function (res) {
+        _this4.empresasOptions = res.data.items;
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this4.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
     }
   }
 });
@@ -1037,13 +668,7 @@ var render = function() {
             [
               _c("item-edit-section1", {
                 staticClass: "mt-4",
-                attrs: {
-                  data: _vm.item_data,
-                  data_responsables: _vm.item_data_responsables,
-                  data_sucursales: _vm.item_data_sucursales,
-                  data_cicfacturacion: _vm.item_data_ciclo_facturacion,
-                  data_cicproduccion: _vm.item_data_ciclo_produccion
-                }
+                attrs: { data: _vm.item_data }
               })
             ],
             1
@@ -1078,1629 +703,426 @@ var render = function() {
   return _c("div", { attrs: { id: "item-edit" } }, [
     _c(
       "div",
-      { staticClass: "mt-6 mb-5" },
+      { staticClass: "vx-row mt-6" },
       [
+        _c("vs-divider", { attrs: { color: "primary" } }, [
+          _c("h5", [_vm._v("Datos Agendamiento")])
+        ]),
+        _vm._v(" "),
         _c(
-          "form-wizard",
+          "div",
           {
-            ref: "wizard",
-            staticClass: "mt-6 ",
-            attrs: {
-              color: "rgba(var(--vs-primary), 1)",
-              errorColor: "rgba(var(--vs-danger), 1)",
-              title: "ACTUALIZAR EMPRESA",
-              subtitle: "Ingrese todos los campos para actualizar la empresa",
-              finishButtonText: "Actualizar"
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "footer",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "div",
-                      { staticClass: "wizard-footer-left" },
-                      [
-                        props.activeTabIndex > 0
-                          ? _c(
-                              "vs-button",
-                              {
-                                style: props.fillButtonStyle,
-                                nativeOn: {
-                                  click: function($event) {
-                                    return props.prevTab()
-                                  }
-                                }
-                              },
-                              [_vm._v("Anterior")]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "wizard-footer-right" },
-                      [
-                        !props.isLastStep
-                          ? _c(
-                              "vs-button",
-                              {
-                                staticClass: "wizard-footer-right",
-                                style: props.fillButtonStyle,
-                                nativeOn: {
-                                  click: function($event) {
-                                    return props.nextTab()
-                                  }
-                                }
-                              },
-                              [_vm._v("Siguiente")]
-                            )
-                          : _c(
-                              "vs-button",
-                              {
-                                staticClass:
-                                  "wizard-footer-right finish-button",
-                                style: props.fillButtonStyle,
-                                nativeOn: {
-                                  click: function($event) {
-                                    return props.nextTab()
-                                  }
-                                }
-                              },
-                              [_vm._v("\n          Actualizar")]
-                            )
-                      ],
-                      1
-                    )
-                  ]
-                }
-              }
-            ])
+            staticClass: "vx-col w-full mt-2",
+            attrs: { id: "account-info-col-1" }
           },
           [
             _c(
-              "tab-content",
-              {
-                staticClass: "mb-1 mt-2",
-                attrs: {
-                  title: "Paso 1",
-                  icon: "feather icon-home",
-                  "before-change": _vm.validateStep1
-                }
-              },
+              "vs-table",
+              { attrs: { hoverFlat: "", noDataText: "" } },
               [
-                _c("form", { attrs: { "data-vv-scope": "step-1" } }, [
-                  _c(
-                    "div",
-                    [
-                      _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Datos comerciales")])
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "w-full",
-                          attrs: {
-                            "label-placeholder": "Razon social",
-                            name: "razon_social",
-                            danger: _vm.errors.first("step-1.razon_social")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first(
-                              "step-1.razon_social"
-                            )
-                              ? _vm.errors.first("step-1.razon_social")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.data_local.razon_social,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data_local, "razon_social", $$v)
-                            },
-                            expression: "data_local.razon_social"
-                          }
-                        })
-                      ],
-                      1
-                    ),
+                _c(
+                  "vs-tr",
+                  [
+                    _c("vs-th", [_vm._v("Rut")]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          staticClass: "w-full ",
-                          attrs: { "label-placeholder": "Giro", name: "giro" },
-                          model: {
-                            value: _vm.data_local.giro,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data_local, "giro", $$v)
-                            },
-                            expression: "data_local.giro"
-                          }
-                        })
-                      ],
-                      1
-                    ),
+                    _c("vs-td", [_vm._v(_vm._s(_vm.data_local.rut))]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required|numeric",
-                              expression: "'required|numeric'"
-                            }
-                          ],
-                          staticClass: "w-full ",
-                          attrs: {
-                            "label-placeholder": "Rut",
-                            name: "rut",
-                            danger: _vm.errors.first("step-1.rut")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first("step-1.rut")
-                              ? _vm.errors.first("step-1.rut")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.data_local.rut,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data_local, "rut", $$v)
-                            },
-                            expression: "data_local.rut"
-                          }
-                        })
-                      ],
-                      1
-                    ),
+                    _c("vs-th", [_vm._v("Email")]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required|max:1",
-                              expression: "'required|max:1'"
-                            }
-                          ],
-                          staticClass: "w-full md:w-1/2",
-                          attrs: {
-                            "label-placeholder": "Digito verificador",
-                            name: "dv",
-                            danger: _vm.errors.first("step-1.dv")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first("step-1.dv")
-                              ? _vm.errors.first("step-1.dv")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.data_local.dv,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data_local, "dv", $$v)
-                            },
-                            expression: "data_local.dv"
-                          }
-                        })
-                      ],
-                      1
-                    ),
+                    _c("vs-td", [_vm._v(_vm._s(_vm.data_local.email))])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "vs-tr",
+                  [
+                    _c("vs-th", [_vm._v("Nombre")]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/2 w-full mt-6" },
-                      [
-                        _c("flat-pickr", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "w-full select-large",
-                          attrs: {
-                            placeholder: "Fecha Incorporacion",
-                            name: "fecha_incorporacion"
-                          },
-                          model: {
-                            value: _vm.data_local.fecha_incorporacion,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.data_local,
-                                "fecha_incorporacion",
-                                $$v
-                              )
-                            },
-                            expression: "data_local.fecha_incorporacion"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-danger text-sm" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm.errors.first("step-1.fecha_incorporacion")
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1 w-full mt-2" },
-                      [
-                        _c("label", { staticClass: "vs-input--label " }, [
-                          _vm._v("Habilitado")
-                        ]),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("vs-switch", {
-                          staticClass: "mt-2",
-                          model: {
-                            value: _vm.data_local.habilitado,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data_local, "habilitado", $$v)
-                            },
-                            expression: "data_local.habilitado"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "tab-content",
-              {
-                staticClass: "mb-1",
-                attrs: {
-                  title: "Paso 2",
-                  icon: "feather icon-home",
-                  "before-change": _vm.validateStep2
-                }
-              },
-              [
-                _c("form", { attrs: { "data-vv-scope": "step-2" } }, [
-                  _c(
-                    "div",
-                    [
-                      _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Datos responsable")])
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-auto w-full mt-2" },
-                      [
-                        _c(
-                          "vx-tooltip",
-                          { attrs: { color: "primary", text: "Guardar" } },
-                          [
-                            _c("vs-button", {
-                              attrs: {
-                                color: "primary",
-                                "icon-pack": "feather",
-                                icon: "icon-user-plus",
-                                "data-vv-scope": "res"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.guardarResponsable()
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-auto w-full mt-2" },
-                      [
-                        _c(
-                          "vx-tooltip",
-                          { attrs: { color: "primary", text: "Limpiar" } },
-                          [
-                            _c("vs-button", {
-                              attrs: {
-                                color: "primary",
-                                "icon-pack": "feather",
-                                icon: "icon-trash"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.limpiarResponsable()
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row mt-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "w-full",
-                          attrs: {
-                            "label-placeholder": "Responsable",
-                            name: "responsable_nombre",
-                            "data-vv-scope": "res",
-                            danger: _vm.errors.first("res.responsable_nombre")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first(
-                              "res.responsable_nombre"
-                            )
-                              ? _vm.errors.first("res.responsable_nombre")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.responsable.name,
-                            callback: function($$v) {
-                              _vm.$set(_vm.responsable, "name", $$v)
-                            },
-                            expression: "responsable.name"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required|numeric",
-                              expression: "'required|numeric'"
-                            }
-                          ],
-                          staticClass: "w-full ",
-                          attrs: {
-                            "label-placeholder": "Telefono",
-                            name: "responsable_telefono",
-                            "data-vv-scope": "res",
-                            danger: _vm.errors.first("res.responsable_telefono")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first(
-                              "res.responsable_telefono"
-                            )
-                              ? _vm.errors.first("res.responsable_telefono")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.responsable.telefono,
-                            callback: function($$v) {
-                              _vm.$set(_vm.responsable, "telefono", $$v)
-                            },
-                            expression: "responsable.telefono"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required|email",
-                              expression: "'required|email'"
-                            }
-                          ],
-                          staticClass: "w-full",
-                          attrs: {
-                            "label-placeholder": "Email",
-                            name: "responsable_email",
-                            "data-vv-scope": "res",
-                            danger: _vm.errors.first("res.responsable_email")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first(
-                              "res.responsable_email"
-                            )
-                              ? _vm.errors.first("res.responsable_email")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.responsable.email,
-                            callback: function($$v) {
-                              _vm.$set(_vm.responsable, "email", $$v)
-                            },
-                            expression: "responsable.email"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-row mt-6" },
-                    [
-                      _c(
-                        "div",
-                        [
-                          _c("vs-divider", { attrs: { color: "primary" } }, [
-                            _c("h5", [_vm._v("Responsables")])
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|min:1",
-                            expression: "'required|min:1'"
-                          }
-                        ],
-                        attrs: { type: "hidden", name: "responsable_cantidad" },
-                        model: {
-                          value: _vm.cantidadResponsables,
-                          callback: function($$v) {
-                            _vm.cantidadResponsables = $$v
-                          },
-                          expression: "cantidadResponsables"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has(
-                                "step-2.responsable_cantidad"
-                              ),
-                              expression:
-                                "errors.has('step-2.responsable_cantidad')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(
-                              _vm.errors.first("step-2.responsable_cantidad")
-                            )
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col w-full mt-3" },
-                        [
-                          _c(
-                            "vs-table",
-                            {
-                              attrs: {
-                                "max-items": "4",
-                                pagination: "",
-                                data: _vm.responsables
-                              },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var data = ref.data
-                                    return _vm._l(data, function(
-                                      trres,
-                                      indextrres
-                                    ) {
-                                      return _c(
-                                        "vs-tr",
-                                        { key: indextrres },
-                                        [
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                      " +
-                                                _vm._s(trres.name) +
-                                                "\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                       " +
-                                                _vm._s(trres.email) +
-                                                "\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                       " +
-                                                _vm._s(trres.telefono) +
-                                                "\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    text: "Editar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-edit",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editarResponsable(
-                                                          indextrres,
-                                                          trres
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    text: "Eliminar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-trash",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.eliminarResponsable(
-                                                          indextrres,
-                                                          trres
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    })
-                                  }
-                                }
-                              ])
-                            },
-                            [
-                              _c("template", { slot: "header" }),
-                              _vm._v(" "),
-                              _c(
-                                "template",
-                                { slot: "thead" },
-                                [
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                     Nombre\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                     Email\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Telefono\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Editar\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Borrar\n                  "
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "tab-content",
-              {
-                staticClass: "mb-5",
-                attrs: {
-                  title: "Paso 3",
-                  icon: "feather icon-map-pin",
-                  "before-change": _vm.validateStep3
-                }
-              },
-              [
-                _c("form", { attrs: { "data-vv-scope": "step-3" } }, [
-                  _c(
-                    "div",
-                    [
-                      _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Datos sucursal")])
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-auto w-full mt-2" },
-                      [
-                        _c(
-                          "vx-tooltip",
-                          { attrs: { color: "primary", text: "Guardar" } },
-                          [
-                            _c("vs-button", {
-                              attrs: {
-                                color: "primary",
-                                "icon-pack": "feather",
-                                icon: "icon-plus",
-                                "data-vv-scope": "suc"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.guardarSucursal()
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-auto w-full mt-2" },
-                      [
-                        _c(
-                          "vx-tooltip",
-                          { attrs: { color: "primary", text: "Limpiar" } },
-                          [
-                            _c("vs-button", {
-                              attrs: {
-                                color: "primary",
-                                "icon-pack": "feather",
-                                icon: "icon-trash"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.limpiarSucursal()
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row mt-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-2" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "w-full",
-                          attrs: {
-                            "label-placeholder": "Nombre",
-                            name: "sucursal_nombre",
-                            "data-vv-scope": "suc",
-                            danger: _vm.errors.first("suc.sucursal_nombre")
-                              ? true
-                              : false,
-                            "val-icon-danger": "clear",
-                            "danger-text": _vm.errors.first(
-                              "suc.sucursal_nombre"
-                            )
-                              ? _vm.errors.first("suc.sucursal_nombre")
-                              : ""
-                          },
-                          model: {
-                            value: _vm.sucursal.nombre,
-                            callback: function($$v) {
-                              _vm.$set(_vm.sucursal, "nombre", $$v)
-                            },
-                            expression: "sucursal.nombre"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-4" },
-                      [
-                        _c("vs-input", {
-                          directives: [
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          attrs: {
-                            type: "hidden",
-                            "data-vv-scope": "suc",
-                            name: "sucursal_direccion"
-                          },
-                          model: {
-                            value: _vm.sucursal.direccion,
-                            callback: function($$v) {
-                              _vm.$set(_vm.sucursal, "direccion", $$v)
-                            },
-                            expression: "sucursal.direccion"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "vs-component vs-con-input-label vs-input mt-3 w-full vs-input-primary is-label-placeholder"
-                          },
-                          [
-                            _c("div", { staticClass: "vs-con-input" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.sucursal.direccion,
-                                    expression: "sucursal.direccion"
-                                  }
-                                ],
-                                ref: "autocomplete",
-                                class: _vm.sucursal.direccion
-                                  ? "vs-inputx vs-input--input normal hasValue"
-                                  : "vs-inputx vs-input--input normal",
-                                style: _vm.errors.first(
-                                  "suc.sucursal_direccion"
-                                )
-                                  ? "border: 1px solid rgba(var(--vs-danger),1)!important;"
-                                  : "border: 1px solid rgba(0, 0, 0, 0.2);",
-                                attrs: {
-                                  type: "text",
-                                  required: "",
-                                  name: "sucursal_direccion",
-                                  placeholder: ""
-                                },
-                                domProps: { value: _vm.sucursal.direccion },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.sucursal,
-                                      "direccion",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                                },
-                                [_vm._v("\n      Direccion\n    ")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.errors.first(
-                                        "suc.sucursal_direccion"
-                                      ),
-                                      expression:
-                                        "errors.first('suc.sucursal_direccion')"
-                                    }
-                                  ],
-                                  staticClass:
-                                    "input-icon-validate vs-input--icon-validate",
-                                  staticStyle: {
-                                    background: "rgba(var(--vs-danger),.2)"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "i",
-                                    {
-                                      staticClass:
-                                        "vs-icon notranslate icon-scale material-icons null",
-                                      staticStyle: {
-                                        color: "rgba(var(--vs-danger),1)"
-                                      },
-                                      attrs: { valiconpack: "material-icons" }
-                                    },
-                                    [_vm._v("clear")]
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.errors.first(
-                                      "suc.sucursal_direccion"
-                                    ),
-                                    expression:
-                                      "errors.first('suc.sucursal_direccion')"
-                                  }
-                                ],
-                                staticClass:
-                                  "con-text-validation span-text-validation-danger \n              vs-input--text-validation-span v-enter-to",
-                                staticStyle: { height: "20px" }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { staticClass: "span-text-validation" },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(
-                                          _vm.errors.first(
-                                            "suc.sucursal_direccion"
-                                          )
-                                        ) +
-                                        "\n                    "
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "vx-col md:w-1/3 w-full mt-2" },
-                      [
-                        _c("label", { staticClass: "vs-input--label " }, [
-                          _vm._v("Matriz")
-                        ]),
-                        _vm._v(" "),
-                        _c("vs-switch", {
-                          staticClass: "mt-2",
-                          model: {
-                            value: _vm.sucursal.matriz,
-                            callback: function($$v) {
-                              _vm.$set(_vm.sucursal, "matriz", $$v)
-                            },
-                            expression: "sucursal.matriz"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-row mt-6" },
-                    [
-                      _c(
-                        "div",
-                        [
-                          _c("vs-divider", { attrs: { color: "primary" } }, [
-                            _c("h5", [_vm._v("Sucursales")])
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|min:1",
-                            expression: "'required|min:1'"
-                          }
-                        ],
-                        attrs: { type: "hidden", name: "sucursal_cantidad" },
-                        model: {
-                          value: _vm.cantidadSucursales,
-                          callback: function($$v) {
-                            _vm.cantidadSucursales = $$v
-                          },
-                          expression: "cantidadSucursales"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("step-3.sucursal_cantidad"),
-                              expression:
-                                "errors.has('step-3.sucursal_cantidad')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.errors.first("step-3.sucursal_cantidad"))
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col w-full mt-3" },
-                        [
-                          _c(
-                            "vs-table",
-                            {
-                              attrs: {
-                                "max-items": "4",
-                                pagination: "",
-                                data: _vm.sucursales
-                              },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var data = ref.data
-                                    return _vm._l(data, function(
-                                      trsuc,
-                                      indextrsuc
-                                    ) {
-                                      return _c(
-                                        "vs-tr",
-                                        { key: indextrsuc },
-                                        [
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                      " +
-                                                _vm._s(trsuc.nombre) +
-                                                "\n                   "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                       " +
-                                                _vm._s(trsuc.direccion) +
-                                                "\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("vs-td", [
-                                            _vm._v(
-                                              "\n                       " +
-                                                _vm._s(
-                                                  trsuc.matriz === 1 ||
-                                                    trsuc.matriz === true
-                                                    ? "Si"
-                                                    : "No"
-                                                ) +
-                                                "\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    text: "Editar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-edit",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editarSucursal(
-                                                          indextrsuc,
-                                                          trsuc
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    text: "Eliminar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-trash",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.eliminarSucursal(
-                                                          indextrsuc,
-                                                          trsuc
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    })
-                                  }
-                                }
-                              ])
-                            },
-                            [
-                              _c("template", { slot: "header" }),
-                              _vm._v(" "),
-                              _c(
-                                "template",
-                                { slot: "thead" },
-                                [
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                     Nombre\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                     Direccion\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Matriz\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Editar\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Borrar\n                  "
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "tab-content",
-              {
-                staticClass: "mb-5",
-                attrs: {
-                  title: "Paso 4",
-                  icon: "feather icon-refresh-cw",
-                  "before-change": _vm.validateStep4
-                }
-              },
-              [
-                _c("form", { attrs: { "data-vv-scope": "step-4" } }, [
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }, [
-                      _c(
-                        "div",
-                        [
-                          _c("vs-divider", { attrs: { color: "primary" } }, [
-                            _c("h5", [_vm._v("Ciclo produccion")])
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col w-full mt-2" },
-                        [
-                          _c(
-                            "vs-select",
-                            {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                }
-                              ],
-                              staticClass: "w-full select-large",
-                              attrs: {
-                                label: "Tipo",
-                                name: "cicprod_tipo",
-                                danger: _vm.errors.first("step-4.cicprod_tipo")
-                                  ? true
-                                  : false,
-                                "danger-text": _vm.errors.first(
-                                  "step-4.cicprod_tipo"
-                                )
-                                  ? _vm.errors.first("step-4.cicprod_tipo")
-                                  : ""
-                              },
-                              on: { input: _vm.changecicprod },
-                              model: {
-                                value: _vm.cicloproduccion.dias,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.cicloproduccion, "dias", $$v)
-                                },
-                                expression: "cicloproduccion.dias"
-                              }
-                            },
-                            _vm._l(_vm.cicloProduccionOptions, function(
-                              item,
-                              index
-                            ) {
-                              return _c("vs-select-item", {
-                                key: index,
-                                staticClass: "w-full",
-                                attrs: { value: item.value, text: item.text }
-                              })
-                            }),
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col md:w-1/2  w-full mt-2" },
-                        [
-                          _c("span", { staticClass: " text-sm" }, [
-                            _vm._v("Desde")
-                          ]),
-                          _vm._v(" "),
-                          _c("vs-input-number", {
-                            directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              }
-                            ],
-                            attrs: {
-                              name: "cicprod_desde",
-                              min: "1",
-                              max: "31",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more",
-                              disabled: _vm.disabledcicpro
-                            },
-                            model: {
-                              value: _vm.cicloproduccion.inicio,
-                              callback: function($$v) {
-                                _vm.$set(_vm.cicloproduccion, "inicio", $$v)
-                              },
-                              expression: "cicloproduccion.inicio"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-danger text-sm" }, [
-                            _vm._v(
-                              _vm._s(_vm.errors.first("step-4.cicprod_desde"))
-                            )
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                        [
-                          _c("span", { staticClass: " text-sm" }, [
-                            _vm._v("Hasta")
-                          ]),
-                          _vm._v(" "),
-                          _c("vs-input-number", {
-                            directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              }
-                            ],
-                            attrs: {
-                              name: "cicprod_hasta",
-                              min: "1",
-                              max: "31",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more",
-                              disabled: _vm.disabledcicpro
-                            },
-                            model: {
-                              value: _vm.cicloproduccion.fin,
-                              callback: function($$v) {
-                                _vm.$set(_vm.cicloproduccion, "fin", $$v)
-                              },
-                              expression: "cicloproduccion.fin"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-danger text-sm" }, [
-                            _vm._v(
-                              _vm._s(_vm.errors.first("step-4.cicprod_hasta"))
-                            )
-                          ])
-                        ],
-                        1
+                    _c("vs-td", [
+                      _vm._v(
+                        _vm._s(_vm.data_local.nombre) +
+                          " " +
+                          _vm._s(_vm.data_local.apellido)
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }, [
-                      _c(
-                        "div",
-                        [
-                          _c("vs-divider", { attrs: { color: "primary" } }, [
-                            _c("h5", [_vm._v("Ciclo facturacion")])
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col  w-full mt-2" },
-                        [
-                          _c(
-                            "vs-select",
-                            {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                }
-                              ],
-                              staticClass: "w-full select-large",
-                              attrs: {
-                                label: "Tipo",
-                                name: "cicfac_tipo",
-                                danger: _vm.errors.first("step-4.cicfac_tipo")
-                                  ? true
-                                  : false,
-                                "danger-text": _vm.errors.first(
-                                  "step-4.cicfac_tipo"
-                                )
-                                  ? _vm.errors.first("step-4.cicfac_tipo")
-                                  : ""
-                              },
-                              on: { input: _vm.changecicfac },
-                              model: {
-                                value: _vm.ciclofacturacion.dias,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.ciclofacturacion, "dias", $$v)
-                                },
-                                expression: "ciclofacturacion.dias"
-                              }
-                            },
-                            _vm._l(_vm.ciclofacturacionOptions, function(
-                              item,
-                              index
-                            ) {
-                              return _c("vs-select-item", {
-                                key: index,
-                                staticClass: "w-full",
-                                attrs: { value: item.value, text: item.text }
-                              })
-                            }),
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col md:w-1/2  w-full mt-2" },
-                        [
-                          _c("span", { staticClass: " text-sm" }, [
-                            _vm._v("Desde")
-                          ]),
-                          _vm._v(" "),
-                          _c("vs-input-number", {
-                            directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              }
-                            ],
-                            attrs: {
-                              name: "cicfac_desde",
-                              min: "1",
-                              max: "31",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more",
-                              disabled: _vm.disabledcicfac
-                            },
-                            model: {
-                              value: _vm.ciclofacturacion.inicio,
-                              callback: function($$v) {
-                                _vm.$set(_vm.ciclofacturacion, "inicio", $$v)
-                              },
-                              expression: "ciclofacturacion.inicio"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-danger text-sm" }, [
-                            _vm._v(
-                              _vm._s(_vm.errors.first("step-5.cicfac_desde"))
-                            )
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-                        [
-                          _c("span", { staticClass: " text-sm" }, [
-                            _vm._v("Hasta")
-                          ]),
-                          _vm._v(" "),
-                          _c("vs-input-number", {
-                            directives: [
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              }
-                            ],
-                            attrs: {
-                              name: "cicfac_hasta",
-                              min: "1",
-                              max: "31",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more",
-                              disabled: _vm.disabledcicfac
-                            },
-                            model: {
-                              value: _vm.ciclofacturacion.fin,
-                              callback: function($$v) {
-                                _vm.$set(_vm.ciclofacturacion, "fin", $$v)
-                              },
-                              expression: "ciclofacturacion.fin"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-danger text-sm" }, [
-                            _vm._v(
-                              _vm._s(_vm.errors.first("step-5.cicfac_hasta"))
-                            )
-                          ])
-                        ],
-                        1
-                      )
-                    ])
-                  ])
+                    _c("vs-th", [_vm._v("Telefono")]),
+                    _vm._v(" "),
+                    _c("vs-td", [_vm._v(_vm._s(_vm.data_local.telefono))])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("vs-tr", [
+                  _c("th", [_vm._v("Direccion")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(_vm.data_local.direccion) +
+                        " " +
+                        _vm._s(_vm.data_local.comuna)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Centro de costo")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.data_local.centro_costo))])
                 ])
-              ]
+              ],
+              1
             )
           ],
           1
-        )
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
+                ref: "empresas",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Empresas",
+                  name: "empresa",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  disabled: "true"
+                },
+                model: {
+                  value: _vm.data_local.empresa_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "empresa_id", $$v)
+                  },
+                  expression: "data_local.empresa_id"
+                }
+              },
+              _vm._l(_vm.empresasOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.id,
+                  attrs: { value: item.id, text: item.razon_social }
+                })
+              }),
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
+                ref: "sucursal",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Sucursales",
+                  name: "sucursal",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  disabled: "true"
+                },
+                model: {
+                  value: _vm.data_local.sucursal_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "sucursal_id", $$v)
+                  },
+                  expression: "data_local.sucursal_id"
+                }
+              },
+              _vm._l(_vm.sucursalesOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.id,
+                  attrs: { value: item.id, text: item.nombre }
+                })
+              }),
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                ref: "horario",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Horarios",
+                  name: "horario",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  disabled: _vm.sucursal > 0 ? false : true,
+                  danger: _vm.errors.first("horario") ? true : false,
+                  "danger-text": _vm.errors.first("horario")
+                    ? _vm.errors.first("horario")
+                    : ""
+                },
+                model: {
+                  value: _vm.data_local.horario,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "horario", $$v)
+                  },
+                  expression: "data_local.horario"
+                }
+              },
+              _vm._l(_vm.horariosOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.id,
+                  attrs: { value: item.id, text: item.label }
+                })
+              }),
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                ref: "tipo",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Tipo",
+                  name: "tipo",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  danger: _vm.errors.first("tipo") ? true : false,
+                  "danger-text": _vm.errors.first("tipo")
+                    ? _vm.errors.first("tipo")
+                    : ""
+                },
+                model: {
+                  value: _vm.data_local.tipo,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "tipo", $$v)
+                  },
+                  expression: "data_local.tipo"
+                }
+              },
+              _vm._l(_vm.tipoOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.value,
+                  attrs: { value: item.value, text: item.label }
+                })
+              }),
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                ref: "tipo_fecha",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Periodo",
+                  name: "tipo_fecha",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  danger: _vm.errors.first("tipo_fecha") ? true : false,
+                  "danger-text": _vm.errors.first("tipo_fecha")
+                    ? _vm.errors.first("tipo_fecha")
+                    : "",
+                  disabled: "true"
+                },
+                model: {
+                  value: _vm.data_local.tipo_fecha,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "tipo_fecha", $$v)
+                  },
+                  expression: "data_local.tipo_fecha"
+                }
+              },
+              _vm._l(_vm.tipofechaOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.value,
+                  attrs: { value: item.value, text: item.label }
+                })
+              }),
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm.data_local.tipo_fecha === 1
+          ? _c(
+              "div",
+              { staticClass: "vx-col md:w-1/2 w-full mt-3" },
+              [
+                _c("span", { staticClass: "text-sm" }, [_vm._v("Fecha")]),
+                _vm._v(" "),
+                _c("flat-pickr", {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  staticClass: "w-full",
+                  attrs: {
+                    config: _vm.configDiasdateTimePicker,
+                    placeholder: "Seleccione los dias",
+                    name: "periodos_fecha_dias"
+                  },
+                  model: {
+                    value: _vm.data_local.fecha,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_local, "fecha", $$v)
+                    },
+                    expression: "data_local.fecha"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-danger text-sm" }, [
+                  _vm._v(_vm._s(_vm.errors.first("periodos_fecha_dias")))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.data_local.tipo_fecha === 2
+          ? _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 w-full mt-2" },
+              [
+                _c(
+                  "vs-select",
+                  {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    ref: "ano",
+                    staticClass: "w-full p-1",
+                    attrs: {
+                      label: "Año",
+                      name: "ano",
+                      dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                      danger: _vm.errors.first("ano") ? true : false,
+                      "danger-text": _vm.errors.first("ano")
+                        ? _vm.errors.first("ano")
+                        : ""
+                    },
+                    model: {
+                      value: _vm.data_local.ano,
+                      callback: function($$v) {
+                        _vm.$set(_vm.data_local, "ano", $$v)
+                      },
+                      expression: "data_local.ano"
+                    }
+                  },
+                  _vm._l(_vm.anosOptions, function(item) {
+                    return _c("vs-select-item", {
+                      key: item.value,
+                      attrs: { value: item.value, text: item.label }
+                    })
+                  }),
+                  1
+                )
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.data_local.tipo_fecha === 2
+          ? _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 w-full mt-2" },
+              [
+                _c(
+                  "vs-select",
+                  {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    ref: "meses",
+                    staticClass: "w-full p-1",
+                    attrs: {
+                      autocomplete: "",
+                      label: "Meses",
+                      name: "meses",
+                      dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                      danger: _vm.errors.first("meses") ? true : false,
+                      "danger-text": _vm.errors.first("meses")
+                        ? _vm.errors.first("meses")
+                        : ""
+                    },
+                    model: {
+                      value: _vm.data_local.mes,
+                      callback: function($$v) {
+                        _vm.$set(_vm.data_local, "mes", $$v)
+                      },
+                      expression: "data_local.mes"
+                    }
+                  },
+                  _vm._l(_vm.mesesOptions, function(item) {
+                    return _c("vs-select-item", {
+                      key: item.value,
+                      attrs: { value: item.value, text: item.label }
+                    })
+                  }),
+                  1
+                )
+              ],
+              1
+            )
+          : _vm._e()
       ],
       1
     ),
@@ -2713,6 +1135,23 @@ var render = function() {
           [
             _c(
               "vx-tooltip",
+              { attrs: { color: "primary", text: "Guardar" } },
+              [
+                _c(
+                  "vs-button",
+                  {
+                    staticClass: "ml-auto mt-2",
+                    attrs: { disabled: !_vm.validateForm },
+                    on: { click: _vm.save_changes }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "vx-tooltip",
               { attrs: { color: "primary", text: "Volver" } },
               [
                 _c(
@@ -2722,7 +1161,7 @@ var render = function() {
                     attrs: {
                       "icon-pack": "feather",
                       icon: "icon-arrow-left",
-                      to: { name: "empresas" }
+                      to: { name: "agendamientos" }
                     }
                   },
                   [_vm._v("Volver")]
