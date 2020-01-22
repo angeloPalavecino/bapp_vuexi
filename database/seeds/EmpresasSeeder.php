@@ -20,6 +20,7 @@ class EmpresasSeeder extends Seeder
             'razon_social' => 'Sin Empresa',
             'giro' => 'Sin Empresa',
             'habilitado' => 1,
+            'fecha_incorporacion' => date("Y-m-d H:i:s"),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
