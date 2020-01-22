@@ -35,7 +35,7 @@ class FuerazonaController extends Controller
                             'fuerazonas.tipo',
                             'fuerazonas.comuna', 
                             'fuerazonas.empresa_id', 
-                            'empresas.razon_social as empresa',
+                            'empresas.razon_social as empresa'
                              )->get();
       
         return response()->json(
@@ -86,7 +86,7 @@ class FuerazonaController extends Controller
                  'empresa_id'   => $empresa_id, 
                  'comuna'   => $comuna, 
                  'tipo'   => $tipo, 
-                 'distancia'   => $distancia, 
+                 'distancia'   => $distancia 
               )
          );
         
@@ -116,7 +116,7 @@ class FuerazonaController extends Controller
             'fuerazonas.empresa_id', 
             'fuerazonas.created_at', 
             'fuerazonas.updated_at', 
-            'empresas.razon_social as empresa',
+            'empresas.razon_social as empresa'
              )
              ->where("fuerazonas.id" , $id)
              ->get();
@@ -177,7 +177,7 @@ class FuerazonaController extends Controller
                     'empresa_id'   => $empresa_id, 
                     'comuna'   => $comuna, 
                     'tipo'   => $tipo, 
-                    'distancia'   => $distancia, 
+                    'distancia'   => $distancia 
               )
          );
             

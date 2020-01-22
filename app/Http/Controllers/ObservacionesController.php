@@ -67,7 +67,7 @@ class ObservacionesController extends Controller
 
         $observacion = Observaciones::create(
          array(
-                 'descripcion'   => $descripcion, 
+                 'descripcion'   => $descripcion 
               )
          );
         
@@ -137,7 +137,7 @@ class ObservacionesController extends Controller
 
         $observacion = Observaciones::where('id', $id)->update(
          array(
-                 'descripcion'                  => $descripcion, 
+                 'descripcion'                  => $descripcion 
               )
          );
             

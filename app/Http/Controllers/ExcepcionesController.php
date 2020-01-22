@@ -124,7 +124,7 @@ class ExcepcionesController extends Controller
                  'direccion'   => $direccion,
                  'comuna'   => $comuna, 
                  'lat'   => $lat,
-                 'lng'   => $lng, 
+                 'lng'   => $lng 
               )
          );
         
@@ -236,7 +236,7 @@ class ExcepcionesController extends Controller
                     'direccion'   => $direccion,
                     'comuna'   => $comuna,                    
                     'lat'   => $lat,
-                    'lng'   => $lng, 
+                    'lng'   => $lng 
               )
          );
             

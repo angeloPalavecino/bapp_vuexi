@@ -70,7 +70,7 @@ class ObservacionesinternasController extends Controller
 
         $obsinterna = Observacionesinternas::create(
          array(
-                 'descripcion'   => $descripcion, 
+                 'descripcion'   => $descripcion 
               )
          );
         
@@ -138,7 +138,7 @@ class ObservacionesinternasController extends Controller
 
         $obsinterna = Observacionesinternas::where('id', $id)->update(
          array(
-                 'descripcion'                  => $descripcion, 
+                 'descripcion'                  => $descripcion 
               )
          );
             

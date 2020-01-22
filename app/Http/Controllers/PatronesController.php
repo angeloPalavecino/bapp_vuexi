@@ -169,7 +169,7 @@ class PatronesController extends Controller
                 'descripcion' => $descripcion,
                 'color'   => $color, 
                 'lat'   => $lat, 
-                'lng'   => $lng, 
+                'lng'   => $lng 
               )
          );
             

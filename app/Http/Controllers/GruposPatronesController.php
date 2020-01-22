@@ -241,7 +241,7 @@ class GruposPatronesController extends Controller
             
                 'codigo'   => $codigo, 
                 'descripcion'   => $descripcion, 
-                'fuerazona'   => $fuerazona, 
+                'fuerazona'   => $fuerazona 
               )
          );
 
