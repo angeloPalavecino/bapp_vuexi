@@ -117,7 +117,7 @@ class AsociadoController extends Controller
                 $dataDriversHasDrivers =  array(
                     'driver_id'       => $idDriver,
                     'asociado_id'     => $idDriver,
-                    'habilitado'      => true,
+                    'habilitado'      => true
                 );
 
                $returnDriverHasDrivers = DriversHasDrivers::create($dataDriversHasDrivers); 
@@ -136,7 +136,7 @@ class AsociadoController extends Controller
                $dataConductoresHasCars =  array(
                    'driver_id'       => $idDriver,
                    'car_id'         => 1,
-                   'habilitado'      => true,
+                   'habilitado'      => true
                    );
                    
                    $returnConductoresHasCars = ConductoresHasCars::create($dataConductoresHasCars);  
@@ -173,7 +173,7 @@ class AsociadoController extends Controller
              'cars.id',
              'cars.patente', 
              'cars.asientos',
-             'cars.numero_movil',
+             'cars.numero_movil'
              )
          ->where('conductores_has_cars.driver_id', '=', $id)
          ->get(); 
@@ -189,7 +189,7 @@ class AsociadoController extends Controller
             'drivers.lastname',
             'drivers.rut',
             'drivers.driver_default',
-            'cars.numero_movil',
+            'cars.numero_movil'
             )
         ->where('drivers_has_drivers.asociado_id', '=', $id)
         ->get(); 
@@ -674,7 +674,7 @@ class AsociadoController extends Controller
     {
         $drivers = Driver::select(
             DB::raw('concat(drivers.name, " ", drivers.lastname) as label'),
-            DB::raw('concat(drivers.name, " ", drivers.lastname) as value'),
+            DB::raw('concat(drivers.name, " ", drivers.lastname) as value')
              )->get();
     
          return response()->json(

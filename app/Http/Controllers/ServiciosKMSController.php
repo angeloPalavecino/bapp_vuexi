@@ -115,7 +115,7 @@ class ServiciosKMSController extends Controller
                     'servicios_k_m_s_s.min',
                     'servicios_k_m_s_s.bajada_bandera', 
                     'servicios_k_m_s_s.porticos', 
-                    'empresas_has_serv_k_m_s_s.empresa_id',
+                    'empresas_has_serv_k_m_s_s.empresa_id'
                     )
                 ->where('servicios_k_m_s_s.id', '=', $id)
                 ->get(); 
@@ -195,7 +195,7 @@ class ServiciosKMSController extends Controller
             'kms'                     => $kms, 
             'min'                     => $min, 
             'bajada_bandera'          => $bajada_bandera,
-            'porticos'                => $porticos,
+            'porticos'                => $porticos
          ));
             
 

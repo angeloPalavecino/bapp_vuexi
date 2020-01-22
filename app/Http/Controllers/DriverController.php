@@ -152,7 +152,7 @@ class DriverController extends Controller
             $dataDriversHasDrivers =  array(
                     'driver_id'       => $idDriver,
                     'asociado_id'     => $idAsociado,
-                    'habilitado'      => true,
+                    'habilitado'      => true
             );
             
             $returnDriverHasDrivers = DriversHasDrivers::create($dataDriversHasDrivers);  
@@ -174,7 +174,7 @@ class DriverController extends Controller
             $dataConductoresHasCars =  array(
                 'driver_id'       => $idDriver,
                 'car_id'         => $idCar,
-                'habilitado'      => true,
+                'habilitado'      => true
                 );
                 
                 $returnConductoresHasCars = ConductoresHasCars::create($dataConductoresHasCars);  
@@ -337,7 +337,7 @@ class DriverController extends Controller
             $dataConductoresHasCars =  array(
                 'driver_id'       => $id,
                 'car_id'         => $request['car_id'],
-                'habilitado'      => true,
+                'habilitado'      => true
             );
                 
             ConductoresHasCars::create($dataConductoresHasCars);  
@@ -347,7 +347,7 @@ class DriverController extends Controller
 
             //Actualiza Movil del conductor
             $dataConductoresHasCars =  array(
-                'car_id'  => $request['car_id'],
+                'car_id'  => $request['car_id']
             );
             
             ConductoresHasCars::where('driver_id', $id)->update($dataConductoresHasCars);

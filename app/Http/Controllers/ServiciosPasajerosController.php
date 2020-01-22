@@ -120,7 +120,7 @@ class ServiciosPasajerosController extends Controller
                     'servicios_pasajeros.valor_fz1', 
                     'servicios_pasajeros.fac_rang_fz2',
                     'servicios_pasajeros.valor_fz2',
-                    'empresas_has_serv_psjs.empresa_id',
+                    'empresas_has_serv_psjs.empresa_id'
                     )
                 ->where('servicios_pasajeros.id', '=', $id)
                 ->get(); 
@@ -204,7 +204,7 @@ class ServiciosPasajerosController extends Controller
             'fac_rang_fz1'                  => $fac_rang_fz1, 
             'valor_fz1'                     => $valor_fz1, 
             'fac_rang_fz2'                  => $fac_rang_fz2, 
-            'valor_fz2'                     => $valor_fz2, 
+            'valor_fz2'                     => $valor_fz2
 
          ));
             

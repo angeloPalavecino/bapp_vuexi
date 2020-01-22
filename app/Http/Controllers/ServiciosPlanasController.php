@@ -114,7 +114,7 @@ class ServiciosPlanasController extends Controller
                     'servicios_planas.psj_adicional',
                     'servicios_planas.fuera_zona_1',
                     'servicios_planas.fuera_zona_2', 
-                    'empresas_has_serv_planas.empresa_id',
+                    'empresas_has_serv_planas.empresa_id'
                     )
                 ->where('servicios_planas.id', '=', $id)
                 ->get(); 
@@ -191,7 +191,7 @@ class ServiciosPlanasController extends Controller
             'minima'                        => $minima, 
             'psj_adicional'                 => $psj_adicional, 
             'fuera_zona_1'                  => $fuera_zona_1, 
-            'fuera_zona_2'                  => $fuera_zona_2,
+            'fuera_zona_2'                  => $fuera_zona_2
          ));
             
 

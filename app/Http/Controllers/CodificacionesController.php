@@ -139,7 +139,7 @@ class CodificacionesController extends Controller
                 'lat'               => $lat,     
                 'lng'               => $lng,     
                 'grupo_patron_id'   => $codigo,     
-                'distancia'         => $distancia,              
+                'distancia'         => $distancia              
               )
          );
 
@@ -280,7 +280,7 @@ class CodificacionesController extends Controller
                 'lat'               => $lat,     
                 'lng'               => $lng,     
                 'grupo_patron_id'   => $codigo,     
-                'distancia'         => $distancia,              
+                'distancia'         => $distancia              
               )
          );
 
@@ -625,7 +625,7 @@ class CodificacionesController extends Controller
                                 'lat'               => $lat,     
                                 'lng'               => $lng,     
                                 'grupo_patron_id'   => $codigo,     
-                                'distancia'         => $distancia,              
+                                'distancia'         => $distancia              
                             )
                         );
 
@@ -647,7 +647,7 @@ class CodificacionesController extends Controller
                                    'lat'               => $lat,     
                                    'lng'               => $lng,     
                                    'grupo_patron_id'   => $codigo,     
-                                   'distancia'         => $distancia,              
+                                   'distancia'         => $distancia              
                                  )
                             );
 
@@ -674,7 +674,7 @@ class CodificacionesController extends Controller
             'codificaciones.apellido',
          //  'codificaciones.grupo_patron_id',
             'codificaciones.direccion', 
-            'codificaciones.comuna',
+            'codificaciones.comuna'
          //   'codificaciones.email',
          //   'codificaciones.telefono',
          //   'codificaciones.centro_costo',
