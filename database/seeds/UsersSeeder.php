@@ -136,6 +136,20 @@ class UsersSeeder extends Seeder
             ['permission_id' => 103, 'role_id' => 1],
             ['permission_id' => 104, 'role_id' => 1],
             ['permission_id' => 105, 'role_id' => 1],
+            ['permission_id' => 106, 'role_id' => 1],
+            ['permission_id' => 107, 'role_id' => 1],
+            ['permission_id' => 108, 'role_id' => 1],
+            ['permission_id' => 109, 'role_id' => 1],
+            ['permission_id' => 110, 'role_id' => 1],
+            ['permission_id' => 111, 'role_id' => 1],
+            ['permission_id' => 112, 'role_id' => 1],
+            ['permission_id' => 113, 'role_id' => 1],
+            ['permission_id' => 114, 'role_id' => 1],
+            ['permission_id' => 115, 'role_id' => 1],
+            ['permission_id' => 116, 'role_id' => 1],
+            ['permission_id' => 117, 'role_id' => 1],
+            ['permission_id' => 118, 'role_id' => 1],
+            ['permission_id' => 119, 'role_id' => 1],
    
         ];
 

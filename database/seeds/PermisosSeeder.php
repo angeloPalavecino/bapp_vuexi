@@ -132,6 +132,22 @@ class PermisosSeeder extends Seeder
             ['id' => 104,'name' => 'horarios.destroy', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
             ['id' => 105,'name' => 'horarios.edit', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
     
+            ['id' => 106,'name' => 'matriz.store', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 107,'name' => 'matriz.create', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 108,'name' => 'matriz.index', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 109,'name' => 'matriz.update', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 110,'name' => 'matriz.show', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 111,'name' => 'matriz.destroy', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 112,'name' => 'matriz.edit', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+    
+            ['id' => 113,'name' => 'agendamientos.store', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 114,'name' => 'agendamientos.create', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 115,'name' => 'agendamientos.index', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 116,'name' => 'agendamientos.update', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 117,'name' => 'agendamientos.show', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 118,'name' => 'agendamientos.destroy', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+            ['id' => 119,'name' => 'agendamientos.edit', 'guard_name' => 'api', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")],
+    
 
         ];
 
