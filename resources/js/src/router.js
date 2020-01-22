@@ -1187,6 +1187,21 @@ const router = new Router({
                     parent: 'agendamientos'
                 },
                 },
+                {
+                  path: '/pages/planificacion/agendamientos/item-import/',
+                  name: 'agendamientos-import',
+                  component: () => import('@/views/pages/planificacion/agendamientos/item-import/itemImport.vue'),
+                  meta: {
+                      breadcrumb: [
+                          { title: 'Home', url: '/' },
+                          { title: 'Agendamientos' },
+                          { title: 'Importar agendamientos', active: true },
+                      ],
+                      pageTitle: 'Importar agendamientos',
+                      authRequired: true,
+                      parent: 'agendamientos'
+                  },
+                  },
               
 
               {

@@ -78,6 +78,10 @@
         </div>
 
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
+         <vx-tooltip color="primary" text="Importar">
+            <vs-button icon-pack="feather" icon="icon-upload" class="sm:mr-4 mb-4 md:mb-0" @click="importRecord">IMPORTAR</vs-button>
+          </vx-tooltip>
+
           <vx-tooltip color="primary" text="Agregar">
             <vs-button icon-pack="feather" icon="icon-plus" class="sm:mr-4 mb-4 md:mb-0" @click="addRecord">AGREGAR</vs-button>
           </vx-tooltip>
@@ -487,6 +491,9 @@ export default {
     },
     updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val)
+    },
+    importRecord() {
+            this.$router.push("../item-import/").catch(() => {})
     },
     addRecord() {
             this.$router.push("../item-add/").catch(() => {})

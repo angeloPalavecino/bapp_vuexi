@@ -7,6 +7,8 @@ use Validator;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Agendamientos;
+use App\Models\Codificaciones;
+use App\Models\Horarios;
 
 
 class AgendamientosController extends Controller
@@ -606,5 +608,297 @@ class AgendamientosController extends Controller
         }
 
         
+    }
+
+    function limpiar_string($string)
+    {
+ 
+    $string = trim($string);
+    
+    $string = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î','Í'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I','I'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ñ', 'Ñ', 'ç', 'Ç'), //'ñ', 'Ñ',
+        array('Ñ', 'Ñ', 'c', 'C',),//'n', 'N',
+        $string
+    );
+ 
+    //Esta parte se encarga de eliminar cualquier caracter extraño
+    $string = str_replace(
+            array("¨", "º", "-", "~", "#", "@",'"', "|", "!",
+            "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡",
+            "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨",
+            "´", ">", "< ", ";", ",", ":","."),
+        '',
+        $string
+    );
+ 
+ 
+        return $string;
+
+    }
+
+    function validar_fecha($fecha){
+        $valores = explode('/', $fecha);
+        if(count($valores) == 3 && checkdate($valores[1], $valores[0], $valores[2])){
+            return true;
+        }
+        return false;
+    }
+
+    public function importar(Request $request)
+    {
+        
+        $input = $request->all();
+        $sucursal_id = $input['sucursal'];
+        $agendamientos = $input['agendamientos'];
+
+        if($sucursal_id < 0 && sizeof($agendamientos) < 0){
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Error al intentar ingresar los registros!'
+            ], 300);
+
+        }
+
+
+        foreach ($agendamientos as $agendamiento) {
+            
+            $rut        = isset($agendamiento['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($agendamiento['Rut']))) : " "; 
+            $tipo       = isset($agendamiento['Tipo']) ? ucwords(self::limpiar_string($agendamiento['Tipo'])) : "";
+            $periodo     = isset($agendamiento['Periodo']) ? strtoupper(self::limpiar_string($agendamiento['Periodo'])) : ""; 
+            $horario     = isset($agendamiento['Horario']) ? $agendamiento['Horario'] : ""; 
+
+                
+
+                if(empty($rut) || $rut == " " || empty($tipo) || $tipo == " " || empty($horario) 
+                || $horario == " " || empty($periodo) || $periodo == " " || ($tipo != "Zarpe" && $tipo != "Recogida")){
+                   
+                }else{
+                    
+                    $codificacion_id = Codificaciones::where('rut', $rut )->value('id');
+                    $horario_id = Horarios::where('horario', $horario)->value('id'); //AGREGAR LA SUCURSAL
+                    $fecha = isset($agendamiento['Fecha']) ? $agendamiento['Fecha'] : ""; 
+                    
+                   if($periodo == "DIARIO"){
+                        $periodo_id = 1;
+                   }else if($periodo == "MENSUAL"){
+                        $periodo_id = 2;
+                   }else if($periodo == "PERMANENTE"){
+                        $periodo_id = 3;
+                        $fecha = "31/12/2037";
+                   }
+                   
+                   
+                   
+                   if($codificacion_id && $horario_id && $periodo_id && self::validar_fecha($fecha) == true){
+                        
+                        //DIARIO
+                        if($periodo_id === 1){
+
+                            $valores = explode('/', $fecha);
+                            $day = $valores[0];
+                            $mes = $valores[1];
+                            $ano = $valores[2];
+                            
+                            $fecha_inicio = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
+
+                            //BUSCA SI EXISTE AGENDAMIENTO DIARIO
+                            $agendamiento = Agendamientos::where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->whereDate('fecha_inicio', $fecha_inicio)
+                            ->whereDate('fecha_fin', $fecha_inicio)
+                            ->where('tipo_fecha', $periodo_id)
+                            ->where('codificacion_id', $codificacion_id)->first();  
+
+                            //BORRAR MENSUAL Y PERMANENTE
+                            //BORRA MENSUAL
+                            Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->whereMonth('fecha_inicio', $mes) 
+                            ->whereYear('fecha_inicio', $ano) 
+                            ->where('tipo_fecha', 2)->delete();
+                            
+                            //BORRA PERMANENTE
+                            Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->where('tipo_fecha', 3)->delete();
+
+                            if($agendamiento) {
+                                //ACTUALIZA
+                                Agendamientos::where('id', $agendamiento['id'])->update(
+                                    array(
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_inicio,
+                                        )
+                                    );
+
+                                }else{
+                                //INSERTA
+                                Agendamientos::create(
+                                    array(
+                                            'codificacion_id'   => $codificacion_id,
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_inicio,
+                                            'tipo_fecha'        => $periodo_id,
+                                            
+                                        )
+                                    );
+                                }
+
+                        //MENSUAL
+                        }else if($periodo_id === 2){
+
+                            //OBTIENE MES Y AÑO DE LA FECHA
+                            $valores = explode('/', $fecha);
+                            $mes = $valores[1];
+                            $ano = $valores[2];
+
+                            $day = date("d", mktime(0,0,0, $mes+1, 0, $ano));
+                            $fecha_inicio = date('Y-m-d', mktime(0,0,0, $mes, 1, $ano));
+                            $fecha_fin = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
+
+                            //BUSCA SI EXISTE AGENDAMIENTO MENSUAL
+                            $agendamiento = Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->whereDate('fecha_inicio', $fecha_inicio)
+                            ->whereDate('fecha_fin', $fecha_fin)
+                            ->where('tipo_fecha', $periodo_id)->first();
+
+                            //BORRAR MENSUAL Y PERMANENTE
+                            //BORRA PERMANENTE
+                            Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->where('tipo_fecha', 3)->delete();
+                            
+                            //BORRA DIARIAS
+                            Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->whereMonth('fecha_inicio', $mes) //PUEDE SERH LA FECHA FIN O DE INICIO, YA QUE ES LA MISMA
+                            ->whereYear('fecha_inicio', $ano) //PUEDE SERH LA FECHA FIN O DE INICIO, YA QUE ES LA MISMA
+                            ->where('tipo_fecha', 1)->delete();
+
+                            if($agendamiento) {
+                                //ACTUALIZA
+                                Agendamientos::where('id', $agendamiento['id'])->update(
+                                    array(
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_fin,
+                                        )
+                                    );
+
+                                }else{
+                                //INSERTA
+                                Agendamientos::create(
+                                    array(
+                                            'codificacion_id'   => $codificacion_id,
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_fin,
+                                            'tipo_fecha'        => $periodo_id,
+                                            
+                                        )
+                                    );
+                                }
+                                    
+                        //PERMANENTE
+                        }else if($periodo_id === 3){
+                            
+                            //CREA LAS FECHAS
+                            $fecha_inicio = date("Y-m-d H:i:s");
+                            $fecha_fin = date("Y-m-d H:i:s", mktime(00, 00, 00, 12, 31, 2037));
+                            
+                            //BUSCA SI EXISTE AGENDAMIENTO PERMANENTE
+                            $agendamiento = Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->where('tipo_fecha', $periodo_id)->first();
+
+                            //BORRA TODOS LOS AGENDAMIENTOS
+                            Agendamientos::where('codificacion_id', $codificacion_id)
+                            ->where('horario_plan', $horario_id)
+                            ->where('tipo', $tipo)
+                            ->whereIn('tipo_fecha', [1, 2, 3])->delete();
+                           
+                            if($agendamiento) {
+                               
+                                //ACTUALIZA
+                                Agendamientos::where('id', $agendamiento['id'])->update(
+                                    array(
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_fin,
+                                        )
+                                    );
+
+                                }else{
+                                    
+                                //INSERTA
+                                Agendamientos::create(
+                                    array(
+                                            'codificacion_id'   => $codificacion_id,
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_fin,
+                                            'tipo_fecha'        => $periodo_id,
+                                            
+                                        )
+                                    );
+                                }
+                                
+                        }
+                    }
+                }				    
+        }
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Los registros han sido guardados exitosamente!'
+            ], 200);
     }
 }

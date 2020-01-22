@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[74],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -141,39 +141,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -181,20 +148,20 @@ __webpack_require__.r(__webpack_exports__);
     return {
       item_data: null,
       item_not_found: false,
-      urlApi: "/agendamientos/agendamientos/"
+      urlApi: "/tarifas/planas/",
+      selected: [],
+      tarifa: null
     };
   },
   computed: {},
   methods: {
-    chipColor: function chipColor(value) {
-      if (value === true) return "success";else if (value === false) return "danger";else return "success";
-    },
-    confirmDeleteRecord: function confirmDeleteRecord() {
+    confirmDeleteRecord: function confirmDeleteRecord(tr) {
+      this.tarifa = tr;
       this.$vs.dialog({
         type: 'confirm',
         color: 'danger',
         title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar el siguiente agendamiento \"".concat(this.item_data.rut, "\""),
+        text: "Este seguro que desea eliminar la siguiente tarifa ",
         accept: this.deleteRecord,
         acceptText: "Eliminar"
       });
@@ -205,15 +172,16 @@ __webpack_require__.r(__webpack_exports__);
       /* Below two lines are just for demo purpose */
       //this.$router.push({name:'users'});
       //this.showDeleteSuccess()
-
+      var idTarifa = this.tarifa.id;
       /* UnComment below lines for enabling true flow if deleting user */
+
       this.$store.dispatch("itemManagement/borrarItem", {
-        Id: this.item_data.id,
+        Id: idTarifa,
         Url: this.urlApi
       }).then(function () {
-        _this.$router.push({
-          name: 'agendamientos'
-        });
+        //this.$router.push({name:'pasajeros'}); 
+        _this.item_data = _this.$store.state.itemManagement.items;
+        _this.tarifa = null;
 
         _this.showDeleteSuccess();
       }).catch(function (err) {
@@ -231,41 +199,81 @@ __webpack_require__.r(__webpack_exports__);
     showDeleteSuccess: function showDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Agendamiento Eliminado',
-        text: 'El agendamiento seleccionado ya fue eliminada'
+        title: 'Tarifa Eliminado',
+        text: 'La tarifa seleccionada ya fue eliminada'
       });
+    },
+    confirmMassiveDeleteRecord: function confirmMassiveDeleteRecord() {
+      if (this.selected.length === 0) {
+        this.$vs.dialog({
+          color: 'danger',
+          title: "Error",
+          text: 'Debe seleccionar al menos un registro para realizar esta accion.'
+        });
+        return;
+      }
+
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Confirmar Eliminacion",
+        text: "Este seguro que desea eliminar los registros seleccionados",
+        accept: this.massivedeleteRecord,
+        acceptText: "Eliminar"
+      });
+    },
+    massivedeleteRecord: function massivedeleteRecord() {
+      var _this2 = this;
+
+      this.$store.dispatch("itemManagement/borrarMasivoItem", {
+        Items: this.selected,
+        Url: this.urlApi
+      }).then(function () {
+        _this2.item_data = _this2.$store.state.itemManagement.items;
+
+        _this2.showMassiveDeleteSuccess();
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
+    },
+    showMassiveDeleteSuccess: function showMassiveDeleteSuccess() {
+      this.$vs.notify({
+        color: 'success',
+        title: 'Usuarios Eliminados',
+        text: 'Los registros ya fueron eliminados.'
+      });
+    },
+    editRecord: function editRecord(tr) {
+      this.$router.push("../item-edit/" + tr.id).catch(function () {});
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     // Register Module UserManagement Module
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
-    }
+    } //const itemId = 
 
-    var itemId = this.$route.params.itemId;
-    var urlApi = this.urlApi;
-    this.$store.dispatch("itemManagement/traerItem", {
-      Id: itemId,
-      Url: urlApi
-    }).then(function (res) {
-      _this2.item_data = res.data.item;
-      var fecha = new Date();
-      var fecha_fin = new Date(res.data.item.fecha_fin);
 
-      if (fecha > fecha_fin) {
-        _this2.item_data.estado = false;
-      } else {
-        _this2.item_data.estado = true;
-      }
+    var urlApi = this.urlApi + 'listado/' + this.$route.params.itemId;
+    this.$store.dispatch("itemManagement/traerItems", urlApi).then(function (res) {
+      _this3.item_data = res.data.items;
     }).catch(function (err) {
       if (err.response.status === 404) {
-        _this2.item_not_found = true;
+        _this3.item_not_found = true;
         return;
       } else if (err.response.status == 300) {
-        _this2.$vs.notify({
+        _this3.$vs.notify({
           title: 'Error',
           text: err.response.data.message,
           color: 'danger',
@@ -273,7 +281,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'icon-alert-circle'
         });
       } else {
-        _this2.$vs.notify({
+        _this3.$vs.notify({
           title: 'Error',
           text: err,
           color: 'danger',
@@ -287,34 +295,34 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "#avatar-col {\n  width: 10rem;\n}\n#page-item-view table {\n  /* &:not(.permissions-table) {\n     td {\n       @media screen and (max-width:370px) {\n         display: block;\n       }\n     }\n   }*/\n}\n#page-item-view table td {\n  vertical-align: top;\n  min-width: 140px;\n  word-break: break-all;\n}\n[dir] #page-item-view table td {\n  padding-bottom: 0.8rem;\n}\n@media screen and (min-width: 1201px) and (max-width: 1211px), only screen and (min-width: 636px) and (max-width: 991px) {\n#account-info-col-1 {\n    width: calc(100% - 12rem) !important;\n}\n}\n.ag-grid-cell-chip.vs-chip-success {\n  color: rgba(var(--vs-success), 1) !important;\n  font-weight: 500;\n}\n[dir] .ag-grid-cell-chip.vs-chip-success {\n  background: rgba(var(--vs-success), 0.15);\n}\n.ag-grid-cell-chip.vs-chip-warning {\n  color: rgba(var(--vs-warning), 1) !important;\n  font-weight: 500;\n}\n[dir] .ag-grid-cell-chip.vs-chip-warning {\n  background: rgba(var(--vs-warning), 0.15);\n}\n.ag-grid-cell-chip.vs-chip-danger {\n  color: rgba(var(--vs-danger), 1) !important;\n  font-weight: 500;\n}\n[dir] .ag-grid-cell-chip.vs-chip-danger {\n  background: rgba(var(--vs-danger), 0.15);\n}", ""]);
+exports.push([module.i, "#avatar-col {\n  width: 10rem;\n}\n.tablaParametros th .vs-table-text {\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n}\n[dir] .tablaParametros tr {\n  text-align: center;\n}\n#page-item-view table {\n  /* &:not(.permissions-table) {\n     td {\n       @media screen and (max-width:370px) {\n         display: block;\n       }\n     }\n   }*/\n}\n#page-item-view table td {\n  vertical-align: top;\n  word-break: break-all;\n}\n[dir] #page-item-view table td {\n  padding-bottom: 0.8rem;\n}\n@media screen and (min-width: 1201px) and (max-width: 1211px), only screen and (min-width: 636px) and (max-width: 991px) {\n#account-info-col-1 {\n    width: calc(100% - 12rem) !important;\n}\n}", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -328,7 +336,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -336,10 +344,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&":
-/*!******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4& ***!
-  \******************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -360,7 +368,7 @@ var render = function() {
         {
           attrs: {
             color: "danger",
-            title: "Agendamiento no encontrada",
+            title: "Empresa no encontrada",
             active: _vm.item_not_found
           },
           on: {
@@ -372,9 +380,9 @@ var render = function() {
         [
           _c("span", [
             _vm._v(
-              "El agendamiento con id: " +
+              "La empresa con id: " +
                 _vm._s(_vm.$route.params.itemId) +
-                " no fue encontrado. "
+                " no fue encontrada. "
             )
           ]),
           _vm._v(" "),
@@ -386,9 +394,9 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "text-inherit underline",
-                  attrs: { to: { name: "agendamientos" } }
+                  attrs: { to: { name: "planas" } }
                 },
-                [_vm._v("Todos los agendamientos")]
+                [_vm._v("Todas las empresas")]
               )
             ],
             1
@@ -403,7 +411,7 @@ var render = function() {
             [
               _c(
                 "vx-card",
-                { staticClass: "mb-base", attrs: { title: "Informacion" } },
+                { staticClass: "mb-base", attrs: { title: "Tarifas" } },
                 [
                   _c("div", { staticClass: "vx-row" }, [
                     _c(
@@ -416,7 +424,10 @@ var render = function() {
                           [
                             _c("feather-icon", {
                               staticClass: "mr-2",
-                              attrs: { svgClasses: "w-6 h-6", icon: "InfoIcon" }
+                              attrs: {
+                                svgClasses: "w-6 h-6",
+                                icon: "DollarSignIcon"
+                              }
                             }),
                             _vm._v(" "),
                             _c(
@@ -436,249 +447,294 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col flex-1",
-                        attrs: { id: "account-info-col-1" }
-                      },
-                      [
-                        _c("table", [
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Rut : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.rut) + " ")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Nombre : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm.item_data.nombre) +
-                                  "  " +
-                                  _vm._s(_vm.item_data.apellido)
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Direccion : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.direccion))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Comuna : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.comuna))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Empresa : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.item_data.razon_social))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Creado el : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.created_at))])
-                          ])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col flex-1",
-                        attrs: { id: "account-info-col-2" }
-                      },
-                      [
-                        _c("table", [
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Email : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Telefono : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.telefono))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Centro de costo : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.item_data.centro_costo))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Sucursal : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.sucursal))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Ultima Actualizacion : ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item_data.updated_at))])
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "vx-row" },
+                    { staticClass: "block overflow-x-auto" },
                     [
-                      _c("vs-divider", { attrs: { color: "primary" } }, [
-                        _c("h5", [_vm._v("Agendamiento")])
-                      ]),
-                      _vm._v(" "),
                       _c(
-                        "div",
+                        "vs-table",
                         {
-                          staticClass: "vx-col flex-1",
-                          attrs: { id: "account-info-col-2" }
+                          ref: "tablepar",
+                          staticClass: "tablaParametros",
+                          attrs: {
+                            multiple: "",
+                            pagination: "",
+                            search: "",
+                            data: _vm.item_data
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "default",
+                                fn: function(ref) {
+                                  var data = ref.data
+                                  return _vm._l(data, function(tr, indextr) {
+                                    return _c(
+                                      "vs-tr",
+                                      { key: indextr, attrs: { data: tr } },
+                                      [
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "items-id font-medium"
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(tr.serviciosplanas[0].id)
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "items-num_pasajeros"
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  tr.serviciosplanas[0]
+                                                    .num_psj_min
+                                                ) +
+                                                  " - " +
+                                                  _vm._s(
+                                                    tr.serviciosplanas[0]
+                                                      .num_psj_max
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            { staticClass: "items-minima" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  tr.serviciosplanas[0].minima
+                                                )
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "items-psjadicional"
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  tr.serviciosplanas[0]
+                                                    .psj_adicional
+                                                )
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "flex vx-col w-full sm:w-auto ml-auto mt-2 sm:mt-0",
+                                              staticStyle: {
+                                                "justify-content": "center"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "vx-tooltip",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    text: "Eliminar"
+                                                  }
+                                                },
+                                                [
+                                                  _c("vs-button", {
+                                                    staticClass: "ml-3",
+                                                    attrs: {
+                                                      radius: "",
+                                                      color: "primary",
+                                                      type: "border",
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-trash",
+                                                      size: "small"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.confirmDeleteRecord(
+                                                          tr
+                                                        )
+                                                      }
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "vx-tooltip",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    text: "Editar"
+                                                  }
+                                                },
+                                                [
+                                                  _c("vs-button", {
+                                                    staticClass: "ml-3",
+                                                    attrs: {
+                                                      radius: "",
+                                                      color: "primary",
+                                                      type: "border",
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-edit",
+                                                      size: "small"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.editRecord(
+                                                          tr
+                                                        )
+                                                      }
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  })
+                                }
+                              }
+                            ],
+                            null,
+                            false,
+                            1772844382
+                          ),
+                          model: {
+                            value: _vm.selected,
+                            callback: function($$v) {
+                              _vm.selected = $$v
+                            },
+                            expression: "selected"
+                          }
                         },
                         [
-                          _c("table", [
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Fecha Inicio : ")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    new Date(
-                                      _vm.item_data.fecha_inicio
-                                    ).toLocaleDateString("en-GB")
-                                  )
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Horario Plan : ")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.item_data.horario_plan))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Estado : ")
-                              ]),
-                              _vm._v(" "),
+                          _c(
+                            "template",
+                            { slot: "header" },
+                            [
                               _c(
-                                "td",
+                                "vs-dropdown",
+                                { staticClass: "cursor-pointer" },
                                 [
                                   _c(
-                                    "vs-chip",
+                                    "div",
                                     {
-                                      staticClass: "ag-grid-cell-chip mt-2",
-                                      attrs: {
-                                        color: _vm.chipColor(
-                                          _vm.item_data.estado
-                                        )
-                                      }
+                                      staticClass:
+                                        "p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32"
                                     },
                                     [
-                                      _c("span", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm.item_data.estado == false
-                                              ? "Vencido"
-                                              : "Activo"
+                                      _c(
+                                        "span",
+                                        { staticClass: "mr-2 leading-none" },
+                                        [_vm._v("Acciones")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("feather-icon", {
+                                        attrs: {
+                                          icon: "ChevronDownIcon",
+                                          svgClasses: "h-4 w-4"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-dropdown-menu",
+                                    [
+                                      _c(
+                                        "vs-dropdown-item",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.confirmMassiveDeleteRecord()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "span",
+                                            {
+                                              staticClass: "flex items-center"
+                                            },
+                                            [
+                                              _c("feather-icon", {
+                                                staticClass: "mr-2",
+                                                attrs: {
+                                                  icon: "TrashIcon",
+                                                  svgClasses: "h-4 w-4"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", [_vm._v("Eliminar")])
+                                            ],
+                                            1
                                           )
-                                        )
-                                      ])
-                                    ]
+                                        ]
+                                      )
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
                               )
-                            ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "vx-col flex-1",
-                          attrs: { id: "account-info-col-2" }
-                        },
-                        [
-                          _c("table", [
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Fecha Termino : ")
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "template",
+                            { slot: "thead" },
+                            [
+                              _c("vs-th", [_vm._v("ID")]),
+                              _vm._v(" "),
+                              _c("vs-th", [_vm._v("N° Pasajeros")]),
+                              _vm._v(" "),
+                              _c("vs-th", [_vm._v("Minima")]),
+                              _vm._v(" "),
+                              _c("vs-th", [
+                                _vm._v("Px Adicional (Transportado)")
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    new Date(
-                                      _vm.item_data.fecha_fin
-                                    ).toLocaleDateString("en-GB")
-                                  )
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { staticClass: "font-semibold" }, [
-                                _vm._v("Tipo : ")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item_data.tipo))])
-                            ])
-                          ])
-                        ]
+                              _c(
+                                "vs-th",
+                                { attrs: { "sort-key": "items-accion" } },
+                                [_vm._v("Accion")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        2
                       )
                     ],
                     1
@@ -695,29 +751,6 @@ var render = function() {
                 [
                   _c(
                     "vx-tooltip",
-                    { attrs: { color: "primary", text: "Editar" } },
-                    [
-                      _c(
-                        "vs-button",
-                        {
-                          staticClass: "mr-4",
-                          attrs: {
-                            "icon-pack": "feather",
-                            icon: "icon-edit",
-                            to: {
-                              name: "agendamientos-edit",
-                              params: { itemId: _vm.$route.params.itemId }
-                            }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vx-tooltip",
                     { attrs: { color: "primary", text: "Volver" } },
                     [
                       _c(
@@ -727,31 +760,10 @@ var render = function() {
                           attrs: {
                             "icon-pack": "feather",
                             icon: "icon-arrow-left",
-                            to: { name: "agendamientos" }
+                            to: { name: "planas" }
                           }
                         },
                         [_vm._v("Volver")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vx-tooltip",
-                    { attrs: { color: "primary", text: "Eliminar" } },
-                    [
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            type: "border",
-                            color: "danger",
-                            "icon-pack": "feather",
-                            icon: "icon-trash"
-                          },
-                          on: { click: _vm.confirmDeleteRecord }
-                        },
-                        [_vm._v("Eliminar")]
                       )
                     ],
                     1
@@ -997,19 +1009,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=7604c4e4& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&");
-/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=c76c93d4& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4&");
+/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1020,8 +1032,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1031,54 +1043,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \***************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&":
-/*!************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4& ***!
-  \************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=7604c4e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-view/itemView.vue?vue&type=template&id=7604c4e4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=c76c93d4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-view/itemView.vue?vue&type=template&id=c76c93d4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_7604c4e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_c76c93d4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
