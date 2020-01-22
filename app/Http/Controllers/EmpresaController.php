@@ -208,7 +208,7 @@ class EmpresaController extends Controller
         $empresas = Empresa::select(
             'empresas.id as id',
             'empresas.razon_social as label',
-            'empresas.razon_social as value', )->get();
+            'empresas.razon_social as value' )->get();
 
         return response()->json(
             [

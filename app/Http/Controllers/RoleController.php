@@ -111,7 +111,7 @@ class RoleController extends Controller
     {
         $roles = Role::select(
             'roles.name as label',
-            'roles.name as value', )->get();
+            'roles.name as value' )->get();
 
         return response()->json(
             [

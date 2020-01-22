@@ -193,7 +193,7 @@ class CodificacionesController extends Controller
                 'patrons.descripcion',
                 'patrons.color',
                 'patrons.lat', 
-                'patrons.lng', )
+                'patrons.lng' )
                 ->where('grupo_patrons.id',$codificaciones[0]['grupo_patron_id'])
                 ->get();
     
@@ -473,7 +473,7 @@ class CodificacionesController extends Controller
  
     $string = str_replace(
         array('ñ', 'Ñ', 'ç', 'Ç'), //'ñ', 'Ñ',
-        array('Ñ', 'Ñ', 'c', 'C',),//'n', 'N',
+        array('Ñ', 'Ñ', 'c', 'C'),//'n', 'N',
         $string
     );
  
@@ -582,7 +582,7 @@ class CodificacionesController extends Controller
                             ->select(
                                 'grupo_patrons.id as codigo', 
                                 'patrons.lat as lat', 
-                                'patrons.lng as lng', )
+                                'patrons.lng as lng' )
                                 ->whereIn('grupo_patrons.id', $idsgp )
                                 ->get();
 

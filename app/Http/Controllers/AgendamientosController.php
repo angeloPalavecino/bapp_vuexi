@@ -168,7 +168,7 @@ class AgendamientosController extends Controller
                                     'tipo'              => $tipo,
                                     'fecha_inicio'      => $fecha,
                                     'fecha_fin'         => $fecha,
-                                    'tipo_fecha'        => $tipo_fecha,
+                                    'tipo_fecha'        => $tipo_fecha
                                     
                                 )
                             );
@@ -647,7 +647,7 @@ class AgendamientosController extends Controller
  
     $string = str_replace(
         array('ñ', 'Ñ', 'ç', 'Ç'), //'ñ', 'Ñ',
-        array('Ñ', 'Ñ', 'c', 'C',),//'n', 'N',
+        array('Ñ', 'Ñ', 'c', 'C'),//'n', 'N',
         $string
     );
  

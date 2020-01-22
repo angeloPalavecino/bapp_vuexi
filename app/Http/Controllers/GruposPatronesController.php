@@ -42,7 +42,7 @@ class GruposPatronesController extends Controller
             'grupo_patrons.created_at', 
             'grupo_patrons.updated_at', 
             'sucursals.nombre as sucursal', 
-            'empresas.razon_social', )
+            'empresas.razon_social' )
             ->get();
       
         return response()->json(
@@ -178,7 +178,7 @@ class GruposPatronesController extends Controller
             'patrons.descripcion',
             'patrons.color',
             'patrons.lat', 
-            'patrons.lng', )
+            'patrons.lng' )
             ->where('grupo_patron_has_patrones.grupopatrones_id',$id)
             ->get();
 

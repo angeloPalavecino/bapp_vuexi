@@ -519,7 +519,7 @@ class CarController extends Controller
     {
         $cars = Car::select(
             'cars.numero_movil as label',
-            'cars.numero_movil as value', )->get();
+            'cars.numero_movil as value' )->get();
 
         return response()->json(
             [
@@ -532,7 +532,7 @@ class CarController extends Controller
     {
         $cars = Car::select(
             'cars.id',
-            'cars.numero_movil', )->where('empresa_id',$id)->get();
+            'cars.numero_movil' )->where('empresa_id',$id)->get();
 
         return response()->json(
             [

@@ -91,7 +91,7 @@ class SucursalController extends Controller
             'lat',
             'lng',
             'nombre as label',
-            'nombre as value',  )->where('empresa_id','=',$id)->get();
+            'nombre as value'  )->where('empresa_id','=',$id)->get();
 
         return response()->json(
             [

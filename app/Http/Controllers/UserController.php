@@ -48,7 +48,7 @@ class UserController extends Controller
                             'users.habilitado', 
                             'users.imagen', 
                             'empresas.razon_social',
-                            'roles.name as rol', )->get();
+                            'roles.name as rol' )->get();
         
         //$user = User::findOrFail('3');
         //$user->syncRoles('1');
