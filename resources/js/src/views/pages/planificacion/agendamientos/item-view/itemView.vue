@@ -102,17 +102,14 @@
             
             <table>
               <tr>
-                <td class="font-semibold">Fecha Inicio : </td>
+                <td class="font-semibold">Fecha: </td>
                 <td>{{ new Date(item_data.fecha_inicio).toLocaleDateString('en-GB') }}</td>
               </tr>
-                <tr>
-                <td class="font-semibold">Horario Plan : </td>
-                <td>{{ item_data.horario_plan }}</td>
-              </tr>
+              
                  <tr>
                 <td class="font-semibold">Estado : </td>
                 <td>
-                  <vs-chip class="ag-grid-cell-chip mt-2" :color="chipColor(item_data.estado)">
+                  <vs-chip class="ag-grid-cell-chip" :color="chipColor(item_data.estado)">
                   <span>{{ item_data.estado == false ? 'Vencido':'Activo' }}</span>
                   </vs-chip>    
                 </td>
@@ -125,10 +122,14 @@
           <!-- Information - Col 4 -->
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
-             <tr>
+              <tr>
+                <td class="font-semibold">Horario: </td>
+                <td>{{ item_data.horario_plan }}</td>
+              </tr>
+             <!-- <tr>
                 <td class="font-semibold">Fecha Termino : </td>
                 <td>{{ new Date(item_data.fecha_fin).toLocaleDateString('en-GB') }}</td>
-              </tr>
+              </tr>-->
                <tr>
                 <td class="font-semibold">Tipo : </td>
                 <td>{{ item_data.tipo }}</td>

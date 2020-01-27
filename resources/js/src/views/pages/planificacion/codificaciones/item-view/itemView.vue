@@ -54,6 +54,10 @@
                 <td class="font-semibold">Email</td>
                 <td>{{ item_data.email }}</td>
               </tr>
+                 <tr>
+                <td class="font-semibold">Habilitado</td>
+                <td>{{ item_data.habilitado === 1 ? 'Si' : 'No' }}</td>
+              </tr>
                <tr>
                 <td class="font-semibold">Creado el</td>
                 <td>{{ item_data.created_at }}</td>
@@ -84,6 +88,10 @@
                <tr>
                 <td class="font-semibold">Comuna</td>
                 <td>{{ item_data.comuna }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold"></td>
+                <td>&nbsp;</td>
               </tr>
                <tr>
                 <td class="font-semibold">Ultima Actualizacion</td>

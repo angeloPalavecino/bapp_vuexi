@@ -28,6 +28,7 @@ class CreateCodificacionesTable extends Migration
             $table->decimal('lat',10,5)->nullable();
             $table->decimal('lng',10,5)->nullable();
             $table->decimal('distancia',9,2);
+            $table->boolean('habilitado');
             $table->timestamps();
 
             $table->foreign('sucursal_id')

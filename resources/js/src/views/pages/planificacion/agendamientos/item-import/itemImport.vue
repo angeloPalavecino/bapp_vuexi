@@ -64,18 +64,19 @@ v-if="tableData.length && header.length"
      
      <vs-input v-validate="'min_value:1'" type="hidden" name="agendamientos" v-model="cantAgendamientos"/>
      <span class="text-danger text-sm">{{ errors.first('agendamientos') }}</span>
-
-      <vs-table @input="handleSelectedAgendamientos" v-if="tableData.length"
-       pagination :max-items="10" search :data="tableData"> 
-        <template slot="header">
-          <h4>{{ sheetName }}</h4>
+       <h3>{{ sheetName }}</h3>
+      <vs-table  v-if="tableData.length"
+       pagination :max-items="10" search :data="tableData">  <!-- @input="handleSelectedAgendamientos"-->
+        <template slot="header"> 
+          <br/>
+          <h4>Registros cargados: {{ tableData.length }}</h4>
         </template>
 
         <template slot="thead">
           <vs-th>Rut</vs-th>
           <vs-th>Horario</vs-th>
           <vs-th>Tipo</vs-th>
-          <vs-th>Periodo</vs-th>
+           <!--<vs-th>Periodo</vs-th>-->
           <vs-th>Fecha</vs-th>
          <!-- <vs-th :sort-key="heading" v-for="heading in header" :key="heading">{{ heading }}</vs-th>-->
         </template>
@@ -103,12 +104,12 @@ v-if="tableData.length && header.length"
               </template>
             </vs-td>
 
-             <vs-td :data="tr.Periodo">
+         <!--    <vs-td :data="tr.Periodo">
               {{ tr.Periodo }}
               <template slot="edit">
                 <vs-input v-model="tr.Periodo" class="inputx" placeholder="Periodo" />
               </template>
-            </vs-td>
+            </vs-td>-->
 
              <vs-td :data="tr.Fecha">
               {{ tr.Fecha }}
@@ -120,6 +121,69 @@ v-if="tableData.length && header.length"
         </template>
       </vs-table>
     </vx-card>
+
+      <vs-popup title="Error Codificados" :active.sync="popupErrores" @close="popupClose">
+          <vs-alert active="true" color="danger" icon-pack="feather" icon="icon-info" style="height: 100% !important;">
+            <span>Los siguientes <b>{{ this.errores.length }} </b> registros tiene error</span>
+          </vs-alert>
+           <br/>
+           <div class="vx-row">
+
+         <div class="vx-col w-full">
+        <vs-table pagination :max-items="10" search :data="errores"> 
+        <template slot="header">     
+        </template>
+        <template slot="thead">
+          <vs-th>N° Registro</vs-th>
+          <vs-th>Rut</vs-th>
+          <vs-th>Tipo</vs-th>
+          <vs-th>Fecha</vs-th>
+          <vs-th>Horario</vs-th>
+        </template>
+
+        <template slot-scope="{data}">
+           <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+          <vs-td >
+              {{ tr.id }}          
+          </vs-td>
+           <vs-td>
+              {{ tr.rut }}
+          </vs-td>
+           <vs-td>
+              {{ tr.tipo }}
+          </vs-td>
+           <vs-td>
+              {{ tr.fecha }}
+          </vs-td>
+           <vs-td>
+              {{ tr.horario }}
+          </vs-td>
+          
+          <template class="expand-user" slot="expand">
+            <div class="con-expand-users">
+              <vs-list :key="i" v-for="(error, i) in tr.observaciones">
+                <vs-list-item icon="check" :title="error" ></vs-list-item>
+              </vs-list>
+            </div>
+          </template>
+          </vs-tr>
+        </template>
+      </vs-table>
+        </div>
+        <div class="vx-col w-full"> 
+          <div class="vx-row">
+          <div class="vx-col w-full">
+            <div class="mt-3 flex flex-wrap items-center justify-end">
+              <vx-tooltip color="primary" text="Volver">
+                  <vs-button icon-pack="feather" icon="icon-x" class="ml-4 mt-2" @click="popupClose">Cerrar</vs-button>
+              </vx-tooltip>          
+            </div>
+          </div>
+        </div>
+      
+        </div>       
+      </div>
+        </vs-popup>
   </div>
 </template>
 
@@ -166,6 +230,9 @@ export default {
       empresasOptions: [],
       cantAgendamientos:0,
 
+      errores : [],
+      popupErrores:false,
+
     }
   },
   watch: {
@@ -184,8 +251,11 @@ export default {
     
   },
   methods: {
+    popupClose(){
+       this.popupErrores = false;
+    },
     handleSelectedAgendamientos(tr) {
-      this.cantAgendamientos = this.selected.length;
+      this.cantAgendamientos = this.tableData.length;
     },
     loadDataInTable({ results, header, meta }) {
      
@@ -236,10 +306,8 @@ export default {
 
         }else{
 
-          this.sucursalFilter = { label: 'Todos', value: 'all', id:0 },
-          this.sucursalOptions = [
-            { label: 'Todos', value: 'all', id:0 },
-          ]
+          this.sucursalFilter = null,
+          this.sucursalOptions = []
         }
      
     },
@@ -255,18 +323,36 @@ export default {
           axios.post("/api/v1/agendamientos/agendamientos/importar", this.item)
           .then((res) => {
             
-            setTimeout( ()=> {
-              
-              this.$vs.loading.close();
-              this.$router.push({name:'agendamientos'});
+            if(res.data.errores.length > 0 ){
+                this.errores = res.data.errores;
+      
+                setTimeout( ()=> {
+                    this.$vs.loading.close();
+                    
+                    this.$vs.notify({
+                      color: 'danger',
+                      title: 'Error Codificaciones',
+                      text: 'Algunos registros estan con errores.'
+                    })
 
-               this.$vs.notify({
-                color: 'success',
-                title: 'Agendamientos Guardados',
-                text: 'Los registros fueron guardados exitosamente.'
-              })
+                  }, 500); 
 
-            }, 500);        
+                this.popupErrores = true;
+
+            }else{
+               
+                setTimeout( ()=> {              
+                  this.$vs.loading.close();
+                  this.$router.push({name:'agendamientos'});
+
+                  this.$vs.notify({
+                    color: 'success',
+                    title: 'Agendamientos Guardados',
+                    text: 'Los registros fueron guardados exitosamente.'
+                  })
+
+                }, 500);  
+            }      
              
           })
           .catch((err) => { 
@@ -295,8 +381,10 @@ export default {
 
       this.cantAgendamientos = 0;
 
-      this.sucursalFilter = null;
-      this.empresaFilter = null;
+      this.sucursalFilter = null,
+      this.sucursalesOptions = [],
+      this.empresaFilter = null,
+      //this.empresasOptions = [],
 
       this.errors.clear();
 
@@ -305,3 +393,15 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+.con-expand-users
+  .list-icon
+    i
+      font-size .9rem !important
+.vs-list--item {
+    padding: 2px !important;
+}
+.vs-list {
+    padding: 2px !important;
+}
+</style>

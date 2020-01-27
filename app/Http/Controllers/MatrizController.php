@@ -160,6 +160,7 @@ class MatrizController extends Controller
             'horarios.id',
             'horarios.horario')
             ->where('horarios_has_sucursales.sucursal_id',$id)
+            ->where('horarios.habilitado', true)
             ->get();
 
         

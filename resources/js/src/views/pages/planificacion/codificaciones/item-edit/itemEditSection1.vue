@@ -116,6 +116,14 @@
           </vs-select>
       </div>
 
+        <div class="vx-col md:w-1/2 w-full mt-5">
+             <label class="vs-input--label ">Habilitado</label>
+              <br/>
+             
+               <vs-switch class="mt-2" v-model="data_local.habilitado" />
+           
+        </div>
+
     
         <!-- BUTTONS -->
         <div class="vx-col  w-full mt-2">
@@ -235,6 +243,7 @@ export default {
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? parseFloat(this.data.lat): null,
         lng: this.data.lng ? parseFloat(this.data.lng): null,
+        habilitado: this.data.habilitado ? this.data.habilitado: null,
       },
       empresa:this.data.empresa_id,
       center: { lat: -33.4533624, lng: -70.6642131 },
@@ -739,6 +748,7 @@ export default {
         sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         lat: this.data.lat ? this.data.lat: null,
         lng: this.data.lng ? this.data.lng: null,
+        habilitado: this.data.habilitado ? this.data.habilitado: null,
       }
 
       this.empresa = this.data.empresa_id;

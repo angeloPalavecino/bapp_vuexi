@@ -331,7 +331,7 @@ class HorariosController extends Controller
             'horarios.horario as label',
             'horarios.horario as value' )
             ->where('horarios.habilitado', 1 )
-            ->where('horarios_has_sucursales.sucursal_id','!=',$id)->get();
+            ->where('horarios_has_sucursales.sucursal_id',$id)->get();
 
         return response()->json(
             [

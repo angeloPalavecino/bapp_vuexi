@@ -38,10 +38,10 @@
           <v-select :options="estadoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="estadoFilter" class="mb-4 md:mb-0" />
         </div>
 
-        <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+     <!--    <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">Periodo</label>
           <v-select :options="periodoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="periodoFilter" class="mb-4 md:mb-0" />
-        </div>
+        </div>-->
 
       </div>
     </vx-card>
@@ -218,13 +218,13 @@ export default {
         { label: 'Vencido', value: false },
       ],
 
-      periodoFilter: { label: 'Todos', value: 'all' },
+     /* periodoFilter: { label: 'Todos', value: 'all' },
       periodoOptions: [
         { label: 'Todos', value: 'all' }, 
         { label: 'Diario', value: 'Diario' },
         { label: 'Mensual', value: 'Mensual' },
         { label: 'Permanente', value: 'Permanente' },
-      ],
+      ],*/
 
 
       sucursalFilter: { label: 'Todos', value: 'all', id:0 },
@@ -279,20 +279,21 @@ export default {
           filter: true,
           minWidth: 110,
           valueGetter: function(params) {
-            var fecha = new Date();
-            var fecha_fin = new Date(params.data.fecha_fin);
-            
-            if(fecha > fecha_fin){
-               return false;
-            }else{
+            var fecha_hoy = new Date();
+            var fecha = new Date(params.data.fecha_inicio);
+            fecha_hoy.setHours(0,0,0,0);
+
+            if(fecha >= fecha_hoy){
                return true;
+            }else{
+               return false;
             }
 
           },
           cellRendererFramework: 'CellRendererStatus'       
           
         },
-        {
+        /*{
           headerName: 'Periodo',
           field: 'periodo',
           filter: true,
@@ -309,9 +310,9 @@ export default {
 
             return periodo;
           },
-        },
+        },*/
          {
-          headerName: 'Inicio',
+          headerName: 'Fecha',
           field: 'fecha_inicio',
           filter: true,
           minWidth: 130,
@@ -320,7 +321,7 @@ export default {
             return fecha_inicio;
           },
         },
-         {
+       /*  {
           headerName: 'Termino',
           field: 'fecha_fin',
           filter: true,
@@ -329,7 +330,7 @@ export default {
             var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
             return fecha_fin;
           },
-        },
+        },*/
         {
           headerName: 'Rut',
           field: 'rut',
@@ -375,9 +376,9 @@ export default {
     }
   },
   watch: {
-    periodoFilter(obj){
+    /*periodoFilter(obj){
       this.setColumnFilter("periodo",obj.value)
-    },
+    },*/
     estadoFilter(obj){
       this.setColumnFilter("estado",obj.value)
     },
@@ -485,7 +486,8 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = this.periodoFilter  = { label: 'Todos', value: 'all' }
+      this.horarioFilter =  this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter   = { label: 'Todos', value: 'all' }
+      //= this.periodoFilter
 
       this.$refs.filterCard.removeRefreshAnimation()
     },

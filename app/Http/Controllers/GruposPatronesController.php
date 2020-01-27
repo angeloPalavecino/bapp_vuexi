@@ -378,7 +378,7 @@ class GruposPatronesController extends Controller
     {
         $grupopatron = GrupoPatron::select(
             'id',
-            'codigo' )->where('id','!=',$id)->get();
+            'codigo')->where('id','!=',$id)->get();
 
         return response()->json(
             [

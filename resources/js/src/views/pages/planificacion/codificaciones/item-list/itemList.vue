@@ -23,6 +23,15 @@
           <label class="text-sm opacity-75">Sucursales</label>
           <v-select :options="sucursalOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursalFilter" class="mb-4 md:mb-0" />
         </div>
+        <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Estado</label>
+          <v-select :options="estadoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="estadoFilter" class="mb-4 md:mb-0" />
+        </div>
+
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Codificado</label>
+          <v-select :options="codificadoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="codificadoFilter" class="mb-4 md:mb-0" />
+        </div>
        
       </div>
     </vx-card>
@@ -161,6 +170,7 @@ import moduleItemManagement from '@/store/items-management/moduleItemManagement.
 
 // Cell Renderer
 import CellRendererActions from "./cell-renderer/CellRendererActions.vue"
+import CellRendererStatus from "./cell-renderer/CellRendererStatus.vue"
 
 //Loading
 import CustomLoadingOverlay from "../../../utils/customLoadingOverlay.js";
@@ -174,6 +184,7 @@ export default {
 
     // Cell Renderer
     CellRendererActions,
+    CellRendererStatus
   },
   data() {
     return {
@@ -186,6 +197,20 @@ export default {
       empresaFilter: { label: 'Todos', value: 'all', id:0 },
       empresaOptions: [
         { label: 'Todos', value: 'all', id:0 },
+      ],
+
+      estadoFilter: { label: 'Todos', value: 'all', id:0 },
+      estadoOptions: [
+        { label: 'Todos', value: 'all', id:0 },
+        { label: 'Habilitados', value: '1', id:0 },
+        { label: 'Deshabilitado', value: '0', id:0 },
+      ],
+
+      codificadoFilter: { label: 'Todos', value: 'all', id:0 },
+      codificadoOptions: [
+        { label: 'Todos', value: 'all', id:0 },
+        { label: 'Si', value: 'Si', id:0 },
+        { label: 'No', value: 'No', id:0 },
       ],
 
       searchQuery: "",
@@ -237,13 +262,36 @@ export default {
           headerName: 'Rut',
           field: 'rut',
           filter: true,
-          minWidth: 200,
+          minWidth: 175,
         },
         {
           headerName: 'Codigo',
           field: 'codigo',
           filter: true,
-          minWidth: 185,
+          minWidth: 165,
+        },
+         {
+          headerName: 'Codificado',
+          filter: true,
+          colId: "codificado",
+          minWidth: 135,
+          valueGetter: function(params) {
+
+            if(params.data.codigo){
+              return "Si";
+            }else{
+              return "No";
+            }
+            
+        }
+          
+        },
+         {
+          headerName: 'Estado',
+          field: 'habilitado',
+          filter: true,
+          minWidth: 150,
+          cellRendererFramework: 'CellRendererStatus',
         },
          {
           headerName: 'Sucursal',
@@ -263,6 +311,7 @@ export default {
       // Cell Renderer Components
       components: {
         CellRendererActions,
+        CellRendererStatus
       }
     }
   },
@@ -272,6 +321,12 @@ export default {
     },
     empresaFilter(obj) {
       this.traeSucursales(obj.id);
+    },
+    estadoFilter(obj) {
+       this.setColumnFilter("habilitado", obj.value)
+    },
+    codificadoFilter(obj) {
+       this.setColumnFilter("codificado", obj.value)
     }
   },
   computed: {
@@ -365,7 +420,7 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.sucursalFilter = this.empresaFilter = { label: 'Todos', value: 'all', id:0 }
+      this.sucursalFilter = this.empresaFilter = this.estadoFilter = this.codificadoFilter =  { label: 'Todos', value: 'all', id:0 }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },

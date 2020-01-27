@@ -64,11 +64,13 @@ v-if="tableData.length && header.length"
      
      <vs-input v-validate="'min_value:1'" type="hidden" name="codificaciones" v-model="cantCodificaciones"/>
      <span class="text-danger text-sm">{{ errors.first('codificaciones') }}</span>
-
-      <vs-table @input="handleSelectedCodificaciones" v-if="tableData.length"
-       pagination :max-items="10" search :data="tableData"> 
-        <template slot="header">
-          <h4>{{ sheetName }}</h4>
+        <h3>{{ sheetName }}</h3>
+        
+      <vs-table  v-if="tableData.length"
+       pagination :max-items="10" search :data="tableData">  <!--@input="handleSelectedCodificaciones"-->
+        <template slot="header">      
+          <br/>
+          <h4>Registros cargados: {{ tableData.length }}</h4>
         </template>
 
         <template slot="thead">
@@ -150,7 +152,70 @@ v-if="tableData.length && header.length"
         </template>
       </vs-table>
     </vx-card>
-  </div>
+    <vs-popup title="Error Codificados" :active.sync="popupErrores" @close="popupClose">
+          <vs-alert active="true" color="danger" icon-pack="feather" icon="icon-info" style="height: 100% !important;">
+            <span>Los siguientes <b>{{ this.errores.length }} </b> registros tiene error</span>
+          </vs-alert>
+           <br/>
+           <div class="vx-row">
+
+         <div class="vx-col w-full">
+        <vs-table pagination :max-items="10" search :data="errores"> 
+        <template slot="header">     
+        </template>
+        <template slot="thead">
+          <vs-th>N° Registro</vs-th>
+          <vs-th>Rut</vs-th>
+          <vs-th>Direccion</vs-th>
+          <vs-th>Comuna</vs-th>
+          <vs-th>Centro Costo</vs-th>
+        </template>
+
+        <template slot-scope="{data}">
+           <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+          <vs-td >
+              {{ tr.id }}          
+          </vs-td>
+           <vs-td>
+              {{ tr.rut }}
+          </vs-td>
+           <vs-td>
+              {{ tr.direccion }}
+          </vs-td>
+           <vs-td>
+              {{ tr.comuna }}
+          </vs-td>
+           <vs-td>
+              {{ tr.centro_costo }}
+          </vs-td>
+          
+          <template class="expand-user" slot="expand">
+            <div class="con-expand-users">
+              <vs-list :key="i" v-for="(error, i) in tr.observaciones">
+                <vs-list-item icon="check" :title="error" ></vs-list-item>
+              </vs-list>
+            </div>
+          </template>
+          </vs-tr>
+        </template>
+      </vs-table>
+        </div>
+        <div class="vx-col w-full"> 
+          <div class="vx-row">
+          <div class="vx-col w-full">
+            <div class="mt-3 flex flex-wrap items-center justify-end">
+              <vx-tooltip color="primary" text="Volver">
+                  <vs-button icon-pack="feather" icon="icon-x" class="ml-4 mt-2" @click="popupClose">Cerrar</vs-button>
+              </vx-tooltip>          
+            </div>
+          </div>
+        </div>
+      
+        </div>       
+      </div>
+        </vs-popup>
+
+  </div>  
 </template>
 
 <script>
@@ -196,6 +261,9 @@ export default {
       empresasOptions: [],
       cantCodificaciones:0,
 
+      errores : [],
+      popupErrores:false,
+
     }
   },
   watch: {
@@ -214,8 +282,11 @@ export default {
     
   },
   methods: {
+    popupClose(){
+       this.popupErrores = false;
+    },
     handleSelectedCodificaciones(tr) {
-      this.cantCodificaciones = this.selected.length;
+      this.cantCodificaciones = this.tableData.length;
     },
     loadDataInTable({ results, header, meta }) {
      
@@ -266,10 +337,8 @@ export default {
 
         }else{
 
-          this.sucursalFilter = { label: 'Todos', value: 'all', id:0 },
-          this.sucursalOptions = [
-            { label: 'Todos', value: 'all', id:0 },
-          ]
+          this.sucursalFilter = null,
+          this.sucursalOptions = []
         }
      
     },
@@ -284,19 +353,38 @@ export default {
 
           axios.post("/api/v1/codificaciones/codificaciones/importar", this.item)
           .then((res) => {
-            
-            setTimeout( ()=> {
-              
-              this.$vs.loading.close();
-              this.$router.push({name:'codificaciones'});
+         
+            if(res.data.errores.length > 0 ){
+                this.errores = res.data.errores;
+      
+                setTimeout( ()=> {
+                    this.$vs.loading.close();
+                    
+                    this.$vs.notify({
+                      color: 'danger',
+                      title: 'Error Codificaciones',
+                      text: 'Algunos registros estan con errores.'
+                    })
 
-               this.$vs.notify({
-                color: 'success',
-                title: 'Codificaciones Guardadas',
-                text: 'Los registros fueron guardados exitosamente.'
-              })
+                  }, 500); 
 
-            }, 500);        
+                this.popupErrores = true;
+
+            }else{
+               
+                  setTimeout( ()=> {
+                    this.$vs.loading.close();
+                    this.$router.push({name:'codificaciones'});
+
+                    this.$vs.notify({
+                      color: 'success',
+                      title: 'Codificaciones Guardadas',
+                      text: 'Los registros fueron guardados exitosamente.'
+                    })
+
+                  }, 500); 
+            }
+                 
              
           })
           .catch((err) => { 
@@ -325,8 +413,10 @@ export default {
 
       this.cantCodificaciones = 0;
 
-      this.sucursalFilter = null;
-      this.empresaFilter = null;
+      this.sucursalFilter = null,
+      this.sucursalesOptions = [],
+      this.empresaFilter = null,
+      //this.empresasOptions = [],
 
       this.errors.clear();
 
@@ -335,3 +425,15 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+.con-expand-users
+  .list-icon
+    i
+      font-size .9rem !important
+.vs-list--item {
+    padding: 2px !important;
+}
+.vs-list {
+    padding: 2px !important;
+}
+</style>

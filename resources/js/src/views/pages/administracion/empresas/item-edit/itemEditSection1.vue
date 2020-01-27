@@ -74,7 +74,7 @@
           </form>
         </tab-content>
 
-        <tab-content title="Paso 2" class="mb-1" icon="feather icon-home" :before-change="validateStep2">
+        <tab-content title="Paso 2" class="mb-1" icon="feather icon-users" :before-change="validateStep2">
           <!-- tab 2 content -->
           <form data-vv-scope="step-2">
            <div>

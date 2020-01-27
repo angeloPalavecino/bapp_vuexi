@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Agendamientos;
 use App\Models\Codificaciones;
 use App\Models\Horarios;
-
+use App\Models\HorariosHasSucursales;
 
 class AgendamientosController extends Controller
 {
@@ -674,7 +674,233 @@ class AgendamientosController extends Controller
         return false;
     }
 
+    function validaRut($rut){
+
+        if (!preg_match("/^[0-9.]+[-]?+[0-9kK]{1}/", $rut)) {
+            return false;
+        }
+
+        if(strpos($rut,"-")==false){
+            $RUT[0] = substr($rut, 0, -1);
+            $RUT[1] = substr($rut, -1);
+        }else{
+            $RUT = explode("-", trim($rut));
+        }
+        $elRut = str_replace(".", "", trim($RUT[0]));
+        $factor = 2;
+        $suma = 0;
+        for($i = strlen($elRut)-1; $i >= 0; $i--):
+            $factor = $factor > 7 ? 2 : $factor;
+            $suma += $elRut{$i}*$factor++;
+        endfor;
+        $resto = $suma % 11;
+        $dv = 11 - $resto;
+        if($dv == 11){
+            $dv=0;
+        }else if($dv == 10){
+            $dv="k";
+        }else{
+            $dv=$dv;
+        }
+       if($dv == trim(strtolower($RUT[1]))){
+           return true;
+       }else{
+           return false;
+       }
+    }
+
+
     public function importar(Request $request)
+    {
+        
+        $input = $request->all();
+        $sucursal_id = $input['sucursal'];
+        $agendamientos = $input['agendamientos'];
+        $errores = array();
+
+        if($sucursal_id < 0 && sizeof($agendamientos) < 0){
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Error al intentar ingresar los registros!'
+            ], 300);
+
+        }
+
+
+        foreach ($agendamientos as $key => $agendamiento) {
+
+            $error = array(
+                "id"    => "",
+                "rut"    => "",
+                "tipo"  => "",
+                "fecha"  => "",
+                "horario" => "",
+                "observaciones" => [],
+            );
+            
+            $id             = $key+1;
+            $rut            = isset($agendamiento['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($agendamiento['Rut']))) : " "; 
+            $tipo           = isset($agendamiento['Tipo']) ? ucwords(self::limpiar_string($agendamiento['Tipo'])) : "";
+            $fecha          = isset($agendamiento['Fecha']) ? $agendamiento['Fecha'] : ""; 
+            $horario        = isset($agendamiento['Horario']) ? $agendamiento['Horario'] : ""; 
+            $valida_rut     = self::validaRut($rut);
+            $valida_fecha   = self::validar_fecha($fecha);    
+
+            $codificacion_id = Codificaciones::where('rut', $rut )->where('habilitado', true )->value('id');
+
+            $horarios = HorariosHasSucursales::join('horarios', 'horarios_has_sucursales.horario_id', '=', 'horarios.id')
+                ->select('horarios.id')
+                ->where('horarios.horario',$horario)
+                ->where('horarios_has_sucursales.sucursal_id',$sucursal_id)
+                ->where('horarios.habilitado', true)
+                ->first();
+            
+            if($horarios){
+                $aux = $horarios->toArray();
+                $horario_id = $aux["id"];
+            }
+
+            $valores = explode('/', $fecha);
+            $day = $valores[0];
+            $mes = $valores[1];
+            $ano = $valores[2];
+                            
+            $fecha_agendamiento = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
+            $fecha_hoy = date("Y-m-d");
+
+            //Validar fechas futuras?? Maximo 1 mes?.
+            
+            if(empty($rut) || $rut == " " || $valida_rut == false || empty($tipo) || $tipo == " " || empty($horario) 
+                || $horario == " " || empty($fecha) || $fecha == " " || $valida_fecha == false || ($tipo != "Zarpe" && $tipo != "Recogida")
+                || empty($codificacion_id) || $codificacion_id == null || empty($horario_id) || $horario_id == null || ($fecha_agendamiento < $fecha_hoy)){
+                    
+                    $error['id'] = $id;
+                    $error['rut'] = $rut;
+                    $error['tipo'] = $tipo;
+                    $error['fecha'] = $fecha;
+                    $error['horario'] = $horario;
+
+                    if(empty($rut) || $rut == " " ){
+                        $error['observaciones'][] = "El rut esta vacio";
+                    }
+                    
+                    if($valida_rut == false){
+                        $error['observaciones'][] = "El rut es invalido";
+                    }
+
+                    if(empty($tipo) || $tipo == " " ){
+                        $error['observaciones'][] = "El tipo esta vacia";
+                    }
+
+                    if($tipo != "Zarpe" && $tipo != "Recogida"){
+                        $error['observaciones'][] = "El tipo no corresponde a Zarpe o Recogida";
+                    }
+
+                    if(empty($horario) || $horario == " " ){
+                        $error['observaciones'][] = "El horario esta vacio";
+                    }
+
+                    if(empty($fecha) || $fecha == " " ){
+                        $error['observaciones'][] = "La fecha esta vacio";
+                    }
+
+                    if($fecha_agendamiento < $fecha_hoy){
+                        $error['observaciones'][] = "La fecha es inferior a la fecha actual";
+                    }
+
+                    if($valida_fecha == false){
+                        $error['observaciones'][] = "La fecha no es valida";
+                    }
+
+                    if(empty($codificacion_id) || $codificacion_id == null){
+                        $error['observaciones'][] = "El rut no se encuentra codificado o esta deshabilitado";
+                    }
+
+                    if(empty($horario_id) || $horario_id == null){
+                        $error['observaciones'][] = "El horario no se encuentra parametrizado en la sucursal o esta deshabilitado";
+                    }
+
+
+                   
+                }else{
+                    
+                  
+                    
+                        
+                    //if($codificacion_id && $horario_id){
+
+                        $valores = explode('/', $fecha);
+                        $day = $valores[0];
+                        $mes = $valores[1];
+                        $ano = $valores[2];
+                            
+                        $fecha_inicio = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
+
+                        //BUSCA SI EXISTE AGENDAMIENTO PARA EL HORARIO
+                        $agendamiento = Agendamientos::where('horario_plan', $horario_id)
+                          //->where('tipo', $tipo)
+                          ->whereDate('fecha_inicio', $fecha_inicio)
+                          ->whereDate('fecha_fin', $fecha_inicio)
+                          //->where('tipo_fecha', 1)
+                          ->where('codificacion_id', $codificacion_id)->first();  
+
+                        if($agendamiento) {
+                                //ACTUALIZA
+                                Agendamientos::where('id', $agendamiento['id'])->update(
+                                    array(
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_inicio,
+                                        )
+                                    );
+
+                                }else{
+                                //INSERTA
+                                Agendamientos::create(
+                                    array(
+                                            'codificacion_id'   => $codificacion_id,
+                                            'horario_plan'      => $horario_id,
+                                            'tipo'              => $tipo,
+                                            'fecha_inicio'      => $fecha_inicio,
+                                            'fecha_fin'         => $fecha_inicio,
+                                            'tipo_fecha'        => 1,
+                                            
+                                        )
+                                    );
+                                }
+                    //}else{
+
+                   //     $error['id'] = $id;
+                   //     $error['rut'] = $rut;
+                   //     $error['tipo'] = $tipo;
+                   //     $error['fecha'] = $fecha;
+                   //     $error['horario'] = $horario;
+
+                      
+
+                 //   }
+                }	
+                
+                if($error['id'] > 0){
+                    $errores[] = $error;
+                } 
+
+            }
+
+                  
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Los registros han sido guardados exitosamente!',
+                'errores' => $errores
+            ], 200);
+    }
+
+    /*public function importar(Request $request)
     {
         
         $input = $request->all();
@@ -900,5 +1126,5 @@ class AgendamientosController extends Controller
                 'status' => 'success',
                 'message' => 'Los registros han sido guardados exitosamente!'
             ], 200);
-    }
+    }*/
 }

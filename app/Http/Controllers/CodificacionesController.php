@@ -48,6 +48,7 @@ class CodificacionesController extends Controller
             'codificaciones.rut',
             'codificaciones.nombre',
             'codificaciones.apellido',
+            'codificaciones.habilitado',
             'sucursals.nombre as sucursal',
             'grupo_patrons.codigo' )
             ->get();
@@ -115,6 +116,7 @@ class CodificacionesController extends Controller
         $centro_costo = $input['centro_costo'];
         $lat = $input['lat'];
         $lng = $input['lng'];
+        $habilitado = $input['habilitado'];
         $distancia = 0 ;
 
         $sucursal = Sucursal::findorfail($sucursal_id);
@@ -137,7 +139,8 @@ class CodificacionesController extends Controller
                 'telefono'          => $telefono,  
                 'centro_costo'      => $centro_costo,     
                 'lat'               => $lat,     
-                'lng'               => $lng,     
+                'lng'               => $lng,
+                'habilitado'        => $habilitado,     
                 'grupo_patron_id'   => $codigo,     
                 'distancia'         => $distancia              
               )
@@ -175,6 +178,7 @@ class CodificacionesController extends Controller
             'codificaciones.sucursal_id',
             'codificaciones.lat',
             'codificaciones.lng',
+            'codificaciones.habilitado',
             'codificaciones.created_at',
             'codificaciones.updated_at',
             'sucursals.nombre as sucursal',
@@ -256,6 +260,7 @@ class CodificacionesController extends Controller
             $centro_costo = $input['centro_costo'];
             $lat = $input['lat'];
             $lng = $input['lng'];
+            $habilitado = $input['habilitado'];
             $distancia = 0 ;
 
             $sucursal = Sucursal::findorfail($sucursal_id);
@@ -278,7 +283,8 @@ class CodificacionesController extends Controller
                 'telefono'          => $telefono,  
                 'centro_costo'      => $centro_costo,    
                 'lat'               => $lat,     
-                'lng'               => $lng,     
+                'lng'               => $lng,   
+                'habilitado'        => $habilitado,  
                 'grupo_patron_id'   => $codigo,     
                 'distancia'         => $distancia              
               )
@@ -492,12 +498,48 @@ class CodificacionesController extends Controller
 
     }
 
+    function validaRut($rut){
+
+        if (!preg_match("/^[0-9.]+[-]?+[0-9kK]{1}/", $rut)) {
+            return false;
+        }
+
+        if(strpos($rut,"-")==false){
+            $RUT[0] = substr($rut, 0, -1);
+            $RUT[1] = substr($rut, -1);
+        }else{
+            $RUT = explode("-", trim($rut));
+        }
+        $elRut = str_replace(".", "", trim($RUT[0]));
+        $factor = 2;
+        $suma = 0;
+        for($i = strlen($elRut)-1; $i >= 0; $i--):
+            $factor = $factor > 7 ? 2 : $factor;
+            $suma += $elRut{$i}*$factor++;
+        endfor;
+        $resto = $suma % 11;
+        $dv = 11 - $resto;
+        if($dv == 11){
+            $dv=0;
+        }else if($dv == 10){
+            $dv="k";
+        }else{
+            $dv=$dv;
+        }
+       if($dv == trim(strtolower($RUT[1]))){
+           return true;
+       }else{
+           return false;
+       }
+    }
+
     public function importar(Request $request)
     {
         
         $input = $request->all();
         $sucursal_id = $input['sucursal'];
         $codificaciones = $input['codificaciones'];
+        $errores = array();
 
         if($sucursal_id < 0 && sizeof($codificaciones) < 0){
 
@@ -510,21 +552,61 @@ class CodificacionesController extends Controller
         }
 
 
-        foreach ($codificaciones as $codificacion) {
+        foreach ($codificaciones as $key => $codificacion) {
             
-            $rut        = isset($codificacion['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($codificacion['Rut']))) : " "; 
-            $direccion  = isset($codificacion['Direccion']) ? self::limpiar_string($codificacion['Direccion']) : "";
-            $comuna     = isset($codificacion['Comuna']) ? self::limpiar_string($codificacion['Comuna']) : ""; 
+            $error = array(
+                "id"    => "",
+                "rut"    => "",
+                "direccion"  => "",
+                "comuna"  => "",
+                "centro_costo" => "",
+                "observaciones" => [],
+            );
 
-                if(empty($rut) || $rut == " " || empty($direccion) || $direccion == " " || empty($comuna) || $comuna == " "){
+            $id = $key+1;
+            $rut            = isset($codificacion['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($codificacion['Rut']))) : " "; 
+            $direccion      = isset($codificacion['Direccion']) ? self::limpiar_string($codificacion['Direccion']) : "";
+            $comuna         = isset($codificacion['Comuna']) ? self::limpiar_string($codificacion['Comuna']) : ""; 
+            $centro_costo   = (isset($codificacion['Centro_costo'])) ? self::limpiar_string($codificacion['Centro_costo']) : "";
+            $valida_rut     = self::validaRut($rut);
+
+                if(empty($rut) || $rut == " " || $valida_rut == false || empty($direccion) || $direccion == " " || empty($comuna) || $comuna == " " 
+                || empty($centro_costo) || $centro_costo == " "){
                     
+                    $error['id'] = $id;
+                    $error['rut'] = $rut;
+                    $error['direccion'] = $direccion;
+                    $error['comuna'] = $comuna;
+                    $error['centro_costo'] = $centro_costo;
+                   
+
+                    if(empty($rut) || $rut == " " ){
+                        $error['observaciones'][] = "El rut esta vacio";
+                    }
+                    
+                    if($valida_rut == false){
+                        $error['observaciones'][] = "El rut es invalido";
+                    }
+
+                    if(empty($direccion) || $direccion == " " ){
+                        $error['observaciones'][] = "La direccion esta vacia";
+                    }
+
+                    if(empty($comuna) || $comuna == " " ){
+                        $error['observaciones'][] = "La comuna esta vacia";
+                    }
+
+                    if(empty($centro_costo) || $centro_costo == " " ){
+                        $error['observaciones'][] = "El centro de costo vacio";
+                    }
+
+
                 }else{
                     
-                    $nombre     = (isset($codificacion['Nombre'])) ? self::limpiar_string($codificacion['Nombre']) : "NN"; 
-                    $apellido   = (isset($codificacion['Apellido'])) ? self::limpiar_string($codificacion['Apellido']) : "NN"; 
-                    $email   = (isset($codificacion['Email'])) ? self::limpiar_string($codificacion['Email']) : 'Sin mail'; 
+                    $nombre     = (isset($codificacion['Nombre'])) ? self::limpiar_string($codificacion['Nombre']) : "Sin nombre"; 
+                    $apellido   = (isset($codificacion['Apellido'])) ? self::limpiar_string($codificacion['Apellido']) : "Sin apellido"; 
+                    $email   = (isset($codificacion['Email'])) ? $codificacion['Email'] : 'Sin mail'; 
                     $telefono   = (isset($codificacion['Telefono'])) ? self::limpiar_string($codificacion['Telefono']) : "Sin telefono"; 
-                    $centro_costo   = (isset($codificacion['Centro_costo'])) ? self::limpiar_string($codificacion['Centro_costo']) : "Sin centro costo"; 
                     $direccion_completa = strtoupper($direccion.",".$comuna.",Chile");
                     $codigo = null;
                     $sucursal = Sucursal::findorfail($sucursal_id);
@@ -566,6 +648,15 @@ class CodificacionesController extends Controller
                             $lat = null;
                             $lng = null; 
                             $distancia = 0;
+                    
+                            $error['id'] = $id;
+                            $error['rut'] = $rut;
+                            $error['direccion'] = $direccion;
+                            $error['comuna'] = $comuna;
+                            $error['centro_costo'] = $centro_costo;
+                            $error['observaciones'][] = "No se puedo obtener la latitud y longitud de la direccion";
+                            
+                            
                         }
                                           
                     }
@@ -645,7 +736,8 @@ class CodificacionesController extends Controller
                                    'telefono'          => $telefono,     
                                    'centro_costo'      => $centro_costo,      
                                    'lat'               => $lat,     
-                                   'lng'               => $lng,     
+                                   'lng'               => $lng,   
+                                   'habilitado'        => true,                                        
                                    'grupo_patron_id'   => $codigo,     
                                    'distancia'         => $distancia              
                                  )
@@ -653,15 +745,16 @@ class CodificacionesController extends Controller
 
                     }
                 }				    
-
-
-
+                if($error['id'] > 0){
+                    $errores[] = $error;
+                }    
         }
 
         return response()->json(
             [
                 'status' => 'success',
-                'message' => 'Los registros han sido guardados exitosamente!'
+                'message' => 'Los registros han sido guardados exitosamente!',
+                'errores' => $errores
             ], 200);
     }
 
@@ -685,6 +778,7 @@ class CodificacionesController extends Controller
          //   'codificaciones.updated_at',
          )
             ->where('codificaciones.sucursal_id', $id)
+            ->where('codificaciones.habilitado', true)
             ->get();
 
             return response()->json(

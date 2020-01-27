@@ -117,6 +117,14 @@
           </vs-select>
       </div>
 
+       <div class="vx-col md:w-1/2 w-full mt-5">
+             <label class="vs-input--label ">Habilitado</label>
+              <br/>
+             
+               <vs-switch class="mt-2" v-model="data_local.habilitado" />
+           
+        </div>
+
              
       
 
@@ -222,6 +230,7 @@ export default {
       urlApi: "/codificaciones/codificaciones/",
       data_local: {
         codigo: null,
+        sucursal_id :null,
       },
       empresa:1,
       center: { lat: -33.4533624, lng: -70.6642131 },
@@ -464,7 +473,7 @@ export default {
       }
      
     },
-    traeCodigos(value){
+     traeCodigos(value){
       //Combo Grupo de patrones
       axios.get(`/api/v1/patrones/grupos/codigos/` + value)
         .then((res) => {

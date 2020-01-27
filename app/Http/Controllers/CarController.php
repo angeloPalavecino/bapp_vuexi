@@ -532,7 +532,7 @@ class CarController extends Controller
     {
         $cars = Car::select(
             'cars.id',
-            'cars.numero_movil' )->where('empresa_id',$id)->get();
+            'cars.numero_movil' )->where('habilitado',true)->where('empresa_id',$id)->get();
 
         return response()->json(
             [
