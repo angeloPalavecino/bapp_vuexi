@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18,6 +18,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {},
+  data: function data() {
+    return {};
+  },
   name: 'CellRendererActions',
   methods: {
     viewRecord: function viewRecord() {
@@ -41,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'confirm',
         color: 'danger',
         title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar la siguiente grupo de patrones  \"".concat(this.params.data.codigo, "\""),
+        text: "Este seguro que desea eliminar el siguiente agendamiento \"".concat(this.params.data.rut, "\""),
         accept: this.deleteRecord,
         acceptText: "Eliminar"
       });
@@ -73,8 +77,8 @@ __webpack_require__.r(__webpack_exports__);
     showDeleteSuccess: function showDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Grupo Eliminado',
-        text: 'El grupo de patrones seleccionado ya fue eliminada'
+        title: 'Agendamiento Eliminado',
+        text: 'El agendamiento seleccionado ya fue eliminado'
       });
     }
   }
@@ -82,10 +86,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,17 +100,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'CellRendererFueraZona',
-  computed: {}
+  name: 'CellRendererStatus',
+  computed: {
+    chipColor: function chipColor() {
+      return function (value) {
+        if (value === true) return "success"; //else if(value === "blocked") return "danger"
+        else if (value === false) return "danger";else "success";
+      };
+    }
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -120,10 +132,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
-/* harmony import */ var _cell_renderer_CellRendererActions_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cell-renderer/CellRendererActions.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue");
-/* harmony import */ var _cell_renderer_CellRendererFueraZona_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cell-renderer/CellRendererFueraZona.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue");
-/* harmony import */ var _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../utils/customLoadingOverlay.js */ "./resources/js/src/views/pages/utils/customLoadingOverlay.js");
-/* harmony import */ var _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../utils/customNoRowsOverlay.js */ "./resources/js/src/views/pages/utils/customNoRowsOverlay.js");
+/* harmony import */ var _cell_renderer_CellRendererActions_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cell-renderer/CellRendererActions.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue");
+/* harmony import */ var _cell_renderer_CellRendererStatus_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cell-renderer/CellRendererStatus.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue");
+/* harmony import */ var _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../utils/customLoadingOverlay.js */ "./resources/js/src/views/pages/utils/customLoadingOverlay.js");
+/* harmony import */ var _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../utils/customNoRowsOverlay.js */ "./resources/js/src/views/pages/utils/customNoRowsOverlay.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -294,11 +327,48 @@ __webpack_require__.r(__webpack_exports__);
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_2___default.a,
     // Cell Renderer
     CellRendererActions: _cell_renderer_CellRendererActions_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    CellRendererFueraZona: _cell_renderer_CellRendererFueraZona_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    CellRendererStatus: _cell_renderer_CellRendererStatus_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
-      urlApi: "/patrones/grupos/",
+      urlApi: "/agendamientos/agendamientos/",
+      // Filter Options
+      tipoFilter: {
+        label: 'Todos',
+        value: 'all'
+      },
+      tipoOptions: [{
+        label: 'Todos',
+        value: 'all'
+      }, {
+        label: 'Zarpe',
+        value: 'Zarpe'
+      }, {
+        label: 'Recogida',
+        value: 'Recogida'
+      }],
+      estadoFilter: {
+        label: 'Todos',
+        value: 'all'
+      },
+      estadoOptions: [{
+        label: 'Todos',
+        value: 'all'
+      }, {
+        label: 'Activo',
+        value: true
+      }, {
+        label: 'Vencido',
+        value: false
+      }],
+
+      /* periodoFilter: { label: 'Todos', value: 'all' },
+       periodoOptions: [
+         { label: 'Todos', value: 'all' }, 
+         { label: 'Diario', value: 'Diario' },
+         { label: 'Mensual', value: 'Mensual' },
+         { label: 'Permanente', value: 'Permanente' },
+       ],*/
       sucursalFilter: {
         label: 'Todos',
         value: 'all',
@@ -319,31 +389,17 @@ __webpack_require__.r(__webpack_exports__);
         value: 'all',
         id: 0
       }],
-      fuerazonaFilter: {
-        label: 'Todos',
-        value: 'all',
-        id: 0
-      },
-      fuerazonaOptions: [{
+      horarioFilter: {
         label: 'Todos',
         value: 'all'
-      }, {
-        label: 'No',
-        value: '0'
-      }, {
-        label: 'Fuera de zona 1',
-        value: '1'
-      }, {
-        label: 'Fuera de zona 2',
-        value: '2'
-      }, {
-        label: 'Fuera de zona 3',
-        value: '3'
+      },
+      horarioOptions: [{
+        label: 'Todos',
+        value: 'all'
       }],
       searchQuery: "",
       // AgGrid
       gridApi: null,
-      gridOptions: {},
       frameworkComponents: {
         customLoadingOverlay: _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__["default"],
         customNoRowsOverlay: _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__["default"]
@@ -355,9 +411,10 @@ __webpack_require__.r(__webpack_exports__);
       noRowsOverlayComponent: "customNoRowsOverlay",
       noRowsOverlayComponentParams: {
         noRowsMessageFunc: function noRowsMessageFunc() {
-          return "No hay registros disponibles "; //+ new Date();
+          return "No hay registros disponibles  "; //+ new Date();
         }
       },
+      gridOptions: {},
       defaultColDef: {
         sortable: true,
         resizable: true,
@@ -370,52 +427,116 @@ __webpack_require__.r(__webpack_exports__);
         filter: true,
         checkboxSelection: true,
         headerCheckboxSelectionFilteredOnly: true,
-        headerCheckboxSelection: true,
-        suppressSizeToFit: true
+        headerCheckboxSelection: true
       }, {
-        headerName: 'Codigo',
-        field: 'codigo',
+        headerName: 'Estado',
+        colId: 'estado',
         filter: true,
-        minWidth: 185
+        minWidth: 110,
+        valueGetter: function valueGetter(params) {
+          var fecha_hoy = new Date();
+          var fecha = new Date(params.data.fecha_inicio);
+          fecha_hoy.setHours(0, 0, 0, 0);
+
+          if (fecha >= fecha_hoy) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+        cellRendererFramework: 'CellRendererStatus'
+      },
+      /*{
+        headerName: 'Periodo',
+        field: 'periodo',
+        filter: true,
+        minWidth: 140,
+          valueGetter: function(params) {
+          
+          if(params.data.tipo_fecha == 1){
+            var periodo = "Diario";
+          }else if(params.data.tipo_fecha == 2){
+            var periodo = "Mensual";
+          }else{
+            var periodo = "Permanente";
+          }
+           return periodo;
+        },
+      },*/
+      {
+        headerName: 'Fecha',
+        field: 'fecha_inicio',
+        filter: true,
+        minWidth: 130,
+        valueGetter: function valueGetter(params) {
+          var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
+          return fecha_inicio;
+        }
+      },
+      /*  {
+         headerName: 'Termino',
+         field: 'fecha_fin',
+         filter: true,
+         minWidth: 130,
+           valueGetter: function(params) {
+           var fecha_fin = new Date(params.data.fecha_fin).toLocaleDateString('en-GB');
+           return fecha_fin;
+         },
+       },*/
+      {
+        headerName: 'Rut',
+        field: 'rut',
+        filter: true,
+        minWidth: 140
       }, {
-        headerName: 'Empresa',
-        field: 'razon_social',
+        headerName: 'Nombre',
         filter: true,
-        minWidth: 200
+        colId: "nombre",
+        minWidth: 140,
+        valueGetter: function valueGetter(params) {
+          return params.data.nombre + " " + params.data.apellido;
+        }
       }, {
-        headerName: 'Sucursal',
-        field: 'sucursal',
+        headerName: 'Tipo',
+        field: 'tipo',
         filter: true,
-        minWidth: 200
+        minWidth: 135
       }, {
-        headerName: 'Fuera de zona',
-        field: 'fuerazona',
+        headerName: 'Horario',
+        field: 'horario_plan',
         filter: true,
-        cellRendererFramework: 'CellRendererFueraZona',
-        minWidth: 200
+        minWidth: 135
       }, {
         headerName: 'Acciones',
         field: 'transactions',
-        minWidth: 120,
+        minWidth: 155,
         cellRendererFramework: 'CellRendererActions'
       }],
       // Cell Renderer Components
       components: {
         CellRendererActions: _cell_renderer_CellRendererActions_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-        CellRendererFueraZona: _cell_renderer_CellRendererFueraZona_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+        CellRendererStatus: _cell_renderer_CellRendererStatus_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
       }
     };
   },
   watch: {
+    /*periodoFilter(obj){
+      this.setColumnFilter("periodo",obj.value)
+    },*/
+    estadoFilter: function estadoFilter(obj) {
+      this.setColumnFilter("estado", obj.value);
+    },
+    tipoFilter: function tipoFilter(obj) {
+      this.setColumnFilter("tipo", obj.value);
+    },
+    horarioFilter: function horarioFilter(obj) {
+      this.setColumnFilter("horario", obj.value);
+    },
     sucursalFilter: function sucursalFilter(obj) {
-      this.setColumnFilter("sucursal", obj.value);
+      this.traeHorarios(obj.id);
     },
     empresaFilter: function empresaFilter(obj) {
-      this.setColumnFilter("razon_social", obj.value);
       this.traeSucursales(obj.id);
-    },
-    fuerazonaFilter: function fuerazonaFilter(obj) {
-      this.setColumnFilter("fuerazona", obj.value);
     }
   },
   computed: {
@@ -485,7 +606,7 @@ __webpack_require__.r(__webpack_exports__);
     showMassiveDeleteSuccess: function showMassiveDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Grupos Eliminados',
+        title: 'Agendamientos Eliminados',
         text: 'Los registros ya fueron eliminados.'
       });
     },
@@ -508,25 +629,61 @@ __webpack_require__.r(__webpack_exports__);
       this.gridApi.setFilterModel(null);
       this.gridApi.onFilterChanged(); // Reset Filter Options
 
-      this.sucursalFilter = this.empresaFilter = {
-        label: 'Todos',
-        value: 'all',
-        id: 0
-      };
-      this.fuerazonaFilter = {
+      this.horarioFilter = this.tipoFilter = this.sucursalFilter = this.empresaFilter = this.estadoFilter = {
         label: 'Todos',
         value: 'all'
-      };
+      }; //= this.periodoFilter
+
       this.$refs.filterCard.removeRefreshAnimation();
     },
     updateSearchQuery: function updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val);
     },
+    importRecord: function importRecord() {
+      this.$router.push("../item-import/").catch(function () {});
+    },
     addRecord: function addRecord() {
       this.$router.push("../item-add/").catch(function () {});
     },
-    traeSucursales: function traeSucursales(value) {
+    traeHorarios: function traeHorarios(value) {
       var _this2 = this;
+
+      if (value > 1) {
+        //Combo Horarios
+        _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/horarios/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          var horarios = res.data.items;
+          horarios.push({
+            label: 'Todos',
+            value: 'all',
+            id: 0
+          });
+          _this2.horarioOptions = horarios.reverse(); //this.sucursalOptions = res.data.items;  
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this2.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.horarioFilter = {
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }, this.horarioOptions = [{
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }];
+      }
+    },
+    traeSucursales: function traeSucursales(value) {
+      var _this3 = this;
 
       if (value > 1) {
         //Combo Sucursales
@@ -538,11 +695,11 @@ __webpack_require__.r(__webpack_exports__);
             value: 'all',
             id: 0
           });
-          _this2.sucursalOptions = sucursales.reverse(); //this.sucursalOptions = res.data.items;  
+          _this3.sucursalOptions = sucursales.reverse(); //this.sucursalOptions = res.data.items;  
         }).catch(function (err) {
           var textError = err.response.status == 300 ? err.response.data.message : err;
 
-          _this2.$vs.notify({
+          _this3.$vs.notify({
             title: 'Error',
             text: textError,
             color: 'danger',
@@ -563,7 +720,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     traeOtrosDatos: function traeOtrosDatos() {
-      var _this3 = this;
+      var _this4 = this;
 
       //Combo Empresa
       _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/empresas/combo").then(function (res) {
@@ -573,11 +730,11 @@ __webpack_require__.r(__webpack_exports__);
           value: 'all',
           id: 0
         });
-        _this3.empresaOptions = empresas.reverse();
+        _this4.empresaOptions = empresas.reverse();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this3.$vs.notify({
+        _this4.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -603,7 +760,7 @@ __webpack_require__.r(__webpack_exports__);
     this.traeOtrosDatos();
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -613,7 +770,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(function (err) {
       var textError = err.response.status == 300 ? err.response.data.message : err;
 
-      _this4.$vs.notify({
+      _this5.$vs.notify({
         title: 'Error',
         text: textError,
         color: 'danger',
@@ -626,14 +783,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -645,14 +802,14 @@ exports.push([module.i, ".ag-grid-cell-chip.vs-chip-success {\n  color: rgba(var
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -664,45 +821,15 @@ exports.push([module.i, "#page-item-list .items-list-filters .vs__actions {\n  p
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../../../node_modules/css-loader!../../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -724,10 +851,40 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -762,7 +919,7 @@ var render = function() {
       _c("feather-icon", {
         attrs: {
           icon: "Trash2Icon",
-          svgClasses: "h-5 w-5 hover:text-danger cursor-pointer"
+          svgClasses: "h-5 w-5 mr-4 hover:text-danger cursor-pointer"
         },
         on: { click: _vm.confirmDeleteRecord }
       })
@@ -777,10 +934,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -792,11 +949,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", [
-    _vm._v(
-      _vm._s(_vm.params.value == 0 ? "No" : "Fuera de zona " + _vm.params.value)
-    )
-  ])
+  return _c(
+    "vs-chip",
+    {
+      staticClass: "ag-grid-cell-chip",
+      attrs: { color: _vm.chipColor(_vm.params.value) }
+    },
+    [
+      _c("span", [
+        _vm._v(_vm._s(_vm.params.value === true ? "Activo" : "Vencido"))
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -805,10 +969,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290&":
-/*!********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290& ***!
-  \********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -834,7 +998,7 @@ var render = function() {
             collapseAction: "",
             refreshContentAction: ""
           },
-          on: { refresh: _vm.resetColFilters, remove: _vm.resetColFilters }
+          on: { refresh: _vm.resetColFilters }
         },
         [
           _c("div", { staticClass: "vx-row" }, [
@@ -896,22 +1060,78 @@ var render = function() {
               { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
               [
                 _c("label", { staticClass: "text-sm opacity-75" }, [
-                  _vm._v("Fuera de zona")
+                  _vm._v("Horario")
                 ]),
                 _vm._v(" "),
                 _c("v-select", {
                   staticClass: "mb-4 md:mb-0",
                   attrs: {
-                    options: _vm.fuerazonaOptions,
+                    options: _vm.horarioOptions,
                     clearable: false,
                     dir: _vm.$vs.rtl ? "rtl" : "ltr"
                   },
                   model: {
-                    value: _vm.fuerazonaFilter,
+                    value: _vm.horarioFilter,
                     callback: function($$v) {
-                      _vm.fuerazonaFilter = $$v
+                      _vm.horarioFilter = $$v
                     },
-                    expression: "fuerazonaFilter"
+                    expression: "horarioFilter"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
+              [
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Tipo")
+                ]),
+                _vm._v(" "),
+                _c("v-select", {
+                  staticClass: "mb-4 md:mb-0",
+                  attrs: {
+                    options: _vm.tipoOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.tipoFilter,
+                    callback: function($$v) {
+                      _vm.tipoFilter = $$v
+                    },
+                    expression: "tipoFilter"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "vx-row mt-2" }, [
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
+              [
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Estado")
+                ]),
+                _vm._v(" "),
+                _c("v-select", {
+                  staticClass: "mb-4 md:mb-0",
+                  attrs: {
+                    options: _vm.estadoOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.estadoFilter,
+                    callback: function($$v) {
+                      _vm.estadoFilter = $$v
+                    },
+                    expression: "estadoFilter"
                   }
                 })
               ],
@@ -1028,6 +1248,23 @@ var render = function() {
                       )
                     ],
                     1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-tooltip",
+                { attrs: { color: "primary", text: "Importar" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "sm:mr-4 mb-4 md:mb-0",
+                      attrs: { "icon-pack": "feather", icon: "icon-upload" },
+                      on: { click: _vm.importRecord }
+                    },
+                    [_vm._v("IMPORTAR")]
                   )
                 ],
                 1
@@ -1220,18 +1457,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue":
-/*!********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue ***!
-  \********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue ***!
+  \******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CellRendererActions.vue?vue&type=template&id=4284e480& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480&");
-/* harmony import */ var _CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CellRendererActions.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CellRendererActions.vue?vue&type=template&id=7374c78a& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a&");
+/* harmony import */ var _CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CellRendererActions.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1241,8 +1478,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1252,142 +1489,55 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue"
+component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererActions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererActions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480&":
-/*!***************************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480& ***!
-  \***************************************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a&":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a& ***!
+  \*************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererActions.vue?vue&type=template&id=4284e480& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=4284e480&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererActions.vue?vue&type=template&id=7374c78a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererActions.vue?vue&type=template&id=7374c78a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_4284e480___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererActions_vue_vue_type_template_id_7374c78a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue ***!
-  \**********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue ***!
+  \*****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CellRendererFueraZona.vue?vue&type=template&id=d667bd20& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20&");
-/* harmony import */ var _CellRendererFueraZona_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CellRendererFueraZona.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _CellRendererFueraZona_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererFueraZona.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
-  \*********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/style-loader!../../../../../../../../../../node_modules/css-loader!../../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20&":
-/*!*****************************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20& ***!
-  \*****************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererFueraZona.vue?vue&type=template&id=d667bd20& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/cell-renderer/CellRendererFueraZona.vue?vue&type=template&id=d667bd20&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererFueraZona_vue_vue_type_template_id_d667bd20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue ***!
-  \*******************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemList.vue?vue&type=template&id=005c6290& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290&");
-/* harmony import */ var _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemList.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemList.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CellRendererStatus.vue?vue&type=template&id=e987f716& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716&");
+/* harmony import */ var _CellRendererStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CellRendererStatus.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1398,9 +1548,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CellRendererStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1410,54 +1560,141 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue"
+component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererStatus.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& ***!
+  \****************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=style&index=0&lang=scss&scpoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_style_index_0_lang_scss_scpoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716&":
+/*!************************************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716& ***!
+  \************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CellRendererStatus.vue?vue&type=template&id=e987f716& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue?vue&type=template&id=e987f716&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CellRendererStatus_vue_vue_type_template_id_e987f716___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemList.vue?vue&type=template&id=28a194a4& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4&");
+/* harmony import */ var _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemList.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemList.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290&":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290& ***!
-  \**************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4& ***!
+  \************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=template&id=005c6290& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/patrones/grupos/item-list/itemList.vue?vue&type=template&id=005c6290&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemList.vue?vue&type=template&id=28a194a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue?vue&type=template&id=28a194a4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_005c6290___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

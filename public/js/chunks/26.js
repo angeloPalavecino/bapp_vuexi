@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[26],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue");
+/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
 //
 //
@@ -38,7 +38,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      urlApi: "/codificaciones/codificaciones/"
+      urlApi: "/tarifas/planas/"
     };
   },
   watch: {},
@@ -54,10 +54,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -170,118 +170,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 var dict = {
   custom: {
-    nombre: {
-      required: 'El nombre es requerido'
+    minima: {
+      required: 'El campo es requerido',
+      decimal: 'El valor debe ser numerico'
     },
-    apellido: {
-      required: 'El apellido es requerido'
+    num_psj_min: {
+      required: 'El campo es requerido'
     },
-    comuna: {
-      required: 'La comuna es requerida'
+    num_psj_max: {
+      required: 'El campo es requerido'
     },
-    email: {
-      required: 'El email es requerido',
-      email: 'El email debe ser valido'
+    psj_adicional: {
+      required: 'El campo es requerido',
+      decimal: 'El valor debe ser numerico'
     },
-    telefono: {
-      required: 'El telefono es requerido'
+    fuera_zona_1: {
+      required: 'El campo es requerido',
+      decimal: 'El valor debe ser numerico'
     },
-    centro_costo: {
-      required: 'El centro de costo es requerido'
-    },
-    codigo: {
-      required: 'El codigo es requerido'
-    },
-    rut: {
-      required: 'El rut es requerida'
-    },
-    direccion: {
-      required: 'La direccion es requerida'
-    },
-    sucursal: {
-      required: 'La sucursal es requerida'
+    fuera_zona_2: {
+      required: 'El campo es requerido',
+      decimal: 'El valor debe ser numerico'
     }
   }
 }; // register custom messages
@@ -294,416 +208,39 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   props: {},
   data: function data() {
     return {
-      urlApi: "/codificaciones/codificaciones/",
+      urlApi: "/tarifas/planas/",
       data_local: {
-        codigo: null,
-        sucursal_id: null
+        num_psj_min: 1,
+        num_psj_max: 1
       },
-      empresa: 1,
-      center: {
-        lat: -33.4533624,
-        lng: -70.6642131
-      },
-      zoom: 11,
-      map: null,
-      marker: null,
-      markersPat: [],
-      boundsMarker: null,
-      boundsSucursal: null,
-      autocomplete: null,
-      gpatronesOptions: [],
-      empresasOptions: [],
-      sucursalesOptions: [],
-      patrones: [],
-      tipObj: null,
-      offset: {
-        x: 10,
-        y: 10
-      }
+      empresasOptions: []
     };
-  },
-  watch: {
-    empresa: function empresa(obj) {
-      this.clearOverlaysPat();
-      this.data_local.sucursal_id = null;
-
-      if (this.markerSuc != null) {
-        var marksuc = this.markerSuc;
-        marksuc.setMap(null);
-        this.markerSuc = null;
-      }
-
-      this.traeSucursales(obj);
-    },
-    sucursal: function sucursal(obj) {
-      this.traeCodigos(obj);
-      this.data_local.codigo = null;
-      this.clearOverlaysPat();
-
-      if (this.markerSuc != null) {
-        var marksuc = this.markerSuc;
-        marksuc.setMap(null);
-        this.markerSuc = null;
-      }
-
-      this.cargaSucursal(obj);
-    },
-    codigo: function codigo(obj) {
-      var _this = this;
-
-      this.patrones = [];
-      this.traePatrones(obj);
-      setTimeout(function () {
-        if (_this.patrones.length > 0) {
-          _this.cargaPatrones(_this.patrones);
-        }
-      }, 500);
-    }
   },
   computed: {
     validateForm: function validateForm() {
       return !this.errors.any();
-    },
-    sucursal: function sucursal() {
-      return this.data_local.sucursal_id;
-    },
-    codigo: function codigo() {
-      return this.data_local.codigo;
     }
   },
-  mounted: function mounted() {
-    this.traeOtrosDatos();
-    this.autocomplete = new google.maps.places.Autocomplete(this.$refs.autocomplete, {
-      types: ['geocode']
-    });
-    this.autocomplete.addListener('place_changed', this.asignaDireccion);
-    var center = this.center;
-    var zoom = this.zoom;
-    var lataux = "";
-    var lngaux = "";
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: zoom,
-      center: center
-    });
-    this.map = map;
-    var thisIns = this;
-  },
+  mounted: function mounted() {},
   methods: {
-    asignaDireccion: function asignaDireccion() {
-      this.data_local.direccion = this.autocomplete.getPlace().formatted_address;
-      this.data_local.lat = this.autocomplete.getPlace().geometry.location.lat().toFixed(5);
-      this.data_local.lng = this.autocomplete.getPlace().geometry.location.lng().toFixed(5);
-      this.agregarMarker();
-    },
-    agregarMarker: function agregarMarker() {
-      var thisIns = this;
-
-      if (this.data_local.lat && this.data_local.lng) {
-        var lat = parseFloat(this.data_local.lat);
-        var lng = parseFloat(this.data_local.lng);
-        var direccion = this.data_local.direccion;
-        var map = this.map;
-
-        if (this.marker != null) {
-          var mark = this.marker;
-          mark.setMap(null);
-          this.marker = null;
-        }
-
-        var bounds = new google.maps.LatLngBounds();
-        bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
-        thisIns.boundsMarker = bounds;
-
-        if (this.boundsSucursal !== null) {
-          bounds = this.boundsSucursal;
-          bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
-        }
-
-        var marker = new google.maps.Marker({
-          position: {
-            lat: lat,
-            lng: lng
-          },
-          infoText: direccion,
-          title: direccion,
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-          icon: {
-            url: __webpack_require__(/*! @assets/images/icons/usuario6.png */ "./resources/assets/images/icons/usuario6.png")
-          }
-        });
-        marker.setMap(map);
-        google.maps.event.addListener(marker, 'dragend', function () {
-          thisIns.geocodePosition(marker.getPosition());
-        });
-        var latlng = new google.maps.LatLng(lat, lng); //map.setCenter(latlng);
-        //map.setZoom(15);
-
-        thisIns.map.fitBounds(bounds);
-        this.marker = marker;
-      } else {
-        this.$vs.notify({
-          title: 'Error',
-          text: 'Debe ingresar una direccion',
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      }
-    },
-    geocodePosition: function geocodePosition(pos) {
-      var thisIns = this;
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({
-        latLng: pos
-      }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          thisIns.data_local.direccion = results[0].formatted_address;
-          thisIns.data_local.lat = results[0].geometry.location.lat().toFixed(5);
-          thisIns.data_local.lng = results[0].geometry.location.lng().toFixed(5);
-          thisIns.map.setCenter(pos);
-        } else {
-          this.$vs.notify({
-            title: 'Error',
-            text: 'No se puede determinar la direccion. ' + status,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        }
-      });
-    },
-    traePatrones: function traePatrones(value) {
-      var _this2 = this;
-
-      if (value > 1) {
-        //Combo Patrones del grupo
-        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/patrones/grupos/" + value).then(function (res) {
-          _this2.patrones = res.data.patrones;
-        }).catch(function (err) {
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-
-          _this2.$vs.notify({
-            title: 'Error',
-            text: textError,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        });
-      }
-    },
-    traeSucursales: function traeSucursales(value) {
-      var _this3 = this;
-
-      if (value > 1) {
-        //Combo Sucursales
-        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
-          //console.log(res.data.items);
-          _this3.sucursalesOptions = res.data.items;
-        }).catch(function (err) {
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-
-          _this3.$vs.notify({
-            title: 'Error',
-            text: textError,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        });
-      } else {
-        this.sucursalesOptions = [];
-        this.gpatronesOptions = [];
-        this.patrones = [];
-        this.data_local.codigo = null;
-        this.data_local.sucursal_id = null;
-      }
-    },
-    traeCodigos: function traeCodigos(value) {
-      var _this4 = this;
-
-      //Combo Grupo de patrones
-      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/patrones/grupos/codigos/" + value).then(function (res) {
-        //console.log(res.data.items);
-        _this4.gpatronesOptions = res.data.items;
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-
-        _this4.$vs.notify({
-          title: 'Error',
-          text: textError,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      });
-    },
-    traeOtrosDatos: function traeOtrosDatos() {
-      var _this5 = this;
-
-      //Combo Empresa
-      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/listemp").then(function (res) {
-        _this5.empresasOptions = res.data.items;
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-
-        _this5.$vs.notify({
-          title: 'Error',
-          text: textError,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      });
-    },
-    cargaSucursal: function cargaSucursal(sucursal) {
-      var thisIns = this; //var bounds = new google.maps.LatLngBounds();
-
-      if (sucursal > 0) {
-        var item = this.sucursalesOptions.find(function (u) {
-          return u.id === sucursal;
-        });
-        var lat = parseFloat(item['lat']);
-        var lng = parseFloat(item['lng']);
-        var nombre = item['nombre'];
-        var bounds = new google.maps.LatLngBounds();
-        bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
-        thisIns.boundsSucursal = bounds;
-
-        if (this.boundsMarker !== null) {
-          bounds = this.boundsMarker;
-          bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
-        } //bounds.extend(new google.maps.LatLng(lat.toFixed(5), lng.toFixed(5)));
-
-
-        var marker = new google.maps.Marker({
-          position: {
-            lat: lat,
-            lng: lng
-          },
-          infoText: nombre,
-          title: nombre,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          icon: {
-            url: __webpack_require__(/*! @assets/images/icons/sucursal7.png */ "./resources/assets/images/icons/sucursal7.png")
-          }
-        });
-        marker.setMap(thisIns.map);
-        thisIns.markerSuc = marker;
-        thisIns.map.fitBounds(bounds);
-      }
-    },
-    cargaPatrones: function cargaPatrones(patrones) {
-      var thisIns = this;
-      var latitud;
-      var longitud;
-      var color;
-      var paths = [];
-      var marker;
-      patrones.forEach(function (value, index) {
-        var auxlat = value['lat'];
-        var auxlng = value['lng'];
-        var color = value['color'];
-        var id = value['id'];
-        var descripcion = value['descripcion'];
-        var latitud = auxlat.split(",");
-        var longitud = auxlng.split(",");
-        var paths = []; //var bounds = new google.maps.LatLngBounds();
-
-        for (var x = 0; x < latitud.length; x++) {
-          var latcoord = parseFloat(latitud[x]);
-          var lngcoord = parseFloat(longitud[x]);
-          paths[x] = new google.maps.LatLng(latcoord.toFixed(5), lngcoord.toFixed(5)); //bounds.extend(paths[x]);
-        }
-
-        marker = new google.maps.Polygon({
-          paths: paths,
-          fillColor: color,
-          fillOpacity: 0.1,
-          strokeWeight: 0.8,
-          //clickable:true,
-          id: id,
-          name: descripcion,
-          map: thisIns.map
-        });
-        google.maps.event.addListener(marker, 'mouseover', function (e) {
-          thisIns.injectTooltip(e, this.name);
-        });
-        google.maps.event.addListener(marker, 'mousemove', function (e) {
-          thisIns.moveTooltip(e);
-        });
-        google.maps.event.addListener(marker, 'mouseout', function (e) {
-          thisIns.deleteTooltip(e);
-        });
-        thisIns.markersPat.push(marker);
-      });
-    },
-    clearOverlaysPat: function clearOverlaysPat() {
-      var thisIns = this;
-
-      if (thisIns.markersPat.length > 0) {
-        thisIns.markersPat.forEach(function (value, index) {
-          value.setMap(null);
-        });
-      }
-
-      thisIns.markersPat = [];
-    },
-    deleteTooltip: function deleteTooltip(event) {
-      if (this.tipObj) {
-        //delete the tooltip if it exists in the DOM
-        document.body.removeChild(this.tipObj);
-        this.tipObj = null;
-      }
-    },
-    moveTooltip: function moveTooltip(event) {
-      if (this.tipObj && event) {
-        //position it
-        this.tipObj.style.top = event.ya.clientY + this.offset.y + "px";
-        this.tipObj.style.left = event.ya.clientX + this.offset.x + "px";
-      }
-    },
-    injectTooltip: function injectTooltip(event, data) {
-      if (!this.tipObj && event) {
-        //create the tooltip object
-        this.tipObj = document.createElement("div");
-        this.tipObj.style.width = '100px';
-        this.tipObj.style.height = '40px';
-        this.tipObj.style.background = "white";
-        this.tipObj.style.borderRadius = "5px";
-        this.tipObj.style.padding = "10px";
-        this.tipObj.style.fontFamily = "Arial,Helvetica";
-        this.tipObj.style.textAlign = "center";
-        this.tipObj.style.zIndex = "99999";
-        this.tipObj.innerHTML = data; //position it
-
-        this.tipObj.style.position = "fixed";
-        this.tipObj.style.top = event.ya.clientY + this.offset.y + "px";
-        this.tipObj.style.left = event.ya.clientX + this.offset.x + "px"; //add it to the body
-
-        document.body.appendChild(this.tipObj);
-      }
-    },
     save_changes: function save_changes() {
-      var _this6 = this;
+      var _this = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this6.$store.dispatch("itemManagement/agregarItem", {
-            item: _this6.data_local,
-            Url: _this6.urlApi
+          _this.$store.dispatch("itemManagement/agregarItem", {
+            item: _this.data_local,
+            Url: _this.urlApi
           }).then(function () {
-            _this6.$router.push({
-              name: 'codificaciones'
+            _this.$router.push({
+              name: 'planas'
             });
 
-            _this6.showDeleteSuccess();
+            _this.showDeleteSuccess();
           }).catch(function (err) {
             var textError = err.response.status == 300 ? err.response.data.message : err;
 
-            _this6.$vs.notify({
+            _this.$vs.notify({
               title: 'Error',
               text: textError,
               color: 'danger',
@@ -723,42 +260,90 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        codigo: null
+        num_psj_min: 1,
+        num_psj_max: 1
       };
-      this.sucursalesOptions = [];
-      this.gpatronesOptions = [];
-      this.patrones = [];
-      this.empresa = 1;
-
-      if (this.map) {
-        this.map.setZoom(this.zoom);
-        this.map.setCenter(this.center);
-      }
-
-      if (this.marker != null) {
-        var mark = this.marker;
-        mark.setMap(null);
-        this.marker = null;
-      }
-
-      if (this.markerSuc != null) {
-        var marksuc = this.markerSuc;
-        marksuc.setMap(null);
-        this.markerSuc = null;
-      }
-
-      this.clearOverlaysPat();
       this.errors.clear();
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this2 = this;
+
+      //Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/empresas").then(function (res) {
+        _this2.empresasOptions = res.data.items;
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
     }
+  },
+  created: function created() {
+    this.traeOtrosDatos();
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "[dir] .vs-input-number {\n  margin:0px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader??ref--7-1!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -784,10 +369,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4&":
-/*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80&":
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -799,23 +384,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "item-add" } },
-    [
-      _c(
-        "div",
-        { staticClass: "vx-row mt-6" },
-        [
-          _c("vs-divider", { attrs: { color: "primary" } }, [
-            _c("h5", [_vm._v("Datos codificacion")])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
+  return _c("div", { attrs: { id: "item-add" } }, [
+    _c(
+      "div",
+      { staticClass: "vx-row mt-6" },
+      [
+        _c("vs-divider", { attrs: { color: "primary" } }, [
+          _c("h5", [_vm._v("Datos Tarifa")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c(
+              "vs-select",
+              {
                 directives: [
                   {
                     name: "validate",
@@ -824,677 +408,367 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                staticClass: "w-full p-1",
+                staticClass: "w-full ",
                 attrs: {
-                  "label-placeholder": "Nombre",
-                  name: "nombre",
-                  danger: _vm.errors.first("nombre") ? true : false,
-                  "danger-text": _vm.errors.first("nombre")
-                    ? _vm.errors.first("nombre")
-                    : "",
-                  "val-icon-danger": "clear"
+                  label: "Empresas",
+                  name: "empresas",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  danger: _vm.errors.first("empresas") ? true : false,
+                  "danger-text": _vm.errors.first("empresas")
+                    ? _vm.errors.first("empresas")
+                    : ""
                 },
                 model: {
-                  value: _vm.data_local.nombre,
+                  value: _vm.data_local.empresa_id,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "nombre", $$v)
+                    _vm.$set(_vm.data_local, "empresa_id", $$v)
                   },
-                  expression: "data_local.nombre"
+                  expression: "data_local.empresa_id"
                 }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  "label-placeholder": "Apellido",
-                  name: "apellido",
-                  danger: _vm.errors.first("apellido") ? true : false,
-                  "danger-text": _vm.errors.first("apellido")
-                    ? _vm.errors.first("apellido")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.apellido,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "apellido", $$v)
-                  },
-                  expression: "data_local.apellido"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  "label-placeholder": "Rut",
-                  name: "rut",
-                  danger: _vm.errors.first("rut") ? true : false,
-                  "danger-text": _vm.errors.first("rut")
-                    ? _vm.errors.first("rut")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.rut,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "rut", $$v)
-                  },
-                  expression: "data_local.rut"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "email|required",
-                    expression: "'email|required'"
-                  }
-                ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  type: "email",
-                  "label-placeholder": "Email",
-                  name: "email",
-                  danger: _vm.errors.first("email") ? true : false,
-                  "danger-text": _vm.errors.first("email")
-                    ? _vm.errors.first("email")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.email,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "email", $$v)
-                  },
-                  expression: "data_local.email"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  "label-placeholder": "Telefono",
-                  name: "telefono",
-                  danger: _vm.errors.first("telefono") ? true : false,
-                  "danger-text": _vm.errors.first("telefono")
-                    ? _vm.errors.first("telefono")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.telefono,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "telefono", $$v)
-                  },
-                  expression: "data_local.telefono"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  "label-placeholder": "Centro Costo",
-                  name: "centro_costo",
-                  danger: _vm.errors.first("centro_costo") ? true : false,
-                  "danger-text": _vm.errors.first("centro_costo")
-                    ? _vm.errors.first("centro_costo")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.centro_costo,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "centro_costo", $$v)
-                  },
-                  expression: "data_local.centro_costo"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c(
-                "vs-select",
-                {
-                  ref: "empresas",
-                  staticClass: "w-full p-1",
-                  attrs: {
-                    label: "Empresas",
-                    name: "empresa",
-                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
-                  },
-                  model: {
-                    value: _vm.empresa,
-                    callback: function($$v) {
-                      _vm.empresa = $$v
-                    },
-                    expression: "empresa"
-                  }
-                },
-                _vm._l(_vm.empresasOptions, function(item) {
-                  return _c("vs-select-item", {
-                    key: item.id,
-                    attrs: { value: item.id, text: item.razon_social }
-                  })
-                }),
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c(
-                "vs-select",
-                {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  ref: "sucursal",
-                  staticClass: "w-full p-1",
-                  attrs: {
-                    label: "Sucursales",
-                    name: "sucursal",
-                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                    disabled: _vm.empresa > 1 ? false : true,
-                    danger: _vm.errors.first("sucursal") ? true : false,
-                    "danger-text": _vm.errors.first("sucursal")
-                      ? _vm.errors.first("sucursal")
-                      : ""
-                  },
-                  model: {
-                    value: _vm.data_local.sucursal_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data_local, "sucursal_id", $$v)
-                    },
-                    expression: "data_local.sucursal_id"
-                  }
-                },
-                _vm._l(_vm.sucursalesOptions, function(item) {
-                  return _c("vs-select-item", {
-                    key: item.id,
-                    attrs: { value: item.id, text: item.nombre }
-                  })
-                }),
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                attrs: { type: "hidden", name: "direccion" },
-                model: {
-                  value: _vm.data_local.direccion,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "direccion", $$v)
-                  },
-                  expression: "data_local.direccion"
-                }
+              },
+              _vm._l(_vm.empresasOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.id,
+                  attrs: { value: item.id, text: item.razon_social }
+                })
               }),
-              _vm._v(" "),
-              _c(
-                "div",
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-4" },
+          [
+            _c("span", { staticClass: " text-sm" }, [
+              _vm._v("N° Pasajeros Min.")
+            ]),
+            _vm._v(" "),
+            _c("vs-input-number", {
+              directives: [
                 {
-                  staticClass:
-                    "vs-component vs-con-input-label vs-input mt-6 w-full vs-input-primary is-label-placeholder"
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "w-full p-1",
+              attrs: {
+                name: "num_psj_min",
+                min: "1",
+                "icon-inc": "expand_less",
+                "icon-dec": "expand_more"
+              },
+              model: {
+                value: _vm.data_local.num_psj_min,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "num_psj_min", $$v)
                 },
-                [
-                  _c("div", { staticClass: "vs-con-input" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.data_local.direccion,
-                          expression: "data_local.direccion"
-                        }
-                      ],
-                      ref: "autocomplete",
-                      class: _vm.data_local.direccion
-                        ? "vs-inputx vs-input--input normal hasValue"
-                        : "vs-inputx vs-input--input normal",
-                      style: _vm.errors.first("direccion")
-                        ? "border: 1px solid rgba(var(--vs-danger),1)!important;"
-                        : "border: 1px solid rgba(0, 0, 0, 0.2);",
-                      attrs: {
-                        type: "text",
-                        required: "",
-                        name: "direccion",
-                        placeholder: ""
-                      },
-                      domProps: { value: _vm.data_local.direccion },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.data_local,
-                            "direccion",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass:
-                          "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                      },
-                      [_vm._v("\n      Direccion\n    ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("direccion"),
-                            expression: "errors.has('direccion')"
-                          }
-                        ],
-                        staticClass:
-                          "input-icon-validate vs-input--icon-validate",
-                        staticStyle: { background: "rgba(var(--vs-danger),.2)" }
-                      },
-                      [
-                        _c(
-                          "i",
-                          {
-                            staticClass:
-                              "vs-icon notranslate icon-scale material-icons null",
-                            staticStyle: { color: "rgba(var(--vs-danger),1)" },
-                            attrs: { valiconpack: "material-icons" }
-                          },
-                          [_vm._v("clear")]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("direccion"),
-                          expression: "errors.has('direccion')"
-                        }
-                      ],
-                      staticClass:
-                        "con-text-validation span-text-validation-danger \n              vs-input--text-validation-span v-enter-to",
-                      staticStyle: { height: "20px" }
-                    },
-                    [
-                      _c("span", { staticClass: "span-text-validation" }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.errors.first("direccion")) +
-                            "\n                    "
-                        )
-                      ])
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c("vs-input", {
+                expression: "data_local.num_psj_min"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
                 directives: [
                   {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("num_psj_min"),
+                    expression: "errors.has('num_psj_min')"
                   }
                 ],
-                staticClass: "w-full p-1",
-                attrs: {
-                  "label-placeholder": "Comuna",
-                  name: "comuna",
-                  danger: _vm.errors.first("comuna") ? true : false,
-                  "danger-text": _vm.errors.first("comuna")
-                    ? _vm.errors.first("comuna")
-                    : "",
-                  "val-icon-danger": "clear"
-                },
-                model: {
-                  value: _vm.data_local.comuna,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "comuna", $$v)
-                  },
-                  expression: "data_local.comuna"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c(
-                "vs-select",
+                staticClass: "text-danger text-sm"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("num_psj_min")))]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-4" },
+          [
+            _c("span", { staticClass: " text-sm" }, [
+              _vm._v("N° Pasajeros Max.")
+            ]),
+            _vm._v(" "),
+            _c("vs-input-number", {
+              directives: [
                 {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  ref: "codigo",
-                  staticClass: "w-full p-1",
-                  attrs: {
-                    label: "Codigo",
-                    name: "codigo",
-                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                    disabled: _vm.data_local.sucursal_id > 0 ? false : true,
-                    danger: _vm.errors.first("codigo") ? true : false,
-                    "danger-text": _vm.errors.first("codigo")
-                      ? _vm.errors.first("codigo")
-                      : ""
-                  },
-                  model: {
-                    value: _vm.data_local.codigo,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data_local, "codigo", $$v)
-                    },
-                    expression: "data_local.codigo"
-                  }
-                },
-                _vm._l(_vm.gpatronesOptions, function(item) {
-                  return _c("vs-select-item", {
-                    key: item.id,
-                    attrs: { value: item.id, text: item.codigo }
-                  })
-                }),
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-5" },
-            [
-              _c("label", { staticClass: "vs-input--label " }, [
-                _vm._v("Habilitado")
-              ]),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("vs-switch", {
-                staticClass: "mt-2",
-                model: {
-                  value: _vm.data_local.habilitado,
-                  callback: function($$v) {
-                    _vm.$set(_vm.data_local, "habilitado", $$v)
-                  },
-                  expression: "data_local.habilitado"
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
                 }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-col w-full mt-2" }, [
-            _c("div", { staticClass: "vx-row" }, [
-              _c("div", { staticClass: "vx-col w-full" }, [
-                _c(
-                  "div",
+              ],
+              staticClass: "w-full p-1",
+              attrs: {
+                name: "num_psj_max",
+                min: "1",
+                "icon-inc": "expand_less",
+                "icon-dec": "expand_more"
+              },
+              model: {
+                value: _vm.data_local.num_psj_max,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "num_psj_max", $$v)
+                },
+                expression: "data_local.num_psj_max"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
                   {
-                    staticClass: "mt-3 flex flex-wrap items-center justify-end"
-                  },
-                  [
-                    _c(
-                      "vx-tooltip",
-                      { attrs: { color: "primary", text: "Guardar" } },
-                      [
-                        _c(
-                          "vs-button",
-                          {
-                            staticClass: "ml-auto mt-2",
-                            attrs: { disabled: !_vm.validateForm },
-                            on: { click: _vm.save_changes }
-                          },
-                          [_vm._v("Guardar Cambios")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "vx-tooltip",
-                      { attrs: { color: "primary", text: "Volver" } },
-                      [
-                        _c(
-                          "vs-button",
-                          {
-                            staticClass: "ml-4 mt-2",
-                            attrs: {
-                              "icon-pack": "feather",
-                              icon: "icon-arrow-left",
-                              to: { name: "codificaciones" }
-                            }
-                          },
-                          [_vm._v("Volver")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "vx-tooltip",
-                      { attrs: { color: "primary", text: "Limpiar" } },
-                      [
-                        _c(
-                          "vs-button",
-                          {
-                            staticClass: "ml-4 mt-2",
-                            attrs: { type: "border", color: "warning" },
-                            on: { click: _vm.reset_data }
-                          },
-                          [_vm._v("Limpiar")]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "vx-card",
-        {
-          staticClass: "mb-base mt-4",
-          attrs: { title: "Mapa", collapseAction: "" }
-        },
-        [
-          _c("div", { staticClass: "vx-row" }, [
-            _c("div", { staticClass: "vx-col w-full" }, [
-              _c(
-                "div",
-                { staticClass: "flex flex-wrap items-center" },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "flex-grow mt-6" },
-                    [
-                      _c("feather-icon", {
-                        staticClass: "mr-2 mt-2",
-                        attrs: { svgClasses: "w-6 h-6", icon: "MapIcon" }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "font-medium text-lg leading-none" },
-                        [_vm._v("Detalle")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("vs-divider")
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("num_psj_max"),
+                    expression: "errors.has('num_psj_max')"
+                  }
                 ],
-                1
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "block overflow-x-auto" }, [
-            _c("div", {
-              staticStyle: { width: "100%", height: "400px" },
-              attrs: { id: "map" }
+                staticClass: "text-danger text-sm"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("num_psj_max")))]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
+                }
+              ],
+              staticClass: "w-full",
+              attrs: {
+                "label-placeholder": "Minima",
+                "icon-pack": "feather",
+                icon: "icon-dollar-sign",
+                "icon-no-border": "",
+                name: "minima",
+                danger: _vm.errors.first("minima") ? true : false,
+                "danger-text": _vm.errors.first("minima")
+                  ? _vm.errors.first("minima")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.minima,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "minima", $$v)
+                },
+                expression: "data_local.minima"
+              }
             })
-          ])
-        ]
-      )
-    ],
-    1
-  )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
+                }
+              ],
+              staticClass: "w-full",
+              attrs: {
+                "label-placeholder": "Px Adicional",
+                "icon-pack": "feather",
+                icon: "icon-dollar-sign",
+                "icon-no-border": "",
+                name: "psj_adicional",
+                danger: _vm.errors.first("psj_adicional") ? true : false,
+                "danger-text": _vm.errors.first("psj_adicional")
+                  ? _vm.errors.first("psj_adicional")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.psj_adicional,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "psj_adicional", $$v)
+                },
+                expression: "data_local.psj_adicional"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
+                }
+              ],
+              staticClass: "w-full",
+              attrs: {
+                "label-placeholder": "Fuera Zona 1",
+                "icon-pack": "feather",
+                icon: "icon-dollar-sign",
+                "icon-no-border": "",
+                name: "fuera_zona_1",
+                danger: _vm.errors.first("fuera_zona_1") ? true : false,
+                "danger-text": _vm.errors.first("fuera_zona_1")
+                  ? _vm.errors.first("fuera_zona_1")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.fuera_zona_1,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "fuera_zona_1", $$v)
+                },
+                expression: "data_local.fuera_zona_1"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
+                }
+              ],
+              staticClass: "w-full",
+              attrs: {
+                "label-placeholder": "Fuera Zona 2",
+                "icon-pack": "feather",
+                icon: "icon-dollar-sign",
+                "icon-no-border": "",
+                name: "fuera_zona_2",
+                danger: _vm.errors.first("fuera_zona_2") ? true : false,
+                "danger-text": _vm.errors.first("fuera_zona_2")
+                  ? _vm.errors.first("fuera_zona_2")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.fuera_zona_2,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "fuera_zona_2", $$v)
+                },
+                expression: "data_local.fuera_zona_2"
+              }
+            })
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "vx-row" }, [
+      _c("div", { staticClass: "vx-col w-full" }, [
+        _c(
+          "div",
+          { staticClass: "mt-8 flex flex-wrap items-center justify-end" },
+          [
+            _c(
+              "vx-tooltip",
+              { attrs: { color: "primary", text: "Guardar" } },
+              [
+                _c(
+                  "vs-button",
+                  {
+                    staticClass: "ml-auto mt-2",
+                    attrs: { disabled: !_vm.validateForm },
+                    on: { click: _vm.save_changes }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "vx-tooltip",
+              { attrs: { color: "primary", text: "Volver" } },
+              [
+                _c(
+                  "vs-button",
+                  {
+                    staticClass: "ml-4 mt-2",
+                    attrs: {
+                      "icon-pack": "feather",
+                      icon: "icon-arrow-left",
+                      to: { name: "planas" }
+                    }
+                  },
+                  [_vm._v("Volver")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "vx-tooltip",
+              { attrs: { color: "primary", text: "Limpiar" } },
+              [
+                _c(
+                  "vs-button",
+                  {
+                    staticClass: "ml-4 mt-2",
+                    attrs: { type: "border", color: "warning" },
+                    on: { click: _vm.reset_data }
+                  },
+                  [_vm._v("Limpiar")]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./resources/assets/images/icons/sucursal7.png":
-/*!*****************************************************!*\
-  !*** ./resources/assets/images/icons/sucursal7.png ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/sucursal7.png?b150aec62809e814bc49429efb22a978";
-
-/***/ }),
-
-/***/ "./resources/assets/images/icons/usuario6.png":
-/*!****************************************************!*\
-  !*** ./resources/assets/images/icons/usuario6.png ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/usuario6.png?8dbc9de07eea7fb543566969b92f824d";
 
 /***/ }),
 
@@ -1721,18 +995,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue ***!
-  \****************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=4a68e6fc& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc&");
-/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=7c9d1ab4& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4&");
+/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1742,8 +1016,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1753,55 +1027,57 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc&":
-/*!***********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc& ***!
-  \***********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4& ***!
+  \************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=4a68e6fc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue?vue&type=template&id=4a68e6fc&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=7c9d1ab4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAdd.vue?vue&type=template&id=7c9d1ab4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_4a68e6fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_7c9d1ab4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue ***!
-  \************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=c57a42e4& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4&");
-/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=6df7ca80& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80&");
+/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -1809,10 +1085,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1822,38 +1098,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4& ***!
-  \*******************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader??ref--7-1!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80& ***!
+  \********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=c57a42e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAddSection1.vue?vue&type=template&id=c57a42e4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=6df7ca80& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-add/itemAddSection1.vue?vue&type=template&id=6df7ca80&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_c57a42e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_6df7ca80___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

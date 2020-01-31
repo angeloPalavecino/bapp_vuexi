@@ -10,10 +10,10 @@
 <template>
   <div id="page-item-edit">
 
-    <vs-alert color="danger" title="Empresa no encontrada" :active.sync="item_not_found">
-      <span>La empresa con id: {{ $route.params.itemId }} no fue encontrada. </span>
+    <vs-alert color="danger" title="Agendamiento no encontrada" :active.sync="item_not_found">
+      <span>El agendamiento con id: {{ $route.params.itemId }} no fue encontrada. </span>
       <span>
-        <span>Mira  </span><router-link :to="{name:'empresas'}" class="text-inherit underline">Todos las empresas</router-link>
+        <span>Mira  </span><router-link :to="{name:'agendamientos'}" class="text-inherit underline">Todos los agendamientos</router-link>
       </span>
     </vs-alert>
 
@@ -51,11 +51,6 @@ export default {
       this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: this.urlApi  })
         .then(res => { 
           this.item_data = res.data.item 
-          if(this.item_data.tipo_fecha === 2){
-            var fecha = new Date(res.data.item.fecha_inicio)
-            this.item_data.ano = fecha.getFullYear();
-            this.item_data.mes = fecha.getMonth() + 1;
-          }    
         })
         .catch(err => {
           if(err.response.status === 404) {

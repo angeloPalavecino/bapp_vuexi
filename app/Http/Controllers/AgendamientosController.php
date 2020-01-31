@@ -24,11 +24,12 @@ class AgendamientosController extends Controller
              //'observaciones_id' => 'required', 
              //'observacionesinternas_id' => 'required', 
              'tipo' => 'required', 
-             //'fecha' => 'required', 
+             'fecha' => 'required', 
+             'codificacion' => 'required', 
              //'fecha_fin' => 'required', 
-             'horario' => 'required', 
+             'horario_id' => 'required', 
              //'horario_real' => 'required', 
-             'tipo_fecha' => 'required', 
+             //'tipo_fecha' => 'required', 
              //'detalle_observaciones' => 'required', 
              //'detalle_observacionesinternas' => 'required', 
 
@@ -64,6 +65,7 @@ class AgendamientosController extends Controller
             //'drivers.lastname as apellido_conductor_plan',
             //'drivers.rut as rut_conductor_plan',
             'horarios.horario as horario_plan',
+            'horarios.id as horario_id',
             //'cars.numero_movil as movil_plan',
             'agendamientos.id',
             'agendamientos.fecha_inicio',
@@ -99,9 +101,8 @@ class AgendamientosController extends Controller
     {
 
         $datos = $request->all();
-        $input = $datos[0];
-        $codificaciones = $datos[1];
-
+        $input = $datos['event'];
+      
         $validation = $this->validator($input);
 
         if ($validation->fails()) {
@@ -114,191 +115,48 @@ class AgendamientosController extends Controller
            
         }
 
+
         $tipo = $input['tipo'];
-        $horario = $input['horario'];
-        $tipo_fecha = $input['tipo_fecha'];
-       
-        if($tipo_fecha == 1){
-            $fechas = explode(",", $input['fechas']);
+        $horario = $input['horario_id'];
+        $fecha = new DateTime($input['fecha']);
+        $codificacion = $input['codificacion'];
 
-            foreach ($codificaciones as $key => $codificacion) {
-              
-                foreach ($fechas as $keyf => $fecha) {
+        $agendamiento = Agendamientos::where('horario_plan', $horario)
+                          //->where('tipo', $tipo)
+                          ->whereDate('fecha_inicio', $fecha)
+                          ->whereDate('fecha_fin', $fecha)
+                          //->where('tipo_fecha', 1)
+                          ->where('codificacion_id', $codificacion)->first();  
 
-                     //Busca si existe ya el agendamiento diario
-                    $count = Agendamientos::where('codificacion_id', $codificacion['id'])
-                     ->where('horario_plan', $horario)
-                     ->where('tipo', $tipo)
-                     ->whereDate('fecha_inicio', $fecha)
-                     ->whereDate('fecha_fin', $fecha)
-                     ->where('tipo_fecha', $tipo_fecha)->count();
+            if($agendamiento) {
 
-                     
-
-                    if($count > 0) {
-
-                        break;
-                    
-                    }else{
-                        
-                        //Borrar Permanente
-
-                        $permanente = Agendamientos::where('codificacion_id', $codificacion['id'])
-                        ->where('horario_plan', $horario)
-                        ->where('tipo', $tipo)
-                        ->where('tipo_fecha', 3)->delete();
-
-                        //Borrar Mensual
-                        //Obtiene mes y año de la fecha
-                        $datetime = new DateTime($fecha);
-                        $mes = $datetime->format('m');
-                        $ano = $datetime->format('Y');
-
-                        Agendamientos::where('codificacion_id', $codificacion['id'])
-                        ->where('horario_plan', $horario)
-                        ->where('tipo', $tipo)
-                        ->whereMonth('fecha_inicio', $mes) 
-                        ->whereYear('fecha_inicio', $ano) 
-                        ->where('tipo_fecha', 2)->delete();
-                
-                        Agendamientos::create(
-                            array(
-                                    'codificacion_id'   => $codificacion['id'],
-                                    'horario_plan'      => $horario,
-                                    'tipo'              => $tipo,
-                                    'fecha_inicio'      => $fecha,
-                                    'fecha_fin'         => $fecha,
-                                    'tipo_fecha'        => $tipo_fecha
-                                    
-                                )
-                            );
-                    }
-                }
-
-            }
-
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Los registros se ha guardado exitosamente!!!'
-                ], 200);
-
-
-        }else if($tipo_fecha == 2){
-
-            $ano = $input['ano'];
-            $meses = $input['meses'];
-
-            foreach ($codificaciones as $key => $codificacion) {
-
-                foreach ($meses as $keym => $mes) {
-                    $day = date("d", mktime(0,0,0, $mes+1, 0, $ano));
-                    $fecha_inicio = date('Y-m-d', mktime(0,0,0, $mes, 1, $ano));
-                    $fecha_fin = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
-
-                    //Busca si existe ya el agendamiento mensual
-                    $count = Agendamientos::where('codificacion_id', $codificacion['id'])
-                    ->where('horario_plan', $horario)
-                    ->where('tipo', $tipo)
-                    ->whereDate('fecha_inicio', $fecha_inicio)
-                    ->whereDate('fecha_fin', $fecha_fin)
-                    ->where('tipo_fecha', $tipo_fecha)->count();
-
-                    
-                    if($count > 0) {
-
-                        break;
-                    
-                    }else{
-
-                        //Borrar Permanente
-
-                        Agendamientos::where('codificacion_id', $codificacion['id'])
-                        ->where('horario_plan', $horario)
-                        ->where('tipo', $tipo)
-                        ->where('tipo_fecha', 3)->delete();
-                        
-                        //Borrar Diarias
-
-                        Agendamientos::where('codificacion_id', $codificacion['id'])
-                        ->where('horario_plan', $horario)
-                        ->where('tipo', $tipo)
-                        ->whereMonth('fecha_inicio', $mes) //Puede ser la fecha_fin o fecha_inicio, es la misma
-                        ->whereYear('fecha_inicio', $ano) //Puede ser la fecha_fin o fecha_inicio, es la misma
-                        ->where('tipo_fecha', 1)->delete();
-
-                        Agendamientos::create(
-                            array(
-                                    'codificacion_id'   => $codificacion['id'],
-                                    'horario_plan'      => $horario,
-                                    'tipo'              => $tipo,
-                                    'fecha_inicio'      => $fecha_inicio,
-                                    'fecha_fin'         => $fecha_fin,
-                                    'tipo_fecha'        => $tipo_fecha,
-                                    
-                                )
-                            );
-                    }
-
-                }
-
-            }
-
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Los registros se ha guardado exitosamente!!!'
-                ], 200);
-
-
-        }else{
-
-            $fecha_inicio = date("Y-m-d H:i:s");
-            $fecha_fin = date("Y-m-d H:i:s", mktime(00, 00, 00, 12, 31, 2037));
-
-            foreach ($codificaciones as $key => $codificacion) {
-                
-                //Busca si existe ya el agendamiento permanente
-                $count = Agendamientos::where('codificacion_id', $codificacion['id'])
-                ->where('horario_plan', $horario)
-                ->where('tipo', $tipo)
-                ->where('tipo_fecha', $tipo_fecha)->count();
-
-                if($count > 0) {
-
-                    break;
-                
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'El horario ya se encuentra codificado'
+                    ], 300);
+            
                 }else{
-
-                    //Borrar todos los agendamientos
-                    Agendamientos::where('codificacion_id', $codificacion['id'])
-                    ->where('horario_plan', $horario)
-                    ->where('tipo', $tipo)
-                    ->whereIn('tipo_fecha', [1, 2, 3])->delete();
-
-                    Agendamientos::create(
-                        array(
-                                'codificacion_id'   => $codificacion['id'],
-                                'horario_plan'      => $horario,
-                                'tipo'              => $tipo,
-                                'fecha_inicio'      => $fecha_inicio,
-                                'fecha_fin'         => $fecha_fin,
-                                'tipo_fecha'        => $tipo_fecha,
-                                
-                            )
+                 //INSERTA
+               $aux = Agendamientos::create(
+                    array(
+                            'codificacion_id'   => $codificacion,
+                            'horario_plan'      => $horario,
+                            'tipo'              => $tipo,
+                            'fecha_inicio'      => $fecha,
+                            'fecha_fin'         => $fecha,
+                            'tipo_fecha'        => 1)
                         );
                 }
 
-            }
 
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Los registros se ha guardado exitosamente!!!'
-                ], 200);
-
-
-        }
+                return response()->json(
+                    [
+                        'status' => 'success',
+                        'message' => 'El registro se ha guardado exitosamente!!!',
+                        'id' => $aux['id']
+                    ], 200);
+    
     }
 
     /**
@@ -373,7 +231,8 @@ class AgendamientosController extends Controller
     public function update(Request $request, $id)
     {
         
-        $input = $request->all();
+        $datos = $request->all();
+        $input = $datos['event'];
         
         $validation = $this->validator($input);
 
@@ -388,141 +247,24 @@ class AgendamientosController extends Controller
         }
 
         $tipo = $input['tipo'];
-        $horario = $input['horario'];
-        $tipo_fecha = $input['tipo_fecha'];
-        $codificacion_id = $input['codificacion_id'];
+        $horario = $input['horario_id'];
+        $fecha = new DateTime($input['fecha']);
+        $codificacion = $input['codificacion'];
 
-        if($tipo_fecha == 1){
+        Agendamientos::where('id', $id)->update(
+            array(
+                    'horario_plan'      => $horario,
+                    'tipo'              => $tipo,
+                    'fecha_inicio'      => $fecha,
+                    'fecha_fin'         => $fecha,
+                )
+            );
 
-            $fecha = $input['fecha'];
-
-            //Busca si existe ya el agendamiento diario
-            $count = Agendamientos::where('horario_plan', $horario)
-            ->where('tipo', $tipo)
-            ->whereDate('fecha_inicio', $fecha)
-            ->whereDate('fecha_fin', $fecha)
-            ->where('tipo_fecha', $tipo_fecha)
-            ->where('codificacion_id', $codificacion_id)
-            ->where('id','!=', $id)->count();  
-              
-            if($count > 0) {
-                
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'message' => 'La fecha ingresada ya existe!!!'
-                    ], 300);
-
-                }else{  
-
-                //Borrar Mensual
-                //Obtiene mes y año de la fecha
-                $datetime = new DateTime($fecha);
-                $mes = $datetime->format('m');
-                $ano = $datetime->format('Y');
-
-                Agendamientos::where('codificacion_id', $codificacion_id)
-                ->where('horario_plan', $horario)
-                ->where('tipo', $tipo)
-                ->whereMonth('fecha_inicio', $mes) 
-                ->whereYear('fecha_inicio', $ano) 
-                ->where('tipo_fecha', 2)->delete();
-                
-                Agendamientos::where('id', $id)->update(
-                    array(
-                            'horario_plan'      => $horario,
-                            'tipo'              => $tipo,
-                            'fecha_inicio'      => $fecha,
-                            'fecha_fin'         => $fecha,
-                        )
-                    );
-
-                return response()->json(
-                    [
-                        'status' => 'success',
-                        'message' => 'Los registros se han actualizado exitosamente!!!'
-
-                    ], 200);
-
-
-                
-            }
-
-        }else if($tipo_fecha == 2){
-
-            $ano = $input['ano'];
-            $mes = $input['mes'];
-           
-            $day = date("d", mktime(0,0,0, $mes+1, 0, $ano));
-            $fecha_inicio = date('Y-m-d', mktime(0,0,0, $mes, 1, $ano));
-            $fecha_fin = date('Y-m-d', mktime(0,0,0, $mes, $day, $ano));
-
-            //Busca si existe ya el agendamiento mensual
-            $count = Agendamientos::where('horario_plan', $horario)
-                ->where('tipo', $tipo)
-                ->whereDate('fecha_inicio', $fecha_inicio)
-                ->whereDate('fecha_fin', $fecha_fin)
-                ->where('tipo_fecha', $tipo_fecha)
-                ->where('codificacion_id', $codificacion_id)
-                ->where('id', '!=', $id)->count();
-
-                    
-            if($count > 0) {
-
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'message' => 'El mes ingresado ya existe!!!'
-                    ], 300);
-                    
-            }else{
-
-                        
-                //Borrar Diarias
-
-                Agendamientos::where('codificacion_id', $codificacion_id)
-                    ->where('horario_plan', $horario)
-                    ->where('tipo', $tipo)
-                    ->whereMonth('fecha_inicio', $mes) //Puede ser la fecha_fin o fecha_inicio, es la misma
-                    ->whereYear('fecha_inicio', $ano) //Puede ser la fecha_fin o fecha_inicio, es la misma
-                    ->where('tipo_fecha', 1)->delete();
-
-                    Agendamientos::where('id', $id)->update(
-                        array(
-                                'horario_plan'      => $horario,
-                                'tipo'              => $tipo,
-                                'fecha_inicio'      => $fecha_inicio,
-                                'fecha_fin'         => $fecha_fin,
-                            )
-                    );
-
-
-                    return response()->json(
-                        [
-                            'status' => 'success',
-                            'message' => 'Los registros se han actualizado exitosamente!!!'
-                    
-                        ], 200);
-            }
-
-
-        }else{
-                
-            Agendamientos::where('id', $id)->update(
-                    array(
-                        'horario_plan'      => $horario,
-                        'tipo'              => $tipo,
-                        )
-                    );
-        
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Los registros se han actualizado exitosamente!!!'
-                ], 200);
-
-        }
-        
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'El registro se ha guardado exitosamente!!!'
+            ], 200);
 
     }
 
@@ -898,6 +640,49 @@ class AgendamientosController extends Controller
                 'message' => 'Los registros han sido guardados exitosamente!',
                 'errores' => $errores
             ], 200);
+    }
+
+    public function eventos($id)
+    {
+
+        $agendamientos = Agendamientos::join('codificaciones', 'agendamientos.codificacion_id', '=', 'codificaciones.id')
+        ->join('sucursals', 'codificaciones.sucursal_id', '=', 'sucursals.id')
+        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
+       // ->join('cars', 'agendamientos.car_plan_id', '=', 'cars.id')
+       // ->join('drivers', 'agendamientos.drivers_plan_id', '=', 'drivers.id')
+        ->join('horarios', 'agendamientos.horario_plan', '=', 'horarios.id')
+        ->select(
+            //'codificaciones.id as codificacion_id',
+            'codificaciones.rut',
+            'codificaciones.nombre',
+            'codificaciones.apellido',
+            'codificaciones.direccion',
+            'codificaciones.comuna',
+            'codificaciones.email',
+            'codificaciones.telefono',
+            //'codificaciones.centro_costo',
+            //'sucursals.nombre as sucursal',
+            //'empresas.razon_social',
+            //'drivers.name as nombre_conductor_plan',
+            //'drivers.lastname as apellido_conductor_plan',
+            //'drivers.rut as rut_conductor_plan',
+            'horarios.horario as title',
+            'horarios.id as horario_id',
+            //'cars.numero_movil as movil_plan',
+            'agendamientos.id',
+            'agendamientos.fecha_inicio as startDate',
+            'agendamientos.fecha_fin as endDate',
+            'agendamientos.tipo',
+            DB::raw("'event-primary' as classes"))
+            ->where('codificaciones.id',$id)
+            ->get();
+      
+        return response()->json(
+            [
+                'status' => 'success',
+                'items' => $agendamientos->toArray(),
+            ], 200);
+
     }
 
     /*public function importar(Request $request)

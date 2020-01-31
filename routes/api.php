@@ -465,7 +465,9 @@ Route::prefix('v1')->group(function () {
            Route::post('agendamientos/store', 'AgendamientosController@store');
            Route::get('agendamientos/{id}/edit', 'AgendamientosController@edit');
            Route::post('agendamientos/importar', 'AgendamientosController@importar');
+           Route::get('agendamientos/eventos/{id}', 'AgendamientosController@eventos');
        //    Route::get('combo/{id}', 'AgendamientosController@combo');
+
       // });
 
       });
