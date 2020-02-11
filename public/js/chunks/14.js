@@ -348,8 +348,8 @@ __webpack_require__.r(__webpack_exports__);
         value: 'Recogida'
       }],
       estadoFilter: {
-        label: 'Todos',
-        value: 'all'
+        label: 'Activo',
+        value: true
       },
       estadoOptions: [{
         label: 'Todos',
@@ -767,7 +767,16 @@ __webpack_require__.r(__webpack_exports__);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"].isRegistered = true;
     }
 
-    this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(function (err) {
+    this.$store.dispatch("itemManagement/traerItems", this.urlApi).then(function (res) {
+      var filter = _this5.gridApi.getFilterInstance("estado");
+
+      filter.setModel({
+        type: "equals",
+        filter: true
+      });
+
+      _this5.gridApi.onFilterChanged();
+    }).catch(function (err) {
       var textError = err.response.status == 300 ? err.response.data.message : err;
 
       _this5.$vs.notify({

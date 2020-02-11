@@ -1,16 +1,23 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue");
+/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34,12 +41,52 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    itemAddSection1: _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    itemEditSection1: _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
+      item_data: null,
+      item_not_found: false,
       urlApi: "/agendamientos/agendamientos/"
     };
+  },
+  watch: {
+    activeTab: function activeTab() {
+      this.fetch_item_data(this.$route.params.itemId);
+    }
+  },
+  methods: {
+    fetch_item_data: function fetch_item_data(itemId) {
+      var _this = this;
+
+      this.$store.dispatch("itemManagement/traerItem", {
+        Id: itemId,
+        Url: this.urlApi
+      }).then(function (res) {
+        _this.item_data = res.data.item;
+      }).catch(function (err) {
+        if (err.response.status === 404) {
+          _this.item_not_found = true;
+          return;
+        } else if (err.response.status == 300) {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.message,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        } else {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        }
+      });
+    }
   },
   created: function created() {
     // Register Module UserManagement Module
@@ -47,15 +94,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
     }
+
+    this.fetch_item_data(this.$route.params.itemId);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -67,19 +116,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/axios.js */ "./resources/js/src/axios.js");
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var vuejs_datepicker_src_locale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuejs-datepicker/src/locale */ "./node_modules/vuejs-datepicker/src/locale/index.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -239,24 +275,28 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
     CalendarViewHeader: vue_simple_calendar__WEBPACK_IMPORTED_MODULE_0__["CalendarViewHeader"],
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
       showDate: new Date(),
       disabledFrom: false,
       langEn: vuejs_datepicker_src_locale__WEBPACK_IMPORTED_MODULE_4__["en"],
       id: 0,
+      codificacion: '',
       tipo: '',
       horario: '',
       fecha: '',
+      nombre: 'Mauricio',
+      apellido: 'Riquelme',
+      rut: '16.370.505-2',
       calendarView: 'month',
       activePromptAddEvent: false,
       activePromptEditEvent: false,
-      empresa: 1,
-      sucursal: null,
-      codificacion: null,
-      empresasOptions: [],
-      sucursalesOptions: [],
-      codificacionesOptions: [],
       tipoOptions: [{
         label: 'Zarpe',
         value: 'Zarpe'
@@ -279,18 +319,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       ]
     };
   },
-  watch: {
-    empresa: function empresa(obj) {
-      this.traeSucursales(obj);
-    },
-    sucursal: function sucursal(obj) {
-      this.traeHorarios(obj);
-      this.traecodificaciones(obj);
-    },
-    codificacion: function codificacion(obj) {
-      this.$store.dispatch('calendar/fetchEvents', obj);
-    }
-  },
+  watch: {},
   computed: {
     simpleCalendarEvents: function simpleCalendarEvents() {
       return this.$store.state.calendar.events;
@@ -307,6 +336,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       return this.$store.state.windowWidth;
     }
   },
+  mounted: function mounted() {},
   methods: {
     traeHorarios: function traeHorarios(value) {
       var _this = this;
@@ -330,73 +360,11 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
         this.horariosOptions = [];
       }
     },
-    traeOtrosDatos: function traeOtrosDatos() {
+    addEvent: function addEvent() {
       var _this2 = this;
 
-      //Combo Empresa
-      _axios_js__WEBPACK_IMPORTED_MODULE_2__["default"].get("/api/v1/empresas/listemp").then(function (res) {
-        _this2.empresasOptions = res.data.items;
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-
-        _this2.$vs.notify({
-          title: 'Error',
-          text: textError,
-          color: 'danger',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle'
-        });
-      });
-    },
-    traeSucursales: function traeSucursales(value) {
-      var _this3 = this;
-
-      if (value > 1) {
-        //Combo Sucursales
-        _axios_js__WEBPACK_IMPORTED_MODULE_2__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
-          _this3.sucursalesOptions = res.data.items;
-        }).catch(function (err) {
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-
-          _this3.$vs.notify({
-            title: 'Error',
-            text: textError,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        });
-      } else {
-        this.sucursalesOptions = [];
-      }
-    },
-    traecodificaciones: function traecodificaciones(value) {
-      var _this4 = this;
-
-      if (value > 0) {
-        //Combo Codificaciones
-        _axios_js__WEBPACK_IMPORTED_MODULE_2__["default"].get("/api/v1/codificaciones/combo/" + value).then(function (res) {
-          _this4.codificacionesOptions = res.data.items;
-        }).catch(function (err) {
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-
-          _this4.$vs.notify({
-            title: 'Error',
-            text: textError,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        });
-      } else {
-        this.codificacionesOptions = [];
-      }
-    },
-    addEvent: function addEvent() {
-      var _this5 = this;
-
       var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this5.horario;
+        return element.id == _this2.horario;
       });
       var obj = {
         startDate: this.fecha,
@@ -409,7 +377,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
         classes: "event-primary"
       };
       this.$store.dispatch('calendar/addEvent', obj).then(function () {
-        _this5.$vs.notify({
+        _this2.$vs.notify({
           color: 'success',
           title: 'Agendamiento Ingresado',
           text: 'El agendamiento ya fue ingresado'
@@ -417,7 +385,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this5.$vs.notify({
+        _this2.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -456,10 +424,10 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       this.activePromptEditEvent = true;
     },
     editEvent: function editEvent() {
-      var _this6 = this;
+      var _this3 = this;
 
       var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this6.horario;
+        return element.id == _this3.horario;
       });
       var obj = {
         id: this.id,
@@ -473,7 +441,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
         classes: "event-primary"
       };
       this.$store.dispatch('calendar/editEvent', obj).then(function () {
-        _this6.$vs.notify({
+        _this3.$vs.notify({
           color: 'success',
           title: 'Agendamiento Actualizado',
           text: 'El agendamiento ya fue actualizado'
@@ -481,7 +449,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this6.$vs.notify({
+        _this3.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -501,7 +469,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       });
     },
     eventDragged: function eventDragged(event, date) {
-      var _this7 = this;
+      var _this4 = this;
 
       var agendamiento = event.originalEvent;
       var obj = {
@@ -516,7 +484,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
         classes: "event-primary"
       };
       this.$store.dispatch('calendar/eventDragged', obj).then(function () {
-        _this7.$vs.notify({
+        _this4.$vs.notify({
           color: 'success',
           title: 'Agendamiento Actualizado',
           text: 'El agendamiento ya fue actualizado'
@@ -524,7 +492,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this7.$vs.notify({
+        _this4.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -534,15 +502,15 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
       });
     },
     deleteRecord: function deleteRecord() {
-      var _this8 = this;
+      var _this5 = this;
 
       /* UnComment below lines for enabling true flow if deleting user */
       this.$store.dispatch('calendar/removeEvent', this.id).then(function () {
-        _this8.showDeleteSuccess();
+        _this5.showDeleteSuccess();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this8.$vs.notify({
+        _this5.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -561,9 +529,12 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
   },
   created: function created() {
     this.$store.registerModule('calendar', _store_calendar_moduleCalendar_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
-  },
-  mounted: function mounted() {
-    this.traeOtrosDatos();
+    this.codificacion = this.data.codificacion;
+    this.nombre = this.data.nombre;
+    this.apellido = this.data.apellido;
+    this.rut = this.data.rut;
+    this.traeHorarios(this.data.sucursal_id);
+    this.$store.dispatch('calendar/fetchEvents', this.data.codificacion);
   },
   beforeDestroy: function beforeDestroy() {
     this.$store.unregisterModule('calendar');
@@ -572,10 +543,10 @@ __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_mo
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -591,15 +562,15 @@ exports.push([module.i, "/*=====================================================
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -621,10 +592,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -638,8 +609,62 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-item-add" } },
-    [_c("vx-card", [_c("item-add-section1", { staticClass: "mt-4" })], 1)],
+    { attrs: { id: "page-item-edit" } },
+    [
+      _c(
+        "vs-alert",
+        {
+          attrs: {
+            color: "danger",
+            title: "Agendamiento no encontrada",
+            active: _vm.item_not_found
+          },
+          on: {
+            "update:active": function($event) {
+              _vm.item_not_found = $event
+            }
+          }
+        },
+        [
+          _c("span", [
+            _vm._v(
+              "El agendamiento con id: " +
+                _vm._s(_vm.$route.params.itemId) +
+                " no fue encontrada. "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            [
+              _c("span", [_vm._v("Mira  ")]),
+              _c(
+                "router-link",
+                {
+                  staticClass: "text-inherit underline",
+                  attrs: { to: { name: "agendamientos" } }
+                },
+                [_vm._v("Todos los agendamientos")]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.item_data
+        ? _c(
+            "vx-card",
+            [
+              _c("item-edit-section1", {
+                staticClass: "mt-4",
+                attrs: { data: _vm.item_data }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
     1
   )
 }
@@ -650,10 +675,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90&":
-/*!************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90& ***!
-  \************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c&":
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -706,112 +731,21 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "vx-col w-1/3 items-center sm:flex hidden"
+                        staticClass: "vx-col w-full items-center sm:flex hidden"
                       },
                       [
-                        _c(
-                          "vs-select",
-                          {
-                            ref: "empresas",
-                            staticClass: "w-full p-1",
-                            attrs: {
-                              label: "Empresas",
-                              name: "empresa",
-                              dir: _vm.$vs.rtl ? "rtl" : "ltr"
-                            },
-                            model: {
-                              value: _vm.empresa,
-                              callback: function($$v) {
-                                _vm.empresa = $$v
-                              },
-                              expression: "empresa"
-                            }
-                          },
-                          _vm._l(_vm.empresasOptions, function(item) {
-                            return _c("vs-select-item", {
-                              key: item.id,
-                              attrs: { value: item.id, text: item.razon_social }
-                            })
-                          }),
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col w-1/3 items-center sm:flex hidden"
-                      },
-                      [
-                        _c(
-                          "vs-select",
-                          {
-                            ref: "sucursal",
-                            staticClass: "w-full p-1",
-                            attrs: {
-                              label: "Sucursales",
-                              name: "sucursal",
-                              dir: _vm.$vs.rtl ? "rtl" : "ltr"
-                            },
-                            model: {
-                              value: _vm.sucursal,
-                              callback: function($$v) {
-                                _vm.sucursal = $$v
-                              },
-                              expression: "sucursal"
-                            }
-                          },
-                          _vm._l(_vm.sucursalesOptions, function(item) {
-                            return _c("vs-select-item", {
-                              key: item.id,
-                              attrs: { value: item.id, text: item.nombre }
-                            })
-                          }),
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col w-1/3 items-center sm:flex hidden"
-                      },
-                      [
-                        _c(
-                          "vs-select",
-                          {
-                            ref: "codificaciones",
-                            staticClass: "w-full p-1",
-                            attrs: {
-                              label: "Codificaciones",
-                              name: "codificaciones",
-                              dir: _vm.$vs.rtl ? "rtl" : "ltr"
-                            },
-                            model: {
-                              value: _vm.codificacion,
-                              callback: function($$v) {
-                                _vm.codificacion = $$v
-                              },
-                              expression: "codificacion"
-                            }
-                          },
-                          _vm._l(_vm.codificacionesOptions, function(item) {
-                            return _c("vs-select-item", {
-                              key: item.id,
-                              attrs: {
-                                value: item.id,
-                                text: item.nombre + " " + item.apellido
-                              }
-                            })
-                          }),
-                          1
-                        )
-                      ],
-                      1
+                        _c("h1", [
+                          _c("em", [
+                            _vm._v(
+                              _vm._s(_vm.nombre) +
+                                "  " +
+                                _vm._s(_vm.apellido) +
+                                " - " +
+                                _vm._s(_vm.rut)
+                            )
+                          ])
+                        ])
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -819,19 +753,47 @@ var render = function() {
                       { staticClass: "vx-col sm:w-1/3 mt-4 w-full flex" },
                       [
                         _c(
-                          "vs-button",
-                          {
-                            attrs: {
-                              "icon-pack": "feather",
-                              icon: "icon-plus"
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.promptAddNewEvent(new Date())
-                              }
-                            }
-                          },
-                          [_vm._v("AGENDAR")]
+                          "vx-tooltip",
+                          { attrs: { color: "primary", text: "Agendar" } },
+                          [
+                            _c(
+                              "vs-button",
+                              {
+                                staticClass: "mr-3",
+                                attrs: {
+                                  "icon-pack": "feather",
+                                  icon: "icon-plus"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.promptAddNewEvent(new Date())
+                                  }
+                                }
+                              },
+                              [_vm._v("AGENDAR")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "vx-tooltip",
+                          { attrs: { color: "primary", text: "Volver" } },
+                          [
+                            _c(
+                              "vs-button",
+                              {
+                                staticClass: "mr-4",
+                                attrs: {
+                                  "icon-pack": "feather",
+                                  icon: "icon-arrow-left",
+                                  to: { name: "agendamientos" }
+                                }
+                              },
+                              [_vm._v("Volver")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -1661,17 +1623,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue ***!
-  \***************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=0594802c& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c&");
-/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=483261a4& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4&");
+/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1681,9 +1643,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1693,55 +1655,55 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue"
+component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c&":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c& ***!
-  \**********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4& ***!
+  \************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=0594802c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue?vue&type=template&id=0594802c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=483261a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue?vue&type=template&id=483261a4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_0594802c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_483261a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=2a4aef90& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90&");
-/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=d412958c& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1752,9 +1714,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1764,54 +1726,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue"
+component.options.__file = "resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90&":
-/*!******************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90& ***!
-  \******************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c& ***!
+  \********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=2a4aef90& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAddSection1.vue?vue&type=template&id=2a4aef90&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=d412958c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEditSection1.vue?vue&type=template&id=d412958c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_2a4aef90___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_d412958c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

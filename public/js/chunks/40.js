@@ -1,16 +1,23 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[40],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue");
+/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34,30 +41,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    itemAddSection1: _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    itemEditSection1: _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      urlApi: "/asociado/asociado/"
+      item_data: null,
+      item_not_found: false,
+      urlApi: "/fuerazonas/fuerazonas/"
     };
   },
-  watch: {},
-  methods: {},
+  watch: {
+    activeTab: function activeTab() {
+      this.fetch_item_data(this.$route.params.itemId);
+    }
+  },
+  methods: {
+    fetch_item_data: function fetch_item_data(itemId) {
+      var _this = this;
+
+      this.$store.dispatch("itemManagement/traerItem", {
+        Id: itemId,
+        Url: this.urlApi
+      }).then(function (res) {
+        _this.item_data = res.data.item[0];
+      }).catch(function (err) {
+        if (err.response.status === 404) {
+          _this.item_not_found = true;
+          return;
+        } else if (err.response.status == 300) {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.message,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        } else {
+          _this.$vs.notify({
+            title: 'Error',
+            text: err,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        }
+      });
+    }
+  },
   created: function created() {
     // Register Module UserManagement Module
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
     }
+
+    this.fetch_item_data(this.$route.params.itemId);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -141,89 +188,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 var dict = {
   custom: {
-    name: {
-      required: "El nombre es requerido",
-      alpha: "El nombre solo puede contener letras"
-    },
-    lastname: {
-      required: "El apellido es requerido",
-      alpha: "El apellido solo puede contener letras"
-    },
-    rut: {
-      required: "El rut es requerido",
-      alpha_dash: "Ingrese un rut valido"
-    },
-    ciudad: {
-      required: "La ciudad es requerida"
+    empresa: {
+      required: 'La empresa es requerida'
     },
     comuna: {
-      required: "La comuna es requerida"
+      required: 'La comuna es requerida'
     },
-    direccion: {
-      required: "La dirección es requerida"
+    distancia: {
+      required: 'La distancia es requerida',
+      decimal: 'El valor debe ser numerico'
     },
-    numeracion: {
-      required: "La numeración es requerida",
-      numeric: "Ingrese una numeración valida"
-    },
-    email: {
-      required: "El email es requerido",
-      email: "Ingrese un email valido"
-    },
-    telefono: {
-      required: "El telefono es requerido",
-      numeric: "El numero de telefono debe ser valido"
-    },
-    clase: {
-      required: "La clase es requerida"
+    tipo: {
+      required: 'El tipo es requerido'
     }
   }
 }; // register custom messages
@@ -233,16 +214,33 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: {},
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
-      urlApi: "/asociado/asociado/",
+      urlApi: "/fuerazonas/fuerazonas/",
       data_local: {
-        habilitado: 1,
-        conductor: false,
-        dueno: true,
-        driver_default: false
-      }
+        id: this.data.id ? this.data.id : null,
+        distancia: this.data.distancia ? this.data.distancia : null,
+        comuna: this.data.comuna ? this.data.comuna : null,
+        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        tipo: this.data.tipo ? this.data.tipo : null
+      },
+      typeOptions: [{
+        label: 'Fuera zona 1',
+        value: '1'
+      }, {
+        label: 'Fuera zona 2',
+        value: '2'
+      }, {
+        label: 'Fuera zona 3',
+        value: '3'
+      }],
+      empresaOptions: []
     };
   },
   computed: {
@@ -250,19 +248,21 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       return !this.errors.any();
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.traeOtrosDatos();
+  },
   methods: {
     save_changes: function save_changes() {
       var _this = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$store.dispatch("itemManagement/agregarItem", {
+          _this.$store.dispatch("itemManagement/editarItem", {
             item: _this.data_local,
             Url: _this.urlApi
           }).then(function () {
             _this.$router.push({
-              name: 'asociados'
+              name: 'fuerazonas'
             });
 
             _this.showDeleteSuccess();
@@ -289,22 +289,41 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        habilitado: 1,
-        conductor: false,
-        dueno: true,
-        driver_default: false
+        id: this.data.id ? this.data.id : null,
+        distancia: this.data.distancia ? this.data.distancia : null,
+        comuna: this.data.comuna ? this.data.comuna : null,
+        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        tipo: this.data.tipo ? this.data.tipo : null
       };
       this.errors.clear();
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this2 = this;
+
+      //Combo Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/empresas").then(function (res) {
+        _this2.empresaOptions = res.data.items;
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0&":
-/*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -318,8 +337,62 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-item-add" } },
-    [_c("vx-card", [_c("item-add-section1", { staticClass: "mt-4" })], 1)],
+    { attrs: { id: "page-item-edit" } },
+    [
+      _c(
+        "vs-alert",
+        {
+          attrs: {
+            color: "danger",
+            title: "Fuera de zona no encontrado",
+            active: _vm.item_not_found
+          },
+          on: {
+            "update:active": function($event) {
+              _vm.item_not_found = $event
+            }
+          }
+        },
+        [
+          _c("span", [
+            _vm._v(
+              "La fuera de zona con id: " +
+                _vm._s(_vm.$route.params.itemId) +
+                " no fue encontrado. "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            [
+              _c("span", [_vm._v("Mira  ")]),
+              _c(
+                "router-link",
+                {
+                  staticClass: "text-inherit underline",
+                  attrs: { to: { name: "fuerazonas" } }
+                },
+                [_vm._v("Todas las fueras de zona")]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.item_data
+        ? _c(
+            "vx-card",
+            [
+              _c("item-edit-section1", {
+                staticClass: "mt-4",
+                attrs: { data: _vm.item_data }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
     1
   )
 }
@@ -330,10 +403,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2&":
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2& ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -345,13 +418,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "item-add" } }, [
+  return _c("div", { attrs: { id: "item-edit" } }, [
     _c(
       "div",
       { staticClass: "vx-row mt-6" },
       [
         _c("vs-divider", { attrs: { color: "primary" } }, [
-          _c("h5", [_vm._v("Datos Asociado")])
+          _c("h5", [_vm._v("Datos Fuera de Zona")])
         ]),
         _vm._v(" "),
         _c(
@@ -359,236 +432,89 @@ var render = function() {
           { staticClass: "vx-col md:w-1/2 w-full mt-2" },
           [
             _c(
-              "vs-checkbox",
+              "vs-select",
               {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                ref: "empresa",
+                staticClass: "w-full p-1",
                 attrs: {
-                  name: "conductor",
-                  "icon-pack": "feather",
-                  icon: "icon-check"
+                  label: "Empresa",
+                  name: "empresa",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  danger: _vm.errors.first("empresa") ? true : false,
+                  "danger-text": _vm.errors.first("empresa")
+                    ? _vm.errors.first("empresa")
+                    : ""
                 },
                 model: {
-                  value: _vm.data_local.conductor,
+                  value: _vm.data_local.empresa_id,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "conductor", $$v)
+                    _vm.$set(_vm.data_local, "empresa_id", $$v)
                   },
-                  expression: "data_local.conductor"
+                  expression: "data_local.empresa_id"
                 }
               },
-              [_vm._v("Conductor")]
+              _vm._l(_vm.empresaOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.id,
+                  attrs: { value: item.id, text: item.razon_social }
+                })
+              }),
+              1
             )
           ],
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }),
-        _vm._v(" "),
         _c(
           "div",
           { staticClass: "vx-col md:w-1/2 w-full mt-2" },
           [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|alpha_spaces",
-                  expression: "'required|alpha_spaces'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Nombre",
-                name: "name",
-                danger: _vm.errors.first("name") ? true : false,
-                "danger-text": _vm.errors.first("name")
-                  ? _vm.errors.first("name")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.name,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "name", $$v)
+            _c(
+              "vs-select",
+              {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                ref: "tipo",
+                staticClass: "w-full p-1",
+                attrs: {
+                  label: "Tipo",
+                  name: "tipo",
+                  dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                  danger: _vm.errors.first("tipo") ? true : false,
+                  "danger-text": _vm.errors.first("tipo")
+                    ? _vm.errors.first("tipo")
+                    : ""
                 },
-                expression: "data_local.name"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|alpha_spaces",
-                  expression: "'required|alpha_spaces'"
+                model: {
+                  value: _vm.data_local.tipo,
+                  callback: function($$v) {
+                    _vm.$set(_vm.data_local, "tipo", $$v)
+                  },
+                  expression: "data_local.tipo"
                 }
-              ],
-              staticClass: "w-full  p-1",
-              attrs: {
-                "label-placeholder": "Apellido",
-                name: "lastname",
-                danger: _vm.errors.first("lastname") ? true : false,
-                "danger-text": _vm.errors.first("lastname")
-                  ? _vm.errors.first("lastname")
-                  : "",
-                "val-icon-danger": "clear"
               },
-              model: {
-                value: _vm.data_local.lastname,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "lastname", $$v)
-                },
-                expression: "data_local.lastname"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|email",
-                  expression: "'required|email'"
-                }
-              ],
-              staticClass: "w-full  p-1",
-              attrs: {
-                type: "Email",
-                "label-placeholder": "Email",
-                name: "email",
-                danger: _vm.errors.first("email") ? true : false,
-                "danger-text": _vm.errors.first("email")
-                  ? _vm.errors.first("email")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.email,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "email", $$v)
-                },
-                expression: "data_local.email"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|alpha_dash",
-                  expression: "'required|alpha_dash'"
-                }
-              ],
-              staticClass: "w-full  p-1",
-              attrs: {
-                "label-placeholder": "Rut",
-                name: "rut",
-                danger: _vm.errors.first("rut") ? true : false,
-                "danger-text": _vm.errors.first("rut")
-                  ? _vm.errors.first("rut")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.rut,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "rut", $$v)
-                },
-                expression: "data_local.rut"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Telefono",
-                name: "telefono",
-                danger: _vm.errors.first("telefono") ? true : false,
-                "danger-text": _vm.errors.first("telefono")
-                  ? _vm.errors.first("telefono")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.telefono,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "telefono", $$v)
-                },
-                expression: "data_local.telefono"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Ciudad",
-                name: "ciudad",
-                danger: _vm.errors.first("ciudad") ? true : false,
-                "danger-text": _vm.errors.first("ciudad")
-                  ? _vm.errors.first("ciudad")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.ciudad,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "ciudad", $$v)
-                },
-                expression: "data_local.ciudad"
-              }
-            })
+              _vm._l(_vm.typeOptions, function(item) {
+                return _c("vs-select-item", {
+                  key: item.value,
+                  attrs: { value: item.value, text: item.label }
+                })
+              }),
+              1
+            )
           ],
           1
         ),
@@ -637,120 +563,26 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
                 }
               ],
               staticClass: "w-full p-1",
               attrs: {
-                "label-placeholder": "Direccion",
-                name: "direccion",
-                danger: _vm.errors.first("direccion") ? true : false,
-                "danger-text": _vm.errors.first("direccion")
-                  ? _vm.errors.first("direccion")
+                "label-placeholder": "Distancia",
+                name: "distancia",
+                danger: _vm.errors.first("distancia") ? true : false,
+                "danger-text": _vm.errors.first("distancia")
+                  ? _vm.errors.first("distancia")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.direccion,
+                value: _vm.data_local.distancia,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "direccion", $$v)
+                  _vm.$set(_vm.data_local, "distancia", $$v)
                 },
-                expression: "data_local.direccion"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Numeracion",
-                name: "numeracion",
-                danger: _vm.errors.first("numeracion") ? true : false,
-                "danger-text": _vm.errors.first("numeracion")
-                  ? _vm.errors.first("numeracion")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.numeracion,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "numeracion", $$v)
-                },
-                expression: "data_local.numeracion"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Licencias",
-                name: "clase",
-                danger: _vm.errors.first("clase") ? true : false,
-                "danger-text": _vm.errors.first("clase")
-                  ? _vm.errors.first("clase")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.clase,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "clase", $$v)
-                },
-                expression: "data_local.clase"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("label", { staticClass: "vs-input--label " }, [
-              _vm._v("Habilitado")
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("vs-switch", {
-              staticClass: "mt-2",
-              model: {
-                value: _vm.data_local.habilitado,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "habilitado", $$v)
-                },
-                expression: "data_local.habilitado"
+                expression: "data_local.distancia"
               }
             })
           ],
@@ -794,7 +626,7 @@ var render = function() {
                     attrs: {
                       "icon-pack": "feather",
                       icon: "icon-arrow-left",
-                      to: { name: "asociados" }
+                      to: { name: "fuerazonas" }
                     }
                   },
                   [_vm._v("Volver")]
@@ -1056,18 +888,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue":
-/*!********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue ***!
-  \********************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=329dfcf0& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0&");
-/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=b09d0c74& */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74&");
+/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1076,9 +908,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1088,55 +920,55 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0&":
-/*!***************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0& ***!
-  \***************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74& ***!
+  \**********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=329dfcf0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue?vue&type=template&id=329dfcf0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=b09d0c74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue?vue&type=template&id=b09d0c74&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_329dfcf0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b09d0c74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue ***!
-  \****************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue ***!
+  \***********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=ade5fe08& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08&");
-/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=721947d2& */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1145,9 +977,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1157,38 +989,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08&":
-/*!***********************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08& ***!
-  \***********************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2&":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2& ***!
+  \******************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=ade5fe08& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAddSection1.vue?vue&type=template&id=ade5fe08&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=721947d2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEditSection1.vue?vue&type=template&id=721947d2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_ade5fe08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_721947d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

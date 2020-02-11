@@ -1,24 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue");
+/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -42,60 +34,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    itemEditSection1: _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    itemAddSection1: _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      item_data: null,
-      item_data_responsables: null,
-      item_data_sucursales: null,
-      item_data_ciclo_facturacion: null,
-      item_data_ciclo_produccion: null,
-      item_not_found: false,
       urlApi: "/empresas/empresas/"
     };
-  },
-  watch: {
-    activeTab: function activeTab() {
-      this.fetch_item_data(this.$route.params.itemId);
-    }
-  },
-  methods: {
-    fetch_item_data: function fetch_item_data(itemId) {
-      var _this = this;
-
-      this.$store.dispatch("itemManagement/traerItem", {
-        Id: itemId,
-        Url: this.urlApi
-      }).then(function (res) {
-        _this.item_data = res.data.item;
-        _this.item_data_responsables = res.data.responsables;
-        _this.item_data_sucursales = res.data.sucursales;
-        _this.item_data_ciclo_facturacion = res.data.cicfac[0];
-        _this.item_data_ciclo_produccion = res.data.cicpro[0];
-      }).catch(function (err) {
-        if (err.response.status === 404) {
-          _this.item_not_found = true;
-          return;
-        } else if (err.response.status == 300) {
-          _this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.message,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        } else {
-          _this.$vs.notify({
-            title: 'Error',
-            text: err,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        }
-      });
-    }
   },
   created: function created() {
     // Register Module UserManagement Module
@@ -103,17 +47,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
     }
-
-    this.fetch_item_data(this.$route.params.itemId);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -131,29 +73,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
 /* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_6__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -640,40 +559,12 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     TabContent: vue_form_wizard__WEBPACK_IMPORTED_MODULE_3__["TabContent"],
     flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_5___default.a
   },
-  props: {
-    data: {
-      type: Object,
-      required: true
-    },
-    data_responsables: {
-      type: Array,
-      required: true
-    },
-    data_sucursales: {
-      type: Array,
-      required: true
-    },
-    data_cicfacturacion: {
-      type: Object,
-      required: true
-    },
-    data_cicproduccion: {
-      type: Object,
-      required: true
-    }
-  },
   data: function data() {
-    var _data_local;
-
     return {
       urlApi: "/empresas/empresas/",
-      email: null,
-      telefono: null,
-      data_local: (_data_local = {
-        rut: this.data.rut ? this.data.rut : null,
-        dv: this.data.dv ? this.data.dv : null,
-        razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_data_local, "habilitado", this.data.habilitado), _defineProperty(_data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_data_local, "id", this.data.id ? this.data.id : null), _data_local),
+      data_local: {
+        habilitado: 1
+      },
       cicloProduccionOptions: [{
         text: "Por defecto (Mes Completo)",
         value: 31
@@ -695,29 +586,23 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         value: 0
       }],
       responsable: {},
-      responsables: this.data_responsables,
-      cantidadResponsables: this.data_responsables.length,
+      responsables: [],
+      cantidadResponsables: null,
       sucursal: {
         matriz: 0
       },
-      sucursales: this.data_sucursales,
-      cantidadSucursales: this.data_sucursales.length,
+      sucursales: [],
+      cantidadSucursales: null,
       ciclofacturacion: {
-        id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
-        empresa_id: this.data_cicfacturacion.empresa_id ? this.data_cicfacturacion.empresa_id : null,
-        inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio : null,
-        fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin : null,
-        dias: this.data_cicfacturacion.dias
+        inicio: 1,
+        fin: 1
       },
-      disabledcicfac: this.data_cicfacturacion.dias === 0 ? false : true,
+      disabledcicfac: true,
       cicloproduccion: {
-        id: this.data_cicproduccion.id ? this.data_cicproduccion.id : null,
-        empresa_id: this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id : null,
-        inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio : null,
-        fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
-        dias: this.data_cicproduccion.dias
+        inicio: 1,
+        fin: 1
       },
-      disabledcicpro: this.data_cicproduccion.dias === 0 ? false : true
+      disabledcicpro: true
     };
   },
   computed: {
@@ -739,66 +624,33 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       this.sucursales.splice(index, 1);
       this.cantidadSucursales = this.sucursales.length;
     },
-    editarSucursal: function editarSucursal(index, data) {
-      this.sucursal = {
-        id: data.id,
-        empresa_id: data.empresa_id,
-        nombre: data.nombre,
-        direccion: data.direccion,
-        matriz: data.matriz,
-        lat: data.lat,
-        lng: data.lng
-      };
-    },
     limpiarSucursal: function limpiarSucursal() {
       this.sucursal = {};
       this.errors.clear();
     },
-    guardarSucursal: function guardarSucursal() {
+    agregarSucursal: function agregarSucursal() {
       var _this = this;
 
       this.$validator.validateAll("suc").then(function (result) {
         if (result) {
-          if (_this.sucursal.matriz === 1 || _this.sucursal.matriz === true) {
+          if (_this.sucursal.matriz === true) {
             for (var x in _this.sucursales) {
               _this.sucursales[x].matriz = false;
             }
           }
 
-          if (_this.sucursal.id >= 0) {
-            var itemIndex = _this.sucursales.findIndex(function (u) {
-              return u.id == _this.sucursal.id;
-            });
+          _this.sucursales.push(_this.sucursal);
 
-            _this.sucursales.splice(itemIndex, 1, _this.sucursal);
-
-            _this.cantidadSucursales = _this.sucursales.length;
-            _this.sucursal = {
-              matriz: 0
-            };
-          } else {
-            _this.sucursales.push(_this.sucursal);
-
-            _this.cantidadSucursales = _this.sucursales.length;
-            _this.sucursal = {
-              matriz: 0
-            };
-          }
+          _this.cantidadSucursales = _this.sucursales.length;
+          _this.sucursal = {
+            matriz: 0
+          };
 
           _this.errors.clear(); //resolve(true);
 
         } else {//  reject("correct all values");
           }
       });
-    },
-    editarResponsable: function editarResponsable(index, data) {
-      this.responsable = {
-        id: data.id,
-        empresa_id: data.empresa_id,
-        name: data.name,
-        email: data.email,
-        telefono: data.telefono
-      };
     },
     eliminarResponsable: function eliminarResponsable(index, data) {
       this.responsables.splice(index, 1);
@@ -808,26 +660,15 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       this.responsable = {};
       this.errors.clear();
     },
-    guardarResponsable: function guardarResponsable() {
+    agregarResponsable: function agregarResponsable() {
       var _this2 = this;
 
       this.$validator.validateAll("res").then(function (result) {
         if (result) {
-          if (_this2.responsable.id >= 0) {
-            var itemIndex = _this2.responsables.findIndex(function (u) {
-              return u.id == _this2.responsable.id;
-            });
+          _this2.responsables.push(_this2.responsable);
 
-            _this2.responsables.splice(itemIndex, 1, _this2.responsable);
-
-            _this2.cantidadResponsables = _this2.responsables.length;
-            _this2.responsable = {};
-          } else {
-            _this2.responsables.push(_this2.responsable);
-
-            _this2.cantidadResponsables = _this2.responsables.length;
-            _this2.responsable = {};
-          }
+          _this2.cantidadResponsables = _this2.responsables.length;
+          _this2.responsable = {};
 
           _this2.errors.clear(); // resolve(true);
 
@@ -836,7 +677,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       });
     },
     changecicprod: function changecicprod(event) {
-      if (this.cicloproduccion.dias === 0) {
+      if (this.cicloproduccion.dias == 0) {
         this.disabledcicpro = false;
       } else {
         this.disabledcicpro = true;
@@ -846,7 +687,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       }
     },
     changecicfac: function changecicfac(event) {
-      if (this.ciclofacturacion.dias === 0) {
+      if (this.ciclofacturacion.dias == 0) {
         this.disabledcicfac = false;
       } else {
         this.disabledcicfac = true;
@@ -926,9 +767,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
           _this7.datos.push(_this7.cicloproduccion);
 
-          _this7.$store.dispatch("itemManagement/editarItem", {
+          _this7.$store.dispatch("itemManagement/agregarItem", {
             item: _this7.datos,
-            Url: _this7.urlApi + _this7.data_local.id
+            Url: _this7.urlApi
           }).then(function () {
             _this7.$router.push({
               name: 'empresas'
@@ -957,27 +798,17 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       });
     },
     reset_data: function reset_data() {
-      var _this$data_local;
-
-      this.data_local = (_this$data_local = {
-        rut: this.data.rut ? this.data.rut : null,
-        dv: this.data.dv ? this.data.dv : null,
-        razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _this$data_local), this.responsable = {}, this.responsables = this.data_responsables, this.cantidadResponsables = this.data_responsables.length, this.sucursal = {
+      this.data_local = {
+        habilitado: 1
+      }, this.responsable = {}, this.responsables = [], this.cantidadResponsables = null, this.sucursal = {
         matriz: 0
-      }, this.sucursales = this.data_sucursales, this.cantidadSucursales = this.data_sucursales.length, this.ciclofacturacion = {
-        id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
-        empresa_id: this.data_cicfacturacion.empresa_id ? this.data_cicfacturacion.empresa_id : null,
-        inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio : null,
-        fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin : null,
-        dias: this.data_cicfacturacion.dias
-      }, this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true, this.cicloproduccion = {
-        id: this.data_cicproduccion.id ? this.data_cicproduccion.id : null,
-        empresa_id: this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id : null,
-        inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio : null,
-        fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
-        dias: this.data_cicproduccion.dias
-      }, this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true, this.$refs.wizard.reset();
+      }, this.sucursales = [], this.cantidadSucursales = null, this.ciclofacturacion = {
+        inicio: 1,
+        fin: 1
+      }, this.disabledcicfac = true, this.cicloproduccion = {
+        inicio: 1,
+        fin: 1
+      }, this.disabledcicpro = true, this.$refs.wizard.reset();
       this.errors.clear();
     }
   }
@@ -985,10 +816,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1002,68 +833,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-item-edit" } },
-    [
-      _c(
-        "vs-alert",
-        {
-          attrs: {
-            color: "danger",
-            title: "Empresa no encontrada",
-            active: _vm.item_not_found
-          },
-          on: {
-            "update:active": function($event) {
-              _vm.item_not_found = $event
-            }
-          }
-        },
-        [
-          _c("span", [
-            _vm._v(
-              "La empresa con id: " +
-                _vm._s(_vm.$route.params.itemId) +
-                " no fue encontrada. "
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "span",
-            [
-              _c("span", [_vm._v("Mira  ")]),
-              _c(
-                "router-link",
-                {
-                  staticClass: "text-inherit underline",
-                  attrs: { to: { name: "empresas" } }
-                },
-                [_vm._v("Todos las empresas")]
-              )
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.item_data
-        ? _c(
-            "vx-card",
-            [
-              _c("item-edit-section1", {
-                staticClass: "mt-4",
-                attrs: {
-                  data: _vm.item_data,
-                  data_responsables: _vm.item_data_responsables,
-                  data_sucursales: _vm.item_data_sucursales,
-                  data_cicfacturacion: _vm.item_data_ciclo_facturacion,
-                  data_cicproduccion: _vm.item_data_ciclo_produccion
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ],
+    { attrs: { id: "page-item-add" } },
+    [_c("vx-card", [_c("item-add-section1", { staticClass: "mt-4" })], 1)],
     1
   )
 }
@@ -1074,10 +845,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e&":
-/*!**********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1089,7 +860,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "item-edit" } }, [
+  return _c("div", { attrs: { id: "item-add" } }, [
     _c(
       "div",
       { staticClass: "mt-6 mb-5" },
@@ -1102,9 +873,9 @@ var render = function() {
             attrs: {
               color: "rgba(var(--vs-primary), 1)",
               errorColor: "rgba(var(--vs-danger), 1)",
-              title: "ACTUALIZAR EMPRESA",
-              subtitle: "Ingrese todos los campos para actualizar la empresa",
-              finishButtonText: "Actualizar"
+              title: "AGREGAR EMPRESA",
+              subtitle: "Ingrese todos los campos para ingresar la empresa",
+              finishButtonText: "Agregar"
             },
             scopedSlots: _vm._u([
               {
@@ -1163,7 +934,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v("\n          Actualizar")]
+                              [_vm._v("\n          Agregar")]
                             )
                       ],
                       1
@@ -1177,7 +948,7 @@ var render = function() {
             _c(
               "tab-content",
               {
-                staticClass: "mb-1 mt-2",
+                staticClass: "mb-1 ",
                 attrs: {
                   title: "Paso 1",
                   icon: "feather icon-home",
@@ -1428,7 +1199,7 @@ var render = function() {
                       [
                         _c(
                           "vx-tooltip",
-                          { attrs: { color: "primary", text: "Guardar" } },
+                          { attrs: { color: "primary", text: "Agregar" } },
                           [
                             _c("vs-button", {
                               attrs: {
@@ -1440,7 +1211,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.guardarResponsable()
+                                  return _vm.agregarResponsable()
                                 }
                               }
                             })
@@ -1717,44 +1488,6 @@ var render = function() {
                                                 {
                                                   attrs: {
                                                     color: "primary",
-                                                    text: "Editar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-edit",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editarResponsable(
-                                                          indextrres,
-                                                          trres
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
                                                     text: "Eliminar"
                                                   }
                                                 },
@@ -1819,12 +1552,6 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("vs-th", [
                                     _vm._v(
-                                      "\n                    Editar\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
                                       "\n                    Borrar\n                  "
                                     )
                                   ])
@@ -1873,7 +1600,7 @@ var render = function() {
                       [
                         _c(
                           "vx-tooltip",
-                          { attrs: { color: "primary", text: "Guardar" } },
+                          { attrs: { color: "primary", text: "Agregar" } },
                           [
                             _c("vs-button", {
                               attrs: {
@@ -1885,7 +1612,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.guardarSucursal()
+                                  return _vm.agregarSucursal()
                                 }
                               }
                             })
@@ -2234,7 +1961,7 @@ var render = function() {
                                             _vm._v(
                                               "\n                      " +
                                                 _vm._s(trsuc.nombre) +
-                                                "\n                   "
+                                                "\n                    "
                                             )
                                           ]),
                                           _vm._v(" "),
@@ -2250,52 +1977,13 @@ var render = function() {
                                             _vm._v(
                                               "\n                       " +
                                                 _vm._s(
-                                                  trsuc.matriz === 1 ||
-                                                    trsuc.matriz === true
+                                                  trsuc.matriz === true
                                                     ? "Si"
                                                     : "No"
                                                 ) +
                                                 "\n                    "
                                             )
                                           ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "vs-td",
-                                            [
-                                              _c(
-                                                "vx-tooltip",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    text: "Editar"
-                                                  }
-                                                },
-                                                [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-edit",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editarSucursal(
-                                                          indextrsuc,
-                                                          trsuc
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
                                           _vm._v(" "),
                                           _c(
                                             "vs-td",
@@ -2364,12 +2052,6 @@ var render = function() {
                                   _c("vs-th", [
                                     _vm._v(
                                       "\n                    Matriz\n                  "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("vs-th", [
-                                    _vm._v(
-                                      "\n                    Editar\n                  "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -2998,17 +2680,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue ***!
-  \*************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=b9f68b7c& */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c&");
-/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=379a2040& */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040&");
+/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -3018,9 +2700,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -3030,107 +2712,107 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c&":
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040& ***!
+  \******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=379a2040& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue?vue&type=template&id=379a2040&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_379a2040___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=bace5768& */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768&");
+/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c& ***!
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=b9f68b7c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue?vue&type=template&id=b9f68b7c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_b9f68b7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue ***!
-  \*********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=57524c4e& */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e&");
-/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e&":
-/*!****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e& ***!
-  \****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=57524c4e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-edit/itemEditSection1.vue?vue&type=template&id=57524c4e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=bace5768& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/empresas/item-add/itemAddSection1.vue?vue&type=template&id=bace5768&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_57524c4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_bace5768___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

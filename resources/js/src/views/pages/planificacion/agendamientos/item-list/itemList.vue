@@ -211,7 +211,7 @@ export default {
         { label: 'Recogida', value: 'Recogida' },
       ],
 
-      estadoFilter: { label: 'Todos', value: 'all' },
+      estadoFilter: { label: 'Activo', value: true },
       estadoOptions: [
         { label: 'Todos', value: 'all' }, 
         { label: 'Activo', value: true },
@@ -290,7 +290,7 @@ export default {
             }
 
           },
-          cellRendererFramework: 'CellRendererStatus'       
+          cellRendererFramework: 'CellRendererStatus',     
           
         },
         /*{
@@ -500,7 +500,7 @@ export default {
     addRecord() {
             this.$router.push("../item-add/").catch(() => {})
       },
-      traeHorarios(value) {
+    traeHorarios(value) {
        
         if(value >  1)  {
           //Combo Horarios
@@ -603,13 +603,24 @@ export default {
     }
 
     this.traeOtrosDatos();
+    
+    
+    
   },
   created() {
     if(!moduleItemManagement.isRegistered) {
       this.$store.registerModule('itemManagement', moduleItemManagement)
       moduleItemManagement.isRegistered = true
     }
-    this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(err => { 
+    this.$store.dispatch("itemManagement/traerItems", this.urlApi)
+    .then((res) => {
+        
+      const filter = this.gridApi.getFilterInstance("estado")
+      filter.setModel({ type: "equals", filter: true })
+      this.gridApi.onFilterChanged()
+        
+     })
+    .catch(err => { 
       
       var textError = err.response.status == 300 ? err.response.data.message : err;
       this.$vs.notify({
@@ -622,6 +633,8 @@ export default {
 
           
     })
+
+    
   }
 }
 

@@ -74771,7 +74771,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/',
       name: 'home',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 88).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
+        return __webpack_require__.e(/*! import() */ 89).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
       }
     }, // =============================================================================
     // PERFIL
@@ -74780,7 +74780,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/perfil/:itemId',
       name: 'perfil',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 85).then(__webpack_require__.bind(null, /*! @/views/pages/perfil/Perfil.vue */ "./resources/js/src/views/pages/perfil/Perfil.vue"));
+        return __webpack_require__.e(/*! import() */ 86).then(__webpack_require__.bind(null, /*! @/views/pages/perfil/Perfil.vue */ "./resources/js/src/views/pages/perfil/Perfil.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74842,7 +74842,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/users/item-edit/:itemId',
       name: 'user-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 54).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/users/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 55).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/users/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -74862,7 +74862,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/users/item-add/',
       name: 'user-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 53).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/users/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 54).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/users/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/users/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75002,7 +75002,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/observaciones/item-edit/:itemId',
       name: 'observaciones-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 47).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 48).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75022,7 +75022,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/observaciones/item-add/',
       name: 'observaciones-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 46).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 47).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/observaciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/observaciones/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75082,7 +75082,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/obsinternas/item-edit/:itemId',
       name: 'obsinternas-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 49).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 50).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75102,7 +75102,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/obsinternas/item-add/',
       name: 'obsinternas-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 48).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 49).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/obsinternas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/obsinternas/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75162,7 +75162,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/fuerazonas/item-edit/:itemId',
       name: 'fuerazonas-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 39).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 40).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75182,7 +75182,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/fuerazonas/item-add/',
       name: 'fuerazonas-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 38).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 39).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/fuerazonas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/fuerazonas/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75242,7 +75242,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/excepciones/item-edit/:itemId',
       name: 'excepciones-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 33).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/excepciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/excepciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75262,7 +75262,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/excepciones/item-add/',
       name: 'excepciones-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/excepciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 33).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/excepciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/excepciones/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75322,7 +75322,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-edit/:itemId',
       name: 'empresas-edit',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(90), __webpack_require__.e(5), __webpack_require__.e(37)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(38)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75342,7 +75342,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-add/',
       name: 'empresas-add',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(90), __webpack_require__.e(5), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(37)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75363,7 +75363,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/asociados/item-list/itemlist',
       name: 'asociados',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(90), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/asociados/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/asociados/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75402,7 +75402,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/asociados/item-edit/:itemId',
       name: 'asociados-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 41).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75422,7 +75422,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/asociados/item-add/',
       name: 'asociados-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 40).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 41).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/asociados/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75443,7 +75443,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/moviles/item-list/itemlist',
       name: 'moviles',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(90), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(66)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/moviles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(66)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/moviles/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75482,7 +75482,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/moviles/item-edit/:itemId',
       name: 'moviles-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 45).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 46).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75502,7 +75502,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/moviles/item-add/',
       name: 'moviles-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 45).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75523,7 +75523,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/conductores/item-list/itemlist',
       name: 'conductores',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(90), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/conductores/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/conductores/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75562,7 +75562,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/conductores/item-edit/:itemId',
       name: 'conductores-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 43).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75582,7 +75582,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/conductores/item-add/',
       name: 'conductores-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 43).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/moviles/conductores/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75642,7 +75642,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/pasajeros/item-edit/:itemId',
       name: 'pasajeros-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 51).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 52).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75722,7 +75722,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/planas/item-edit/:itemId',
       name: 'planas-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 52).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 53).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75802,7 +75802,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/tarifas/kms/item-edit/:itemId',
       name: 'kms-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 50).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/kms/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 51).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/tarifas/kms/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75865,7 +75865,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/patrones/item-view/:itemId',
       name: 'patrones-view',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-view/itemView.vue"));
+        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/patrones/item-view/itemView.vue */ "./resources/js/src/views/pages/planificacion/patrones/patrones/item-view/itemView.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75965,7 +75965,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/grupos/item-edit/:itemId',
       name: 'gpatrones-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 35).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/grupos/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 36).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/grupos/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75985,7 +75985,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/patrones/grupos/item-add/',
       name: 'gpatrones-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/grupos/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 35).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/patrones/grupos/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/patrones/grupos/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76045,7 +76045,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/codificaciones/item-edit/:itemId',
       name: 'codificaciones-edit',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEdit.vue"));
+        return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76065,7 +76065,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/codificaciones/item-add/',
       name: 'codificaciones-add',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue"));
+        return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76085,7 +76085,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/codificaciones/item-import/',
       name: 'codificaciones-import',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-import/itemImport.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(32)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/codificaciones/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/codificaciones/item-import/itemImport.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76145,7 +76145,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/horarios/item-edit/:itemId',
       name: 'horarios-edit',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(90), __webpack_require__.e(57)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-edit/itemEdit.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(57)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76165,7 +76165,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/horarios/item-add/',
       name: 'horarios-add',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(90), __webpack_require__.e(56)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-add/itemAdd.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(56)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76245,7 +76245,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/agendamientos/item-edit/:itemId',
       name: 'agendamientos-edit',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(55), __webpack_require__.e(92)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76265,7 +76265,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/agendamientos/item-add/',
       name: 'agendamientos-add',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(55), __webpack_require__.e(91)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(84), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76285,7 +76285,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/agendamientos/item-import/',
       name: 'agendamientos-import',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(30)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-import/itemImport.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/agendamientos/item-import/itemImport.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-import/itemImport.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76305,7 +76305,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/page2',
       name: 'page-2',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 89).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
+        return __webpack_require__.e(/*! import() */ 90).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
       }
     }]
   }, // =============================================================================
@@ -76314,7 +76314,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: '',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 87).then(__webpack_require__.bind(null, /*! @/layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
+      return __webpack_require__.e(/*! import() */ 88).then(__webpack_require__.bind(null, /*! @/layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
     },
     children: [// =============================================================================
     // PAGES
@@ -76323,7 +76323,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/login',
       name: 'page-login',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 84).then(__webpack_require__.bind(null, /*! @/views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 85).then(__webpack_require__.bind(null, /*! @/views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
       },
       meta: {//rule: '*'
       }
@@ -76331,7 +76331,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/error-404',
       name: 'page-error-404',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 86).then(__webpack_require__.bind(null, /*! @/views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
+        return __webpack_require__.e(/*! import() */ 87).then(__webpack_require__.bind(null, /*! @/views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
       },
       meta: {//rule: '*'
       }
