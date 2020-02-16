@@ -7,7 +7,6 @@
         :show-date="showDate"
         :events="simpleCalendarEvents"
         enableDragDrop
-        selectable
         :eventTop="windowWidth <= 400 ? '2rem' : '3rem'"
         eventBorderHeight="0px"
         eventContentHeight="1.65rem"
@@ -295,13 +294,6 @@ export default {
         { label: 'Zarpe', value: 'Zarpe' },
         { label: 'Recogida', value: 'Recogida' },
       ],
-
-      labelsOptions: [
-        { text: 'Business' ,value : 'business', color: 'success' },
-        { text: 'Work', value: 'work', color: 'warning'},
-        { text: 'Personal', value: 'personal', color: 'danger'},
-      ],
-
       horariosOptions:[],
       
       calendarViewTypes: [
@@ -336,7 +328,7 @@ export default {
     },
   },
   computed: {
-     tipoColor() {
+    tipoColor() {
         return (label) => {
             if (label == "Recogida") return "success"
             else if (label == "Zarpe") return "primary"
@@ -503,14 +495,14 @@ export default {
         this.activePromptAddEvent = true;
     },
     openAddNewEvent(date) {
-       this.$refs.calendar.fullCalendar('addEventSource', [{
-        start: date,
-        end: date,
+       let calendar = this.$refs.fullCalendar;
+      
+        calendar.addEventSource([{
+        start: new Date(),
+        end: new Date(),
         rendering: 'background',
         block: true,
-      }, ]);
-
-      //$("#calendar").fullCalendar("unselect");
+      }]);
         //this.disabledFrom = true;
         //this.addNewEventDialog(date);
     },
@@ -567,7 +559,7 @@ export default {
       var agendamiento = event.originalEvent;
       const obj = {  id: agendamiento.id, startDate: date,  endDate: date, title: agendamiento.title, 
       tipo: agendamiento.tipo, fecha: date, codificacion: this.codificacion, horario_id: agendamiento.horario_id, 
-      classes: "event-primary" }
+      classes: agendamiento.classes }
       
       this.$store.dispatch('calendar/eventDragged', obj)
       .then(()   => { 

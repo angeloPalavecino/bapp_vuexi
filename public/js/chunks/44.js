@@ -1,23 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[44],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue");
+/* harmony import */ var _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -41,70 +34,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    itemEditSection1: _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    itemAddSection1: _itemAddSection1_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      item_data: null,
-      item_not_found: false,
-      urlApi: "/driver/driver/"
+      urlApi: "/car/car/"
     };
   },
-  watch: {
-    activeTab: function activeTab() {
-      this.fetch_item_data(this.$route.params.itemId);
-    }
-  },
-  methods: {
-    fetch_item_data: function fetch_item_data(itemId) {
-      var _this = this;
-
-      this.$store.dispatch("itemManagement/traerItem", {
-        Id: itemId,
-        Url: this.urlApi
-      }).then(function (res) {
-        _this.item_data = res.data.item[0];
-      }).catch(function (err) {
-        if (err.response.status === 404) {
-          _this.item_not_found = true;
-          return;
-        } else if (err.response.status == 300) {
-          _this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.message,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        } else {
-          _this.$vs.notify({
-            title: 'Error',
-            text: err,
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle'
-          });
-        }
-      });
-    }
-  },
+  watch: {},
+  methods: {},
   created: function created() {
     // Register Module UserManagement Module
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
       _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__["default"].isRegistered = true;
     }
-
-    this.fetch_item_data(this.$route.params.itemId);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -238,76 +191,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 var dict = {
   custom: {
-    name: {
-      required: "El nombre es requerido",
-      alpha: "El nombre solo puede contener letras"
+    tipo: {
+      required: "El tipo es requerido"
     },
-    lastname: {
-      required: "El apellido es requerido",
-      alpha: "El apellido solo puede contener letras"
+    marca: {
+      required: "La marca es requerida"
     },
-    rut: {
-      required: "El rut es requerido",
-      alpha_dash: "Ingrese un rut valido"
+    modelo: {
+      required: "El modelo es requerido"
     },
-    ciudad: {
-      required: "La ciudad es requerida",
-      email: "Ingrese una ciudad valida"
+    ano: {
+      required: "El año es requerido",
+      numeric: "El año debe ser numerico"
     },
-    comuna: {
-      required: "La comuna es requerida",
-      email: "Ingrese una comuna valida"
+    motor: {
+      required: "El motor es requerido",
+      numeric: "El n° de motor debe ser numerico"
     },
-    direccion: {
-      required: "La dirección es requerida",
-      email: "Ingrese una dirección valida"
+    patente: {
+      required: "La patente es requerida"
     },
-    numeracion: {
-      required: "La numeración es requerida",
-      numeric: "Ingrese una numeración valida"
+    color: {
+      required: "El color es requerido"
     },
-    email: {
-      required: "El email es requerido",
-      email: "Ingrese un email valido"
+    asientos: {
+      required: "Los asientos son requerido"
     },
-    telefono: {
-      required: "El telefono es requerido",
-      numeric: "El numero de telefono debe ser valido"
-    },
-    clase: {
-      required: "La clase es requerida"
+    numero_movil: {
+      required: "Los asientos son requerido",
+      numeric: "El n° de movil debe ser numerico"
     },
     asociados: {
       required: "El asociado es requerido"
     },
-    cars: {
-      required: "El movil es requerido"
+    empresas: {
+      required: "La empresa es requerida"
     }
   }
 }; // register custom messages
@@ -317,35 +240,17 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: {
-    data: {
-      type: Object,
-      required: true
-    }
-  },
+  props: {},
   data: function data() {
     return {
-      urlApi: "/driver/driver/",
+      urlApi: "/car/car/",
       data_local: {
-        id: this.data.id ? this.data.id : null,
-        name: this.data.name ? this.data.name : null,
-        lastname: this.data.lastname ? this.data.lastname : null,
-        rut: this.data.rut ? this.data.rut : null,
-        email: this.data.email ? this.data.email : null,
-        habilitado: this.data.habilitado,
-        telefono: this.data.telefono ? this.data.telefono : null,
-        ciudad: this.data.ciudad ? this.data.ciudad : null,
-        comuna: this.data.comuna ? this.data.comuna : null,
-        dueno: this.data.dueno,
-        conductor: this.data.conductor,
-        direccion: this.data.direccion ? this.data.direccion : null,
-        numeracion: this.data.numeracion ? this.data.numeracion : null,
-        clase: this.data.clase ? this.data.clase : null,
-        driver_default: this.data.driver_default ? this.data.driver_default : null,
-        car_id: this.data.car_id ? this.data.car_id : null,
-        driver_id: this.data.asociado_id ? this.data.asociado_id : null
+        habilitado: 1,
+        asientos: 1,
+        empresa_id: '',
+        driver_id: ''
       },
-      movilesOptions: [],
+      empresasOptions: [],
       asociadosOptions: []
     };
   },
@@ -361,12 +266,12 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$store.dispatch("itemManagement/editarItem", {
+          _this.$store.dispatch("itemManagement/agregarItem", {
             item: _this.data_local,
             Url: _this.urlApi
           }).then(function () {
             _this.$router.push({
-              name: 'conductores'
+              name: 'moviles'
             });
 
             _this.showDeleteSuccess();
@@ -393,32 +298,19 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        id: this.data.id ? this.data.id : null,
-        name: this.data.name ? this.data.name : null,
-        lastname: this.data.lastname ? this.data.lastname : null,
-        rut: this.data.rut ? this.data.rut : null,
-        email: this.data.email ? this.data.email : null,
-        habilitado: this.data.habilitado,
-        telefono: this.data.telefono ? this.data.telefono : null,
-        ciudad: this.data.ciudad ? this.data.ciudad : null,
-        comuna: this.data.comuna ? this.data.comuna : null,
-        dueno: this.data.dueno,
-        conductor: this.data.conductor,
-        direccion: this.data.direccion ? this.data.direccion : null,
-        numeracion: this.data.numeracion ? this.data.numeracion : null,
-        clase: this.data.clase ? this.data.clase : null,
-        driver_default: this.data.driver_default ? this.data.driver_default : null,
-        car_id: this.data.car_id ? this.data.car_id : null,
-        driver_id: this.data.asociado_id ? this.data.asociado_id : null
+        habilitado: 1,
+        asientos: 1,
+        empresa_id: '',
+        driver_id: ''
       };
       this.errors.clear();
     },
     traeOtrosDatos: function traeOtrosDatos() {
       var _this2 = this;
 
-      //Moviles
-      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/car/carsall/").then(function (res) {
-        _this2.movilesOptions = res.data.items;
+      //Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/listemp/").then(function (res) {
+        _this2.empresasOptions = res.data.items;
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -453,10 +345,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7&":
-/*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -470,62 +362,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-item-edit" } },
-    [
-      _c(
-        "vs-alert",
-        {
-          attrs: {
-            color: "danger",
-            title: "Conductor no encontrado",
-            active: _vm.item_not_found
-          },
-          on: {
-            "update:active": function($event) {
-              _vm.item_not_found = $event
-            }
-          }
-        },
-        [
-          _c("span", [
-            _vm._v(
-              "El conductor con id: " +
-                _vm._s(_vm.$route.params.itemId) +
-                " no fue encontrado. "
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "span",
-            [
-              _c("span", [_vm._v("Mira  ")]),
-              _c(
-                "router-link",
-                {
-                  staticClass: "text-inherit underline",
-                  attrs: { to: { name: "conductores" } }
-                },
-                [_vm._v("Todos los conductores")]
-              )
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.item_data
-        ? _c(
-            "vx-card",
-            [
-              _c("item-edit-section1", {
-                staticClass: "mt-4",
-                attrs: { data: _vm.item_data }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ],
+    { attrs: { id: "page-item-add" } },
+    [_c("vx-card", [_c("item-add-section1", { staticClass: "mt-4" })], 1)],
     1
   )
 }
@@ -536,10 +374,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -551,18 +389,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "item-edit" } }, [
+  return _c("div", { attrs: { id: "item-add" } }, [
     _c(
       "div",
       { staticClass: "vx-row mt-6" },
       [
         _c("vs-divider", { attrs: { color: "primary" } }, [
-          _c("h5", [_vm._v("Datos Conductor")])
+          _c("h5", [_vm._v("Datos Movil")])
         ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "vx-col md:w-1/3 w-full mt-2" },
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
           [
             _c(
               "vs-select",
@@ -577,26 +415,26 @@ var render = function() {
                 ],
                 staticClass: "w-full p-1",
                 attrs: {
-                  label: "Moviles",
-                  name: "cars",
+                  label: "Empresas",
+                  name: "empresas",
                   dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                  danger: _vm.errors.first("cars") ? true : false,
-                  "danger-text": _vm.errors.first("cars")
-                    ? _vm.errors.first("cars")
+                  danger: _vm.errors.first("empresas") ? true : false,
+                  "danger-text": _vm.errors.first("empresas")
+                    ? _vm.errors.first("empresas")
                     : ""
                 },
                 model: {
-                  value: _vm.data_local.car_id,
+                  value: _vm.data_local.empresa_id,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "car_id", $$v)
+                    _vm.$set(_vm.data_local, "empresa_id", $$v)
                   },
-                  expression: "data_local.car_id"
+                  expression: "data_local.empresa_id"
                 }
               },
-              _vm._l(_vm.movilesOptions, function(item) {
+              _vm._l(_vm.empresasOptions, function(item) {
                 return _c("vs-select-item", {
                   key: item.id,
-                  attrs: { value: item.id, text: item.numero_movil }
+                  attrs: { value: item.id, text: item.razon_social }
                 })
               }),
               1
@@ -607,7 +445,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "vx-col md:w-1/3 w-full mt-2" },
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
           [
             _c(
               "vs-select",
@@ -652,136 +490,6 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "vx-col md:w-auto w-full mt-6" },
-          [
-            _c("label", { staticClass: "vs-input--label " }, [
-              _vm._v("Conductor por defecto?")
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("vs-switch", {
-              staticClass: "mt-2",
-              model: {
-                value: _vm.data_local.driver_default,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "driver_default", $$v)
-                },
-                expression: "data_local.driver_default"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Nombre",
-                name: "name",
-                danger: _vm.errors.first("name") ? true : false,
-                "danger-text": _vm.errors.first("name")
-                  ? _vm.errors.first("name")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.name,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "name", $$v)
-                },
-                expression: "data_local.name"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full  p-1",
-              attrs: {
-                "label-placeholder": "Apellido",
-                name: "lastname",
-                danger: _vm.errors.first("lastname") ? true : false,
-                "danger-text": _vm.errors.first("lastname")
-                  ? _vm.errors.first("lastname")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.lastname,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "lastname", $$v)
-                },
-                expression: "data_local.lastname"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|email",
-                  expression: "'required|email'"
-                }
-              ],
-              staticClass: "w-full  p-1",
-              attrs: {
-                type: "Email",
-                "label-placeholder": "Email",
-                name: "email",
-                danger: _vm.errors.first("email") ? true : false,
-                "danger-text": _vm.errors.first("email")
-                  ? _vm.errors.first("email")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.email,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "email", $$v)
-                },
-                expression: "data_local.email"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
           { staticClass: "vx-col md:w-1/2 w-full mt-2" },
           [
             _c("vs-input", {
@@ -793,57 +501,57 @@ var render = function() {
                   expression: "'required|numeric'"
                 }
               ],
+              staticClass: "w-full p-1",
+              attrs: {
+                "label-placeholder": "N° Movil",
+                name: "numero_movil",
+                danger: _vm.errors.first("numero_movil") ? true : false,
+                "danger-text": _vm.errors.first("numero_movil")
+                  ? _vm.errors.first("numero_movil")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.numero_movil,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "numero_movil", $$v)
+                },
+                expression: "data_local.numero_movil"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
               staticClass: "w-full  p-1",
               attrs: {
-                "label-placeholder": "Telefono",
-                name: "telefono",
-                danger: _vm.errors.first("telefono") ? true : false,
-                "danger-text": _vm.errors.first("telefono")
-                  ? _vm.errors.first("telefono")
+                "label-placeholder": "Tipo",
+                name: "tipo",
+                danger: _vm.errors.first("tipo") ? true : false,
+                "danger-text": _vm.errors.first("tipo")
+                  ? _vm.errors.first("tipo")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.telefono,
+                value: _vm.data_local.tipo,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "telefono", $$v)
+                  _vm.$set(_vm.data_local, "tipo", $$v)
                 },
-                expression: "data_local.telefono"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|alpha_dash",
-                  expression: "'required|alpha_dash'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Rut",
-                name: "rut",
-                danger: _vm.errors.first("rut") ? true : false,
-                "danger-text": _vm.errors.first("rut")
-                  ? _vm.errors.first("rut")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.rut,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "rut", $$v)
-                },
-                expression: "data_local.rut"
+                expression: "data_local.tipo"
               }
             })
           ],
@@ -863,22 +571,22 @@ var render = function() {
                   expression: "'required'"
                 }
               ],
-              staticClass: "w-full p-1",
+              staticClass: "w-full  p-1",
               attrs: {
-                "label-placeholder": "Ciudad",
-                name: "ciudad",
-                danger: _vm.errors.first("ciudad") ? true : false,
-                "danger-text": _vm.errors.first("ciudad")
-                  ? _vm.errors.first("ciudad")
+                "label-placeholder": "Marca",
+                name: "marca",
+                danger: _vm.errors.first("marca") ? true : false,
+                "danger-text": _vm.errors.first("marca")
+                  ? _vm.errors.first("marca")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.ciudad,
+                value: _vm.data_local.marca,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "ciudad", $$v)
+                  _vm.$set(_vm.data_local, "marca", $$v)
                 },
-                expression: "data_local.ciudad"
+                expression: "data_local.marca"
               }
             })
           ],
@@ -898,57 +606,22 @@ var render = function() {
                   expression: "'required'"
                 }
               ],
-              staticClass: "w-full p-1",
+              staticClass: "w-full  p-1",
               attrs: {
-                "label-placeholder": "Comuna",
-                name: "comuna",
-                danger: _vm.errors.first("comuna") ? true : false,
-                "danger-text": _vm.errors.first("comuna")
-                  ? _vm.errors.first("comuna")
+                "label-placeholder": "Modelo",
+                name: "modelo",
+                danger: _vm.errors.first("modelo") ? true : false,
+                "danger-text": _vm.errors.first("modelo")
+                  ? _vm.errors.first("modelo")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.comuna,
+                value: _vm.data_local.modelo,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "comuna", $$v)
+                  _vm.$set(_vm.data_local, "modelo", $$v)
                 },
-                expression: "data_local.comuna"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Direccion",
-                name: "direccion",
-                danger: _vm.errors.first("direccion") ? true : false,
-                "danger-text": _vm.errors.first("direccion")
-                  ? _vm.errors.first("direccion")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.direccion,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "direccion", $$v)
-                },
-                expression: "data_local.direccion"
+                expression: "data_local.modelo"
               }
             })
           ],
@@ -970,20 +643,55 @@ var render = function() {
               ],
               staticClass: "w-full p-1",
               attrs: {
-                "label-placeholder": "Numeracion",
-                name: "numeracion",
-                danger: _vm.errors.first("numeracion") ? true : false,
-                "danger-text": _vm.errors.first("numeracion")
-                  ? _vm.errors.first("numeracion")
+                "label-placeholder": "Año",
+                name: "ano",
+                danger: _vm.errors.first("ano") ? true : false,
+                "danger-text": _vm.errors.first("ano")
+                  ? _vm.errors.first("ano")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.numeracion,
+                value: _vm.data_local.ano,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "numeracion", $$v)
+                  _vm.$set(_vm.data_local, "ano", $$v)
                 },
-                expression: "data_local.numeracion"
+                expression: "data_local.ano"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                }
+              ],
+              staticClass: "w-full p-1",
+              attrs: {
+                "label-placeholder": "N° Motor",
+                name: "motor",
+                danger: _vm.errors.first("motor") ? true : false,
+                "danger-text": _vm.errors.first("motor")
+                  ? _vm.errors.first("motor")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.motor,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "motor", $$v)
+                },
+                expression: "data_local.motor"
               }
             })
           ],
@@ -1005,20 +713,88 @@ var render = function() {
               ],
               staticClass: "w-full p-1",
               attrs: {
-                "label-placeholder": "Licencias",
-                name: "clase",
-                danger: _vm.errors.first("clase") ? true : false,
-                "danger-text": _vm.errors.first("clase")
-                  ? _vm.errors.first("clase")
+                "label-placeholder": "Patente",
+                name: "patente",
+                danger: _vm.errors.first("patente") ? true : false,
+                "danger-text": _vm.errors.first("patente")
+                  ? _vm.errors.first("patente")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.clase,
+                value: _vm.data_local.patente,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "clase", $$v)
+                  _vm.$set(_vm.data_local, "patente", $$v)
                 },
-                expression: "data_local.clase"
+                expression: "data_local.patente"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "w-full p-1",
+              attrs: {
+                "label-placeholder": "Color",
+                name: "color",
+                danger: _vm.errors.first("color") ? true : false,
+                "danger-text": _vm.errors.first("color")
+                  ? _vm.errors.first("color")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.color,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "color", $$v)
+                },
+                expression: "data_local.color"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("span", { staticClass: " text-sm" }, [_vm._v("N° Asientos")]),
+            _vm._v(" "),
+            _c("vs-input-number", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              attrs: {
+                name: "asientos",
+                min: "1",
+                "icon-inc": "expand_less",
+                "icon-dec": "expand_more"
+              },
+              model: {
+                value: _vm.data_local.asientos,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "asientos", $$v)
+                },
+                expression: "data_local.asientos"
               }
             })
           ],
@@ -1086,7 +862,7 @@ var render = function() {
                     attrs: {
                       "icon-pack": "feather",
                       icon: "icon-arrow-left",
-                      to: { name: "conductores" }
+                      to: { name: "moviles" }
                     }
                   },
                   [_vm._v("Volver")]
@@ -1348,17 +1124,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue ***!
-  \************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=325fbda7& */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7&");
-/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=template&id=3dea4756& */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756&");
+/* harmony import */ var _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAdd.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1368,9 +1144,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1380,54 +1156,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756&":
 /*!*************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756& ***!
   \*************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7& ***!
-  \*******************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=325fbda7& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEdit.vue?vue&type=template&id=325fbda7&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAdd.vue?vue&type=template&id=3dea4756& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAdd.vue?vue&type=template&id=3dea4756&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_325fbda7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAdd_vue_vue_type_template_id_3dea4756___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue ***!
-  \********************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue ***!
+  \**************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=b00bca9a& */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a&");
-/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=template&id=472aab61& */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61&");
+/* harmony import */ var _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemAddSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1437,9 +1213,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1449,38 +1225,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a&":
-/*!***************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a& ***!
-  \***************************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61&":
+/*!*********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61& ***!
+  \*********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=b00bca9a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/conductores/item-edit/itemEditSection1.vue?vue&type=template&id=b00bca9a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemAddSection1.vue?vue&type=template&id=472aab61& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/moviles/moviles/item-add/itemAddSection1.vue?vue&type=template&id=472aab61&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_b00bca9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemAddSection1_vue_vue_type_template_id_472aab61___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

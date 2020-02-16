@@ -24,6 +24,30 @@ class AgendamientosController extends Controller
              //'observaciones_id' => 'required', 
              //'observacionesinternas_id' => 'required', 
              'tipo' => 'required', 
+             'fechas' => 'required', 
+             'codificacion' => 'required', 
+             //'fecha_fin' => 'required', 
+             'horario_id' => 'required', 
+             //'horario_real' => 'required', 
+             //'tipo_fecha' => 'required', 
+             //'detalle_observaciones' => 'required', 
+             //'detalle_observacionesinternas' => 'required', 
+
+
+         ]);
+    }
+
+    public function validatoredit(array $data){ 
+
+        return Validator::make($data, [
+            // 'codificacion_id' => 'required',
+             //'car_plan_id' => 'required',
+             //'car_real_id' => 'required',
+             //'drivers_plan_id' => 'required', 
+             //'drivers_real_id' => 'required', 
+             //'observaciones_id' => 'required', 
+             //'observacionesinternas_id' => 'required', 
+             'tipo' => 'required', 
              'fecha' => 'required', 
              'codificacion' => 'required', 
              //'fecha_fin' => 'required', 
@@ -115,46 +139,51 @@ class AgendamientosController extends Controller
            
         }
 
-
         $tipo = $input['tipo'];
         $horario = $input['horario_id'];
-        $fecha = new DateTime($input['fecha']);
+        $fechas = $input['fechas'];
         $codificacion = $input['codificacion'];
 
-        $agendamiento = Agendamientos::where('horario_plan', $horario)
-                          //->where('tipo', $tipo)
-                          ->whereDate('fecha_inicio', $fecha)
-                          ->whereDate('fecha_fin', $fecha)
-                          //->where('tipo_fecha', 1)
-                          ->where('codificacion_id', $codificacion)->first();  
 
-            if($agendamiento) {
+        foreach ($fechas as $key => $fecha) {
 
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'message' => 'El horario ya se encuentra codificado'
-                    ], 300);
-            
-                }else{
-                 //INSERTA
-               $aux = Agendamientos::create(
-                    array(
-                            'codificacion_id'   => $codificacion,
-                            'horario_plan'      => $horario,
-                            'tipo'              => $tipo,
-                            'fecha_inicio'      => $fecha,
-                            'fecha_fin'         => $fecha,
-                            'tipo_fecha'        => 1)
-                        );
-                }
+                $agendamiento = Agendamientos::where('horario_plan', $horario)
+                                //->where('tipo', $tipo)
+                                ->whereDate('fecha_inicio', $fecha)
+                                ->whereDate('fecha_fin', $fecha)
+                                //->where('tipo_fecha', 1)
+                                ->where('codificacion_id', $codificacion)->first();  
 
+                    if($agendamiento) {
 
+                        return response()->json(
+                            [
+                                'status' => 'error',
+                                'message' => 'El horario ya se encuentra codificado'
+                            ], 300);
+                    
+                        }else{
+                    //INSERTA
+                    $horario_text = Horarios::where('id', $horario)->value('horario'); 
+                    $fecha_aux = new DateTime($fecha." ".$horario_text);
+                        
+                    $aux = Agendamientos::create(
+                            array(
+                                    'codificacion_id'   => $codificacion,
+                                    'horario_plan'      => $horario,
+                                    'tipo'              => $tipo,
+                                    'fecha_inicio'      => $fecha_aux,
+                                    'fecha_fin'         => $fecha_aux,
+                                    'tipo_fecha'        => 1)
+                                );
+                        }
+
+        }
                 return response()->json(
                     [
                         'status' => 'success',
-                        'message' => 'El registro se ha guardado exitosamente!!!',
-                        'id' => $aux['id']
+                        'message' => 'Los registros se ha guardado exitosamente!!!',
+                        //'id' => $aux['id']
                     ], 200);
     
     }
@@ -234,7 +263,7 @@ class AgendamientosController extends Controller
         $datos = $request->all();
         $input = $datos['event'];
         
-        $validation = $this->validator($input);
+        $validation = $this->validatoredit($input);
 
         if ($validation->fails()) {
 
@@ -246,9 +275,12 @@ class AgendamientosController extends Controller
            
         }
 
+       
         $tipo = $input['tipo'];
         $horario = $input['horario_id'];
-        $fecha = new DateTime($input['fecha']);
+        $horario_text = Horarios::where('id', $horario)->value('horario'); 
+        $fechas = explode(" ", $input['fecha']);
+        $fecha = new DateTime($fechas[0]." ".$horario_text); //new DateTime($input['fecha']);
         $codificacion = $input['codificacion'];
 
         Agendamientos::where('id', $id)->update(
@@ -263,7 +295,52 @@ class AgendamientosController extends Controller
         return response()->json(
             [
                 'status' => 'success',
-                'message' => 'El registro se ha guardado exitosamente!!!'
+                'message' => 'El registro se ha guardado exitosamente!!!',
+                'fecha' => $fecha
+            ], 200);
+
+    }
+
+    public function drag(Request $request, $id)
+    {
+        
+        $datos = $request->all();
+        $input = $datos['event'];
+        
+        $validation = $this->validatoredit($input);
+
+        if ($validation->fails()) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => $validation->errors(),
+                ], 300);
+           
+        }
+
+    
+        $tipo = $input['tipo'];
+        $horario = $input['horario_id'];
+        $horario_text = Horarios::where('id', $horario)->value('horario'); 
+        $fechas = explode("T", $input['fecha']);
+        $fecha = new DateTime($fechas[0]." ".$horario_text); //new DateTime($input['fecha']);
+        $codificacion = $input['codificacion'];
+
+        Agendamientos::where('id', $id)->update(
+            array(
+                    'horario_plan'      => $horario,
+                    'tipo'              => $tipo,
+                    'fecha_inicio'      => $fecha,
+                    'fecha_fin'         => $fecha,
+                )
+            );
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'El registro se ha guardado exitosamente!!!',
+                'fecha' => $fecha
             ], 200);
 
     }
@@ -670,11 +747,11 @@ class AgendamientosController extends Controller
             'horarios.id as horario_id',
             //'cars.numero_movil as movil_plan',
             'agendamientos.id',
-            'agendamientos.fecha_inicio as startDate',
-            'agendamientos.fecha_fin as endDate',
+            'agendamientos.fecha_inicio as start',
+            'agendamientos.fecha_fin as end',
             'agendamientos.tipo',
              //DB::raw("'event-primary' as classes"),
-             DB::raw("(CASE WHEN agendamientos.tipo = 'Zarpe' THEN 'event-primary' ELSE 'event-success' END) AS classes")
+             DB::raw("(CASE WHEN agendamientos.tipo = 'Zarpe' THEN '#1AA1C8' ELSE '#28C76F' END) AS color")
             )
             ->where('codificaciones.id',$id)
             ->get();

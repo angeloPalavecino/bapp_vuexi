@@ -14,7 +14,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post("/api/v1/agendamientos/agendamientos/store", {event: event})
         .then((response) => {
-          commit('ADD_EVENT', Object.assign(event, {id: response.data.id}))
+          //commit('ADD_EVENT', Object.assign(event, {id: response.data.id}))
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -34,6 +34,8 @@ export default {
     return new Promise((resolve, reject) => {
       axios.put(`/api/v1/agendamientos/agendamientos/${event.id}`, {event: event})
         .then((response) => {
+          event.start = response.data.fecha.date;
+          event.end = response.data.fecha.date;
           commit('UPDATE_EVENT', event)
           resolve(response)
         })
@@ -52,8 +54,10 @@ export default {
   },
   eventDragged({ commit }, event) {
     return new Promise((resolve, reject) => {
-      axios.put(`/api/v1/agendamientos/agendamientos/${event.id}`, {event: event})
+      axios.put(`/api/v1/agendamientos/agendamientos/drag/${event.id}`, {event: event})
         .then((response) => {
+          event.start = response.data.fecha.date;
+          event.end = response.data.fecha.date;
           commit('UPDATE_EVENT', event)
           resolve(response)
         })

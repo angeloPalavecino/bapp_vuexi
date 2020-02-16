@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[74],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -142,21 +142,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -164,13 +149,24 @@ __webpack_require__.r(__webpack_exports__);
     return {
       item_data: null,
       item_not_found: false,
-      urlApi: "/tarifas/kms/",
+      urlApi: "/tarifas/pasajeros/",
       selected: [],
       tarifa: null
     };
   },
   computed: {},
   methods: {
+    getFactorPromedio: function getFactorPromedio(min, max) {
+      var fmin = parseFloat(min);
+      var fmax = parseFloat(max);
+      var total = 0;
+
+      if (fmin > 0 && fmax > 0) {
+        total = (fmin + fmax) / 2;
+      }
+
+      return total.toFixed(2);
+    },
     confirmDeleteRecord: function confirmDeleteRecord(tr) {
       this.tarifa = tr;
       this.$vs.dialog({
@@ -311,10 +307,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -330,15 +326,15 @@ exports.push([module.i, "#avatar-col {\n  width: 10rem;\n}\n.tablaParametros th 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/dist/cjs.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -360,10 +356,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e&":
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -410,7 +406,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "text-inherit underline",
-                  attrs: { to: { name: "kms" } }
+                  attrs: { to: { name: "pasajeros" } }
                 },
                 [_vm._v("Todas las empresas")]
               )
@@ -498,36 +494,8 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                _vm._s(tr.servicioskms[0].id)
-                                              )
-                                            ]
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("vs-td", [
-                                          _c(
-                                            "p",
-                                            {
-                                              staticClass: "items-descripcion"
-                                            },
-                                            [
-                                              _vm._v(
                                                 _vm._s(
-                                                  tr.servicioskms[0].descripcion
-                                                ) + " "
-                                              )
-                                            ]
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("vs-td", [
-                                          _c(
-                                            "p",
-                                            { staticClass: "items-cant_psjs" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  tr.servicioskms[0].cant_psjs
+                                                  tr.serviciospasajeros[0].id
                                                 )
                                               )
                                             ]
@@ -538,13 +506,60 @@ var render = function() {
                                           _c(
                                             "p",
                                             {
-                                              staticClass: "items-min_servicio"
+                                              staticClass: "items-num-pasajeros"
                                             },
                                             [
                                               _vm._v(
                                                 _vm._s(
-                                                  tr.servicioskms[0]
-                                                    .min_servicio
+                                                  tr.serviciospasajeros[0]
+                                                    .num_psj_min
+                                                ) +
+                                                  " - " +
+                                                  _vm._s(
+                                                    tr.serviciospasajeros[0]
+                                                      .num_psj_max
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            { staticClass: "items-factor" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  tr.serviciospasajeros[0]
+                                                    .fac_rang_min
+                                                ) +
+                                                  " - " +
+                                                  _vm._s(
+                                                    tr.serviciospasajeros[0]
+                                                      .fac_rang_max
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "items-factor-promedio"
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.getFactorPromedio(
+                                                    tr.serviciospasajeros[0]
+                                                      .fac_rang_min,
+                                                    tr.serviciospasajeros[0]
+                                                      .fac_rang_max
+                                                  )
                                                 )
                                               )
                                             ]
@@ -554,10 +569,12 @@ var render = function() {
                                         _c("vs-td", [
                                           _c(
                                             "p",
-                                            { staticClass: "items-kms" },
+                                            { staticClass: "items-valor" },
                                             [
                                               _vm._v(
-                                                _vm._s(tr.servicioskms[0].kms)
+                                                _vm._s(
+                                                  tr.serviciospasajeros[0].valor
+                                                )
                                               )
                                             ]
                                           )
@@ -648,7 +665,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            1169796227
+                            1976779036
                           ),
                           model: {
                             value: _vm.selected,
@@ -739,19 +756,15 @@ var render = function() {
                             [
                               _c("vs-th", [_vm._v("ID")]),
                               _vm._v(" "),
-                              _c("vs-th", [_vm._v("T. Servicio")]),
-                              _vm._v(" "),
                               _c("vs-th", [_vm._v("N° Pasajeros")]),
                               _vm._v(" "),
-                              _c("vs-th", [_vm._v("Minima")]),
+                              _c("vs-th", [_vm._v("Factor")]),
                               _vm._v(" "),
-                              _c("vs-th", [_vm._v("Kms")]),
+                              _c("vs-th", [_vm._v("Factor Promedio")]),
                               _vm._v(" "),
-                              _c(
-                                "vs-th",
-                                { attrs: { "sort-key": "items-accion" } },
-                                [_vm._v("Accion")]
-                              )
+                              _c("vs-th", [_vm._v("Valor")]),
+                              _vm._v(" "),
+                              _c("vs-th", [_vm._v("Accion")])
                             ],
                             1
                           )
@@ -782,7 +795,7 @@ var render = function() {
                           attrs: {
                             "icon-pack": "feather",
                             icon: "icon-arrow-left",
-                            to: { name: "kms" }
+                            to: { name: "pasajeros" }
                           }
                         },
                         [_vm._v("Volver")]
@@ -1031,18 +1044,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue ***!
-  \****************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=24580e48& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48&");
-/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemView.vue?vue&type=template&id=fc92a99e& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e&");
+/* harmony import */ var _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./itemView.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1054,8 +1067,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1065,54 +1078,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/style-loader!../../../../../../../../../node_modules/css-loader!../../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48&":
-/*!***********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48& ***!
-  \***********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e& ***!
+  \*****************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=24580e48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/kms/item-view/itemView.vue?vue&type=template&id=24580e48&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemView.vue?vue&type=template&id=fc92a99e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-view/itemView.vue?vue&type=template&id=fc92a99e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_24580e48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemView_vue_vue_type_template_id_fc92a99e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

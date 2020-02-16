@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[52],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue");
+/* harmony import */ var _itemEditSection1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue");
 /* harmony import */ var _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/items-management/moduleItemManagement.js */ "./resources/js/src/store/items-management/moduleItemManagement.js");
 //
 //
@@ -47,7 +47,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       item_data: null,
       item_not_found: false,
-      urlApi: "/tarifas/pasajeros/"
+      urlApi: "/tarifas/planas/"
     };
   },
   watch: {
@@ -101,10 +101,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -218,30 +218,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 var dict = {
   custom: {
-    empresas: {
-      required: 'La empresa es requerida'
+    minima: {
+      required: 'El campo es requerido',
+      decimal: 'El valor debe ser numerico'
     },
     num_psj_min: {
       required: 'El campo es requerido'
@@ -249,31 +233,15 @@ var dict = {
     num_psj_max: {
       required: 'El campo es requerido'
     },
-    fac_rang_min: {
+    psj_adicional: {
       required: 'El campo es requerido',
       decimal: 'El valor debe ser numerico'
     },
-    fac_rang_max: {
+    fuera_zona_1: {
       required: 'El campo es requerido',
       decimal: 'El valor debe ser numerico'
     },
-    valor: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    fac_rang_fz1: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    valor_fz1: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    fac_rang_fz2: {
-      required: 'El campo es requerido',
-      decimal: 'El valor debe ser numerico'
-    },
-    valor_fz2: {
+    fuera_zona_2: {
       required: 'El campo es requerido',
       decimal: 'El valor debe ser numerico'
     }
@@ -293,18 +261,15 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   },
   data: function data() {
     return {
-      urlApi: "/tarifas/pasajeros/",
+      urlApi: "/tarifas/planas/",
       data_local: {
         id: this.data.id ? this.data.id : null,
+        minima: this.data.minima ? this.data.minima : null,
         num_psj_min: this.data.num_psj_min,
         num_psj_max: this.data.num_psj_max,
-        fac_rang_min: this.data.fac_rang_min ? this.data.fac_rang_min : null,
-        fac_rang_max: this.data.fac_rang_max ? this.data.fac_rang_max : null,
-        valor: this.data.valor ? this.data.valor : null,
-        fac_rang_fz1: this.data.fac_rang_fz1 ? this.data.fac_rang_fz1 : null,
-        valor_fz1: this.data.valor_fz1 ? this.data.valor_fz1 : null,
-        fac_rang_fz2: this.data.fac_rang_fz2 ? this.data.fac_rang_fz2 : null,
-        valor_fz2: this.data.valor_fz2 ? this.data.valor_fz2 : null,
+        psj_adicional: this.data.psj_adicional ? this.data.psj_adicional : null,
+        fuera_zona_1: this.data.fuera_zona_1 ? this.data.fuera_zona_1 : null,
+        fuera_zona_2: this.data.fuera_zona_2 ? this.data.fuera_zona_2 : null,
         empresa_id: this.data.empresa_id ? this.data.empresa_id : null
       },
       empresasOptions: []
@@ -327,7 +292,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
             Url: _this.urlApi
           }).then(function () {
             _this.$router.push({
-              name: 'pasajeros-view',
+              name: 'planas-view',
               params: {
                 itemId: data_local.empresa_id
               }
@@ -358,15 +323,12 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     reset_data: function reset_data() {
       this.data_local = {
         id: this.data.id ? this.data.id : null,
+        minima: this.data.minima ? this.data.minima : null,
         num_psj_min: this.data.num_psj_min,
         num_psj_max: this.data.num_psj_max,
-        fac_rang_min: this.data.fac_rang_min ? this.data.fac_rang_min : null,
-        fac_rang_max: this.data.fac_rang_max ? this.data.fac_rang_max : null,
-        valor: this.data.valor ? this.data.valor : null,
-        fac_rang_fz1: this.data.fac_rang_fz1 ? this.data.fac_rang_fz1 : null,
-        valor_fz1: this.data.valor_fz1 ? this.data.valor_fz1 : null,
-        fac_rang_fz2: this.data.fac_rang_fz2 ? this.data.fac_rang_fz2 : null,
-        valor_fz2: this.data.valor_fz2 ? this.data.valor_fz2 : null,
+        psj_adicional: this.data.psj_adicional ? this.data.psj_adicional : null,
+        fuera_zona_1: this.data.fuera_zona_1 ? this.data.fuera_zona_1 : null,
+        fuera_zona_2: this.data.fuera_zona_2 ? this.data.fuera_zona_2 : null,
         empresa_id: this.data.empresa_id ? this.data.empresa_id : null
       };
       this.errors.clear();
@@ -397,10 +359,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e&":
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -447,7 +409,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "text-inherit underline",
-                  attrs: { to: { name: "pasajeros" } }
+                  attrs: { to: { name: "planas" } }
                 },
                 [_vm._v("Todas las empresas")]
               )
@@ -480,10 +442,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c&":
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -521,8 +483,8 @@ var render = function() {
                 ],
                 staticClass: "w-full ",
                 attrs: {
-                  label: "Empresas",
                   disabled: "true",
+                  label: "Empresas",
                   name: "empresas",
                   dir: _vm.$vs.rtl ? "rtl" : "ltr",
                   danger: _vm.errors.first("empresas") ? true : false,
@@ -671,100 +633,28 @@ var render = function() {
               ],
               staticClass: "w-full",
               attrs: {
-                "label-placeholder": "Factor Rango Min.",
-                name: "fac_rang_min",
-                danger: _vm.errors.first("fac_rang_min") ? true : false,
-                "danger-text": _vm.errors.first("fac_rang_min")
-                  ? _vm.errors.first("fac_rang_min")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.fac_rang_min,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "fac_rang_min", $$v)
-                },
-                expression: "data_local.fac_rang_min"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Factor Rango Max.",
-                name: "fac_rang_max",
-                danger: _vm.errors.first("fac_rang_max") ? true : false,
-                "danger-text": _vm.errors.first("fac_rang_max")
-                  ? _vm.errors.first("fac_rang_max")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.fac_rang_max,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "fac_rang_max", $$v)
-                },
-                expression: "data_local.fac_rang_max"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Valor",
+                "label-placeholder": "Minima",
                 "icon-pack": "feather",
                 icon: "icon-dollar-sign",
                 "icon-no-border": "",
-                name: "valor",
-                danger: _vm.errors.first("valor") ? true : false,
-                "danger-text": _vm.errors.first("valor")
-                  ? _vm.errors.first("valor")
+                name: "minima",
+                danger: _vm.errors.first("minima") ? true : false,
+                "danger-text": _vm.errors.first("minima")
+                  ? _vm.errors.first("minima")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.valor,
+                value: _vm.data_local.minima,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "valor", $$v)
+                  _vm.$set(_vm.data_local, "minima", $$v)
                 },
-                expression: "data_local.valor"
+                expression: "data_local.minima"
               }
             })
           ],
           1
         ),
-        _vm._v(" "),
-        _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }),
         _vm._v(" "),
         _c(
           "div",
@@ -781,58 +671,23 @@ var render = function() {
               ],
               staticClass: "w-full",
               attrs: {
-                "label-placeholder": "Factor Rango Fuera Zona 1",
-                name: "fac_rang_fz1",
-                danger: _vm.errors.first("fac_rang_fz1") ? true : false,
-                "danger-text": _vm.errors.first("fac_rang_fz1")
-                  ? _vm.errors.first("fac_rang_fz1")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.fac_rang_fz1,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "fac_rang_fz1", $$v)
-                },
-                expression: "data_local.fac_rang_fz1"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Valor Fuera Zona 1",
+                "label-placeholder": "Px Adicional",
                 "icon-pack": "feather",
                 icon: "icon-dollar-sign",
                 "icon-no-border": "",
-                name: "valor_fz1",
-                danger: _vm.errors.first("valor_fz1") ? true : false,
-                "danger-text": _vm.errors.first("valor_fz1")
-                  ? _vm.errors.first("valor_fz1")
+                name: "psj_adicional",
+                danger: _vm.errors.first("psj_adicional") ? true : false,
+                "danger-text": _vm.errors.first("psj_adicional")
+                  ? _vm.errors.first("psj_adicional")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.valor_fz1,
+                value: _vm.data_local.psj_adicional,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "valor_fz1", $$v)
+                  _vm.$set(_vm.data_local, "psj_adicional", $$v)
                 },
-                expression: "data_local.valor_fz1"
+                expression: "data_local.psj_adicional"
               }
             })
           ],
@@ -854,58 +709,61 @@ var render = function() {
               ],
               staticClass: "w-full",
               attrs: {
-                "label-placeholder": "Factor Rango Fuera Zona 2",
-                name: "fac_rang_fz2",
-                danger: _vm.errors.first("fac_rang_fz2") ? true : false,
-                "danger-text": _vm.errors.first("fac_rang_fz2")
-                  ? _vm.errors.first("fac_rang_fz2")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.fac_rang_fz2,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "fac_rang_fz2", $$v)
-                },
-                expression: "data_local.fac_rang_fz2"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|decimal",
-                  expression: "'required|decimal'"
-                }
-              ],
-              staticClass: "w-full",
-              attrs: {
-                "label-placeholder": "Valor Fuera Zona 2",
+                "label-placeholder": "Fuera Zona 1",
                 "icon-pack": "feather",
                 icon: "icon-dollar-sign",
                 "icon-no-border": "",
-                name: "valor_fz2",
-                danger: _vm.errors.first("valor_fz2") ? true : false,
-                "danger-text": _vm.errors.first("valor_fz2")
-                  ? _vm.errors.first("valor_fz2")
+                name: "fuera_zona_1",
+                danger: _vm.errors.first("fuera_zona_1") ? true : false,
+                "danger-text": _vm.errors.first("fuera_zona_1")
+                  ? _vm.errors.first("fuera_zona_1")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.valor_fz2,
+                value: _vm.data_local.fuera_zona_1,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "valor_fz2", $$v)
+                  _vm.$set(_vm.data_local, "fuera_zona_1", $$v)
                 },
-                expression: "data_local.valor_fz2"
+                expression: "data_local.fuera_zona_1"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|decimal",
+                  expression: "'required|decimal'"
+                }
+              ],
+              staticClass: "w-full",
+              attrs: {
+                "label-placeholder": "Fuera Zona 2",
+                "icon-pack": "feather",
+                icon: "icon-dollar-sign",
+                "icon-no-border": "",
+                name: "fuera_zona_2",
+                danger: _vm.errors.first("fuera_zona_2") ? true : false,
+                "danger-text": _vm.errors.first("fuera_zona_2")
+                  ? _vm.errors.first("fuera_zona_2")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.fuera_zona_2,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "fuera_zona_2", $$v)
+                },
+                expression: "data_local.fuera_zona_2"
               }
             })
           ],
@@ -950,7 +808,7 @@ var render = function() {
                       "icon-pack": "feather",
                       icon: "icon-arrow-left",
                       to: {
-                        name: "pasajeros-view",
+                        name: "planas-view",
                         params: { itemId: _vm.data_local.empresa_id }
                       }
                     }
@@ -1214,17 +1072,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=cec0465e& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e&");
-/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=template&id=999a3094& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094&");
+/* harmony import */ var _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEdit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1235,8 +1093,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1246,54 +1104,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e&":
-/*!*****************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e& ***!
-  \*****************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=cec0465e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEdit.vue?vue&type=template&id=cec0465e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEdit.vue?vue&type=template&id=999a3094& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEdit.vue?vue&type=template&id=999a3094&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_cec0465e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEdit_vue_vue_type_template_id_999a3094___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue":
-/*!******************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue ***!
-  \******************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue ***!
+  \***************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=6ae56fdd& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd&");
-/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=dff4747c& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c&");
+/* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1304,8 +1162,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1315,38 +1173,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue"
+component.options.__file = "resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd&":
-/*!*************************************************************************************************************************************!*\
-  !*** ./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd& ***!
-  \*************************************************************************************************************************************/
+/***/ "./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c&":
+/*!**********************************************************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c& ***!
+  \**********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=6ae56fdd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/pasajeros/item-edit/itemEditSection1.vue?vue&type=template&id=6ae56fdd&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./itemEditSection1.vue?vue&type=template&id=dff4747c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/administracion/tarifas/planas/item-edit/itemEditSection1.vue?vue&type=template&id=dff4747c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_6ae56fdd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemEditSection1_vue_vue_type_template_id_dff4747c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

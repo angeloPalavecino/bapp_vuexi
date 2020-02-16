@@ -462,6 +462,7 @@ Route::prefix('v1')->group(function () {
            Route::delete('agendamientos/{id}', 'AgendamientosController@destroy');
            Route::post('agendamientos/borrar', 'AgendamientosController@borrar');
            Route::put('agendamientos/{id}', 'AgendamientosController@update');
+           Route::put('agendamientos/drag/{id}', 'AgendamientosController@drag');
            Route::post('agendamientos/store', 'AgendamientosController@store');
            Route::get('agendamientos/{id}/edit', 'AgendamientosController@edit');
            Route::post('agendamientos/importar', 'AgendamientosController@importar');
