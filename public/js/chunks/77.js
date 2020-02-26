@@ -254,6 +254,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -278,6 +291,19 @@ __webpack_require__.r(__webpack_exports__);
       aux: true,
       eventos: true,
       langEn: vuejs_datepicker_src_locale__WEBPACK_IMPORTED_MODULE_3__["en"],
+      locale: 'es',
+      firstDay: 1,
+      validRange: {
+        start: new Date()
+      },
+      buttonText: {
+        today: 'hoy',
+        month: 'mes',
+        week: 'semana',
+        day: 'día',
+        list: 'lista'
+      },
+      selectable: true,
       id: 0,
       tipo: '',
       horario: '',
@@ -309,7 +335,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     empresa: function empresa(obj) {
-      this.sucursal = null, this.codificacion = null, // this.$store.state.calendar.events = null,
+      this.sucursal = null;
+      this.codificacion = null;
+      var item = this.empresasOptions.find(function (u) {
+        return u.id === obj;
+      });
+
+      if (item.id == 1) {
+        var fecha = new Date();
+      } else {
+        var fecha_hoy = new Date();
+        var fecha_max = new Date();
+        var fecha = new Date();
+        var horas = item.hora_max_agendamiento.split(':');
+        fecha_max.setHours(horas[0], horas[1], horas[2]);
+
+        if (Date.parse(fecha_max) < Date.parse(fecha_hoy)) {
+          fecha.setDate(fecha.getDate() + 1);
+        }
+      }
+
+      var validRange = {
+        start: fecha
+      };
+      var calendarApi = this.$refs.fullCalendar.getApi();
+      calendarApi.setOption('validRange', validRange); // this.$store.state.calendar.events = null,
+
       this.traeSucursales(obj);
     },
     sucursal: function sucursal(obj) {
@@ -449,7 +500,7 @@ __webpack_require__.r(__webpack_exports__);
 
         var calendarApi = _this5.$refs.fullCalendar.getApi();
 
-        console.log(calendarApi); //calendarApi.removeEvents();
+        calendarApi.render();
 
         _this5.$vs.notify({
           color: 'success',
@@ -605,7 +656,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activePromptAddEvent = true;
     },
     handleDateClick: function handleDateClick(info) {
-      if (info.dayEl.style.backgroundColor == 'rgb(161, 212, 228)') {
+      if (info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)') {
         var index = this.fechas.indexOf(info.dateStr);
 
         if (index > -1) {
@@ -615,15 +666,15 @@ __webpack_require__.r(__webpack_exports__);
         info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(161, 212, 228)';
+        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
       }
       /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-         this.calendarEvents.push({ // add new event data
-           title: 'New Event',
-           start: arg.date,
-           allDay: arg.allDay
-         })
-       }¨*/
+       this.calendarEvents.push({ // add new event data
+         title: 'New Event',
+         start: arg.date,
+         allDay: arg.allDay
+       })
+      }¨*/
 
     }
   },
@@ -634,6 +685,7 @@ __webpack_require__.r(__webpack_exports__);
     this.traeOtrosDatos();
   },
   beforeDestroy: function beforeDestroy() {
+    this.$store.state.calendar.events = null;
     this.$store.unregisterModule('calendar');
   }
 });
@@ -654,7 +706,7 @@ exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loa
 exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loader!@fullcalendar/timegrid/main.css */ "./node_modules/css-loader/index.js!./node_modules/@fullcalendar/timegrid/main.css"), "");
 
 // module
-exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}", ""]);
+exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}\n[dir] .fc-sun {\n  background-color: RGB(231, 240, 238);\n}\n[dir] .fc-sat {\n  background-color: RGB(231, 240, 238);\n}", ""]);
 
 // exports
 
@@ -848,7 +900,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "vs-select--label", attrs: { for: "" } },
-                      [_vm._v("Codificaciones")]
+                      [_vm._v("Pasajeros")]
                     ),
                     _vm._v(" "),
                     _c("v-select", {
@@ -875,7 +927,9 @@ var render = function() {
                                   _vm._s(option.nombre) +
                                   " " +
                                   _vm._s(option.apellido) +
-                                  "\n                  "
+                                  " (" +
+                                  _vm._s(option.rut) +
+                                  ")\n                  "
                               )
                             ]
                           }
@@ -968,12 +1022,16 @@ var render = function() {
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
               },
+              buttonText: _vm.buttonText,
+              validRange: _vm.validRange,
               plugins: _vm.calendarPlugins,
               allDaySlot: _vm.allDaySlot,
               weekends: _vm.calendarWeekends,
               events: _vm.CalendarEvents,
               editable: _vm.editable,
-              disableResizing: _vm.aux
+              disableResizing: _vm.aux,
+              locale: _vm.locale,
+              firstDay: _vm.firstDay
             },
             on: {
               dateClick: _vm.handleDateClick,

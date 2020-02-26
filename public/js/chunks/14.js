@@ -41,14 +41,27 @@ __webpack_require__.r(__webpack_exports__);
       */
     },
     confirmDeleteRecord: function confirmDeleteRecord() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar el siguiente agendamiento \"".concat(this.params.data.rut, "\""),
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      });
+      var fecha_hoy = new Date();
+      var fecha = new Date(this.params.data.fecha_inicio);
+      fecha_hoy.setHours(0, 0, 0, 0);
+
+      if (fecha >= fecha_hoy) {
+        this.$vs.dialog({
+          type: 'confirm',
+          color: 'danger',
+          title: "Confirmar Eliminacion",
+          text: "Este seguro que desea eliminar el siguiente agendamiento \"".concat(this.params.data.rut, "\""),
+          accept: this.deleteRecord,
+          acceptText: "Eliminar"
+        });
+      } else {
+        this.$vs.dialog({
+          color: 'danger',
+          title: "Confirmar Eliminacion",
+          text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+          acceptText: "Aceptar"
+        });
+      }
     },
     deleteRecord: function deleteRecord() {
       var _this = this;
@@ -61,6 +74,22 @@ __webpack_require__.r(__webpack_exports__);
         Id: this.params.data.id,
         Url: this.$parent.$parent.urlApi
       }).then(function () {
+        var filter = _this.$parent.$parent.gridApi.getFilterInstance("estado");
+
+        var val = _this.$parent.$parent.estadoFilter.value;
+        var modelObj = null;
+
+        if (val !== "all") {
+          modelObj = {
+            type: "equals",
+            filter: val
+          };
+        }
+
+        filter.setModel(modelObj);
+
+        _this.$parent.$parent.gridApi.onFilterChanged();
+
         _this.showDeleteSuccess();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
@@ -136,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cell_renderer_CellRendererStatus_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cell-renderer/CellRendererStatus.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue");
 /* harmony import */ var _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../utils/customLoadingOverlay.js */ "./resources/js/src/views/pages/utils/customLoadingOverlay.js");
 /* harmony import */ var _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../utils/customNoRowsOverlay.js */ "./resources/js/src/views/pages/utils/customNoRowsOverlay.js");
+//
 //
 //
 //
@@ -559,6 +589,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onRowSelected: function onRowSelected(params) {
+      var fecha_hoy = new Date();
+      var fecha = new Date(params.data.fecha_inicio);
+      fecha_hoy.setHours(0, 0, 0, 0);
+
+      if (fecha >= fecha_hoy) {} else {
+        /*  this.$vs.dialog({
+              color: 'danger',
+              title: `Confirmar Eliminacion`,
+              text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+              acceptText: "Aceptar"
+          })*/
+        params.node.setSelected(false);
+      }
+    },
     onGridSizeChanged: function onGridSizeChanged(params) {
       var allColumns = params.columnApi.getAllColumns();
       params.columnApi.setColumnsVisible(allColumns, true);
@@ -590,6 +635,22 @@ __webpack_require__.r(__webpack_exports__);
         Items: this.gridApi.getSelectedRows(),
         Url: this.urlApi
       }).then(function () {
+        var filter = _this.gridApi.getFilterInstance("estado");
+
+        var val = _this.estadoFilter.value;
+        var modelObj = null;
+
+        if (val !== "all") {
+          modelObj = {
+            type: "equals",
+            filter: val
+          };
+        }
+
+        filter.setModel(modelObj);
+
+        _this.gridApi.onFilterChanged();
+
         _this.showMassiveDeleteSuccess();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
@@ -1436,7 +1497,10 @@ var render = function() {
                   noRowsOverlayComponent: _vm.noRowsOverlayComponent,
                   noRowsOverlayComponentParams: _vm.noRowsOverlayComponentParams
                 },
-                on: { "grid-size-changed": _vm.onGridSizeChanged }
+                on: {
+                  "grid-size-changed": _vm.onGridSizeChanged,
+                  "row-selected": _vm.onRowSelected
+                }
               })
             ],
             1

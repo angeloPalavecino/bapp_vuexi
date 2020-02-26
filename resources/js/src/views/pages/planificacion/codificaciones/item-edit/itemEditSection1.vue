@@ -27,7 +27,7 @@
       </div>
 
        <div class="vx-col md:w-1/2 w-full mt-2">
-      <vs-input label-placeholder="Rut" v-model="data_local.rut" class="w-full p-1" name="rut" v-validate="'required'" 
+      <vs-input label-placeholder="Rut" disabled="true" v-model="data_local.rut" class="w-full p-1" name="rut" v-validate="'required'" 
       :danger="(errors.first('rut') ? true : false)" :danger-text="(errors.first('rut') ? errors.first('rut') : '')" 
       val-icon-danger="clear" />
       </div>
@@ -356,9 +356,19 @@ export default {
   },
   methods: { 
     asignaDireccion() {
-      this.data_local.direccion = this.autocomplete.getPlace().formatted_address;
+      var place = this.autocomplete.getPlace();
+      this.data_local.direccion = place.name;//this.autocomplete.getPlace().formatted_address;
       this.data_local.lat = this.autocomplete.getPlace().geometry.location.lat().toFixed(5);
       this.data_local.lng = this.autocomplete.getPlace().geometry.location.lng().toFixed(5);
+
+      for(var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if(addressType == "locality" || addressType == "administrative_area_level_3"){
+          this.data_local.comuna = place.address_components[i]['long_name'];
+        }
+      }
+
+
       this.agregarMarker();
     },
     agregarMarker() {
@@ -432,10 +442,23 @@ export default {
                     function(results, status) 
                     {
                         if (status == google.maps.GeocoderStatus.OK){
-                            thisIns.data_local.direccion = results[0].formatted_address;   
+                            var place = results[0];
+                            var aux = results[0].formatted_address.split(',');
+                            thisIns.data_local.direccion = aux[0];//results[0].formatted_address;     
                             thisIns.data_local.lat = results[0].geometry.location.lat().toFixed(5);
                             thisIns.data_local.lng = results[0].geometry.location.lng().toFixed(5);
-                            thisIns.map.setCenter(pos);                         
+                            thisIns.data_local.comuna = place.vicinity;
+
+                            for (var i = 0; i < place.address_components.length; i++) {
+                              var addressType = place.address_components[i].types[0];
+                              if(addressType == "locality" || addressType == "administrative_area_level_3"){
+                                thisIns.data_local.comuna = place.address_components[i]['long_name'];
+                              }
+                            }
+
+                            
+                            thisIns.map.setCenter(pos);      
+
                         }else{
                           
                              this.$vs.notify({

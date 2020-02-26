@@ -598,10 +598,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
+                              _vm._v("Hora Max. Agendamiento")
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.item_data.hora_max_agendamiento)
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("tr", [

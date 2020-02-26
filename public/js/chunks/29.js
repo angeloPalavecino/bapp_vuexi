@@ -469,9 +469,20 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   created: function created() {},
   methods: (_methods = {
     asignaDireccion: function asignaDireccion() {
-      this.data_local.direccion = this.autocomplete.getPlace().formatted_address;
+      var place = this.autocomplete.getPlace();
+      this.data_local.direccion = place.name; //this.autocomplete.getPlace().formatted_address;
+
       this.data_local.lat = this.autocomplete.getPlace().geometry.location.lat().toFixed(5);
       this.data_local.lng = this.autocomplete.getPlace().geometry.location.lng().toFixed(5);
+
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+
+        if (addressType == "locality" || addressType == "administrative_area_level_3") {
+          this.data_local.comuna = place.address_components[i]['long_name'];
+        }
+      }
+
       this.agregarMarker();
     },
     agregarMarker: function agregarMarker() {
@@ -537,9 +548,22 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         latLng: pos
       }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          thisIns.data_local.direccion = results[0].formatted_address;
+          var place = results[0];
+          var aux = results[0].formatted_address.split(',');
+          thisIns.data_local.direccion = aux[0]; //results[0].formatted_address;     
+
           thisIns.data_local.lat = results[0].geometry.location.lat().toFixed(5);
           thisIns.data_local.lng = results[0].geometry.location.lng().toFixed(5);
+          thisIns.data_local.comuna = place.vicinity;
+
+          for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+
+            if (addressType == "locality" || addressType == "administrative_area_level_3") {
+              thisIns.data_local.comuna = place.address_components[i]['long_name'];
+            }
+          }
+
           thisIns.map.setCenter(pos);
         } else {
           this.$vs.notify({
@@ -1061,6 +1085,7 @@ var render = function() {
                 staticClass: "w-full p-1",
                 attrs: {
                   "label-placeholder": "Rut",
+                  disabled: "true",
                   name: "rut",
                   danger: _vm.errors.first("rut") ? true : false,
                   "danger-text": _vm.errors.first("rut")
@@ -1958,14 +1983,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue ***!
   \**************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _itemEditSection1_vue_vue_type_template_id_4fa2ce10___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=4fa2ce10& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=template&id=4fa2ce10&");
 /* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1995,7 +2021,7 @@ component.options.__file = "resources/js/src/views/pages/planificacion/codificac
 /*!***************************************************************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

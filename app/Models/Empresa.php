@@ -12,6 +12,6 @@ class Empresa extends Model
      * @var array
      */
     protected $fillable = [
-       'rut', 'dv' ,'razon_social', 'giro','habilitado','fecha_incorporacion'
+       'rut', 'dv' ,'razon_social', 'giro','habilitado','fecha_incorporacion','hora_max_agendamiento'
     ];
 }

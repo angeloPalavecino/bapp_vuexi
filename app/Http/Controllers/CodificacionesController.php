@@ -118,6 +118,7 @@ class CodificacionesController extends Controller
         $lng = $input['lng'];
         $habilitado = $input['habilitado'];
         $distancia = 0 ;
+        $comentario = $input['comentario'];
 
         $sucursal = Sucursal::findorfail($sucursal_id);
         if(!is_null($sucursal)){
@@ -142,7 +143,8 @@ class CodificacionesController extends Controller
                 'lng'               => $lng,
                 'habilitado'        => $habilitado,     
                 'grupo_patron_id'   => $codigo,     
-                'distancia'         => $distancia              
+                'distancia'         => $distancia,
+                'comentario'        => $comentario              
               )
          );
 
@@ -179,6 +181,7 @@ class CodificacionesController extends Controller
             'codificaciones.lat',
             'codificaciones.lng',
             'codificaciones.habilitado',
+            'codificaciones.comentario',
             'codificaciones.created_at',
             'codificaciones.updated_at',
             'sucursals.nombre as sucursal',
@@ -262,6 +265,7 @@ class CodificacionesController extends Controller
             $lng = $input['lng'];
             $habilitado = $input['habilitado'];
             $distancia = 0 ;
+            $comentario = $input['comentario'];
 
             $sucursal = Sucursal::findorfail($sucursal_id);
             if(!is_null($sucursal)){
@@ -286,7 +290,8 @@ class CodificacionesController extends Controller
                 'lng'               => $lng,   
                 'habilitado'        => $habilitado,  
                 'grupo_patron_id'   => $codigo,     
-                'distancia'         => $distancia              
+                'distancia'         => $distancia,
+                'comentario'        => $comentario              
               )
          );
 

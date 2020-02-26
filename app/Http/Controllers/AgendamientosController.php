@@ -217,6 +217,7 @@ class AgendamientosController extends Controller
             'sucursals.id as sucursal_id',
             'empresas.razon_social',
             'empresas.id as empresa_id',
+            'empresas.hora_max_agendamiento',
          //   'drivers.name as nombre_conductor',
          //   'drivers.lastname as apellido_conductor',
          //   'drivers.rut as rut_conductor',

@@ -21,6 +21,7 @@ class CreateEmpresaTable extends Migration
             $table->string('giro')->nullable(); 
             $table->boolean('habilitado');
             $table->dateTime('fecha_incorporacion');         
+            $table->time('hora_max_agendamiento');  
             $table->timestamps();
 
 

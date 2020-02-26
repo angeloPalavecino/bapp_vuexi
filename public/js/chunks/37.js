@@ -559,6 +559,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -624,6 +633,9 @@ var dict = {
     cicfac_hasta: {
       required: 'El campo es requerido',
       numeric: 'Debe ingresar solo numeros'
+    },
+    hora_max_agendamiento: {
+      required: 'La hora maxima de agendamiento es requerida'
     }
   }
 }; // register custom messages
@@ -673,7 +685,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         rut: this.data.rut ? this.data.rut : null,
         dv: this.data.dv ? this.data.dv : null,
         razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_data_local, "habilitado", this.data.habilitado), _defineProperty(_data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_data_local, "id", this.data.id ? this.data.id : null), _data_local),
+      }, _defineProperty(_data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_data_local, "habilitado", this.data.habilitado), _defineProperty(_data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_data_local, "id", this.data.id ? this.data.id : null), _defineProperty(_data_local, "hora_max_agendamiento", this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento : null), _data_local),
       cicloProduccionOptions: [{
         text: "Por defecto (Mes Completo)",
         value: 31
@@ -717,7 +729,13 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
         dias: this.data_cicproduccion.dias
       },
-      disabledcicpro: this.data_cicproduccion.dias === 0 ? false : true
+      disabledcicpro: this.data_cicproduccion.dias === 0 ? false : true,
+      configdateTimePicker: {
+        enableTime: true,
+        enableSeconds: true,
+        noCalendar: true,
+        time_24hr: true
+      }
     };
   },
   computed: {
@@ -963,7 +981,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         rut: this.data.rut ? this.data.rut : null,
         dv: this.data.dv ? this.data.dv : null,
         razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _this$data_local), this.responsable = {}, this.responsables = this.data_responsables, this.cantidadResponsables = this.data_responsables.length, this.sucursal = {
+      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _defineProperty(_this$data_local, "hora_max_agendamiento", this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento : null), _this$data_local), this.responsable = {}, this.responsables = this.data_responsables, this.cantidadResponsables = this.data_responsables.length, this.sucursal = {
         matriz: 0
       }, this.sucursales = this.data_sucursales, this.cantidadSucursales = this.data_sucursales.length, this.ciclofacturacion = {
         id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
@@ -1367,6 +1385,41 @@ var render = function() {
                             )
                           )
                         ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "vx-col md:w-1/2 w-full mt-6" },
+                      [
+                        _c("flat-pickr", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          attrs: {
+                            config: _vm.configdateTimePicker,
+                            "label-placeholder": "Horario",
+                            placeholder: "Seleccione un horario",
+                            name: "hora_max_agendamiento"
+                          },
+                          model: {
+                            value: _vm.data_local.hora_max_agendamiento,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.data_local,
+                                "hora_max_agendamiento",
+                                $$v
+                              )
+                            },
+                            expression: "data_local.hora_max_agendamiento"
+                          }
+                        })
                       ],
                       1
                     ),

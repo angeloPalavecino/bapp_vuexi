@@ -28,7 +28,8 @@ class EmpresaController extends Controller
         return Validator::make($data, [
              'rut' => 'required',
              'dv' => 'required',
-             'razon_social' => 'required',               
+             'razon_social' => 'required',  
+             'hora_max_agendamiento' => 'required',              
          ]);
     }
     /**
@@ -96,6 +97,7 @@ class EmpresaController extends Controller
         $giro = $empresa['giro'];
         $fecha_incorporacion =  $empresa['fecha_incorporacion'];
         $habilitado =  $empresa['habilitado'];
+        $hora_max_agendamiento =  $empresa['hora_max_agendamiento'];
        
 
         $existe_empresa = Empresa::where('rut', $rut)->first();
@@ -118,7 +120,7 @@ class EmpresaController extends Controller
                  'giro'                 => $giro,
                  'fecha_incorporacion'  => $fecha_incorporacion,
                  'habilitado'           => $habilitado,
-                
+                 'hora_max_agendamiento'=> $hora_max_agendamiento 
               )
          );
 
@@ -319,6 +321,7 @@ class EmpresaController extends Controller
                 'giro'                 => $empresa['giro'],
                 'habilitado'           => $empresa['habilitado'],
                 'fecha_incorporacion'  => $empresa['fecha_incorporacion'],
+                'hora_max_agendamiento'=> $empresa['hora_max_agendamiento'], 
               )
          );
             

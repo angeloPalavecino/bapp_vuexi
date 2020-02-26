@@ -478,6 +478,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -543,6 +552,9 @@ var dict = {
     cicfac_hasta: {
       required: 'El campo es requerido',
       numeric: 'Debe ingresar solo numeros'
+    },
+    hora_max_agendamiento: {
+      required: 'La hora maxima de agendamiento es requerida'
     }
   }
 }; // register custom messages
@@ -602,7 +614,13 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         inicio: 1,
         fin: 1
       },
-      disabledcicpro: true
+      disabledcicpro: true,
+      configdateTimePicker: {
+        enableTime: true,
+        enableSeconds: true,
+        noCalendar: true,
+        time_24hr: true
+      }
     };
   },
   computed: {
@@ -1138,6 +1156,41 @@ var render = function() {
                             )
                           )
                         ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "vx-col md:w-1/2 w-full mt-6" },
+                      [
+                        _c("flat-pickr", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          attrs: {
+                            config: _vm.configdateTimePicker,
+                            "label-placeholder": "Horario",
+                            placeholder: "Seleccione un horario",
+                            name: "hora_max_agendamiento"
+                          },
+                          model: {
+                            value: _vm.data_local.hora_max_agendamiento,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.data_local,
+                                "hora_max_agendamiento",
+                                $$v
+                              )
+                            },
+                            expression: "data_local.hora_max_agendamiento"
+                          }
+                        })
                       ],
                       1
                     ),

@@ -1,445 +1,359 @@
-<!-- =========================================================================================
-  File Name: UserEditTabInformation.vue
-  Description: User Edit Information Tab content
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
-  <div id="item-add">
+  <div id="simple-calendar-app">
+    <div class="vx-card no-scroll-content">
+      <calendar-view
+        ref="calendar"
+        :displayPeriodUom="calendarView"
+        :show-date="showDate"
+        :events="simpleCalendarEvents"
+        enableDragDrop
+        :eventTop="windowWidth <= 400 ? '2rem' : '3rem'"
+        eventBorderHeight="0px"
+        eventContentHeight="1.65rem"
+        class="theme-default"
+        @click-date="openAddNewEvent"
+        @click-event="openEditEvent"
+        @drop-on-date="eventDragged">
 
-    <!-- Content Row -->
-    <div class="mt-6 mb-5">
-      
-   <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" 
-      title="AGREGAR AGENDAMIENTO" 
-      subtitle="Ingrese todos los campos para ingresar el agendamiento" 
-      finishButtonText="Agregar" ref="wizard" class="mt-6 ">
+        <div slot="header" class="mb-4">
 
-        <tab-content title="Paso 1" class="mb-1 " icon="feather icon-clock" :before-change="validateStep1">
-          <!-- tab 1 content -->
-          <form data-vv-scope="step-1">
-           <div>
-               <vs-divider color="primary"><h5>Datos Agendamiento</h5></vs-divider>
-          </div>
-          <div class="vx-row">
-            <div class="vx-col md:w-1/2 w-full mt-2">
-              <vs-select v-model="empresa" label="Empresas" ref="empresas" name="empresa" class="w-full p-1" 
+          <div class="vx-row no-gutter">
+
+            <!-- Month Name -->
+              
+             <div class="vx-col w-1/4 items-center sm:flex hidden">
+             <div class="con-select w-full p-1" name="empresa" dir="ltr">
+               <label for="" class="vs-select--label">Empresas</label>
+                <v-select :options="empresasOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="empresa" label="razon_social" 
+                ref="empresas" name="empresa" :reduce="razon_social => razon_social.id" class="w-full p-1" 
+                placeholder="Seleccione un empresa"/>
+
+              <!--<vs-select v-model="empresa" label="Empresas" ref="empresas" name="empresa" class="w-full p-1" 
                 :dir="$vs.rtl ? 'rtl' : 'ltr'">
               <vs-select-item :key="item.id" :value="item.id" :text="item.razon_social" v-for="item in empresasOptions"  />
-              </vs-select>
+              </vs-select>-->
+              </div>
+              </div>
+
+               <div class="vx-col w-1/4 items-center sm:flex hidden">
+                 <div class="con-select w-full p-1" name="sucursal" dir="ltr">
+               <label for="" class="vs-select--label">Sucursales</label>
+                <v-select :options="sucursalesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursal" label="nombre" 
+                ref="sucursales" name="sucursales" :reduce="nombre => nombre.id" class="w-full p-1" 
+                placeholder="Seleccione una sucursal"/>
+
+              </div>
+                <!--<vs-select v-model="sucursal" label="Sucursales" ref="sucursal" name="sucursal" class="w-full p-1" 
+                  :dir="$vs.rtl ? 'rtl' : 'ltr'">
+                <vs-select-item :key="item.id" :value="item.id" :text="item.nombre" v-for="item in sucursalesOptions"  />
+                </vs-select>-->
+              </div>
+
+               <div class="vx-col w-1/4 items-center sm:flex hidden">
+
+               <div class="con-select w-full p-1" name="codificacion" dir="ltr">
+               <label for="" class="vs-select--label">Codificaciones</label>
+                <v-select :options="codificacionesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                v-model="codificacion" label="nombre" 
+                ref="codificaciones" name="codificaciones" :reduce="nombre => nombre.id" class="w-full p-1" 
+                placeholder="Seleccione una persona">
+                 <template v-slot:option="option">
+                      {{ option.nombre }} {{ option.apellido }}
+                  </template>
+                </v-select>
+
+              </div>
+
+              <!--<vs-select v-model="codificacion" label="Codificaciones" ref="codificaciones" name="codificaciones" class="w-full p-1" 
+                  :dir="$vs.rtl ? 'rtl' : 'ltr'">
+                <vs-select-item :key="item.id" :value="item.id" :text="item.nombre + ' ' + item.apellido" v-for="item in codificacionesOptions"  />
+                </vs-select>-->
+              </div>
+              
+              <div class="vx-col w-1/4 items-center sm:flex hidden mt-6">
+                <div class="vx-col w-full flex ml-4">
+                  <!-- Labels -->
+                  <div class="flex flex-wrap sm:justify-start justify-center">
+                    <div class="flex items-center mr-2 mb-2">
+                          <div class="h-3 w-3 inline-block rounded-full mr-2 bg-success"></div>
+                          <span>Recogida</span>
+                      </div>
+                    
+                      <div class="flex items-center mb-2">
+                          <div class="h-3 w-3 inline-block rounded-full mr-2 bg-primary"></div>
+                          <span>Zarpe</span>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+            <!-- Current Month -->
+            <div class="vx-col sm:w-1/3 mt-4 w-full flex">
+              <vx-tooltip color="primary" text="Agendar">
+              <vs-button icon-pack="feather" icon="icon-plus" class="mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
+              </vx-tooltip>
+               <vx-tooltip color="primary" text="Volver">
+              <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" :to="{name: 'agendamientos'}">Volver</vs-button>
+            </vx-tooltip>
+            </div>
+             <div class="vx-col sm:w-1/3 mt-4 w-full flex sm:justify-end justify-center order-last">
+              <div class="flex items-center">
+                <feather-icon
+                  :icon="$vs.rtl ? 'ChevronRightIcon' : 'ChevronLeftIcon'"
+                  @click="updateMonth(-1)"
+                  svgClasses="w-5 h-5 m-1"
+                  class="cursor-pointer bg-primary text-white rounded-full" />
+
+                <span class="mx-3 text-xl font-medium whitespace-no-wrap">{{ showDate | month }}</span>
+
+                <feather-icon
+                  :icon="$vs.rtl ? 'ChevronLeftIcon' : 'ChevronRightIcon'"
+                  @click="updateMonth(1)"
+                  svgClasses="w-5 h-5 m-1"
+                  class="cursor-pointer bg-primary text-white rounded-full" />
+              </div>
             </div>
 
-          <div class="vx-col md:w-1/2 w-full mt-2">
-              <vs-select v-model="sucursal" label="Sucursales" ref="sucursal" name="sucursal" class="w-full p-1" 
-                :dir="$vs.rtl ? 'rtl' : 'ltr'">
-              <vs-select-item :key="item.id" :value="item.id" :text="item.nombre" v-for="item in sucursalesOptions"  />
-              </vs-select>
-          </div>
+           <div class="vx-col sm:w-1/3 mt-4 w-full flex justify-center">
+              <template v-for="(view, index) in calendarViewTypes">
+                <vs-button
+                  v-if="calendarView === view.val"
+                  :key="String(view.val) + 'filled'"
+                  type="filled"
+                  class="p-3 md:px-8 md:py-3"
+                  :class="{'border-l-0 rounded-l-none': index, 'rounded-r-none': calendarViewTypes.length !== index+1}"
+                  @click="calendarView = view.val"
+                  >{{ view.label }}</vs-button>
+                <vs-button
+                  v-else
+                  :key="String(view.val) + 'border'"
+                  type="border"
+                  class="p-3 md:px-8 md:py-3"
+                  :class="{'border-l-0 rounded-l-none': index, 'rounded-r-none': calendarViewTypes.length !== index+1}"
+                  @click="calendarView = view.val"
+                  >{{ view.label }}</vs-button>
+              </template>
 
-          <div class="vx-col md:w-1/2 w-full mt-2">
-              <vs-select v-model="data_local.horario" label="Horarios" ref="horario" name="horario" class="w-full p-1" 
-                :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(sucursal > 0 ? false : true)" v-validate="'required'"
-                :danger="(errors.first('step-1.horario') ? true : false)"
-                :danger-text="(errors.first('step-1.horario') ? errors.first('step-1.horario') : '')">
-              <vs-select-item :key="item.id" :value="item.id" :text="item.label" v-for="item in horariosOptions"  />
-              </vs-select>
-          </div>
+            </div>
 
-           <div class="vx-col md:w-1/2 w-full mt-2">
-              <vs-select v-model="data_local.tipo" label="Tipo" ref="tipo" name="tipo" class="w-full p-1" 
-                :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'"
-                :danger="(errors.first('step-1.tipo') ? true : false)"
-                :danger-text="(errors.first('step-1.tipo') ? errors.first('step-1.tipo') : '')">
+          
+
+
+          </div>
+          
+        </div>
+      </calendar-view>
+    </div>
+
+    <!-- ADD EVENT -->
+   <vs-prompt
+        class="calendar-event-dialog"
+        title="Agregar Agendamiento"
+        accept-text= "Guardar"
+        @accept="addEvent"
+        :is-valid="validForm"
+        :active.sync="activePromptAddEvent">
+        <div class="calendar__label-container flex">
+            <vs-chip  v-if="tipo != ''" class="text-white" :class="'bg-' + tipoColor(tipo)">{{ tipo }}</vs-chip>
+        </div>
+            <div class="p-1">
+                <small class="date-label">Fecha</small>
+                <datepicker :language="langEn" name="start-date" v-model="fecha" :disabled="disabledFrom" class="w-full"></datepicker>
+            </div>
+
+            <div class="con-select w-full" name="tipo" dir="ltr">
+               <label for="" class="vs-select--label">Tipo</label>
+                <v-select :options="tipoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                v-model="tipo" label="label" :disabled="(codificacion > 0 ? false : true)" 
+                ref="tipo" name="tipo" :reduce="label => label.value" class="w-full p-1" 
+                placeholder="Seleccione un tipo" />  
+              </div>
+
+               <div class="con-select w-full" name="horario" dir="ltr">
+               <label for="" class="vs-select--label">Horario</label>
+                <v-select :options="horariosOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                v-model="horario" label="label" :disabled="(codificacion > 0 ? false : true)" 
+                ref="horario" name="horario" :reduce="label => label.id" class="w-full p-1" 
+                placeholder="Seleccione un horario" />  
+              </div>
+
+           <!-- <vs-select v-model="tipo" label="Tipo" ref="tipo" name="tipo" class="w-full p-1" 
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(codificacion > 0 ? false : true)" v-validate="'required'"
+                    :danger="(errors.first('tipo') ? true : false)"
+                    :danger-text="(errors.first('tipo') ? errors.first('tipo') : '')">
+                  <vs-select-item :key="item.value" :value="item.value" :text="item.label" v-for="item in tipoOptions"  />
+            </vs-select>
+
+            <vs-select v-model="horario" label="Horarios" ref="horario" name="horario" class="w-full p-1" 
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(codificacion > 0 ? false : true)" v-validate="'required'"
+                    :danger="(errors.first('horario') ? true : false)"
+                    :danger-text="(errors.first('horario') ? errors.first('horario') : '')">
+                  <vs-select-item :key="item.id" :value="item.id" :text="item.label" v-for="item in horariosOptions"  />
+            </vs-select>-->
+        
+        
+      
+    </vs-prompt>
+
+    <!-- EDIT EVENT -->
+    <vs-prompt
+        class="calendar-event-dialog"
+        title="Editar Agendamiento"
+        accept-text= "Guardar"
+        cancel-text = "Eliminar"
+        button-cancel = "border"
+        @cancel="removeEvent"
+        @accept="editEvent"
+        :is-valid="validForm"
+        :active.sync="activePromptEditEvent">
+        <div class="calendar__label-container flex">
+            <vs-chip  v-if="tipo != ''" class="text-white" :class="'bg-' + tipoColor(tipo)">{{ tipo }}</vs-chip>
+        </div>
+     <div class="p-1">
+            <small class="date-label">Fecha</small>
+            <datepicker :language="langEn" name="start-date" v-model="fecha" :disabled="disabledFrom" class="w-full"></datepicker>
+        </div>
+
+          <div class="con-select w-full" name="tipo" dir="ltr">
+               <label for="" class="vs-select--label">Tipo</label>
+                <v-select :options="tipoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                v-model="tipo" label="label" :disabled="(codificacion > 0 ? false : true)" 
+                ref="tipo" name="tipo" :reduce="label => label.value" class="w-full p-1" 
+                placeholder="Seleccione un tipo" />  
+              </div>
+
+               <div class="con-select w-full" name="horario" dir="ltr">
+               <label for="" class="vs-select--label">Horario</label>
+                <v-select :options="horariosOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                v-model="horario" label="label" :disabled="(codificacion > 0 ? false : true)" 
+                ref="horario" name="horario" :reduce="label => label.id" class="w-full p-1" 
+                placeholder="Seleccione un horario" />  
+              </div>
+
+      <!--  <vs-select v-model="tipo" label="Tipo" ref="tipo" name="tipo" class="w-full p-1" 
+                :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(codificacion > 0 ? false : true)" v-validate="'required'"
+                :danger="(errors.first('tipo') ? true : false)"
+                :danger-text="(errors.first('tipo') ? errors.first('tipo') : '')">
               <vs-select-item :key="item.value" :value="item.value" :text="item.label" v-for="item in tipoOptions"  />
-              </vs-select>
-          </div>
+        </vs-select>
 
-           <div class="vx-col md:w-1/2 w-full mt-2">
-              <vs-select v-model="data_local.tipo_fecha" label="Periodo" ref="tipo_fecha" name="tipo_fecha" class="w-full p-1" 
-                  :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" :danger="(errors.first('step-1.tipo_fecha') ? true : false)"
-                :danger-text="(errors.first('step-1.tipo_fecha') ? errors.first('step-1.tipo_fecha') : '')" @input="limpiarFechas">
-                <vs-select-item :key="item.value" :value="item.value" :text="item.label" v-for="item in tipofechaOptions"  />
-                </vs-select>
-          </div>
+        <vs-select v-model="horario" label="Horarios" ref="horario" name="horario" class="w-full p-1" 
+                :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(codificacion > 0 ? false : true)" v-validate="'required'"
+                :danger="(errors.first('horario') ? true : false)"
+                :danger-text="(errors.first('horario') ? errors.first('horario') : '')">
+              <vs-select-item :key="item.id" :value="item.id" :text="item.label" v-for="item in horariosOptions"  />
+        </vs-select>-->
 
-          <div v-if="data_local.tipo_fecha === 1" class="vx-col md:w-1/2 w-full mt-3">
-               <span class="text-sm" >Fechas</span>
-              <flat-pickr :config="configDiasdateTimePicker" v-model="data_local.fechas" 
-              placeholder="Seleccione los dias" v-validate="'required'" class="w-full" name="periodos_fecha_dias"/>
-
-              <span class="text-danger text-sm" >{{ errors.first('step-1.periodos_fecha_dias') }}</span>
-          </div>
-           
-
-         
-
-              <div v-if="data_local.tipo_fecha === 2"  class="vx-col md:w-1/4 w-full mt-2">
-                <vs-select v-model="data_local.ano" label="Año" ref="ano" name="ano" 
-                class="w-full p-1" 
-                  :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'"
-                  :danger="(errors.first('step-1.ano') ? true : false)"
-                  :danger-text="(errors.first('step-1.ano') ? errors.first('step-1.ano') : '')">
-                <vs-select-item :key="item.value" :value="item.value" :text="item.label" v-for="item in anosOptions"  />
-                </vs-select>
-              </div>
-
-
-              <div v-if="data_local.tipo_fecha === 2" class="vx-col md:w-1/4 w-full mt-2">
-                <vs-select autocomplete multiple v-model="data_local.meses" label="Meses" 
-                ref="meses" name="meses" class="w-full p-1" 
-                  :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" 
-                  :danger="(errors.first('step-1.meses') ? true : false)"
-                  :danger-text="(errors.first('step-1.meses') ? errors.first('step-1.meses') : '')">
-                <vs-select-item :key="item.value" :value="item.value" :text="item.label" v-for="item in mesesOptions"  />
-                </vs-select>
-              </div>
-
-
-
-        
-          </div>
-             
-          </form>
-        </tab-content> 
-        <!-- tab 2 content -->
-         <tab-content title="Paso 2" class="mb-5" icon="feather icon-list" :before-change="validateStep2">
-          <form data-vv-scope="step-2">
-          <div>
-               <vs-divider color="primary"><h5>Codificaciones</h5></vs-divider>
-          </div>
-           <vs-input v-validate="'required|min_value:1'" type="hidden" name="codificaciones_cantidad" v-model="cantidadCodificaciones"/>
-           <span class="text-danger text-sm" v-show="errors.has('step-2.codificaciones_cantidad')" >{{ errors.first('step-2.codificaciones_cantidad') }}</span>
-  
-           <div class="vx-col w-full mt-3">
-
-             <vs-table
-                multiple
-                v-model="selected"
-                :data="codificacionesOptions"  @selected="handleSelected">
-                <template slot="header">
-                  <h3>
-                    Codificaciones
-                  </h3>
-                  <br/>
-                </template>
-                <template slot="thead">
-                  <vs-th>
-                    Rut
-                  </vs-th>
-                  <vs-th>
-                    Nombre
-                  </vs-th>
-                  <vs-th>
-                    Direccion
-                  </vs-th>
-                  <vs-th>
-                    Comuna
-                  </vs-th>
-                </template>
-
-                <template slot-scope="{data}">
-                  <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data" >
-                    <vs-td :data="data[indextr].rut">
-                      {{data[indextr].rut}}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].nombre">
-                      {{data[indextr].nombre}} {{data[indextr].apellido}}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].direccion">
-                      {{data[indextr].direccion}}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].comuna">
-                      {{data[indextr].comuna}}
-                    </vs-td>
-                  </vs-tr>
-                </template>
-              </vs-table>
-          </div>
-
-  
-          </form>
-        </tab-content>
-        <template slot="footer" slot-scope="props">
-       <div class="wizard-footer-left">
-           <vs-button v-if="props.activeTabIndex > 0" @click.native="props.prevTab()" :style="props.fillButtonStyle">Anterior</vs-button>
-        </div>
-        <div class="wizard-footer-right">
-          <vs-button v-if="!props.isLastStep" @click.native="props.nextTab()" class="wizard-footer-right" :style="props.fillButtonStyle">Siguiente</vs-button>
-
-          <vs-button v-else  @click.native="props.nextTab()" class="wizard-footer-right finish-button" :style="props.fillButtonStyle">
-            Agregar</vs-button>
-          
-       
-        </div>
-      </template>
-      </form-wizard>
-    
-    </div>
-    <!-- Content Row -->
-
-    <!-- BUTTONS -->
-    <div class="vx-row">
-      <div class="vx-col w-full">
-        <div class="mt-8 flex flex-wrap items-center justify-end">
-       <!--   <vx-tooltip color="primary" text="Guardar">
-              <vs-button class="ml-auto mt-2" @click="save_changes" :disabled="!validateForm">Guardar Cambios</vs-button>
-          </vx-tooltip>-->
-          <vx-tooltip color="primary" text="Volver">
-              <vs-button icon-pack="feather" icon="icon-arrow-left" class="ml-4 mt-2" :to="{name: 'agendamientos'}">Volver</vs-button>
-          </vx-tooltip>
-        
-          <vx-tooltip color="primary" text="Limpiar">
-               <vs-button class="ml-4 mt-2" type="border" color="warning" @click="reset_data">Limpiar</vs-button>
-          </vx-tooltip>
-          
-        </div>
-      </div>
-    </div>
-     <!-- BUTTONS -->
+    </vs-prompt>
   </div>
 </template>
 
 <script>
-import vSelect from 'vue-select'
+import { CalendarView, CalendarViewHeader } from "vue-simple-calendar"
+import moduleCalendar from '@/store/calendar/moduleCalendar.js'
+require("vue-simple-calendar/static/css/default.css")
 import axios from "@/axios.js"
-import { Validator } from 'vee-validate';
-const dict = {
-    custom: {
-        horario: {
-            required: 'El horario es requerido',
-        },
-        tipo: {
-            required: 'El tipo es requerido',
-        },
-        tipo_fecha: {
-            required: 'El periodo es requerido',
-        },
-        meses: {
-            required: 'Debe seleccionar al menos un mes',
-        },
-        ano: {
-            required: 'Debe seleccionar el año',
-        },
-        periodos_fecha_dias:{
-            required: 'Debe seleccionar al menos un dia',
-        },        
-        codificaciones_cantidad:{
-            required: 'Debe seleccionar al menos un codificado',
-            min_value: 'Debe seleccionar al menos un codificado'
-        }
-
-    }
-};
-// register custom messages
-Validator.localize('en', dict);
-import { FormWizard, TabContent } from 'vue-form-wizard'
-import 'vue-form-wizard/dist/vue-form-wizard.min.css'
-import flatPickr from 'vue-flatpickr-component';
-//import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect/index.js';
-import 'flatpickr/dist/flatpickr.css';
-//import 'flatpickr/dist/plugins/monthSelect/style.css';
-
+import Datepicker from 'vuejs-datepicker'
+import { en } from "vuejs-datepicker/src/locale"
+import vSelect from 'vue-select'
 
 export default {
   components: {
-    vSelect,
-    FormWizard,
-    TabContent,
-    flatPickr
+    CalendarView,
+    CalendarViewHeader,
+    Datepicker,
+    vSelect
   },
   data() {
     return {
-      urlApi: "/agendamientos/agendamientos/",
-      data_local: {
-        meses:[]
-      },
+      showDate: new Date(),
+      disabledFrom: false,
+      langEn: en,
+      id: 0,
+      tipo:'',
+      horario:'',
+      fecha: '',
+    
+      calendarView: 'month',
+
+      activePromptAddEvent: false,
+      activePromptEditEvent: false,
+
       empresa:1,
       sucursal:null,
-      tipo_fecha:0,
+      codificacion: null,
+      
       empresasOptions:[],
       sucursalesOptions:[],
-      horariosOptions:[],
+      codificacionesOptions:[],
+
       tipoOptions: [
         { label: 'Zarpe', value: 'Zarpe' },
         { label: 'Recogida', value: 'Recogida' },
       ],
+      horariosOptions:[],
       
-      tipofechaOptions: [
-        { label: 'Diario', value: 1 },
-        { label: 'Mensual', value: 2 },
-        { label: 'Permanente', value: 3 },
-      ],
-
-      anosOptions: [
-        { label: '2020', value: 2020 },
-        { label: '2021', value: 2021 },
-        { label: '2022', value: 2022 },
-        { label: '2023', value: 2023 },
-        { label: '2024', value: 2024 },
-        { label: '2025', value: 2025 },
-        { label: '2026', value: 2026 },
-        { label: '2027', value: 2027 },
-        { label: '2028', value: 2028 },
-        { label: '2029', value: 2029 },
-        { label: '2030', value: 2030 },
-        { label: '2031', value: 2031 },
-        { label: '2032', value: 2032 },
-        { label: '2033', value: 2033 },
-        { label: '2034', value: 2034 },
-        { label: '2035', value: 2035 },
-        { label: '2036', value: 2036 },
-        { label: '2037', value: 2037 },
-      ],
-
-       mesesOptions: [
-        { label: 'Enero', value: 1 },
-        { label: 'Febrero', value: 2 },
-        { label: 'Marzo', value: 3 },
-        { label: 'Abril', value: 4 },
-        { label: 'Mayo', value: 5 },
-        { label: 'Junio', value: 6 },
-        { label: 'Julio', value: 7 },
-        { label: 'Agosto', value: 8 },
-        { label: 'Septiembre', value: 9 },
-        { label: 'Octubre', value: 10 },
-        { label: 'Noviembre', value: 11 },
-        { label: 'Diciembre', value: 12 },
-      ],
-      
-      configDiasdateTimePicker: {
-          minDate: new Date(),
-          maxDate: '2037-12-31',
-          dateFormat: "Y/m/d",
-          mode: "multiple",
-      },
-
-      codificacionesOptions:[],
-      cantidadCodificaciones:null,
-      selected:[],
-
+      calendarViewTypes: [
+        {
+          label: "Mensual",
+          val: "month"
+        },
+        {
+          label: "Semanal",
+          val: "week"
+        },
+        /*{
+          label: "Year",
+          val: "year"
+        },*/
+      ]
     }
   },
-  watch: {
+   watch: {
     empresa(obj) {
-
       this.sucursal = null,
-      this.data_local.horario = null,
-      this.sucursalesOptions = [],
-      this.horariosOptions = [],      
-
-      this.traeSucursales(obj)
+      this.codificacion =  null,
+      this.traeSucursales(obj);
     },
-    sucursal(obj){     
-   
-      this.data_local.horario = null,
-      this.horariosOptions = [],  
-      
-      this.codificacionesOptions = [],
-      this.cantidadCodificaciones = null,
-      this.selected = [], 
-
+    sucursal(obj){    
+      this.codificacion =  null, 
       this.traeHorarios(obj);
       this.traecodificaciones(obj);
     },
+    codificacion(obj){     
+      this.$store.dispatch('calendar/fetchEvents', obj);
+    },
   },
   computed: {
-    validateForm() {
-      return !this.errors.any()
+    tipoColor() {
+        return (label) => {
+            if (label == "Recogida") return "success"
+            else if (label == "Zarpe") return "primary"
+        }
+    },
+    simpleCalendarEvents() {
+        return this.$store.state.calendar.events
+    },
+    validForm() {
+        return this.tipo != '' && this.horario != '' && this.fecha != '';
+    },
+    disabledDatesTo() {
+        return { to: new Date(this.fecha) }
+    },
+    windowWidth() {
+      return this.$store.state.windowWidth
     }
   },
-  mounted() {
-    this.traeOtrosDatos();
-  },
   methods: {
-     handleSelected(){
-        this.cantidadCodificaciones = this.selected.length;
-    },
-    traeOtrosDatos() {
-     //Combo Empresa
-      axios.get(`/api/v1/empresas/listemp`)
-        .then((res) => {
-          this.empresasOptions = res.data.items;  
-        })
-        .catch((err) => { 
-
-        var textError = err.response.status == 300 ? err.response.data.message : err;
-        this.$vs.notify({
-                    title:'Error',
-                    text: textError,
-                    color:'danger',
-                    iconPack: 'feather',
-                    icon:'icon-alert-circle'})  
-
-      })
-
-    },
-    traecodificaciones(value) {
-      
-      if(value >  0)  {
-        //Combo Codificaciones
-        axios.get(`/api/v1/codificaciones/combo/` + value)
-          .then((res) => {
-            //console.log(res.data.items);
-            this.codificacionesOptions = res.data.items;  
-          })
-          .catch((err) => { 
-
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-          this.$vs.notify({
-                      title:'Error',
-                      text: textError,
-                      color:'danger',
-                      iconPack: 'feather',
-                      icon:'icon-alert-circle'})  
-
-        })  
-
-      }else{
-
-        this.codificacionesOptions = [];
-      }
-     
-    },
-    traeSucursales(value) {
-      
-      if(value >  1)  {
-        //Combo Sucursales
-        axios.get(`/api/v1/sucursal/combo/` + value)
-          .then((res) => {
-            //console.log(res.data.items);
-            this.sucursalesOptions = res.data.items;  
-          })
-          .catch((err) => { 
-
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-          this.$vs.notify({
-                      title:'Error',
-                      text: textError,
-                      color:'danger',
-                      iconPack: 'feather',
-                      icon:'icon-alert-circle'})  
-
-        })  
-
-      }else{
-
-        this.sucursalesOptions = [];
-      }
-     
-    },
     traeHorarios(value) {
       
       if(value >  0)  {
         //Combo Horarios
         axios.get(`/api/v1/horarios/combo/` + value)
           .then((res) => {
-            //console.log(res.data.items);
             this.horariosOptions = res.data.items;  
           })
           .catch((err) => { 
@@ -461,80 +375,250 @@ export default {
       }
      
     },
-    limpiarFechas(){
-        
-     
-        this.data_local.fechas = null;
-        this.data_local.meses = [];
-        this.data_local.ano = null;
-    
-    },  
-    validateStep1() {
-            return new Promise((resolve, reject) => {
-                this.$validator.validateAll('step-1').then(result => {
-                    if (result) {
-                        resolve(true)
-                    } else {
-                        reject("correct all values");
-                    }
-                })
-            })
-        },
-    validateStep2() {
-            return new Promise((resolve, reject) => {
-                this.$validator.validateAll("step-2").then(result => {
-                     if (result) {     
-                       this.save_changes();     
-                        resolve(true)
-                    } else {
-                        reject("correct all values");
-                    }
-                })
-            })
-    },
-    save_changes() {
-     this.$validator.validateAll().then(result =>{
-        if (result) {
-          this.datos = [];
-          this.datos.push(this.data_local);
-          this.datos.push(this.selected);                  
-  
-         this.$store.dispatch("itemManagement/agregarItem", {	item: this.datos , Url: this.urlApi  })
-         .then(()   => { this.$router.push({name:'agendamientos'}); this.showDeleteSuccess() })
-         .catch(err => { 
-           
+    traeOtrosDatos() {
+     //Combo Empresa
+      axios.get(`/api/v1/empresas/listemp`)
+        .then((res) => {
+          this.empresasOptions = res.data.items;  
+        })
+        .catch((err) => { 
+
         var textError = err.response.status == 300 ? err.response.data.message : err;
         this.$vs.notify({
-                title:'Error',
-                text: textError,
-                color:'danger',
-                iconPack: 'feather',
-                icon:'icon-alert-circle'})  
-        })
+                    title:'Error',
+                    text: textError,
+                    color:'danger',
+                    iconPack: 'feather',
+                    icon:'icon-alert-circle'})  
+
+      })
+
+    },
+    traeSucursales(value) {
+      
+      if(value >  1)  {
+        //Combo Sucursales
+        axios.get(`/api/v1/sucursal/combo/` + value)
+          .then((res) => {
+            this.sucursalesOptions = res.data.items;  
+          })
+          .catch((err) => { 
+
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+
+        })  
+
+      }else{
+
+        this.sucursalesOptions = [];
+      }
+     
+    },
+    traecodificaciones(value) {
+      
+      if(value >  0)  {
+        //Combo Codificaciones
+        axios.get(`/api/v1/codificaciones/combo/` + value)
+          .then((res) => {
+            this.codificacionesOptions = res.data.items;  
+          })
+          .catch((err) => { 
+
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+
+        })  
+
+      }else{
+
+        this.codificacionesOptions = [];
+      }
+     
+    },
+    addEvent() {
+
+        var horario = this.horariosOptions.find(element => element.id == this.horario); 
+        var clase = ""
+        if(this.tipo == 'Zarpe'){
+            clase = "event-primary" ;
+        }else{
+            clase = "event-success" ;
         }
+        const obj = {  startDate: this.fecha,  endDate: this.fecha, title: horario.label, tipo: this.tipo, fecha: this.fecha, 
+        codificacion: this.codificacion, horario_id: this.horario, classes: clase }
+        this.$store.dispatch('calendar/addEvent', obj)
+         .then(()   => { 
+           this.$vs.notify({
+              color: 'success',
+              title: 'Agendamiento Ingresado',
+              text: 'El agendamiento ya fue ingresado'
+            })
+
+          })
+         .catch(err => { 
+           
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+          })
+    },
+    updateMonth(val) {
+      this.showDate = this.$refs.calendar.getIncrementedPeriod(val);
+    },
+    clearFields() {
+        this.horario = this.fecha = "";
+        this.id = 0;
+        this.tipo = "";
+    },
+    promptAddNewEvent(date) {
+        this.disabledFrom = false;
+        this.addNewEventDialog(date);
+    },
+    addNewEventDialog(date) {
+        this.clearFields();
+        this.fecha = date;
+        this.activePromptAddEvent = true;
+    },
+    openAddNewEvent(date) {
+       let calendar = this.$refs.fullCalendar;
+      
+        calendar.addEventSource([{
+        start: new Date(),
+        end: new Date(),
+        rendering: 'background',
+        block: true,
+      }]);
+        //this.disabledFrom = true;
+        //this.addNewEventDialog(date);
+    },
+    openEditEvent(event) {
+      const e = this.$store.getters['calendar/getEvent'](event.id)
+      this.id = e.id
+      this.horario = e.horario_id
+      this.tipo = e.tipo
+      this.fecha = e.startDate
+      this.activePromptEditEvent = true;
+    },
+    editEvent() {
+      var horario = this.horariosOptions.find(element => element.id == this.horario); 
+      var clase = ""
+      if(this.tipo == 'Zarpe'){
+          clase = "event-primary" ;
+      }else{
+          clase = "event-success" ;
+      }
+      const obj = {  id: this.id, startDate: this.fecha,  endDate: this.fecha, title: horario.label, tipo: this.tipo, fecha: this.fecha, 
+      codificacion: this.codificacion, horario_id: this.horario, classes: clase }
+      this.$store.dispatch('calendar/editEvent', obj)
+       .then(()   => { 
+           this.$vs.notify({
+              color: 'success',
+              title: 'Agendamiento Actualizado',
+              text: 'El agendamiento ya fue actualizado'
+            })
+
+          })
+         .catch(err => { 
+           
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+          })
+
+    },
+    removeEvent() {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: `Confirmar Eliminacion`,
+        text: `Este seguro que desea eliminar el siguiente agendamiento`,
+        accept: this.deleteRecord,
+        acceptText: "Eliminar"
       })
     },
-    showDeleteSuccess() {
+    eventDragged(event, date) {
+      var agendamiento = event.originalEvent;
+      const obj = {  id: agendamiento.id, startDate: date,  endDate: date, title: agendamiento.title, 
+      tipo: agendamiento.tipo, fecha: date, codificacion: this.codificacion, horario_id: agendamiento.horario_id, 
+      classes: agendamiento.classes }
+      
+      this.$store.dispatch('calendar/eventDragged', obj)
+      .then(()   => { 
+           this.$vs.notify({
+              color: 'success',
+              title: 'Agendamiento Actualizado',
+              text: 'El agendamiento ya fue actualizado'
+            })
+
+          })
+         .catch(err => { 
+           
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+          })
+
+    },
+    deleteRecord() {
+      
+      /* UnComment below lines for enabling true flow if deleting user */
+      this.$store.dispatch('calendar/removeEvent', this.id)
+         .then(()   => { this.showDeleteSuccess() })
+         .catch(err => { 
+           
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+          })
+    },
+     showDeleteSuccess() {
       this.$vs.notify({
         color: 'success',
-        title: 'Guardar registros',
-        text: 'Los registros se han guardado exitosamente.'
+        title: 'Agendamiento Eliminado',
+        text: 'El agendamiento ya fue eliminado'
       })
     },
-    reset_data() {
-      this.data_local = {
-        meses:[]
-      },
-
-      this.codificaciones = [],
-      this.codificacionesOptions = [],
-      this.cantidadCodificaciones =null,
-
-
-      this.$refs.wizard.reset();
-      this.errors.clear();
-
-    },
   },
+  created() {
+    this.$store.registerModule('calendar', moduleCalendar)
+    
+  },
+  mounted() {
+    this.traeOtrosDatos();
+  },
+  beforeDestroy() {
+    this.$store.unregisterModule('calendar')
+  }
 }
 </script>
+
+<style lang="scss">
+@import "@sass/vuexy/apps/simple-calendar.scss";
+</style>

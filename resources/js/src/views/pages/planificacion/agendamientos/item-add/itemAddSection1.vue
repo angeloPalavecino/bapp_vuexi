@@ -34,13 +34,13 @@
                <div class="vx-col w-1/4 items-center sm:flex hidden">
 
                <div class="con-select w-full p-1" name="codificacion" dir="ltr">
-               <label for="" class="vs-select--label">Codificaciones</label>
+               <label for="" class="vs-select--label">Pasajeros</label>
                 <v-select :options="codificacionesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                 v-model="codificacion" label="nombre" 
                 ref="codificaciones" name="codificaciones" :reduce="nombre => nombre.id" class="w-full p-1" 
                 placeholder="Seleccione una persona">
                  <template v-slot:option="option">
-                      {{ option.nombre }} {{ option.apellido }}
+                      {{ option.nombre }} {{ option.apellido }} ({{ option.rut }})
                   </template>
                 </v-select>
 
@@ -91,7 +91,8 @@
 
 
     <div class="w-full mb-4 mt-4">
-       <FullCalendar
+       
+    <FullCalendar
       class='calendar'
       ref="fullCalendar"
       defaultView="dayGridMonth"
@@ -100,18 +101,30 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
+      :buttonText="buttonText"
+      :validRange="validRange"
       :plugins="calendarPlugins"
       :allDaySlot="allDaySlot"
       :weekends="calendarWeekends"
       :events="CalendarEvents"
       :editable="editable"
       :disableResizing="aux"
+      :locale="locale"
+      :firstDay="firstDay"
       @dateClick="handleDateClick"
       @eventClick="openEditEvent"
       @eventDrop="eventDragged"
       @eventResize="eventResize"
+
       />
     </div> 
+
+        <!-- :buttonText="{
+        today:    'hoy',
+        month:    'mes',
+        week:     'semana',
+        day:      'dia',
+      }" -->
 
      <!-- ADD EVENT -->
    <vs-prompt
@@ -187,7 +200,6 @@ import axios from "@/axios.js"
 import Datepicker from 'vuejs-datepicker'
 import { en } from "vuejs-datepicker/src/locale"
 import vSelect from 'vue-select'
-
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -196,7 +208,7 @@ export default {
   components: {
     FullCalendar, // make the <FullCalendar> tag available
     Datepicker,
-    vSelect
+    vSelect,
   },
   data: function() {
     return {
@@ -206,6 +218,17 @@ export default {
       aux:true,
       eventos:true,
       langEn: en,
+      locale: 'es',
+      firstDay: 1,
+      validRange:{ start: new Date() },
+      buttonText:{
+        today:    'hoy',
+        month:    'mes',
+        week:     'semana',
+        day:      'día',
+        list:     'lista'
+      },
+      selectable:true,
       id: 0,
       tipo:'',
       horario:'',
@@ -243,8 +266,32 @@ export default {
   },
   watch: {
     empresa(obj) {
-      this.sucursal = null,
-      this.codificacion =  null,
+      this.sucursal = null;
+      this.codificacion =  null;
+      var item = this.empresasOptions.find((u) => u.id === obj)  
+      
+      if(item.id == 1){      
+        
+        var fecha = new Date();
+       
+      }else{
+          
+        var fecha_hoy = new Date(); 
+        var fecha_max = new Date();
+        var fecha = new Date();
+        var horas = item.hora_max_agendamiento.split(':');
+        fecha_max.setHours(horas[0],horas[1],horas[2]);
+
+        if(Date.parse(fecha_max) < Date.parse(fecha_hoy)){
+          fecha.setDate(fecha.getDate() + 1);      
+        }
+        
+      }
+
+      var validRange = { start: fecha };    
+      let calendarApi = this.$refs.fullCalendar.getApi()
+      calendarApi.setOption('validRange', validRange);
+      
      // this.$store.state.calendar.events = null,
       this.traeSucursales(obj);
     },
@@ -390,9 +437,8 @@ export default {
            this.clearFields();
            this.fechas = [];
            let calendarApi = this.$refs.fullCalendar.getApi()
-           console.log(calendarApi);
-           //calendarApi.removeEvents();
-
+           calendarApi.render();
+         
            this.$vs.notify({
               color: 'success',
               title: 'Agendamiento Ingresado',
@@ -528,7 +574,9 @@ export default {
         this.activePromptAddEvent = true;
     },
     handleDateClick(info) {
-      if(info.dayEl.style.backgroundColor == 'rgb(161, 212, 228)' ){
+      
+
+      if(info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)' ){
         const index = this.fechas.indexOf(info.dateStr);
         if (index > -1) {
             this.fechas.splice(index, 1);
@@ -536,10 +584,11 @@ export default {
          info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(161, 212, 228)';
+        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
       }
+       
  
-     /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+       /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
         this.calendarEvents.push({ // add new event data
           title: 'New Event',
           start: arg.date,
@@ -550,13 +599,13 @@ export default {
   },
  created() {
     
-    this.$store.registerModule('calendar', moduleCalendar)
-    
+    this.$store.registerModule('calendar', moduleCalendar)    
   },
   mounted() {
     this.traeOtrosDatos();
   },
   beforeDestroy() {
+    this.$store.state.calendar.events = null;
     this.$store.unregisterModule('calendar')
   }
 
@@ -582,4 +631,8 @@ export default {
 .fc-button-active {
   opacity: 0.65!important;
 }
+
+.fc-sun { background-color:RGB(231, 240, 238) } //RGB(230, 240, 241)
+.fc-sat { background-color:RGB(231, 240, 238) } //RGB(230, 240, 241)
+
 </style>

@@ -150,13 +150,14 @@
         :suppressPaginationPanel="true"
         :enableRtl="$vs.rtl"
         
-         @grid-size-changed="onGridSizeChanged"
+        @grid-size-changed="onGridSizeChanged"
                   
         :frameworkComponents="frameworkComponents"
         :loadingOverlayComponent="loadingOverlayComponent"
         :loadingOverlayComponentParams="loadingOverlayComponentParams"
         :noRowsOverlayComponent="noRowsOverlayComponent"
         :noRowsOverlayComponentParams="noRowsOverlayComponentParams"
+        @row-selected="onRowSelected"
         
         >
       </ag-grid-vue>
@@ -418,6 +419,30 @@ export default {
     }
   },
   methods: {
+    onRowSelected(params) {
+
+      var fecha_hoy = new Date();
+      var fecha = new Date(params.data.fecha_inicio);
+      fecha_hoy.setHours(0,0,0,0);
+
+      if(fecha >= fecha_hoy){
+            
+
+
+      }else{
+
+      /*  this.$vs.dialog({
+            color: 'danger',
+            title: `Confirmar Eliminacion`,
+            text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+            acceptText: "Aceptar"
+        })*/
+
+        params.node.setSelected(false);
+            
+      }
+
+    },
      onGridSizeChanged(params) {
         var allColumns = params.columnApi.getAllColumns();
         params.columnApi.setColumnsVisible(allColumns, true);
@@ -449,7 +474,21 @@ export default {
      massivedeleteRecord() {
  
              this.$store.dispatch("itemManagement/borrarMasivoItem", {	Items: this.gridApi.getSelectedRows(), Url: this.urlApi  })
-               .then(()   => { this.showMassiveDeleteSuccess() })
+               .then(()   => { 
+
+                const filter = this.gridApi.getFilterInstance("estado")
+                const val = this.estadoFilter.value
+                let modelObj = null
+
+                 if(val !== "all") {
+                  modelObj = { type: "equals", filter: val }
+                }
+                filter.setModel(modelObj)
+                this.gridApi.onFilterChanged()
+                 
+                this.showMassiveDeleteSuccess() 
+                 
+                 })
                .catch(err => { 
 
               var textError = err.response.status == 300 ? err.response.data.message : err;

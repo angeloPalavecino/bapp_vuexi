@@ -67,8 +67,8 @@
                 <td>{{ item_data.habilitado === 1 ? 'Si' : 'No' }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="font-semibold">Hora Max. Agendamiento</td>
+                <td>{{ item_data.hora_max_agendamiento  }}</td>
               </tr>
                <tr>
                 <td class="font-semibold">Ultima Actualizacion</td>

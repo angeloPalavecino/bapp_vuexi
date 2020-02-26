@@ -37,6 +37,13 @@
             */
           },
           confirmDeleteRecord() {
+
+            var fecha_hoy = new Date();
+            var fecha = new Date(this.params.data.fecha_inicio);
+            fecha_hoy.setHours(0,0,0,0);
+
+            if(fecha >= fecha_hoy){
+            
             this.$vs.dialog({
               type: 'confirm',
               color: 'danger',
@@ -45,14 +52,42 @@
               accept: this.deleteRecord,
               acceptText: "Eliminar"
             })
-          },
+
+            }else{
+
+              this.$vs.dialog({
+                color: 'danger',
+                title: `Confirmar Eliminacion`,
+                text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+                acceptText: "Aceptar"
+              })
+            
+            }
+      
+         
+         },
           deleteRecord() {
             /* Below two lines are just for demo purpose */
             //this.showDeleteSuccess()
             
             /* UnComment below lines for enabling true flow if deleting user */
              this.$store.dispatch("itemManagement/borrarItem", {	Id: this.params.data.id, Url: this.$parent.$parent.urlApi  })
-               .then(()   => { this.showDeleteSuccess() })
+               .then(()   => { 
+                 
+                const filter = this.$parent.$parent.gridApi.getFilterInstance("estado")
+                const val = this.$parent.$parent.estadoFilter.value
+                let modelObj = null
+
+                 if(val !== "all") {
+                  modelObj = { type: "equals", filter: val }
+                }
+                filter.setModel(modelObj)
+                this.$parent.$parent.gridApi.onFilterChanged()
+                 
+                this.showDeleteSuccess() 
+
+               
+               })
                .catch(err => { 
 
               var textError = err.response.status == 300 ? err.response.data.message : err;

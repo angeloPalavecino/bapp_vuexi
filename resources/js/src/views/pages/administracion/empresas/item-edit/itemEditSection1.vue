@@ -61,6 +61,15 @@
                   <span class="text-danger text-sm" >{{ errors.first('step-1.fecha_incorporacion') }}</span>
             
               </div>
+
+               <div class="vx-col md:w-1/2 w-full mt-6">
+               
+             
+               <flat-pickr :config="configdateTimePicker" v-model="data_local.hora_max_agendamiento" label-placeholder="Horario" 
+               placeholder="Seleccione un horario"   name="hora_max_agendamiento" v-validate="'required'"/>
+            
+              </div>
+
                <div class="vx-col md:w-1 w-full mt-2">
              <label class="vs-input--label ">Habilitado</label>
               <br/>
@@ -490,6 +499,9 @@ const dict = {
         cicfac_hasta:{
             required: 'El campo es requerido',
             numeric: 'Debe ingresar solo numeros'
+        },
+        hora_max_agendamiento:{
+            required: 'La hora maxima de agendamiento es requerida',
         }
     }
 };
@@ -542,6 +554,7 @@ export default {
         habilitado : this.data.habilitado,
         fecha_incorporacion : this.data.fecha_incorporacion ? this.data.fecha_incorporacion: null,
         id : this.data.id ? this.data.id: null,
+        hora_max_agendamiento: this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento: null,
       },
 
       cicloProduccionOptions: [
@@ -582,6 +595,13 @@ export default {
           dias: this.data_cicproduccion.dias,
       },
       disabledcicpro: this.data_cicproduccion.dias === 0 ? false : true,
+
+      configdateTimePicker: {
+              enableTime: true,
+              enableSeconds: true,
+              noCalendar: true,
+              time_24hr:true
+      },
 
     }
   },
@@ -819,6 +839,7 @@ export default {
         habilitado : this.data.habilitado,
         fecha_incorporacion : this.data.fecha_incorporacion ? this.data.fecha_incorporacion: null,
         id : this.data.id ? this.data.id: null,
+        hora_max_agendamiento: this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento: null,
       },
 
       this.responsable = {},

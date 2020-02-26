@@ -309,7 +309,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   methods: {
     asignaDireccion: function asignaDireccion() {
       var place = this.autocomplete.getPlace();
-      this.data_local.direccion = this.autocomplete.getPlace().formatted_address;
+      this.data_local.direccion = place.name; //this.autocomplete.getPlace().formatted_address;
+
       this.data_local.lat = this.autocomplete.getPlace().geometry.location.lat().toFixed(5);
       this.data_local.lng = this.autocomplete.getPlace().geometry.location.lng().toFixed(5); //this.data_local.comuna = place.vicinity;
 
@@ -378,7 +379,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           var place = results[0];
-          thisIns.data_local.direccion = results[0].formatted_address;
+          var aux = results[0].formatted_address.split(',');
+          thisIns.data_local.direccion = aux[0]; //results[0].formatted_address;    
+
           thisIns.data_local.lat = results[0].geometry.location.lat().toFixed(5);
           thisIns.data_local.lng = results[0].geometry.location.lng().toFixed(5);
           thisIns.data_local.comuna = place.vicinity;
