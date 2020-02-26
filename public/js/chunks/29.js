@@ -295,6 +295,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -362,7 +369,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         sucursal_id: this.data.sucursal_id ? this.data.sucursal_id : null,
         lat: this.data.lat ? parseFloat(this.data.lat) : null,
         lng: this.data.lng ? parseFloat(this.data.lng) : null,
-        habilitado: this.data.habilitado ? this.data.habilitado : null
+        habilitado: this.data.habilitado,
+        comentario: this.data.comentario ? this.data.comentario : null
       },
       empresa: this.data.empresa_id,
       center: {
@@ -380,12 +388,27 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       gpatronesOptions: [],
       empresasOptions: [],
       sucursalesOptions: [],
+      comentariosOptions: [{
+        text: "Comentario 1",
+        value: 1
+      }, {
+        text: "Comentario 2",
+        value: 2
+      }, {
+        text: "Comentario 3",
+        value: 3
+      }, {
+        text: "Comentario 4",
+        value: 4
+      }],
       patrones: [],
       tipObj: null,
       offset: {
         x: 10,
         y: 10
-      }
+      },
+      positionStart: null,
+      positionStartNew: null
     };
   },
   watch: {
@@ -468,6 +491,11 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
   },
   created: function created() {},
   methods: (_methods = {
+    checkHabilitado: function checkHabilitado() {
+      if (this.data_local.habilitado == true) {
+        this.data_local.comentario = null;
+      }
+    },
     asignaDireccion: function asignaDireccion() {
       var place = this.autocomplete.getPlace();
       this.data_local.direccion = place.name; //this.autocomplete.getPlace().formatted_address;
@@ -523,9 +551,23 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
           }
         });
         marker.setMap(map);
-        google.maps.event.addListener(marker, 'dragend', function () {
-          thisIns.geocodePosition(marker.getPosition());
+        google.maps.event.addListener(marker, 'dragstart', function () {
+          thisIns.positionStart = this.position;
         });
+        google.maps.event.addListener(marker, 'dragend', function () {
+          thisIns.positionStartNew = this.position;
+          thisIns.$vs.dialog({
+            type: 'confirm',
+            color: 'danger',
+            title: "Confirmar",
+            text: 'Esta seguro que desea mover el marcador?.',
+            accept: thisIns.ConfirmDialog,
+            cancel: thisIns.CancelDialog
+          });
+        }); //google.maps.event.addListener(marker, 'dragend', function() {
+        //thisIns.geocodePosition(marker.getPosition());
+        //});
+
         var latlng = new google.maps.LatLng(lat, lng); //map.setCenter(latlng);
         //map.setZoom(15);
 
@@ -540,6 +582,12 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
           icon: 'icon-alert-circle'
         });
       }
+    },
+    ConfirmDialog: function ConfirmDialog() {
+      this.geocodePosition(this.positionStartNew);
+    },
+    CancelDialog: function CancelDialog(value) {
+      this.marker.setPosition(this.positionStart);
     },
     geocodePosition: function geocodePosition(pos) {
       var thisIns = this;
@@ -802,6 +850,18 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     }
 
     thisIns.markersPat = [];
+  }), _defineProperty(_methods, "confirmarEditar", function confirmarEditar() {
+    if (this.data_local.habilitado == 0) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Confirmar",
+        text: 'Esta seguro que desea dejar deshabilitado el pasajero?. Al realizar esta accion, se eliminaran los agendamientos activos que tenga asociado.',
+        accept: this.save_changes
+      });
+    } else {
+      this.save_changes();
+    }
   }), _defineProperty(_methods, "save_changes", function save_changes() {
     var _this7 = this;
 
@@ -852,7 +912,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       sucursal_id: this.data.sucursal_id ? this.data.sucursal_id : null,
       lat: this.data.lat ? this.data.lat : null,
       lng: this.data.lng ? this.data.lng : null,
-      habilitado: this.data.habilitado ? this.data.habilitado : null
+      habilitado: this.data.habilitado,
+      comentario: this.data.comentario ? this.data.comentario : null
     };
     this.empresa = this.data.empresa_id;
     this.traeSucursales(this.data.empresa_id);
@@ -1524,6 +1585,7 @@ var render = function() {
               _vm._v(" "),
               _c("vs-switch", {
                 staticClass: "mt-2",
+                on: { input: _vm.checkHabilitado },
                 model: {
                   value: _vm.data_local.habilitado,
                   callback: function($$v) {
@@ -1532,6 +1594,41 @@ var render = function() {
                   expression: "data_local.habilitado"
                 }
               })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c(
+                "vs-select",
+                {
+                  ref: "comentario",
+                  staticClass: "w-full p-1",
+                  attrs: {
+                    label: "Comentario",
+                    name: "comentario",
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                    disabled: _vm.data_local.habilitado == 0 ? false : true
+                  },
+                  model: {
+                    value: _vm.data_local.comentario,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_local, "comentario", $$v)
+                    },
+                    expression: "data_local.comentario"
+                  }
+                },
+                _vm._l(_vm.comentariosOptions, function(item) {
+                  return _c("vs-select-item", {
+                    key: item.value,
+                    attrs: { value: item.value, text: item.text }
+                  })
+                }),
+                1
+              )
             ],
             1
           ),
@@ -1554,7 +1651,7 @@ var render = function() {
                           {
                             staticClass: "ml-auto mt-2",
                             attrs: { disabled: !_vm.validateForm },
-                            on: { click: _vm.save_changes }
+                            on: { click: _vm.confirmarEditar }
                           },
                           [_vm._v("Guardar Cambios")]
                         )
@@ -1983,15 +2080,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue ***!
   \**************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _itemEditSection1_vue_vue_type_template_id_4fa2ce10___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=template&id=4fa2ce10& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=template&id=4fa2ce10&");
 /* harmony import */ var _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./itemEditSection1.vue?vue&type=script&lang=js& */ "./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _itemEditSection1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -2021,7 +2117,7 @@ component.options.__file = "resources/js/src/views/pages/planificacion/codificac
 /*!***************************************************************************************************************************!*\
   !*** ./resources/js/src/views/pages/planificacion/codificaciones/item-edit/itemEditSection1.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

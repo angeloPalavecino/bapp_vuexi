@@ -328,6 +328,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
+    setComentario: function setComentario(value) {
+      if (value === 1) return "Comentario 1";else if (value === 2) return "Comentario 2";else if (value === 3) return "Comentario 3";else if (value === 4) return "Comentario 4";else return "-";
+    },
     confirmDeleteRecord: function confirmDeleteRecord() {
       this.$vs.dialog({
         type: 'confirm',
@@ -801,9 +804,17 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }),
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Comentario")
+                            ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.setComentario(_vm.item_data.comentario)
+                                )
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("tr", [

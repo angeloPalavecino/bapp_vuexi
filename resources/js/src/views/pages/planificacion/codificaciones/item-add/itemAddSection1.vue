@@ -121,9 +121,17 @@
              <label class="vs-input--label ">Habilitado</label>
               <br/>
              
-               <vs-switch class="mt-2" v-model="data_local.habilitado" />
+               <vs-switch class="mt-2" @input="checkHabilitado" v-model="data_local.habilitado" />
            
         </div>
+
+        <div class="vx-col md:w-1/2 w-full mt-2">
+        <vs-select v-model="data_local.comentario" label="Comentario" ref="comentario" name="comentario"  
+             :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(data_local.habilitado == 0 ? false : true)" 
+              class="w-full p-1">
+          <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in comentariosOptions"  />
+          </vs-select>
+      </div>
 
              
       
@@ -231,6 +239,7 @@ export default {
       data_local: {
         codigo: null,
         sucursal_id :null,
+        habilitado:1
       },
       empresa:1,
       center: { lat: -33.4533624, lng: -70.6642131 },
@@ -246,13 +255,25 @@ export default {
       empresasOptions:[],
       sucursalesOptions:[],
       
+      comentariosOptions: [
+        {text: "Comentario 1", value: 1},
+        {text: "Comentario 2", value: 2},
+        {text: "Comentario 3", value: 3},
+        {text: "Comentario 4", value: 4},
+       
+      ],
+
       patrones:[],
 
       tipObj : null,
       offset : {
           x: 10,
           y: 10
-      }
+      },
+
+      positionStart:null,
+      positionStartNew:null,
+    
     }
   },
    watch: {
@@ -323,6 +344,12 @@ export default {
 
   },
   methods: {
+     checkHabilitado(){
+      if(this.data_local.habilitado == true){
+        this.data_local.comentario = null;
+      }
+
+    },
      asignaDireccion() {
       var place = this.autocomplete.getPlace();
       this.data_local.direccion = place.name;//this.autocomplete.getPlace().formatted_address;
@@ -378,9 +405,26 @@ export default {
 
                 marker.setMap(map);
 
-                google.maps.event.addListener(marker, 'dragend', function() {
-                  thisIns.geocodePosition(marker.getPosition());
+                google.maps.event.addListener(marker, 'dragstart', function() {
+                  thisIns.positionStart = this.position;
+                  
                 });
+                google.maps.event.addListener(marker, 'dragend', function() {
+                  thisIns.positionStartNew = this.position;
+                 
+                 thisIns.$vs.dialog({
+                      type: 'confirm',
+                      color: 'danger',
+                      title: `Confirmar`,
+                      text: 'Esta seguro que desea mover el marcador?.',
+                      accept: thisIns.ConfirmDialog,
+                      cancel: thisIns.CancelDialog
+                    })
+                });
+
+                //google.maps.event.addListener(marker, 'dragend', function() {
+                //  thisIns.geocodePosition(marker.getPosition());
+                //});
                 
                 var latlng = new google.maps.LatLng(lat, lng);
                   //map.setCenter(latlng);
@@ -399,6 +443,12 @@ export default {
                 icon:'icon-alert-circle'})
 
             }
+    },
+    ConfirmDialog() {
+      this.geocodePosition(this.positionStartNew);
+    },
+    CancelDialog(value) {
+      this.marker.setPosition(this.positionStart)
     },
     geocodePosition(pos){
                const thisIns = this;
@@ -708,6 +758,8 @@ export default {
 
       this.data_local = {
         codigo: null,
+        sucursal_id :null,
+        habilitado:1
       }
       this.sucursalesOptions = [];
       this.gpatronesOptions = [];
@@ -731,6 +783,8 @@ export default {
           this.markerSuc = null;
       }
 
+      this.positionStart = null
+      this.positionStartNew = null
       
 
       this.clearOverlaysPat();

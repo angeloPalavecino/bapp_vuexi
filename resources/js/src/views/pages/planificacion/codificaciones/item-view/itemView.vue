@@ -90,8 +90,8 @@
                 <td>{{ item_data.comuna }}</td>
               </tr>
               <tr>
-                <td class="font-semibold"></td>
-                <td>&nbsp;</td>
+                <td class="font-semibold">Comentario</td>
+                <td>{{ setComentario(item_data.comentario) }}</td>
               </tr>
                <tr>
                 <td class="font-semibold">Ultima Actualizacion</td>
@@ -159,6 +159,14 @@ export default {
   computed: {
   },
   methods: {
+     setComentario(value) {
+        if(value === 1) return "Comentario 1"
+        else if(value === 2) return "Comentario 2"
+        else if(value === 3) return "Comentario 3"
+        else if(value === 4) return "Comentario 4"
+        else return "-"
+  
+    },
     confirmDeleteRecord() {
       this.$vs.dialog({
         type: 'confirm',

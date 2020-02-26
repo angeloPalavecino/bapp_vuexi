@@ -247,6 +247,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -297,7 +305,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       urlApi: "/codificaciones/codificaciones/",
       data_local: {
         codigo: null,
-        sucursal_id: null
+        sucursal_id: null,
+        habilitado: 1
       },
       empresa: 1,
       center: {
@@ -314,12 +323,27 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       gpatronesOptions: [],
       empresasOptions: [],
       sucursalesOptions: [],
+      comentariosOptions: [{
+        text: "Comentario 1",
+        value: 1
+      }, {
+        text: "Comentario 2",
+        value: 2
+      }, {
+        text: "Comentario 3",
+        value: 3
+      }, {
+        text: "Comentario 4",
+        value: 4
+      }],
       patrones: [],
       tipObj: null,
       offset: {
         x: 10,
         y: 10
-      }
+      },
+      positionStart: null,
+      positionStartNew: null
     };
   },
   watch: {
@@ -389,6 +413,11 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     var thisIns = this;
   },
   methods: {
+    checkHabilitado: function checkHabilitado() {
+      if (this.data_local.habilitado == true) {
+        this.data_local.comentario = null;
+      }
+    },
     asignaDireccion: function asignaDireccion() {
       var place = this.autocomplete.getPlace();
       this.data_local.direccion = place.name; //this.autocomplete.getPlace().formatted_address;
@@ -444,9 +473,23 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
           }
         });
         marker.setMap(map);
-        google.maps.event.addListener(marker, 'dragend', function () {
-          thisIns.geocodePosition(marker.getPosition());
+        google.maps.event.addListener(marker, 'dragstart', function () {
+          thisIns.positionStart = this.position;
         });
+        google.maps.event.addListener(marker, 'dragend', function () {
+          thisIns.positionStartNew = this.position;
+          thisIns.$vs.dialog({
+            type: 'confirm',
+            color: 'danger',
+            title: "Confirmar",
+            text: 'Esta seguro que desea mover el marcador?.',
+            accept: thisIns.ConfirmDialog,
+            cancel: thisIns.CancelDialog
+          });
+        }); //google.maps.event.addListener(marker, 'dragend', function() {
+        //  thisIns.geocodePosition(marker.getPosition());
+        //});
+
         var latlng = new google.maps.LatLng(lat, lng); //map.setCenter(latlng);
         //map.setZoom(15);
 
@@ -461,6 +504,12 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
           icon: 'icon-alert-circle'
         });
       }
+    },
+    ConfirmDialog: function ConfirmDialog() {
+      this.geocodePosition(this.positionStartNew);
+    },
+    CancelDialog: function CancelDialog(value) {
+      this.marker.setPosition(this.positionStart);
     },
     geocodePosition: function geocodePosition(pos) {
       var thisIns = this;
@@ -747,7 +796,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        codigo: null
+        codigo: null,
+        sucursal_id: null,
+        habilitado: 1
       };
       this.sucursalesOptions = [];
       this.gpatronesOptions = [];
@@ -771,6 +822,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         this.markerSuc = null;
       }
 
+      this.positionStart = null;
+      this.positionStartNew = null;
       this.clearOverlaysPat();
       this.errors.clear();
     }
@@ -1359,6 +1412,7 @@ var render = function() {
               _vm._v(" "),
               _c("vs-switch", {
                 staticClass: "mt-2",
+                on: { input: _vm.checkHabilitado },
                 model: {
                   value: _vm.data_local.habilitado,
                   callback: function($$v) {
@@ -1367,6 +1421,41 @@ var render = function() {
                   expression: "data_local.habilitado"
                 }
               })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c(
+                "vs-select",
+                {
+                  ref: "comentario",
+                  staticClass: "w-full p-1",
+                  attrs: {
+                    label: "Comentario",
+                    name: "comentario",
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                    disabled: _vm.data_local.habilitado == 0 ? false : true
+                  },
+                  model: {
+                    value: _vm.data_local.comentario,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_local, "comentario", $$v)
+                    },
+                    expression: "data_local.comentario"
+                  }
+                },
+                _vm._l(_vm.comentariosOptions, function(item) {
+                  return _c("vs-select-item", {
+                    key: item.value,
+                    attrs: { value: item.value, text: item.text }
+                  })
+                }),
+                1
+              )
             ],
             1
           ),
