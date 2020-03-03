@@ -10,6 +10,7 @@ use App\Models\GrupoPatronHasPatrones;
 use App\Models\GrupoPatronHasSucursales;
 use App\Models\GrupoPatron;
 use App\Models\Excepciones;
+use App\Models\Agendamientos;
 
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class CodificacionesController extends Controller
              'email' => 'email|required', 
              'telefono' => 'required', 
              'centro_costo' => 'required', 
-             'codigo' => 'required', 
+             //'codigo' => 'required', 
              'lat' => 'required', 
              'lng' => 'required', 
 
@@ -125,6 +126,45 @@ class CodificacionesController extends Controller
             $latSuc = $sucursal['lat'];
             $lngSuc = $sucursal['lng'];
             $distancia = self::calculoDistancia($lat, $lng, $latSuc,$lngSuc);
+
+            if(is_null($codigo) || $codigo == "" || $codigo == " " || $codigo == null){
+             
+              //DETERMINA SI EL RUT SE ENCUENTRA DENTRO DEL PATRON
+              $gp = GrupoPatronHasSucursales::where('sucursal_id',$sucursal_id)->get();
+                   
+              if(count($gp) > 0 ){
+                
+                  $idsgp = array_column($gp->toArray(), 'grupopatrones_id');
+              
+                  $patrones = GrupoPatron::join('grupo_patron_has_patrones', 'grupo_patrons.id', '=', 'grupo_patron_has_patrones.grupopatrones_id')
+                      ->join('patrons', 'grupo_patron_has_patrones.patron_id', '=', 'patrons.id')
+                      ->select(
+                          'grupo_patrons.id as codigo', 
+                          'patrons.lat as lat', 
+                          'patrons.lng as lng' )
+                          ->whereIn('grupo_patrons.id', $idsgp )
+                          ->get();
+
+                  foreach ($patrones as $patron) {
+
+                      $latpatron = explode(',' , $patron->lat);
+                      $lngpatron = explode(',' , $patron->lng);
+                      $count = count($latpatron)-1;
+                      $polygon = array();
+                  
+                      for($i = 0 ; $i<=$count ; $i++)   {
+                          $polygon[$i] = array($lngpatron[$i],$latpatron[$i]);
+                      }
+
+                      if(self::validaCodificacion(array($lng , $lat),$polygon)){
+                          $codigo = $patron['codigo'];
+                          break;
+                      }
+                  }
+
+              }
+            }
+
         }
         
 
@@ -272,6 +312,44 @@ class CodificacionesController extends Controller
                 $latSuc = $sucursal['lat'];
                 $lngSuc = $sucursal['lng'];
                 $distancia = self::calculoDistancia($lat, $lng, $latSuc,$lngSuc);
+
+                if(is_null($codigo) || $codigo == "" || $codigo == " " || $codigo == null){
+             
+                    //DETERMINA SI EL RUT SE ENCUENTRA DENTRO DEL PATRON
+                    $gp = GrupoPatronHasSucursales::where('sucursal_id',$sucursal_id)->get();
+                         
+                    if(count($gp) > 0 ){
+                      
+                        $idsgp = array_column($gp->toArray(), 'grupopatrones_id');
+                    
+                        $patrones = GrupoPatron::join('grupo_patron_has_patrones', 'grupo_patrons.id', '=', 'grupo_patron_has_patrones.grupopatrones_id')
+                            ->join('patrons', 'grupo_patron_has_patrones.patron_id', '=', 'patrons.id')
+                            ->select(
+                                'grupo_patrons.id as codigo', 
+                                'patrons.lat as lat', 
+                                'patrons.lng as lng' )
+                                ->whereIn('grupo_patrons.id', $idsgp )
+                                ->get();
+      
+                        foreach ($patrones as $patron) {
+      
+                            $latpatron = explode(',' , $patron->lat);
+                            $lngpatron = explode(',' , $patron->lng);
+                            $count = count($latpatron)-1;
+                            $polygon = array();
+                        
+                            for($i = 0 ; $i<=$count ; $i++)   {
+                                $polygon[$i] = array($lngpatron[$i],$latpatron[$i]);
+                            }
+      
+                            if(self::validaCodificacion(array($lng , $lat),$polygon)){
+                                $codigo = $patron['codigo'];
+                                break;
+                            }
+                        }
+      
+                    }
+                }
             }
            
 
@@ -294,6 +372,14 @@ class CodificacionesController extends Controller
                 'comentario'        => $comentario              
               )
          );
+
+         if($habilitado == false){
+            
+            $fecha_hoy = date("Y-m-d H:m:s");
+            $agendamientos =  Agendamientos::where('codificacion_id', $id)
+                          ->where('fecha_inicio', '>=', $fecha_hoy)
+                          ->delete();  
+        }
 
 
             return response()->json(

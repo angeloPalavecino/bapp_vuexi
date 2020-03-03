@@ -627,7 +627,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     traePatrones: function traePatrones(value) {
       var _this3 = this;
 
-      if (value > 1) {
+      if (value > 0) {
         //Combo Patrones del grupo
         _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/patrones/grupos/" + value).then(function (res) {
           _this3.patrones = res.data.patrones;
@@ -1533,14 +1533,6 @@ var render = function() {
               _c(
                 "vs-select",
                 {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
                   ref: "codigo",
                   staticClass: "w-full p-1",
                   attrs: {

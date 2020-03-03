@@ -110,9 +110,9 @@
        <div class="vx-col md:w-1/2 w-full mt-2">
         <vs-select v-model="data_local.codigo" label="Codigo" ref="codigo" name="codigo"  
              :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(data_local.sucursal_id > 0 ? false : true)" 
-             v-validate="'required'" class="w-full p-1" 
+              class="w-full p-1" 
              :danger="(errors.first('codigo') ? true : false)"
-             :danger-text="(errors.first('codigo') ? errors.first('codigo') : '')">
+             :danger-text="(errors.first('codigo') ? errors.first('codigo') : '')"> <!--v-validate="'required'"-->
           <vs-select-item :key="item.id" :value="item.id" :text="item.codigo" v-for="item in gpatronesOptions"  />
           </vs-select>
       </div>
@@ -489,7 +489,7 @@ export default {
     },
     traePatrones(value) {
       
-    if(value >  1)  {
+    if(value >  0)  {
       //Combo Patrones del grupo
       axios.get(`/api/v1/patrones/grupos/` + value)
         .then((res) => {
