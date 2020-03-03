@@ -50,7 +50,7 @@ export default {
       
       this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: this.urlApi  })
         .then(res => { 
-          this.item_data = res.data.item
+          this.item_data = res.data.item[0]
           })
         .catch(err => {
           if(err.response.status === 404) {

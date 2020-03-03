@@ -13,7 +13,7 @@ class FuerazonaController extends Controller
     public function validator(array $data){ 
 
         return Validator::make($data, [
-             'empresa_id' => 'required',
+             'sucursal_id' => 'required',
              'comuna' => 'required',   
              'tipo' => 'required',   
              'distancia' => 'required',          
@@ -28,13 +28,15 @@ class FuerazonaController extends Controller
     {
         //$fuerazonas = Fuerazona::all();
 
-        $fuerazonas = Fuerazona::join('empresas', 'fuerazonas.empresa_id', '=', 'empresas.id')
+        $fuerazonas = Fuerazona::join('sucursals', 'fuerazonas.sucursal_id', '=', 'sucursals.id')
+                        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
                         ->select(
                             'fuerazonas.id',
                             'fuerazonas.distancia',
                             'fuerazonas.tipo',
                             'fuerazonas.comuna', 
-                            'fuerazonas.empresa_id', 
+                            'fuerazonas.sucursal_id', 
+                            'sucursals.nombre', 
                             'empresas.razon_social as empresa'
                              )->get();
       
@@ -76,14 +78,14 @@ class FuerazonaController extends Controller
         }
 
         $input = $request->all();
-        $empresa_id = $input['empresa_id'];
+        $sucursal_id = $input['sucursal_id'];
         $comuna = $input['comuna'];
         $tipo = $input['tipo'];
         $distancia = $input['distancia'];
 
         $fuerazona = Fuerazona::create(
          array(
-                 'empresa_id'   => $empresa_id, 
+                 'sucursal_id'   => $sucursal_id, 
                  'comuna'   => $comuna, 
                  'tipo'   => $tipo, 
                  'distancia'   => $distancia 
@@ -107,15 +109,18 @@ class FuerazonaController extends Controller
     {
         //$fuerazona = Fuerazona::find($id);
 
-        $fuerazona = Fuerazona::join('empresas', 'fuerazonas.empresa_id', '=', 'empresas.id')
+        $fuerazona = Fuerazona::join('sucursals', 'fuerazonas.sucursal_id', '=', 'sucursals.id')
+        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
         ->select(
             'fuerazonas.id',
             'fuerazonas.distancia',
             'fuerazonas.tipo',
             'fuerazonas.comuna', 
-            'fuerazonas.empresa_id', 
+            'fuerazonas.sucursal_id', 
             'fuerazonas.created_at', 
             'fuerazonas.updated_at', 
+            'sucursals.nombre', 
+            'sucursals.empresa_id', 
             'empresas.razon_social as empresa'
              )
              ->where("fuerazonas.id" , $id)
@@ -167,14 +172,14 @@ class FuerazonaController extends Controller
         if(!is_null($fuerazona)){
     
             $input = $request->all();
-            $empresa_id = $input['empresa_id'];
+            $sucursal_id = $input['sucursal_id'];
             $comuna = $input['comuna'];
             $tipo = $input['tipo'];
             $distancia = $input['distancia'];
 
         $fuerazona = Fuerazona::where('id', $id)->update(
          array(
-                    'empresa_id'   => $empresa_id, 
+                    'sucursal_id'   => $sucursal_id, 
                     'comuna'   => $comuna, 
                     'tipo'   => $tipo, 
                     'distancia'   => $distancia 

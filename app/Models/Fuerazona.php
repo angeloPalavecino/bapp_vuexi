@@ -12,6 +12,6 @@ class Fuerazona extends Model
      * @var array
      */
     protected $fillable = [
-        'empresa_id', 'comuna' ,'tipo', 'distancia',
+        'empresa_id', 'comuna' ,'tipo', 'distancia', 'sucursal_id',
     ];
 }

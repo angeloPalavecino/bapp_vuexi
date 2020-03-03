@@ -16,11 +16,18 @@
       <vs-divider color="primary"><h5>Datos Fuera de Zona</h5></vs-divider>
       
       <div class="vx-col md:w-1/2 w-full mt-2">
-          <vs-select v-model="data_local.empresa_id" label="Empresa" ref="empresa" name="empresa" class="w-full p-1" 
-            v-validate="'required'" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
-            :danger="(errors.first('empresa') ? true : false)"
-             :danger-text="(errors.first('empresa') ? errors.first('empresa') : '')">
+          <vs-select v-model="empresa" label="Empresa" ref="empresa" name="empresa" class="w-full p-1" 
+            :dir="$vs.rtl ? 'rtl' : 'ltr'" >
           <vs-select-item :key="item.id" :value="item.id" :text="item.razon_social" v-for="item in empresaOptions"  />
+          </vs-select>
+      </div>
+
+       <div class="vx-col md:w-1/2 w-full mt-2">
+          <vs-select autocomplete v-model="data_local.sucursal_id" label="Sucursal" ref="sucursal" name="sucursal" class="w-full p-1" 
+            :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(empresa > 1 ? false : true)" v-validate="'required'" 
+            :danger="(errors.first('sucursal') ? true : false)"
+             :danger-text="(errors.first('sucursal') ? errors.first('sucursal') : '')">
+          <vs-select-item :key="item.id" :value="item.id" :text="item.nombre" v-for="item in sucursalesOptions"  />
           </vs-select>
       </div>
 
@@ -78,9 +85,6 @@ import axios from "@/axios.js"
 import { Validator } from 'vee-validate';
 const dict = {
    custom: {
-        empresa: {
-            required: 'La empresa es requerida',
-        },
         comuna: {
             required: 'La comuna es requerida',
         },
@@ -90,7 +94,10 @@ const dict = {
         },
         tipo: {
             required: 'El tipo es requerido',
-        }
+        },
+        sucursal: {
+            required: 'La sucursal es requerida',
+        },
     }
 };
 
@@ -113,7 +120,7 @@ export default {
         id : this.data.id ? this.data.id: null,
         distancia : this.data.distancia ? this.data.distancia: null,
         comuna : this.data.comuna ? this.data.comuna: null,
-        empresa_id : this.data.empresa_id ? this.data.empresa_id: null,
+        sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         tipo : this.data.tipo ? this.data.tipo: null,
       },
        typeOptions: [
@@ -121,8 +128,16 @@ export default {
         { label: 'Fuera zona 2', value: '2' },
         { label: 'Fuera zona 3', value: '3' },
       ],
+      empresa:this.data.empresa_id,
       empresaOptions: [],
+      sucursalesOptions:[],
     }
+  },
+   watch: {
+    empresa(obj) {
+      this.data_local.sucursal_id = null;
+      this.traeSucursales(obj)
+    },
   },
   computed: {
     validateForm() {
@@ -131,6 +146,8 @@ export default {
   },
   mounted() {
     this.traeOtrosDatos();
+    this.traeSucursales(this.data.empresa_id);
+    
   },
   methods: {
     save_changes() {
@@ -164,11 +181,44 @@ export default {
         id : this.data.id ? this.data.id: null,
         distancia : this.data.distancia ? this.data.distancia: null,
         comuna : this.data.comuna ? this.data.comuna: null,
-        empresa_id : this.data.empresa_id ? this.data.empresa_id: null,
+        sucursal_id : this.data.sucursal_id ? this.data.sucursal_id: null,
         tipo : this.data.tipo ? this.data.tipo: null,
       }
-          
+      
+      this.empresa = this.data.empresa_id;
+
+      this.traeSucursales(this.data.empresa_id);
+
+      //this.data_local.sucursal_id = this.data.sucursal_id;
+      
       this.errors.clear();
+    },
+    traeSucursales(value) {
+      
+      if(value >  1)  {
+      //Combo Sucursales
+      axios.get(`/api/v1/sucursal/combo/` + value)
+        .then((res) => {
+          //console.log(res.data.items);
+          this.sucursalesOptions = res.data.items;  
+          
+        })
+        .catch((err) => { 
+
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+        this.$vs.notify({
+                    title:'Error',
+                    text: textError,
+                    color:'danger',
+                    iconPack: 'feather',
+                    icon:'icon-alert-circle'})  
+
+      })  
+    }else{
+      this.sucursalesOptions = [];
+      this.data_local.sucursal_id = null;
+    }
+     
     },
      traeOtrosDatos() {
       //Combo Empresa

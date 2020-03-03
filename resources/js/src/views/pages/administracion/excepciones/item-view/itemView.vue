@@ -35,6 +35,14 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
+                <td class="font-semibold">Empresa</td>
+                <td>{{ item_data.empresa }} </td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Sucursal</td>
+                <td>{{ item_data.nombre }} </td>
+              </tr>
+              <tr>
                 <td class="font-semibold">Rut</td>
                 <td>{{ item_data.rut }} </td>
               </tr>
@@ -189,7 +197,7 @@ export default {
     this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: urlApi  })
       .then(res => { 
 
-          this.item_data = res.data.item
+          this.item_data = res.data.item[0]
          
         })
       .catch(err => {

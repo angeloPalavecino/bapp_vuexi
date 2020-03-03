@@ -34,9 +34,13 @@
           <!-- Information - Col 1 -->
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
-              <tr>
+               <tr>
                 <td class="font-semibold">Empresa</td>
                 <td>{{ item_data.empresa }} </td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Sucursal</td>
+                <td>{{ item_data.nombre }} </td>
               </tr>
               <tr>
                 <td class="font-semibold">Comuna</td>

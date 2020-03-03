@@ -192,6 +192,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -205,6 +221,9 @@ var dict = {
     },
     comuna: {
       required: 'La comuna es requerida'
+    },
+    sucursal: {
+      required: 'La sucursal es requerida'
     }
   }
 }; // register custom messages
@@ -226,8 +245,17 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       },
       zoom: 11,
       map: null,
-      marker: null
+      marker: null,
+      empresa: null,
+      empresaOptions: [],
+      sucursalesOptions: []
     };
+  },
+  watch: {
+    empresa: function empresa(obj) {
+      this.data_local.sucursal_id = null;
+      this.traeSucursales(obj);
+    }
   },
   computed: {
     validateForm: function validateForm() {
@@ -235,6 +263,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     }
   },
   mounted: function mounted() {
+    this.traeOtrosDatos();
     this.autocomplete = new google.maps.places.Autocomplete(this.$refs.autocomplete, {
       types: ['geocode']
     });
@@ -379,8 +408,54 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         text: 'Los registros se han guardado exitosamente.'
       });
     },
+    traeSucursales: function traeSucursales(value) {
+      var _this2 = this;
+
+      if (value > 1) {
+        //Combo Sucursales
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          _this2.sucursalesOptions = res.data.items;
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this2.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.sucursalesOptions = [];
+        this.data_local.sucursal_id = null;
+      }
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this3 = this;
+
+      //Combo Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/empresas/empresas").then(function (res) {
+        _this3.empresaOptions = res.data.items;
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this3.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
+    },
     reset_data: function reset_data() {
-      this.data_local = {};
+      this.data_local = {
+        sucursal_id: ''
+      };
+      this.sucursalesOptions = [];
+      this.empresa = null;
       this.errors.clear();
 
       if (this.marker != null) {
@@ -455,6 +530,88 @@ var render = function() {
           _c("vs-divider", { attrs: { color: "primary" } }, [
             _c("h5", [_vm._v("Datos Excepcion")])
           ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c(
+                "vs-select",
+                {
+                  ref: "empresa",
+                  staticClass: "w-full p-1",
+                  attrs: {
+                    label: "Empresa",
+                    name: "empresa",
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.empresa,
+                    callback: function($$v) {
+                      _vm.empresa = $$v
+                    },
+                    expression: "empresa"
+                  }
+                },
+                _vm._l(_vm.empresaOptions, function(item) {
+                  return _c("vs-select-item", {
+                    key: item.id,
+                    attrs: { value: item.id, text: item.razon_social }
+                  })
+                }),
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c(
+                "vs-select",
+                {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  ref: "sucursal",
+                  staticClass: "w-full p-1",
+                  attrs: {
+                    autocomplete: "",
+                    label: "Sucursal",
+                    name: "sucursal",
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                    disabled: _vm.empresa > 1 ? false : true,
+                    danger: _vm.errors.first("sucursal") ? true : false,
+                    "danger-text": _vm.errors.first("sucursal")
+                      ? _vm.errors.first("sucursal")
+                      : ""
+                  },
+                  model: {
+                    value: _vm.data_local.sucursal_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_local, "sucursal_id", $$v)
+                    },
+                    expression: "data_local.sucursal_id"
+                  }
+                },
+                _vm._l(_vm.sucursalesOptions, function(item) {
+                  return _c("vs-select-item", {
+                    key: item.id,
+                    attrs: { value: item.id, text: item.nombre }
+                  })
+                }),
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -693,13 +850,13 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "vx-col md:w-1/2 w-full mt-2" }, [
+          _c("div", { staticClass: "vx-col w-full mt-2" }, [
             _c("div", { staticClass: "vx-row" }, [
               _c("div", { staticClass: "vx-col w-full" }, [
                 _c(
                   "div",
                   {
-                    staticClass: "mt-3 flex flex-wrap items-center justify-end"
+                    staticClass: "mt-8 flex flex-wrap items-center justify-end"
                   },
                   [
                     _c(

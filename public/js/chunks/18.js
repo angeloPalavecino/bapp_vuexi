@@ -196,6 +196,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
  //Maps
 
@@ -284,7 +292,7 @@ __webpack_require__.r(__webpack_exports__);
       Id: itemId,
       Url: urlApi
     }).then(function (res) {
-      _this2.item_data = res.data.item;
+      _this2.item_data = res.data.item[0];
     }).catch(function (err) {
       if (err.response.status === 404) {
         _this2.item_not_found = true;
@@ -558,6 +566,26 @@ var render = function() {
                       },
                       [
                         _c("table", [
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Empresa")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.empresa) + " ")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Sucursal")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.nombre) + " ")
+                            ])
+                          ]),
+                          _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Rut")

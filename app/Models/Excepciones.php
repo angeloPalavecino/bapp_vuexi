@@ -12,6 +12,6 @@ class Excepciones extends Model
      * @var array
      */
     protected $fillable = [
-        'rut', 'direccion', 'comuna'  ,'lat', 'lng',
+        'rut', 'direccion', 'comuna'  ,'lat', 'lng', 'sucursal_id',
     ];
 }

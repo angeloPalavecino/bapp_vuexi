@@ -21,6 +21,7 @@ class EmpresasSeeder extends Seeder
             'giro' => 'Sin Empresa',
             'habilitado' => 1,
             'fecha_incorporacion' => date("Y-m-d H:i:s"),
+            'hora_max_agendamiento' => '00:00:00',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);

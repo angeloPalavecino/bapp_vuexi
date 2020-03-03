@@ -234,6 +234,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -255,6 +271,24 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       urlApi: "/excepciones/excepciones/",
+      empresaFilter: {
+        label: 'Todos',
+        value: 'all'
+      },
+      empresaOptions: [{
+        label: 'Todos',
+        value: 'all'
+      }],
+      sucursalFilter: {
+        label: 'Todos',
+        value: 'all',
+        id: 0
+      },
+      sucursalOptions: [{
+        label: 'Todos',
+        value: 'all',
+        id: 0
+      }],
       searchQuery: "",
       // AgGrid
       gridApi: null,
@@ -288,6 +322,16 @@ __webpack_require__.r(__webpack_exports__);
         headerCheckboxSelection: true,
         suppressSizeToFit: true
       }, {
+        headerName: 'Empresa',
+        field: 'empresa',
+        filter: true,
+        minWidth: 185
+      }, {
+        headerName: 'Sucursal',
+        field: 'nombre',
+        filter: true,
+        minWidth: 185
+      }, {
         headerName: 'Rut',
         field: 'rut',
         filter: true,
@@ -309,7 +353,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  watch: {},
+  watch: {
+    sucursalFilter: function sucursalFilter(obj) {
+      this.setColumnFilter("nombre", obj.value);
+    },
+    empresaFilter: function empresaFilter(obj) {
+      if (obj.value == 'all') {
+        this.setColumnFilter("empresa", 'all');
+      } else {
+        this.setColumnFilter("empresa", obj.label);
+      }
+
+      this.traeSucursales(obj.value);
+    }
+  },
   computed: {
     itemsData: function itemsData() {
       return this.$store.state.itemManagement.items;
@@ -381,8 +438,98 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Los registros ya fueron eliminados.'
       });
     },
+    setColumnFilter: function setColumnFilter(column, val) {
+      var filter = this.gridApi.getFilterInstance(column);
+      var modelObj = null;
+
+      if (val !== "all") {
+        modelObj = {
+          type: "equals",
+          filter: val
+        };
+      }
+
+      filter.setModel(modelObj);
+      this.gridApi.onFilterChanged();
+    },
+    resetColFilters: function resetColFilters() {
+      // Reset Grid Filter
+      this.gridApi.setFilterModel(null);
+      this.gridApi.onFilterChanged(); // Reset Filter Options
+
+      this.empresaFilter = this.sucursalFilter = {
+        label: 'Todos',
+        value: 'all'
+      };
+      this.$refs.filterCard.removeRefreshAnimation();
+    },
     updateSearchQuery: function updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val);
+    },
+    traeSucursales: function traeSucursales(value) {
+      var _this2 = this;
+
+      if (value > 1) {
+        //Combo Sucursales
+        _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          var sucursales = res.data.items;
+          sucursales.push({
+            label: 'Todos',
+            value: 'all',
+            id: 0
+          });
+          _this2.sucursalOptions = sucursales.reverse(); //this.sucursalOptions = res.data.items;  
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this2.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.sucursalFilter = {
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }, this.sucursalOptions = [{
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }];
+      }
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this3 = this;
+
+      //Combo Empresa
+      _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/empresas/empresas").then(function (res) {
+        var empresas = res.data.items;
+
+        for (var indice in empresas) {
+          _this3.empresaOptions.push({
+            label: empresas[indice].razon_social,
+            value: empresas[indice].id
+          });
+        } //empresas.push({label: 'Todos', value: 'all'})   
+        //this.empresaOptions = empresas.reverse();
+        //console.log(this.empresaOptions);
+
+      }).catch(function (err) {
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+
+        _this3.$vs.notify({
+          title: 'Error',
+          text: textError,
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      });
     },
     addRecord: function addRecord() {
       this.$router.push("../item-add/").catch(function () {});
@@ -400,9 +547,11 @@ __webpack_require__.r(__webpack_exports__);
       var header = this.$refs.agGridTable.$el.querySelector(".ag-header-container");
       header.style.left = "-" + String(Number(header.style.transform.slice(11, -3)) + 9) + "px";
     }
+
+    this.traeOtrosDatos();
   },
   created: function created() {
-    var _this2 = this;
+    var _this4 = this;
 
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -412,7 +561,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(function (err) {
       var textError = err.response.status == 300 ? err.response.data.message : err;
 
-      _this2.$vs.notify({
+      _this4.$vs.notify({
         title: 'Error',
         text: textError,
         color: 'danger',
@@ -542,290 +691,371 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "page-item-list" } }, [
-    _c(
-      "div",
-      { staticClass: "vx-card p-6" },
-      [
-        _c(
-          "div",
-          { staticClass: "flex flex-wrap items-center" },
-          [
+  return _c(
+    "div",
+    { attrs: { id: "page-item-list" } },
+    [
+      _c(
+        "vx-card",
+        {
+          ref: "filterCard",
+          staticClass: "items-list-filters mb-8",
+          attrs: {
+            title: "Filtros",
+            collapseAction: "",
+            refreshContentAction: ""
+          },
+          on: { refresh: _vm.resetColFilters, remove: _vm.resetColFilters }
+        },
+        [
+          _c("div", { staticClass: "vx-row" }, [
             _c(
               "div",
-              { staticClass: "flex-grow" },
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
               [
-                _c(
-                  "vs-dropdown",
-                  { staticClass: "cursor-pointer" },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium"
-                      },
-                      [
-                        _c("span", { staticClass: "mr-2" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm.currentPage * _vm.paginationPageSize -
-                                (_vm.paginationPageSize - 1)
-                            ) +
-                              " - " +
-                              _vm._s(
-                                _vm.itemsData.length -
-                                  _vm.currentPage * _vm.paginationPageSize >
-                                  0
-                                  ? _vm.currentPage * _vm.paginationPageSize
-                                  : _vm.itemsData.length
-                              ) +
-                              " of " +
-                              _vm._s(_vm.itemsData.length)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("feather-icon", {
-                          attrs: {
-                            icon: "ChevronDownIcon",
-                            svgClasses: "h-4 w-4"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "vs-dropdown-menu",
-                      [
-                        _c(
-                          "vs-dropdown-item",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.gridApi.paginationSetPageSize(10)
-                              }
-                            }
-                          },
-                          [_c("span", [_vm._v("10")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-dropdown-item",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.gridApi.paginationSetPageSize(20)
-                              }
-                            }
-                          },
-                          [_c("span", [_vm._v("20")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-dropdown-item",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.gridApi.paginationSetPageSize(25)
-                              }
-                            }
-                          },
-                          [_c("span", [_vm._v("25")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-dropdown-item",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.gridApi.paginationSetPageSize(30)
-                              }
-                            }
-                          },
-                          [_c("span", [_vm._v("30")])]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "vx-tooltip",
-              { attrs: { color: "primary", text: "Agregar" } },
-              [
-                _c(
-                  "vs-button",
-                  {
-                    staticClass: "sm:mr-4 mb-4 md:mb-0",
-                    attrs: { "icon-pack": "feather", icon: "icon-plus" },
-                    on: { click: _vm.addRecord }
-                  },
-                  [_vm._v("AGREGAR")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("vs-input", {
-              staticClass:
-                "sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4",
-              attrs: { placeholder: "Buscar..." },
-              on: { input: _vm.updateSearchQuery },
-              model: {
-                value: _vm.searchQuery,
-                callback: function($$v) {
-                  _vm.searchQuery = $$v
-                },
-                expression: "searchQuery"
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "vs-dropdown",
-              { staticClass: "cursor-pointer" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32"
-                  },
-                  [
-                    _c("span", { staticClass: "mr-2 leading-none" }, [
-                      _vm._v("Acciones")
-                    ]),
-                    _vm._v(" "),
-                    _c("feather-icon", {
-                      attrs: { icon: "ChevronDownIcon", svgClasses: "h-4 w-4" }
-                    })
-                  ],
-                  1
-                ),
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Empresa")
+                ]),
                 _vm._v(" "),
-                _c(
-                  "vs-dropdown-menu",
-                  [
-                    _c(
-                      "vs-dropdown-item",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.confirmMassiveDeleteRecord()
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "span",
-                          { staticClass: "flex items-center" },
-                          [
-                            _c("feather-icon", {
-                              staticClass: "mr-2",
-                              attrs: {
-                                icon: "TrashIcon",
-                                svgClasses: "h-4 w-4"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v("Eliminar")])
-                          ],
-                          1
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "vs-dropdown-item",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.gridApi.exportDataAsCsv()
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "span",
-                          { staticClass: "flex items-center" },
-                          [
-                            _c("feather-icon", {
-                              staticClass: "mr-2",
-                              attrs: { icon: "SaveIcon", svgClasses: "h-4 w-4" }
-                            }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v("Exportar")])
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
+                _c("v-select", {
+                  attrs: {
+                    options: _vm.empresaOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.empresaFilter,
+                    callback: function($$v) {
+                      _vm.empresaFilter = $$v
+                    },
+                    expression: "empresaFilter"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
+              [
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Sucursales")
+                ]),
+                _vm._v(" "),
+                _c("v-select", {
+                  staticClass: "mb-4 md:mb-0",
+                  attrs: {
+                    options: _vm.sucursalOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.sucursalFilter,
+                    callback: function($$v) {
+                      _vm.sucursalFilter = $$v
+                    },
+                    expression: "sucursalFilter"
+                  }
+                })
               ],
               1
             )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticStyle: { width: "100%", height: "100%" },
-            attrs: { id: "grid-wrapper" }
-          },
-          [
-            _c("ag-grid-vue", {
-              ref: "agGridTable",
-              staticClass: "ag-theme-material w-100 my-3 ag-grid-table",
-              attrs: {
-                components: _vm.components,
-                gridOptions: _vm.gridOptions,
-                columnDefs: _vm.columnDefs,
-                defaultColDef: _vm.defaultColDef,
-                rowData: _vm.itemsData,
-                rowSelection: "multiple",
-                colResizeDefault: "shift",
-                animateRows: true,
-                floatingFilter: true,
-                pagination: true,
-                paginationPageSize: _vm.paginationPageSize,
-                suppressPaginationPanel: true,
-                enableRtl: _vm.$vs.rtl,
-                frameworkComponents: _vm.frameworkComponents,
-                loadingOverlayComponent: _vm.loadingOverlayComponent,
-                loadingOverlayComponentParams:
-                  _vm.loadingOverlayComponentParams,
-                noRowsOverlayComponent: _vm.noRowsOverlayComponent,
-                noRowsOverlayComponentParams: _vm.noRowsOverlayComponentParams
-              },
-              on: { "grid-size-changed": _vm.onGridSizeChanged }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("vs-pagination", {
-          attrs: { total: _vm.totalPages, max: 7 },
-          model: {
-            value: _vm.currentPage,
-            callback: function($$v) {
-              _vm.currentPage = $$v
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "vx-card p-6" },
+        [
+          _c(
+            "div",
+            { staticClass: "flex flex-wrap items-center" },
+            [
+              _c(
+                "div",
+                { staticClass: "flex-grow" },
+                [
+                  _c(
+                    "vs-dropdown",
+                    { staticClass: "cursor-pointer" },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium"
+                        },
+                        [
+                          _c("span", { staticClass: "mr-2" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm.currentPage * _vm.paginationPageSize -
+                                  (_vm.paginationPageSize - 1)
+                              ) +
+                                " - " +
+                                _vm._s(
+                                  _vm.itemsData.length -
+                                    _vm.currentPage * _vm.paginationPageSize >
+                                    0
+                                    ? _vm.currentPage * _vm.paginationPageSize
+                                    : _vm.itemsData.length
+                                ) +
+                                " of " +
+                                _vm._s(_vm.itemsData.length)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("feather-icon", {
+                            attrs: {
+                              icon: "ChevronDownIcon",
+                              svgClasses: "h-4 w-4"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-dropdown-menu",
+                        [
+                          _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.gridApi.paginationSetPageSize(10)
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("10")])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.gridApi.paginationSetPageSize(20)
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("20")])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.gridApi.paginationSetPageSize(25)
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("25")])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.gridApi.paginationSetPageSize(30)
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("30")])]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-tooltip",
+                { attrs: { color: "primary", text: "Agregar" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "sm:mr-4 mb-4 md:mb-0",
+                      attrs: { "icon-pack": "feather", icon: "icon-plus" },
+                      on: { click: _vm.addRecord }
+                    },
+                    [_vm._v("AGREGAR")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("vs-input", {
+                staticClass:
+                  "sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4",
+                attrs: { placeholder: "Buscar..." },
+                on: { input: _vm.updateSearchQuery },
+                model: {
+                  value: _vm.searchQuery,
+                  callback: function($$v) {
+                    _vm.searchQuery = $$v
+                  },
+                  expression: "searchQuery"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "vs-dropdown",
+                { staticClass: "cursor-pointer" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32"
+                    },
+                    [
+                      _c("span", { staticClass: "mr-2 leading-none" }, [
+                        _vm._v("Acciones")
+                      ]),
+                      _vm._v(" "),
+                      _c("feather-icon", {
+                        attrs: {
+                          icon: "ChevronDownIcon",
+                          svgClasses: "h-4 w-4"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-dropdown-menu",
+                    [
+                      _c(
+                        "vs-dropdown-item",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.confirmMassiveDeleteRecord()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "flex items-center" },
+                            [
+                              _c("feather-icon", {
+                                staticClass: "mr-2",
+                                attrs: {
+                                  icon: "TrashIcon",
+                                  svgClasses: "h-4 w-4"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Eliminar")])
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-dropdown-item",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.gridApi.exportDataAsCsv()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "flex items-center" },
+                            [
+                              _c("feather-icon", {
+                                staticClass: "mr-2",
+                                attrs: {
+                                  icon: "SaveIcon",
+                                  svgClasses: "h-4 w-4"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Exportar")])
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: { width: "100%", height: "100%" },
+              attrs: { id: "grid-wrapper" }
             },
-            expression: "currentPage"
-          }
-        })
-      ],
-      1
-    )
-  ])
+            [
+              _c("ag-grid-vue", {
+                ref: "agGridTable",
+                staticClass: "ag-theme-material w-100 my-3 ag-grid-table",
+                attrs: {
+                  components: _vm.components,
+                  gridOptions: _vm.gridOptions,
+                  columnDefs: _vm.columnDefs,
+                  defaultColDef: _vm.defaultColDef,
+                  rowData: _vm.itemsData,
+                  rowSelection: "multiple",
+                  colResizeDefault: "shift",
+                  animateRows: true,
+                  floatingFilter: true,
+                  pagination: true,
+                  paginationPageSize: _vm.paginationPageSize,
+                  suppressPaginationPanel: true,
+                  enableRtl: _vm.$vs.rtl,
+                  frameworkComponents: _vm.frameworkComponents,
+                  loadingOverlayComponent: _vm.loadingOverlayComponent,
+                  loadingOverlayComponentParams:
+                    _vm.loadingOverlayComponentParams,
+                  noRowsOverlayComponent: _vm.noRowsOverlayComponent,
+                  noRowsOverlayComponentParams: _vm.noRowsOverlayComponentParams
+                },
+                on: { "grid-size-changed": _vm.onGridSizeChanged }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("vs-pagination", {
+            attrs: { total: _vm.totalPages, max: 7 },
+            model: {
+              value: _vm.currentPage,
+              callback: function($$v) {
+                _vm.currentPage = $$v
+              },
+              expression: "currentPage"
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -16,7 +16,9 @@ class ExcepcionesController extends Controller
         return Validator::make($data, [
              'rut' => 'required',       
              'direccion' => 'required', 
-             'comuna' => 'required',            
+             'comuna' => 'required',     
+             'sucursal_id' => 'required',    
+             
          ]);
     }
     /**
@@ -26,7 +28,21 @@ class ExcepcionesController extends Controller
      */
     public function index()
     {
-        $excepciones = Excepciones::all();
+        //$excepciones = Excepciones::all();
+
+        $excepciones = Excepciones::join('sucursals', 'excepciones.sucursal_id', '=', 'sucursals.id')
+        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
+        ->select(
+            'excepciones.id',
+            'excepciones.rut',
+            'excepciones.direccion',
+            'excepciones.comuna', 
+            'excepciones.sucursal_id', 
+            'excepciones.lat', 
+            'excepciones.lng', 
+            'sucursals.nombre', 
+            'empresas.razon_social as empresa'
+             )->get();
       
         return response()->json(
             [
@@ -69,6 +85,7 @@ class ExcepcionesController extends Controller
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
         $direccion = $input['direccion'];
         $comuna = $input['comuna'];
+        $sucursal_id = $input['sucursal_id'];
 
         $existe_excepcion = Excepciones::where('rut', $rut)->first();
         if ($existe_excepcion != null) {
@@ -123,6 +140,7 @@ class ExcepcionesController extends Controller
                  'rut'   => $rut,
                  'direccion'   => $direccion,
                  'comuna'   => $comuna, 
+                 'sucursal_id' => $sucursal_id,
                  'lat'   => $lat,
                  'lng'   => $lng 
               )
@@ -143,7 +161,26 @@ class ExcepcionesController extends Controller
      */
     public function show(Excepciones $excepciones, $id)
     {
-        $excepcion = Excepciones::find($id);
+        //$excepcion = Excepciones::find($id);
+
+        $excepcion = Excepciones::join('sucursals', 'excepciones.sucursal_id', '=', 'sucursals.id')
+        ->join('empresas', 'sucursals.empresa_id', '=', 'empresas.id')
+        ->select(
+            'excepciones.id',
+            'excepciones.rut',
+            'excepciones.direccion',
+            'excepciones.comuna', 
+            'excepciones.sucursal_id', 
+            'excepciones.lat', 
+            'excepciones.lng', 
+            'excepciones.created_at', 
+            'excepciones.updated_at', 
+            'sucursals.nombre', 
+            'sucursals.empresa_id', 
+            'empresas.razon_social as empresa'
+             )->where("excepciones.id" , $id)->get();
+
+
         return response()->json(
             [
                 'status' => 'success',
@@ -193,6 +230,7 @@ class ExcepcionesController extends Controller
             $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
             $direccion = $input['direccion'];
             $comuna = $input['comuna'];
+            $sucursal_id = $input['sucursal_id'];
 
             $lat = isset($input['lat']) ? $input['lat'] : null;
             $lng = isset($input['lng']) ? $input['lng'] : null;
@@ -234,7 +272,8 @@ class ExcepcionesController extends Controller
          array(
                     'rut'   => $rut,
                     'direccion'   => $direccion,
-                    'comuna'   => $comuna,                    
+                    'comuna'   => $comuna,
+                    'sucursal_id' => $sucursal_id,                    
                     'lat'   => $lat,
                     'lng'   => $lng 
               )

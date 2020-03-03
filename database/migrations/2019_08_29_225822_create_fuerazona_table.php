@@ -15,14 +15,14 @@ class CreateFuerazonaTable extends Migration
     {
         Schema::create('fuerazonas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('empresa_id');
+            $table->unsignedBigInteger('sucursal_id');
             $table->string('comuna');
             $table->tinyInteger('tipo');
             $table->decimal('distancia', 10 , 2);
             $table->timestamps();
 
-            $table->foreign('empresa_id')
-            ->references('id')->on('empresas')
+            $table->foreign('sucursal_id')
+            ->references('id')->on('sucursals')
             ->onDelete('cascade');
             
         });

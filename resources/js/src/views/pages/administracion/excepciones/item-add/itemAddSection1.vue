@@ -13,6 +13,22 @@
     <!-- Content Row -->
     <div class="vx-row mt-6">
       <vs-divider color="primary"><h5>Datos Excepcion</h5></vs-divider>
+
+       <div class="vx-col md:w-1/2 w-full mt-2">
+          <vs-select v-model="empresa" label="Empresa" ref="empresa" name="empresa" class="w-full p-1" 
+            :dir="$vs.rtl ? 'rtl' : 'ltr'" >
+          <vs-select-item :key="item.id" :value="item.id" :text="item.razon_social" v-for="item in empresaOptions"  />
+          </vs-select>
+      </div>
+
+       <div class="vx-col md:w-1/2 w-full mt-2">
+          <vs-select autocomplete v-model="data_local.sucursal_id" label="Sucursal" ref="sucursal" name="sucursal" class="w-full p-1" 
+            :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(empresa > 1 ? false : true)" v-validate="'required'" 
+            :danger="(errors.first('sucursal') ? true : false)"
+             :danger-text="(errors.first('sucursal') ? errors.first('sucursal') : '')">
+          <vs-select-item :key="item.id" :value="item.id" :text="item.nombre" v-for="item in sucursalesOptions"  />
+          </vs-select>
+      </div>
       
         <div class="vx-col md:w-1/2 w-full mt-2">
       <vs-input label-placeholder="Rut" v-model="data_local.rut" class="w-full p-1" name="rut" v-validate="'required'" 
@@ -77,10 +93,10 @@
         </div>
 
         <!-- BUTTONS -->
-        <div class="vx-col md:w-1/2 w-full mt-2">
+        <div class="vx-col w-full mt-2">
     <div class="vx-row">
       <div class="vx-col w-full">
-        <div class="mt-3 flex flex-wrap items-center justify-end">
+        <div class="mt-8 flex flex-wrap items-center justify-end">
           <vx-tooltip color="primary" text="Guardar">
               <vs-button class="ml-auto mt-2" @click="save_changes" :disabled="!validateForm">Guardar Cambios</vs-button>
           </vx-tooltip>
@@ -140,7 +156,10 @@ const dict = {
         },
         comuna: {
             required: 'La comuna es requerida',
-        }
+        },
+         sucursal: {
+            required: 'La sucursal es requerida',
+        },
     }
 };
 
@@ -161,7 +180,17 @@ export default {
       zoom:11,
       map:null,
       marker:null,
+
+      empresa:null,
+      empresaOptions: [],
+      sucursalesOptions:[],
     }
+  },
+   watch: {
+     empresa(obj) {
+      this.data_local.sucursal_id = null;
+      this.traeSucursales(obj)
+    },
   },
   computed: {
     validateForm() {
@@ -169,6 +198,8 @@ export default {
     }
   },
   mounted() {
+      this.traeOtrosDatos();
+
       this.autocomplete = new google.maps.places.Autocomplete((this.$refs.autocomplete),{
       types: ['geocode']
       
@@ -310,10 +341,62 @@ export default {
         text: 'Los registros se han guardado exitosamente.'
       })
     },
+      traeSucursales(value) {
+      
+      if(value >  1)  {
+      //Combo Sucursales
+      axios.get(`/api/v1/sucursal/combo/` + value)
+        .then((res) => {
+          //console.log(res.data.items);
+          this.sucursalesOptions = res.data.items;  
+        })
+        .catch((err) => { 
+
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+        this.$vs.notify({
+                    title:'Error',
+                    text: textError,
+                    color:'danger',
+                    iconPack: 'feather',
+                    icon:'icon-alert-circle'})  
+
+      })  
+    }else{
+      this.sucursalesOptions = [];
+      this.data_local.sucursal_id = null;
+    }
+     
+    },
+    traeOtrosDatos() {
+      //Combo Empresa
+      axios.get(`/api/v1/empresas/empresas`)
+        .then((res) => {
+          this.empresaOptions = res.data.items;  
+        })
+        .catch((err) => { 
+
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+        this.$vs.notify({
+                    title:'Error',
+                    text: textError,
+                    color:'danger',
+                    iconPack: 'feather',
+                    icon:'icon-alert-circle'})  
+
+      })
+    },
     reset_data() {
-      this.data_local = {}
+      this.data_local = {
+         sucursal_id : '',
+      }
+      
+      this.sucursalesOptions = [];
+      this.empresa = null;
+
       this.errors.clear();
       
+
+
       if(this.marker != null){
           var mark = this.marker;
           mark.setMap(null);

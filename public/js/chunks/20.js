@@ -275,6 +275,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -324,6 +329,16 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Todos',
         value: 'all'
       }],
+      sucursalFilter: {
+        label: 'Todos',
+        value: 'all',
+        id: 0
+      },
+      sucursalOptions: [{
+        label: 'Todos',
+        value: 'all',
+        id: 0
+      }],
       searchQuery: "",
       // AgGrid
       gridApi: null,
@@ -361,6 +376,11 @@ __webpack_require__.r(__webpack_exports__);
         filter: true,
         minWidth: 185
       }, {
+        headerName: 'Sucursal',
+        field: 'nombre',
+        filter: true,
+        minWidth: 185
+      }, {
         headerName: 'Tipo',
         field: 'tipo',
         filter: true,
@@ -390,11 +410,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
+    sucursalFilter: function sucursalFilter(obj) {
+      this.setColumnFilter("nombre", obj.value);
+    },
     typeFilter: function typeFilter(obj) {
       this.setColumnFilter("tipo", obj.value);
     },
     empresaFilter: function empresaFilter(obj) {
-      this.setColumnFilter("empresa", obj.value);
+      if (obj.value == 'all') {
+        this.setColumnFilter("empresa", 'all');
+      } else {
+        this.setColumnFilter("empresa", obj.label);
+      }
+
+      this.traeSucursales(obj.value);
     }
   },
   computed: {
@@ -487,7 +516,7 @@ __webpack_require__.r(__webpack_exports__);
       this.gridApi.setFilterModel(null);
       this.gridApi.onFilterChanged(); // Reset Filter Options
 
-      this.typeFilter = this.empresaFilter = {
+      this.typeFilter = this.empresaFilter = this.sucursalFilter = {
         label: 'Todos',
         value: 'all'
       };
@@ -496,21 +525,63 @@ __webpack_require__.r(__webpack_exports__);
     updateSearchQuery: function updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val);
     },
-    traeOtrosDatos: function traeOtrosDatos() {
+    traeSucursales: function traeSucursales(value) {
       var _this2 = this;
+
+      if (value > 1) {
+        //Combo Sucursales
+        _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/sucursal/combo/" + value).then(function (res) {
+          //console.log(res.data.items);
+          var sucursales = res.data.items;
+          sucursales.push({
+            label: 'Todos',
+            value: 'all',
+            id: 0
+          });
+          _this2.sucursalOptions = sucursales.reverse(); //this.sucursalOptions = res.data.items;  
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this2.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.sucursalFilter = {
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }, this.sucursalOptions = [{
+          label: 'Todos',
+          value: 'all',
+          id: 0
+        }];
+      }
+    },
+    traeOtrosDatos: function traeOtrosDatos() {
+      var _this3 = this;
 
       //Combo Empresa
       _axios_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/api/v1/empresas/empresas").then(function (res) {
         var empresas = res.data.items;
-        empresas.push({
-          label: 'Todos',
-          value: 'all'
-        });
-        _this2.empresaOptions = empresas.reverse();
+
+        for (var indice in empresas) {
+          _this3.empresaOptions.push({
+            label: empresas[indice].razon_social,
+            value: empresas[indice].id
+          });
+        } //empresas.push({label: 'Todos', value: 'all'})   
+        //this.empresaOptions = empresas.reverse();
+        //console.log(this.empresaOptions);
+
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this2.$vs.notify({
+        _this3.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -539,7 +610,7 @@ __webpack_require__.r(__webpack_exports__);
     this.traeOtrosDatos();
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     if (!_store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"].isRegistered) {
       this.$store.registerModule('itemManagement', _store_items_management_moduleItemManagement_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -549,7 +620,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("itemManagement/traerItems", this.urlApi).catch(function (err) {
       var textError = err.response.status == 300 ? err.response.data.message : err;
 
-      _this3.$vs.notify({
+      _this4.$vs.notify({
         title: 'Error',
         text: textError,
         color: 'danger',
@@ -741,6 +812,33 @@ var render = function() {
                       _vm.empresaFilter = $$v
                     },
                     expression: "empresaFilter"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/4 sm:w-1/2 w-full" },
+              [
+                _c("label", { staticClass: "text-sm opacity-75" }, [
+                  _vm._v("Sucursales")
+                ]),
+                _vm._v(" "),
+                _c("v-select", {
+                  staticClass: "mb-4 md:mb-0",
+                  attrs: {
+                    options: _vm.sucursalOptions,
+                    clearable: false,
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr"
+                  },
+                  model: {
+                    value: _vm.sucursalFilter,
+                    callback: function($$v) {
+                      _vm.sucursalFilter = $$v
+                    },
+                    expression: "sucursalFilter"
                   }
                 })
               ],

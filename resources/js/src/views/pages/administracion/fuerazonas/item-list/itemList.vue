@@ -18,6 +18,11 @@
           <label class="text-sm opacity-75">Empresa</label>
           <v-select :options="empresaOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="empresaFilter" />
         </div>
+
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Sucursales</label>
+          <v-select :options="sucursalOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursalFilter" class="mb-4 md:mb-0" />
+        </div> 
    
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">Tipo</label>
@@ -194,6 +199,11 @@ export default {
         { label: 'Todos', value: 'all' },
       ],
 
+      sucursalFilter: { label: 'Todos', value: 'all', id:0 },
+      sucursalOptions: [
+        { label: 'Todos', value: 'all', id:0 },
+      ],
+
       searchQuery: "",
 
       // AgGrid
@@ -233,6 +243,12 @@ export default {
           minWidth: 185,       
         },
         {
+          headerName: 'Sucursal',
+          field: 'nombre',
+          filter: true,
+          minWidth: 185,       
+        },
+        {
           headerName: 'Tipo',
           field: 'tipo',
           filter: true,
@@ -267,11 +283,20 @@ export default {
     }
   },
   watch: {
+    sucursalFilter(obj) {
+      this.setColumnFilter("nombre", obj.value)
+    },
     typeFilter(obj) {
       this.setColumnFilter("tipo", obj.value)
     },
     empresaFilter(obj) {
-      this.setColumnFilter("empresa", obj.value)
+      if(obj.value == 'all'){
+        this.setColumnFilter("empresa", 'all')
+      }else{
+        this.setColumnFilter("empresa", obj.label)
+      }
+      
+      this.traeSucursales(obj.value);
     },
   },
   computed: {
@@ -365,12 +390,45 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.typeFilter = this.empresaFilter = { label: 'Todos', value: 'all' }
+      this.typeFilter = this.empresaFilter = this.sucursalFilter  = { label: 'Todos', value: 'all' }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },
     updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val)
+    },
+    traeSucursales(value) {
+       
+        if(value >  1)  {
+          //Combo Sucursales
+          axios.get(`/api/v1/sucursal/combo/` + value)
+            .then((res) => {
+              //console.log(res.data.items);
+              var sucursales = res.data.items;  
+              sucursales.push({label: 'Todos', value: 'all', id:0})   
+              this.sucursalOptions = sucursales.reverse();
+              //this.sucursalOptions = res.data.items;  
+            })
+            .catch((err) => { 
+
+            var textError = err.response.status == 300 ? err.response.data.message : err;
+            this.$vs.notify({
+                        title:'Error',
+                        text: textError,
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-circle'})  
+
+          })  
+
+        }else{
+
+          this.sucursalFilter = { label: 'Todos', value: 'all', id:0 },
+          this.sucursalOptions = [
+            { label: 'Todos', value: 'all', id:0 },
+          ]
+        }
+     
     },
     traeOtrosDatos() {
       //Combo Empresa
@@ -378,8 +436,18 @@ export default {
         .then((res) => {
         
           var empresas = res.data.items;  
-          empresas.push({label: 'Todos', value: 'all'})   
-          this.empresaOptions = empresas.reverse();
+          
+          
+         for (var indice in empresas) {
+          
+           this.empresaOptions.push({label: empresas[indice].razon_social, value: empresas[indice].id})
+         }
+
+
+          //empresas.push({label: 'Todos', value: 'all'})   
+          //this.empresaOptions = empresas.reverse();
+
+          //console.log(this.empresaOptions);
         
         })
         .catch((err) => { 

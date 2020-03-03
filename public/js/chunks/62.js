@@ -99,6 +99,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -367,6 +371,16 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(_vm._s(_vm.item_data.empresa) + " ")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { staticClass: "font-semibold" }, [
+                              _vm._v("Sucursal")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.item_data.nombre) + " ")
                             ])
                           ]),
                           _vm._v(" "),

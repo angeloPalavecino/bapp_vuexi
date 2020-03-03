@@ -11,6 +11,22 @@
 
   <div id="page-item-list">
 
+      <vx-card ref="filterCard" title="Filtros" class="items-list-filters mb-8" collapseAction refreshContentAction @refresh="resetColFilters" 
+    @remove="resetColFilters">
+      <div class="vx-row">
+          <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Empresa</label>
+          <v-select :options="empresaOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="empresaFilter" />
+        </div>
+
+         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+          <label class="text-sm opacity-75">Sucursales</label>
+          <v-select :options="sucursalOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursalFilter" class="mb-4 md:mb-0" />
+        </div> 
+  
+         </div>
+    </vx-card>
+
     <div class="vx-card p-6">
 
       <div class="flex flex-wrap items-center">
@@ -159,6 +175,16 @@ export default {
     return {
       urlApi: "/excepciones/excepciones/",
 
+      empresaFilter: { label: 'Todos', value: 'all' },
+      empresaOptions: [
+        { label: 'Todos', value: 'all' },
+      ],
+
+      sucursalFilter: { label: 'Todos', value: 'all', id:0 },
+      sucursalOptions: [
+        { label: 'Todos', value: 'all', id:0 },
+      ],
+
       searchQuery: "",
 
       // AgGrid
@@ -193,6 +219,18 @@ export default {
           suppressSizeToFit: true
         },
         {
+          headerName: 'Empresa',
+          field: 'empresa',
+          filter: true,
+          minWidth: 185,       
+        },
+        {
+          headerName: 'Sucursal',
+          field: 'nombre',
+          filter: true,
+          minWidth: 185,       
+        },
+        {
           headerName: 'Rut',
           field: 'rut',
           filter: true,
@@ -219,6 +257,18 @@ export default {
     }
   },
   watch: {
+    sucursalFilter(obj) {
+      this.setColumnFilter("nombre", obj.value)
+    },
+    empresaFilter(obj) {
+      if(obj.value == 'all'){
+        this.setColumnFilter("empresa", 'all')
+      }else{
+        this.setColumnFilter("empresa", obj.label)
+      }
+      
+      this.traeSucursales(obj.value);
+    },
   },
   computed: {
     itemsData() {
@@ -294,8 +344,94 @@ export default {
               text: 'Los registros ya fueron eliminados.'
             })
     },
+    setColumnFilter(column, val) {
+      const filter = this.gridApi.getFilterInstance(column)
+      let modelObj = null
+
+      if(val !== "all") {
+        modelObj = { type: "equals", filter: val }
+      }
+
+      filter.setModel(modelObj)
+      this.gridApi.onFilterChanged()
+    },
+    resetColFilters() {
+      // Reset Grid Filter
+      this.gridApi.setFilterModel(null)
+      this.gridApi.onFilterChanged()
+
+      // Reset Filter Options
+      this.empresaFilter = this.sucursalFilter  = { label: 'Todos', value: 'all' }
+
+      this.$refs.filterCard.removeRefreshAnimation()
+    },
     updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val)
+    },
+    traeSucursales(value) {
+       
+        if(value >  1)  {
+          //Combo Sucursales
+          axios.get(`/api/v1/sucursal/combo/` + value)
+            .then((res) => {
+              //console.log(res.data.items);
+              var sucursales = res.data.items;  
+              sucursales.push({label: 'Todos', value: 'all', id:0})   
+              this.sucursalOptions = sucursales.reverse();
+              //this.sucursalOptions = res.data.items;  
+            })
+            .catch((err) => { 
+
+            var textError = err.response.status == 300 ? err.response.data.message : err;
+            this.$vs.notify({
+                        title:'Error',
+                        text: textError,
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-circle'})  
+
+          })  
+
+        }else{
+
+          this.sucursalFilter = { label: 'Todos', value: 'all', id:0 },
+          this.sucursalOptions = [
+            { label: 'Todos', value: 'all', id:0 },
+          ]
+        }
+     
+    },
+    traeOtrosDatos() {
+      //Combo Empresa
+      axios.get(`/api/v1/empresas/empresas`)
+        .then((res) => {
+        
+          var empresas = res.data.items;  
+          
+          
+         for (var indice in empresas) {
+          
+           this.empresaOptions.push({label: empresas[indice].razon_social, value: empresas[indice].id})
+         }
+
+
+          //empresas.push({label: 'Todos', value: 'all'})   
+          //this.empresaOptions = empresas.reverse();
+
+          //console.log(this.empresaOptions);
+        
+        })
+        .catch((err) => { 
+
+        var textError = err.response.status == 300 ? err.response.data.message : err;
+        this.$vs.notify({
+                    title:'Error',
+                    text: textError,
+                    color:'danger',
+                    iconPack: 'feather',
+                    icon:'icon-alert-circle'})  
+
+      })
     },
     addRecord() {
             this.$router.push("../item-add/").catch(() => {})
@@ -313,6 +449,8 @@ export default {
       const header = this.$refs.agGridTable.$el.querySelector(".ag-header-container")
       header.style.left = "-" + String(Number(header.style.transform.slice(11,-3)) + 9) + "px"
     }
+
+    this.traeOtrosDatos();
     
   },
   created() {
