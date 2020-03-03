@@ -306,7 +306,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       data_local: {
         codigo: null,
         sucursal_id: null,
-        habilitado: 1
+        habilitado: 1,
+        comentario: null
       },
       empresa: 1,
       center: {
@@ -798,7 +799,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       this.data_local = {
         codigo: null,
         sucursal_id: null,
-        habilitado: 1
+        habilitado: 1,
+        comentario: null
       };
       this.sucursalesOptions = [];
       this.gpatronesOptions = [];
@@ -1254,7 +1256,7 @@ var render = function() {
                         staticClass:
                           "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
                       },
-                      [_vm._v("\n      Direccion\n    ")]
+                      [_vm._v("\n        Direccion\n      ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -1299,15 +1301,15 @@ var render = function() {
                         }
                       ],
                       staticClass:
-                        "con-text-validation span-text-validation-danger \n              vs-input--text-validation-span v-enter-to",
+                        "con-text-validation span-text-validation-danger \n                vs-input--text-validation-span v-enter-to",
                       staticStyle: { height: "20px" }
                     },
                     [
                       _c("span", { staticClass: "span-text-validation" }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                      " +
                             _vm._s(_vm.errors.first("direccion")) +
-                            "\n                    "
+                            "\n                      "
                         )
                       ])
                     ]
@@ -1360,30 +1362,26 @@ var render = function() {
               _c(
                 "vs-select",
                 {
-                  ref: "codigo",
+                  ref: "comentario",
                   staticClass: "w-full p-1",
                   attrs: {
-                    label: "Codigo",
-                    name: "codigo",
+                    label: "Comentario",
+                    name: "comentario",
                     dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                    disabled: _vm.data_local.sucursal_id > 0 ? false : true,
-                    danger: _vm.errors.first("codigo") ? true : false,
-                    "danger-text": _vm.errors.first("codigo")
-                      ? _vm.errors.first("codigo")
-                      : ""
+                    disabled: _vm.data_local.habilitado == 0 ? false : true
                   },
                   model: {
-                    value: _vm.data_local.codigo,
+                    value: _vm.data_local.comentario,
                     callback: function($$v) {
-                      _vm.$set(_vm.data_local, "codigo", $$v)
+                      _vm.$set(_vm.data_local, "comentario", $$v)
                     },
-                    expression: "data_local.codigo"
+                    expression: "data_local.comentario"
                   }
                 },
-                _vm._l(_vm.gpatronesOptions, function(item) {
+                _vm._l(_vm.comentariosOptions, function(item) {
                   return _c("vs-select-item", {
-                    key: item.id,
-                    attrs: { value: item.id, text: item.codigo }
+                    key: item.value,
+                    attrs: { value: item.value, text: item.text }
                   })
                 }),
                 1
@@ -1413,41 +1411,6 @@ var render = function() {
                   expression: "data_local.habilitado"
                 }
               })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-            [
-              _c(
-                "vs-select",
-                {
-                  ref: "comentario",
-                  staticClass: "w-full p-1",
-                  attrs: {
-                    label: "Comentario",
-                    name: "comentario",
-                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                    disabled: _vm.data_local.habilitado == 0 ? false : true
-                  },
-                  model: {
-                    value: _vm.data_local.comentario,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data_local, "comentario", $$v)
-                    },
-                    expression: "data_local.comentario"
-                  }
-                },
-                _vm._l(_vm.comentariosOptions, function(item) {
-                  return _c("vs-select-item", {
-                    key: item.value,
-                    attrs: { value: item.value, text: item.text }
-                  })
-                }),
-                1
-              )
             ],
             1
           ),
