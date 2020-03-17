@@ -247,7 +247,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       data_local: {
         habilitado: 1,
         asientos: 1,
-        empresa_id: '',
+        empresas: [],
         driver_id: ''
       },
       empresasOptions: [],
@@ -300,7 +300,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       this.data_local = {
         habilitado: 1,
         asientos: 1,
-        empresa_id: '',
+        empresas: [],
         driver_id: ''
       };
       this.errors.clear();
@@ -415,6 +415,7 @@ var render = function() {
                 ],
                 staticClass: "w-full p-1",
                 attrs: {
+                  multiple: "",
                   label: "Empresas",
                   name: "empresas",
                   dir: _vm.$vs.rtl ? "rtl" : "ltr",
@@ -424,11 +425,11 @@ var render = function() {
                     : ""
                 },
                 model: {
-                  value: _vm.data_local.empresa_id,
+                  value: _vm.data_local.empresas,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "empresa_id", $$v)
+                    _vm.$set(_vm.data_local, "empresas", $$v)
                   },
-                  expression: "data_local.empresa_id"
+                  expression: "data_local.empresas"
                 }
               },
               _vm._l(_vm.empresasOptions, function(item) {

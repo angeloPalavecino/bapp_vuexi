@@ -190,6 +190,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -197,6 +242,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       item_data: null,
       item_data_documents: null,
+      item_data_empresas: null,
       item_not_found: false,
       urlApi: "/car/car/"
     };
@@ -300,6 +346,7 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       _this3.item_data = res.data.item[0];
       _this3.item_data_documents = res.data.documents;
+      _this3.item_data_empresas = res.data.empresas;
     }).catch(function (err) {
       if (err.response.status === 404) {
         _this3.item_not_found = true;
@@ -487,16 +534,6 @@ var render = function() {
                         _c("table", [
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v("Empresa")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.item_data.razon_social) + " ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", { staticClass: "font-semibold" }, [
                               _vm._v("Patente")
                             ]),
                             _vm._v(" "),
@@ -627,6 +664,147 @@ var render = function() {
                       ]
                     )
                   ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "vx-card",
+                {
+                  staticClass: "mb-base",
+                  attrs: { title: "Empresas", collapseAction: "" }
+                },
+                [
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "vx-col w-full" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "flex items-end px-3" },
+                          [
+                            _c("feather-icon", {
+                              staticClass: "mr-2",
+                              attrs: { svgClasses: "w-6 h-6", icon: "HomeIcon" }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "font-medium text-lg leading-none"
+                              },
+                              [_vm._v("Detalle")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("vs-divider")
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "block overflow-x-auto" },
+                    [
+                      _c(
+                        "vs-table",
+                        {
+                          attrs: {
+                            "max-items": "4",
+                            pagination: "",
+                            data: _vm.item_data_empresas
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "default",
+                                fn: function(ref) {
+                                  var data = ref.data
+                                  return _vm._l(data, function(
+                                    tremp,
+                                    indextremp
+                                  ) {
+                                    return _c(
+                                      "vs-tr",
+                                      { key: indextremp },
+                                      [
+                                        _c(
+                                          "vs-td",
+                                          { attrs: { colspan: "2" } },
+                                          [
+                                            _vm._v(
+                                              "\n                      " +
+                                                _vm._s(tremp.razon_social) +
+                                                "\n                    "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                       " +
+                                              _vm._s(tremp.rut) +
+                                              " - " +
+                                              _vm._s(tremp.dv) +
+                                              "\n                    "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("vs-td", [
+                                          _vm._v(
+                                            "\n                       " +
+                                              _vm._s(tremp.giro) +
+                                              "       \n                    "
+                                          )
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  })
+                                }
+                              }
+                            ],
+                            null,
+                            false,
+                            2336125749
+                          )
+                        },
+                        [
+                          _c("template", { slot: "header" }),
+                          _vm._v(" "),
+                          _c(
+                            "template",
+                            { slot: "thead" },
+                            [
+                              _c("vs-th", { attrs: { colspan: "2" } }, [
+                                _vm._v(
+                                  "\n                     Razon Social\n                  "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("vs-th", [
+                                _vm._v(
+                                  "\n                     Rut\n                  "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("vs-th", [
+                                _vm._v(
+                                  "\n                    Giro\n                  "
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  )
                 ]
               ),
               _vm._v(" "),

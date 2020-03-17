@@ -16,5 +16,6 @@ class Document extends Model
     {
       return $this->hasMany(TypeDocument::class, 'id', 'type_document_id');
     }
+
 }
  

@@ -36,10 +36,6 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Empresa</td>
-                <td>{{ item_data.razon_social }} </td>
-              </tr>
-              <tr>
                 <td class="font-semibold">Patente</td>
                 <td>{{ item_data.patente }}</td>
               </tr>
@@ -104,7 +100,56 @@
        </div>
 
       </vx-card> 
-       <!-- DATOS ASOCIADOS -->
+       <!-- DATOS MOVIL -->
+
+            <!-- EMPRESAS -->
+    <vx-card class="mb-base" title="Empresas" collapseAction>
+
+      <div class="vx-row">
+        <div class="vx-col w-full">
+          <div class="flex items-end px-3">
+            <feather-icon svgClasses="w-6 h-6" icon="HomeIcon" class="mr-2" />
+            <span class="font-medium text-lg leading-none">Detalle</span>
+          </div>
+          <vs-divider />
+        </div>
+      </div>
+
+      <div class="block overflow-x-auto" >
+        <vs-table max-items="4" pagination  :data="item_data_empresas">
+                  <template slot="header">
+                  </template>
+                  <template slot="thead">
+                    <vs-th colspan="2">
+                       Razon Social
+                    </vs-th>
+                    <vs-th>
+                       Rut
+                    </vs-th>
+                    <vs-th>
+                      Giro
+                    </vs-th>                                     
+                  </template>
+
+                  <template slot-scope="{data}">
+                    <vs-tr :key="indextremp" v-for="(tremp, indextremp) in data" >
+                      <vs-td colspan="2">
+                        {{ tremp.razon_social }}
+                      </vs-td>
+                      <vs-td>
+                         {{ tremp.rut }} - {{ tremp.dv }}
+                      </vs-td>                  
+                      <vs-td>
+                         {{ tremp.giro }}       
+                      </vs-td>
+
+                    </vs-tr>
+                  </template>
+                </vs-table>
+      </div>
+
+    </vx-card>
+    <!-- EMPRESAS -->
 
             
      <!-- DOCUMENTOS -->
@@ -186,6 +231,7 @@ export default {
     return {
       item_data:null,
       item_data_documents:null,
+      item_data_empresas:null,
       item_not_found: false,
       urlApi: "/car/car/",
     }
@@ -277,6 +323,7 @@ export default {
 
           this.item_data = res.data.item[0]
           this.item_data_documents = res.data.documents 
+          this.item_data_empresas = res.data.empresas 
           
         })
       .catch(err => {

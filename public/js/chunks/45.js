@@ -542,6 +542,7 @@ var render = function() {
                 ],
                 staticClass: "w-full p-1",
                 attrs: {
+                  multiple: "",
                   label: "Empresas",
                   name: "empresas",
                   dir: _vm.$vs.rtl ? "rtl" : "ltr",

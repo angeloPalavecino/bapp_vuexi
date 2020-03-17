@@ -14,4 +14,14 @@ class Observaciones extends Model
     protected $fillable = [
         'descripcion',
     ];
+
+    public function getDescripcionAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setDescripcionAttribute($value)
+    {
+        $this->attributes['descripcion'] = strtoupper($value);
+    }
 }

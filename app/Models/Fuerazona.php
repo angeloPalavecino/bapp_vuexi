@@ -14,4 +14,25 @@ class Fuerazona extends Model
     protected $fillable = [
         'empresa_id', 'comuna' ,'tipo', 'distancia', 'sucursal_id',
     ];
+
+    public function getComunaAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setComunaAttribute($value)
+    {
+        $this->attributes['comuna'] = strtoupper($value);
+    }
+
+    
+    public function getTipoAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setTipoAttribute($value)
+    {
+        $this->attributes['tipo'] = strtoupper($value);
+    }
 }

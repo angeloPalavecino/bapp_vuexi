@@ -78,4 +78,36 @@ class User extends Authenticatable //implements JWTSubject
     {
       return $this->hasMany(Empresa::class, 'id', 'empresa_id');
     }
+
+    public function getNameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
+
+
+    public function getLastnameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = strtoupper($value);
+    }
+
+
+    public function getRutAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function setRutAttribute($value)
+    {
+        $this->attributes['rut'] = strtoupper($value);
+    }
 }

@@ -15,7 +15,7 @@
       <vs-divider color="primary"><h5>Datos Movil</h5></vs-divider>
       
       <div class="vx-col md:w-1/2 w-full mt-2">
-        <vs-select v-model="data_local.empresa_id" label="Empresas" name="empresas" class="w-full p-1" v-validate="'required'" 
+        <vs-select multiple v-model="data_local.empresas" label="Empresas" name="empresas" class="w-full p-1" v-validate="'required'" 
         :dir="$vs.rtl ? 'rtl' : 'ltr'" 
         :danger="(errors.first('empresas') ? true : false)"
              :danger-text="(errors.first('empresas') ? errors.first('empresas') : '')">
@@ -181,7 +181,7 @@ export default {
       data_local: {
           habilitado: 1,
           asientos: 1,
-          empresa_id:'',
+          empresas:[],
           driver_id:''
       },
       empresasOptions: [],
@@ -225,7 +225,7 @@ export default {
       this.data_local = {
           habilitado: 1,
           asientos: 1,
-          empresa_id:'',
+          empresas:[],
           driver_id:''
       }
       

@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\CarsHasDocuments;
+use App\Models\CarsHasEmpresas;
 use App\Models\Document;
 use App\Models\DriversHasCars;
 use App\Models\ConductoresHasCars;
@@ -54,7 +55,6 @@ class CarController extends Controller
                   'cars.color',
                   'cars.asientos', 
                   'cars.habilitado',
-                  'cars.empresa_id', 
                   'cars.numero_movil',
                   'drivers_has_cars.driver_id',
                   'drivers_has_cars.car_id',
@@ -122,7 +122,8 @@ class CarController extends Controller
                 ], 300);           
         }
 
-        $returnCar = Car::create($request->all());
+        $returnCar = Car::create($request->except(['empresas']));// $request->all()
+        $empresas = $request['empresas'];
 
         $idCar = $returnCar->id;
 
@@ -139,6 +140,7 @@ class CarController extends Controller
             'car_id'     => $idCar,
             'habilitado' => true,
         );
+        
         $returnDriverHasCars = DriversHasCars::create($dataDriversHasCars);       
         $returnIdDriversHasCars = $returnDriverHasCars->id;
         if ($returnIdDriversHasCars < 1) {
@@ -147,7 +149,23 @@ class CarController extends Controller
                     'status' => 'error',
                     'message' => 'Problemas con la relacion',
                 ], 300);
-        } 
+        }
+        
+        foreach ($empresas as $key => $empresa) {
+            CarsHasEmpresas::create(array(
+                'empresa_id'  => $empresa,
+                'car_id'      => $idCar,
+            ));     
+        }
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'El Movil ha sido creado!!'
+            ], 200);
+
+
+
     }
 
     /**
@@ -161,7 +179,6 @@ class CarController extends Controller
         $car = DB::table('cars')
         ->join('drivers_has_cars', 'drivers_has_cars.car_id', '=', 'cars.id')
         ->join('drivers', 'drivers.id', '=', 'drivers_has_cars.driver_id')
-        ->join('empresas', 'empresas.id', '=', 'cars.empresa_id')
         ->select(
             'cars.id', 
             'cars.tipo', 
@@ -173,16 +190,13 @@ class CarController extends Controller
             'cars.color',
             'cars.asientos', 
             'cars.habilitado',
-            'cars.empresa_id', 
             'cars.numero_movil',
             'cars.created_at',
             'cars.updated_at',
             'drivers_has_cars.driver_id',
             'drivers_has_cars.car_id',
             'drivers.name',
-            'drivers.lastname',
-            'empresas.razon_social'
-
+            'drivers.lastname'
             )
         ->where('cars.id', '=', $id)
         ->get();
@@ -206,11 +220,24 @@ class CarController extends Controller
         ->where('type_documents.tipo', '=', 0)
         ->get(); 
 
+        $empresas = DB::table('cars_has_empresas')
+        ->join('empresas', 'empresas.id', '=', 'cars_has_empresas.empresa_id')
+        ->select(
+            'empresas.id',
+            'empresas.razon_social', 
+            'empresas.giro',
+            'empresas.rut',
+            'empresas.dv'
+            )
+        ->where('cars_has_empresas.car_id', '=', $id)
+        ->get(); 
+
         return response()->json(
             [
                 'status' => 'success',
                 'item' => $car->toArray(),
                 'documents' => $documents->toArray(),
+                'empresas' => $empresas->toArray()
             ], 200); 
 
 
@@ -248,13 +275,20 @@ class CarController extends Controller
                 ], 300);
            
         }
-        Car::where('id', $id)->update($request->except(['driver_id']));
+        Car::where('id', $id)->update($request->except(['driver_id','empresas']));
 
         $dataDriversHasCars =  array(
             'driver_id'  => $request["driver_id"],
         );
         
         DriversHasCars::where('car_id', $id)->update($dataDriversHasCars);       
+
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'El Movil ha sido actualizado!!'
+            ], 200);
   
     }
 

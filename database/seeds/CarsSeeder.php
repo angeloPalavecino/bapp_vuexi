@@ -13,7 +13,6 @@ class CarsSeeder extends Seeder
     {
         DB::table('cars')->insert([
             'id' => 1,
-            'empresa_id' => 1,
             'tipo' => '-',
             'marca' => '-',
             'modelo' => '-',
@@ -23,6 +22,14 @@ class CarsSeeder extends Seeder
             'color' => '-',
             'asientos' => '-',
             'numero_movil' => 'Sin movil',
+            'habilitado' => 1,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        DB::table('cars_has_empresas')->insert([
+            'car_id' => 1,
+            'empresa_id' => 1,
             'habilitado' => 1,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")

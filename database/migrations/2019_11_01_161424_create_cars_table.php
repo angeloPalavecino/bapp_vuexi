@@ -15,7 +15,7 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {      
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('empresa_id');
+            //$table->unsignedBigInteger('empresa_id');
             $table->string('tipo');
             $table->string('marca');
             $table->string('modelo');
@@ -29,9 +29,9 @@ class CreateCarsTable extends Migration
             $table->boolean('habilitado');
             $table->timestamps();
 
-            $table->foreign('empresa_id')
-            ->references('id')
-            ->on('empresas');
+            //$table->foreign('empresa_id')
+            //->references('id')
+            //->on('empresas');
                         
         });
     }
