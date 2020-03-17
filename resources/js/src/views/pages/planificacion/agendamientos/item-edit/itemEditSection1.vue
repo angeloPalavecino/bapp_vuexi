@@ -417,7 +417,7 @@ export default {
     handleDateClick(info) {
       
       
-      if(info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)' ){
+      if(info.dayEl.style.backgroundColor == 'rgb(163, 73, 164)' ){
         const index = this.fechas.indexOf(info.dateStr);
         if (index > -1) {
             this.fechas.splice(index, 1);
@@ -425,7 +425,7 @@ export default {
          info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
+        info.dayEl.style.backgroundColor = 'rgb(163, 73, 164)';
       }
     
      /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
@@ -495,7 +495,9 @@ export default {
   opacity: 0.65!important;
 }
 
-.fc-sun { background-color:RGB(231, 240, 238)} //RGB(230, 240, 241)
-.fc-sat { background-color:RGB(231, 240, 238) } //RGB(230, 240, 241)
+.fc-sun { background-color:RGB(239, 220 , 239)} //RGB(230, 240, 241)
+.fc-sat { background-color:RGB(239, 220 , 239) } //RGB(230, 240, 241)
+td.fc-today {  background:RGB(255 , 174  , 201 ) }
+.fc-disabled-day {  background:RGB(196, 196, 255) !important }
 
 </style>

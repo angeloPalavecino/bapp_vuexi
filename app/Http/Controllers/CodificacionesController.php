@@ -859,6 +859,8 @@ class CodificacionesController extends Controller
          //  'codificaciones.grupo_patron_id',
             'codificaciones.direccion', 
             'codificaciones.comuna'
+      //       DB::raw("CONCAT(codificaciones.nombre, ' ' ,codificaciones.apellido, ' ' ,codificaciones.rut) AS label"),
+        //    'codificaciones.id as value',
          //   'codificaciones.email',
          //   'codificaciones.telefono',
          //   'codificaciones.centro_costo',
@@ -869,6 +871,42 @@ class CodificacionesController extends Controller
          //   'codificaciones.updated_at',
          )
             ->where('codificaciones.sucursal_id', $id)
+            ->where('codificaciones.habilitado', true)
+            ->get();
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'items' => $codificaciones->toArray(),
+                ], 200);
+
+    }
+
+    public function combocentro($id){
+        
+        $centrocosto = Codificaciones::select(
+            'codificaciones.centro_costo as label' ,
+            'codificaciones.centro_costo as value',
+            )
+            ->distinct()
+            ->where('codificaciones.sucursal_id', $id)
+            ->get();
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'items' => $centrocosto->toArray(),
+                ], 200);
+
+    }
+
+    public function combocodificaciones($id){
+        
+        $codificaciones = Codificaciones::select(
+             DB::raw("CONCAT(codificaciones.nombre, ' ' ,codificaciones.apellido, ' ' ,codificaciones.rut) AS label"),
+            'codificaciones.id as value',
+            )
+            ->where('codificaciones.centro_costo', $id)
             ->where('codificaciones.habilitado', true)
             ->get();
 

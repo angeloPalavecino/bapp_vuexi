@@ -16,6 +16,13 @@
         },
         name: 'CellRendererActions',
         methods: {
+          diferencia_horas(dt2, dt1){
+
+            var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+            diff /= 60;
+            return Math.round(diff);
+            
+          },
           viewRecord() {
             this.$router.push("../item-view/" + this.params.data.id).catch(() => {})
 
@@ -27,7 +34,28 @@
             */
           },
           editRecord() {
-            this.$router.push("../item-edit/" + this.params.data.id).catch(() => {})
+
+            var fecha_hoy = new Date();
+            var fecha = new Date(this.params.data.fecha_inicio);
+            fecha_hoy.setHours(0,0,0,0);
+            //var diff = this.diferencia_horas(fecha_hoy,fecha);
+            //fecha >= fecha_hoy diff <= 160
+            if(fecha >= fecha_hoy){
+            
+              this.$router.push("../item-edit/" + this.params.data.id).catch(() => {})
+
+            }else{
+
+              this.$vs.dialog({
+                color: 'danger',
+                title: `Confirmar Eliminacion`,
+                text: 'No se pueden eliminar registros que ya se encuentran cerrados.',
+                acceptText: "Aceptar"
+              })
+            
+            }
+
+           
 
             /*
               Below line will be for actual product
@@ -38,10 +66,11 @@
           },
           confirmDeleteRecord() {
 
-            var fecha_hoy = new Date();
-            var fecha = new Date(this.params.data.fecha_inicio);
-            fecha_hoy.setHours(0,0,0,0);
-
+           var fecha_hoy = new Date();
+           var fecha = new Date(this.params.data.fecha_inicio);
+           fecha_hoy.setHours(0,0,0,0);
+           // var diff = this.diferencia_horas(fecha_hoy,fecha);
+            //fecha >= fecha_hoy diff <= 160
             if(fecha >= fecha_hoy){
             
             this.$vs.dialog({
@@ -58,7 +87,7 @@
               this.$vs.dialog({
                 color: 'danger',
                 title: `Confirmar Eliminacion`,
-                text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+                text: 'No se pueden eliminar registros que ya se encuentran cerrados.',
                 acceptText: "Aceptar"
               })
             

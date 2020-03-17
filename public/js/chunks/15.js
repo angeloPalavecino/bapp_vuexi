@@ -406,15 +406,26 @@ __webpack_require__.r(__webpack_exports__);
         suppressSizeToFit: true
       }, {
         headerName: 'Nombre',
+        filter: true,
+        colId: "nombre",
+        minWidth: 200,
+        valueGetter: function valueGetter(params) {
+          return params.data.nombre + " " + params.data.apellido;
+        }
+      },
+      /*{
+        headerName: 'Nombre',
         field: 'nombre',
         filter: true,
-        minWidth: 200
-      }, {
+        minWidth: 200,
+      },
+       {
         headerName: 'Apellido',
         field: 'apellido',
         filter: true,
-        minWidth: 200
-      }, {
+        minWidth: 200,
+      },*/
+      {
         headerName: 'Rut',
         field: 'rut',
         filter: true,

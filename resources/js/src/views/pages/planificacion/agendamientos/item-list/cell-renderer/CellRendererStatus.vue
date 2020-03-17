@@ -1,6 +1,6 @@
 <template>
     <vs-chip class="ag-grid-cell-chip" :color="chipColor(params.value)">
-      <span>{{ params.value === true ? 'Activo' : 'Vencido' }}</span>
+      <span>{{ params.value === true ? 'Abierto' : 'Cerrado' }}</span>
     </vs-chip>
 </template>
 

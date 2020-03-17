@@ -409,6 +409,8 @@ Route::prefix('v1')->group(function () {
            Route::get('codificaciones/{id}/edit', 'CodificacionesController@edit');
            Route::post('codificaciones/importar', 'CodificacionesController@importar');
            Route::get('combo/{id}', 'CodificacionesController@combo');
+           Route::get('combocentro/{id}', 'CodificacionesController@combocentro');
+           Route::get('combocodificaciones/{id}', 'CodificacionesController@combocodificaciones');
       // });
 
       });

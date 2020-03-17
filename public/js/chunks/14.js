@@ -24,6 +24,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'CellRendererActions',
   methods: {
+    diferencia_horas: function diferencia_horas(dt2, dt1) {
+      var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+      diff /= 60;
+      return Math.round(diff);
+    },
     viewRecord: function viewRecord() {
       this.$router.push("../item-view/" + this.params.data.id).catch(function () {});
       /*
@@ -33,17 +38,33 @@ __webpack_require__.r(__webpack_exports__);
       */
     },
     editRecord: function editRecord() {
-      this.$router.push("../item-edit/" + this.params.data.id).catch(function () {});
+      var fecha_hoy = new Date();
+      var fecha = new Date(this.params.data.fecha_inicio);
+      fecha_hoy.setHours(0, 0, 0, 0); //var diff = this.diferencia_horas(fecha_hoy,fecha);
+      //fecha >= fecha_hoy diff <= 160
+
+      if (fecha >= fecha_hoy) {
+        this.$router.push("../item-edit/" + this.params.data.id).catch(function () {});
+      } else {
+        this.$vs.dialog({
+          color: 'danger',
+          title: "Confirmar Eliminacion",
+          text: 'No se pueden eliminar registros que ya se encuentran cerrados.',
+          acceptText: "Aceptar"
+        });
+      }
       /*
         Below line will be for actual product
         Currently it's commented due to demo purpose - Above url is for demo purpose
          this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
       */
+
     },
     confirmDeleteRecord: function confirmDeleteRecord() {
       var fecha_hoy = new Date();
       var fecha = new Date(this.params.data.fecha_inicio);
-      fecha_hoy.setHours(0, 0, 0, 0);
+      fecha_hoy.setHours(0, 0, 0, 0); // var diff = this.diferencia_horas(fecha_hoy,fecha);
+      //fecha >= fecha_hoy diff <= 160
 
       if (fecha >= fecha_hoy) {
         this.$vs.dialog({
@@ -58,7 +79,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$vs.dialog({
           color: 'danger',
           title: "Confirmar Eliminacion",
-          text: 'No se pueden eliminar registros que ya se encuentran vencidos.',
+          text: 'No se pueden eliminar registros que ya se encuentran cerrados.',
           acceptText: "Aceptar"
         });
       }
@@ -165,6 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cell_renderer_CellRendererStatus_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cell-renderer/CellRendererStatus.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/cell-renderer/CellRendererStatus.vue");
 /* harmony import */ var _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../utils/customLoadingOverlay.js */ "./resources/js/src/views/pages/utils/customLoadingOverlay.js");
 /* harmony import */ var _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../utils/customNoRowsOverlay.js */ "./resources/js/src/views/pages/utils/customNoRowsOverlay.js");
+/* harmony import */ var _utils_customDateComponentVue_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../utils/customDateComponentVue.js */ "./resources/js/src/views/pages/utils/customDateComponentVue.js");
 //
 //
 //
@@ -351,6 +373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_0__["AgGridVue"],
@@ -385,10 +408,10 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Todos',
         value: 'all'
       }, {
-        label: 'Activo',
+        label: 'Abierto',
         value: true
       }, {
-        label: 'Vencido',
+        label: 'Cerrado',
         value: false
       }],
 
@@ -432,7 +455,8 @@ __webpack_require__.r(__webpack_exports__);
       gridApi: null,
       frameworkComponents: {
         customLoadingOverlay: _utils_customLoadingOverlay_js__WEBPACK_IMPORTED_MODULE_7__["default"],
-        customNoRowsOverlay: _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__["default"]
+        customNoRowsOverlay: _utils_customNoRowsOverlay_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+        agDateInput: _utils_customDateComponentVue_js__WEBPACK_IMPORTED_MODULE_9__["default"]
       },
       loadingOverlayComponent: "customLoadingOverlay",
       loadingOverlayComponentParams: {
@@ -496,11 +520,34 @@ __webpack_require__.r(__webpack_exports__);
       {
         headerName: 'Fecha',
         field: 'fecha_inicio',
-        filter: true,
-        minWidth: 130,
+        filter: 'agDateColumnFilter',
+        flex: 1,
+        //filter: true,
+        minWidth: 160,
         valueGetter: function valueGetter(params) {
           var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
           return fecha_inicio;
+        },
+        filterParams: {
+          comparator: function comparator(filterLocalDateAtMidnight, cellValue) {
+            var dateAsString = cellValue;
+            if (dateAsString == null) return -1;
+            var dateParts = dateAsString.split('/');
+            var cellDate = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+
+            if (filterLocalDateAtMidnight.getTime() == cellDate.getTime()) {
+              return 0;
+            }
+
+            if (cellDate < filterLocalDateAtMidnight) {
+              return -1;
+            }
+
+            if (cellDate > filterLocalDateAtMidnight) {
+              return 1;
+            }
+          },
+          browserDatePicker: true
         }
       },
       /*  {
@@ -526,6 +573,11 @@ __webpack_require__.r(__webpack_exports__);
         valueGetter: function valueGetter(params) {
           return params.data.nombre + " " + params.data.apellido;
         }
+      }, {
+        headerName: 'Centro Costo',
+        field: 'centro_costo',
+        filter: true,
+        minWidth: 150
       }, {
         headerName: 'Tipo',
         field: 'tipo',
@@ -884,7 +936,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 
 // module
-exports.push([module.i, "#page-item-list .items-list-filters .vs__actions {\n  position: absolute;\n  top: 50%;\n}[dir] #page-item-list .items-list-filters .vs__actions {\n  -webkit-transform: translateY(-58%);\n          transform: translateY(-58%);\n}[dir=ltr] #page-item-list .items-list-filters .vs__actions {\n  right: 0;\n}[dir=rtl] #page-item-list .items-list-filters .vs__actions {\n  left: 0;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n#page-item-list .items-list-filters .vs__actions {\n  position: absolute;\n  top: 50%;\n}\n[dir] #page-item-list .items-list-filters .vs__actions {\n  -webkit-transform: translateY(-58%);\n          transform: translateY(-58%);\n}\n[dir=ltr] #page-item-list .items-list-filters .vs__actions {\n  right: 0;\n}\n[dir=rtl] #page-item-list .items-list-filters .vs__actions {\n  left: 0;\n}\n.custom-date-filter a {\n  position: absolute;\n  color: rgba(0, 0, 0, 0.54);\n}\n[dir] .custom-date-filter a {\n  cursor: pointer;\n}\n[dir=ltr] .custom-date-filter a {\n  right: 20px;\n}\n[dir=rtl] .custom-date-filter a {\n  left: 20px;\n}\n.custom-date-filter:after {\n  position: absolute;\n  content: \"\\F073\";\n  display: block;\n  font-weight: 400;\n  font-family: \"Font Awesome 5 Free\";\n  pointer-events: none;\n  color: rgba(0, 0, 0, 0.54);\n}\n[dir=ltr] .custom-date-filter:after {\n  right: 5px;\n}\n[dir=rtl] .custom-date-filter:after {\n  left: 5px;\n}", ""]);
 
 // exports
 
@@ -1027,7 +1079,7 @@ var render = function() {
     },
     [
       _c("span", [
-        _vm._v(_vm._s(_vm.params.value === true ? "Activo" : "Vencido"))
+        _vm._v(_vm._s(_vm.params.value === true ? "Abierto" : "Cerrado"))
       ])
     ]
   )
@@ -1770,6 +1822,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_itemList_vue_vue_type_template_id_28a194a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/utils/customDateComponentVue.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/src/views/pages/utils/customDateComponentVue.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\vuexy\\resources\\js\\src\\views\\pages\\utils\\customDateComponentVue.js: Unexpected token (52:0)\n\n\u001b[0m \u001b[90m 50 | \u001b[39m  \u001b[0m\n\u001b[0m \u001b[90m 51 | \u001b[39m})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 | \u001b[39m\u001b[33m<\u001b[39m\u001b[33mstyle\u001b[39m lang\u001b[33m=\u001b[39m\u001b[32m\"scss\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 53 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 54 | \u001b[39m\u001b[33m.\u001b[39mcustom\u001b[33m-\u001b[39mdate\u001b[33m-\u001b[39mfilter a {\u001b[0m\n\u001b[0m \u001b[90m 55 | \u001b[39m  position\u001b[33m:\u001b[39m absolute\u001b[33m;\u001b[39m\u001b[0m\n    at Parser.raise (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:6983:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:8376:16)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:9637:20)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:9213:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:9193:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:9059:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:9032:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:8978:21)\n    at Parser.parseExpression (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:8928:23)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:10795:23)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:10666:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:11242:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:11229:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:10597:10)\n    at Parser.parse (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:12107:10)\n    at parse (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\parser\\lib\\index.js:12158:38)\n    at parser (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:168:34)\n    at normalizeFile (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:102:11)\n    at runSync (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\xampp\\htdocs\\vuexy\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ })
 

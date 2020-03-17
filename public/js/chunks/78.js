@@ -555,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activePromptAddEvent = true;
     },
     handleDateClick: function handleDateClick(info) {
-      if (info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)') {
+      if (info.dayEl.style.backgroundColor == 'rgb(163, 73, 164)') {
         var index = this.fechas.indexOf(info.dateStr);
 
         if (index > -1) {
@@ -565,7 +565,7 @@ __webpack_require__.r(__webpack_exports__);
         info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
+        info.dayEl.style.backgroundColor = 'rgb(163, 73, 164)';
       }
       /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
          this.calendarEvents.push({ // add new event data
@@ -622,7 +622,7 @@ exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loa
 exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loader!@fullcalendar/timegrid/main.css */ "./node_modules/css-loader/index.js!./node_modules/@fullcalendar/timegrid/main.css"), "");
 
 // module
-exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}\n[dir] .fc-sun {\n  background-color: RGB(231, 240, 238);\n}\n[dir] .fc-sat {\n  background-color: RGB(231, 240, 238);\n}", ""]);
+exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}\n[dir] .fc-sun {\n  background-color: RGB(239, 220, 239);\n}\n[dir] .fc-sat {\n  background-color: RGB(239, 220, 239);\n}\n[dir] td.fc-today {\n  background: RGB(255, 174, 201);\n}\n[dir] .fc-disabled-day {\n  background: RGB(196, 196, 255) !important;\n}", ""]);
 
 // exports
 

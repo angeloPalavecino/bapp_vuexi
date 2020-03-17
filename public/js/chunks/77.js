@@ -267,6 +267,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -313,9 +333,11 @@ __webpack_require__.r(__webpack_exports__);
       empresa: 1,
       sucursal: null,
       codificacion: null,
+      centrocosto: null,
       empresasOptions: [],
       sucursalesOptions: [],
       codificacionesOptions: [],
+      centrocostoOptions: [],
       tipoOptions: [{
         label: 'Zarpe',
         value: 'Zarpe'
@@ -337,6 +359,7 @@ __webpack_require__.r(__webpack_exports__);
     empresa: function empresa(obj) {
       this.sucursal = null;
       this.codificacion = null;
+      this.centrocosto = null;
       var item = this.empresasOptions.find(function (u) {
         return u.id === obj;
       });
@@ -364,9 +387,19 @@ __webpack_require__.r(__webpack_exports__);
       this.traeSucursales(obj);
     },
     sucursal: function sucursal(obj) {
-      this.codificacion = null, //this.$store.state.calendar.events = null,
+      this.centrocosto = null;
+      this.codificacion = null; //this.$store.state.calendar.events = null,
+
       this.traeHorarios(obj);
-      this.traecodificaciones(obj);
+      this.traecentrocostos(obj);
+    },
+    centrocosto: function centrocosto(obj) {
+      this.codificacion = null; //this.$store.state.calendar.events = null,
+      //this.traeHorarios(obj);
+
+      if (obj != null) {
+        this.traecodificaciones(obj.value);
+      }
     },
     codificacion: function codificacion(obj) {
       this.$store.dispatch('calendar/fetchEvents', obj);
@@ -457,13 +490,13 @@ __webpack_require__.r(__webpack_exports__);
         this.sucursalesOptions = [];
       }
     },
-    traecodificaciones: function traecodificaciones(value) {
+    traecentrocostos: function traecentrocostos(value) {
       var _this4 = this;
 
       if (value > 0) {
-        //Combo Codificaciones
-        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/codificaciones/combo/" + value).then(function (res) {
-          _this4.codificacionesOptions = res.data.items;
+        //Combo Centro Costo
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/codificaciones/combocentro/" + value).then(function (res) {
+          _this4.centrocostoOptions = res.data.items;
         }).catch(function (err) {
           var textError = err.response.status == 300 ? err.response.data.message : err;
 
@@ -476,14 +509,36 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       } else {
+        this.centrocostoOptions = [];
+      }
+    },
+    traecodificaciones: function traecodificaciones(value) {
+      var _this5 = this;
+
+      if (value > 0) {
+        //Combo Codificaciones
+        _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/codificaciones/combocodificaciones/" + value).then(function (res) {
+          _this5.codificacionesOptions = res.data.items;
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this5.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
         this.codificacionesOptions = [];
       }
     },
     addEvent: function addEvent() {
-      var _this5 = this;
+      var _this6 = this;
 
       var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this5.horario;
+        return element.id == _this6.horario;
       });
       var obj = {
         tipo: this.tipo,
@@ -492,17 +547,17 @@ __webpack_require__.r(__webpack_exports__);
         horario_id: this.horario
       };
       this.$store.dispatch('calendar/addEvent', obj).then(function () {
-        _this5.$store.dispatch('calendar/fetchEvents', _this5.codificacion);
+        _this6.$store.dispatch('calendar/fetchEvents', _this6.codificacion);
 
-        _this5.clearFields();
+        _this6.clearFields();
 
-        _this5.fechas = [];
+        _this6.fechas = [];
 
-        var calendarApi = _this5.$refs.fullCalendar.getApi();
+        var calendarApi = _this6.$refs.fullCalendar.getApi();
 
         calendarApi.render();
 
-        _this5.$vs.notify({
+        _this6.$vs.notify({
           color: 'success',
           title: 'Agendamiento Ingresado',
           text: 'El agendamiento ya fue ingresado'
@@ -510,7 +565,7 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this5.$vs.notify({
+        _this6.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -529,10 +584,10 @@ __webpack_require__.r(__webpack_exports__);
       this.activePromptEditEvent = true;
     },
     editEvent: function editEvent() {
-      var _this6 = this;
+      var _this7 = this;
 
       var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this6.horario;
+        return element.id == _this7.horario;
       });
       var color = "";
 
@@ -554,7 +609,7 @@ __webpack_require__.r(__webpack_exports__);
         color: color
       };
       this.$store.dispatch('calendar/editEvent', obj).then(function () {
-        _this6.$vs.notify({
+        _this7.$vs.notify({
           color: 'success',
           title: 'Agendamiento Actualizado',
           text: 'El agendamiento ya fue actualizado'
@@ -562,7 +617,7 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this6.$vs.notify({
+        _this7.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -582,15 +637,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteRecord: function deleteRecord() {
-      var _this7 = this;
+      var _this8 = this;
 
       /* UnComment below lines for enabling true flow if deleting user */
       this.$store.dispatch('calendar/removeEvent', this.id).then(function () {
-        _this7.showDeleteSuccess();
+        _this8.showDeleteSuccess();
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this7.$vs.notify({
+        _this8.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -610,7 +665,7 @@ __webpack_require__.r(__webpack_exports__);
       event.revert();
     },
     eventDragged: function eventDragged(event) {
-      var _this8 = this;
+      var _this9 = this;
 
       var agendamiento = event.event;
       var obj = {
@@ -625,7 +680,7 @@ __webpack_require__.r(__webpack_exports__);
         color: agendamiento.borderColor
       };
       this.$store.dispatch('calendar/eventDragged', obj).then(function () {
-        _this8.$vs.notify({
+        _this9.$vs.notify({
           color: 'success',
           title: 'Agendamiento Actualizado',
           text: 'El agendamiento ya fue actualizado'
@@ -633,7 +688,7 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this8.$vs.notify({
+        _this9.$vs.notify({
           title: 'Error',
           text: textError,
           color: 'danger',
@@ -656,7 +711,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activePromptAddEvent = true;
     },
     handleDateClick: function handleDateClick(info) {
-      if (info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)') {
+      if (info.dayEl.style.backgroundColor == 'rgb(163, 73, 164)') {
         var index = this.fechas.indexOf(info.dateStr);
 
         if (index > -1) {
@@ -666,7 +721,7 @@ __webpack_require__.r(__webpack_exports__);
         info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
+        info.dayEl.style.backgroundColor = 'rgb(163, 73, 164)';
       }
       /* if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
        this.calendarEvents.push({ // add new event data
@@ -706,7 +761,7 @@ exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loa
 exports.i(__webpack_require__(/*! -!../../../../../../../../node_modules/css-loader!@fullcalendar/timegrid/main.css */ "./node_modules/css-loader/index.js!./node_modules/@fullcalendar/timegrid/main.css"), "");
 
 // module
-exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}\n[dir] .fc-sun {\n  background-color: RGB(231, 240, 238);\n}\n[dir] .fc-sat {\n  background-color: RGB(231, 240, 238);\n}", ""]);
+exports.push([module.i, ".calendar {\n  max-width: 100%;\n}\n[dir] .calendar {\n  margin: 0 auto;\n}\n[dir] .fc-button-primary {\n  background-color: rgba(var(--vs-primary), 1) !important;\n  border-color: rgba(var(--vs-primary), 1) !important;\n}\n.fc-button-active {\n  opacity: 0.65 !important;\n}\n[dir] .fc-sun {\n  background-color: RGB(239, 220, 239);\n}\n[dir] .fc-sat {\n  background-color: RGB(239, 220, 239);\n}\n[dir] td.fc-today {\n  background: RGB(255, 174, 201);\n}\n[dir] .fc-disabled-day {\n  background: RGB(196, 196, 255) !important;\n}", ""]);
 
 // exports
 
@@ -798,7 +853,7 @@ var render = function() {
           _c("div", { staticClass: "vx-row no-gutter" }, [
             _c(
               "div",
-              { staticClass: "vx-col w-1/4 items-center sm:flex hidden" },
+              { staticClass: "vx-col w-1/3 items-center sm:flex hidden" },
               [
                 _c(
                   "div",
@@ -810,7 +865,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "vs-select--label", attrs: { for: "" } },
-                      [_vm._v("Empresas")]
+                      [_vm._v("Empresa")]
                     ),
                     _vm._v(" "),
                     _c("v-select", {
@@ -843,7 +898,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col w-1/4 items-center sm:flex hidden" },
+              { staticClass: "vx-col w-1/3 items-center sm:flex hidden" },
               [
                 _c(
                   "div",
@@ -855,7 +910,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "vs-select--label", attrs: { for: "" } },
-                      [_vm._v("Sucursales")]
+                      [_vm._v("Sucursal")]
                     ),
                     _vm._v(" "),
                     _c("v-select", {
@@ -888,7 +943,48 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col w-1/4 items-center sm:flex hidden" },
+              { staticClass: "vx-col w-1/3 items-center sm:flex hidden" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "con-select w-full p-1",
+                    attrs: { name: "sucursal", dir: "ltr" }
+                  },
+                  [
+                    _c(
+                      "label",
+                      { staticClass: "vs-select--label", attrs: { for: "" } },
+                      [_vm._v("Centro Costo")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      ref: "centrocosto",
+                      staticClass: "w-full p-1",
+                      attrs: {
+                        options: _vm.centrocostoOptions,
+                        clearable: false,
+                        dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                        placeholder: "Seleccione un centro costo",
+                        name: "centrocosto"
+                      },
+                      model: {
+                        value: _vm.centrocosto,
+                        callback: function($$v) {
+                          _vm.centrocosto = $$v
+                        },
+                        expression: "centrocosto"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col w-1/3 items-center sm:flex hidden" },
               [
                 _c(
                   "div",
@@ -900,7 +996,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "vs-select--label", attrs: { for: "" } },
-                      [_vm._v("Pasajeros")]
+                      [_vm._v("Tripulante")]
                     ),
                     _vm._v(" "),
                     _c("v-select", {
@@ -910,31 +1006,13 @@ var render = function() {
                         options: _vm.codificacionesOptions,
                         clearable: false,
                         dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                        label: "nombre",
-                        name: "codificaciones",
-                        reduce: function(nombre) {
-                          return nombre.id
+                        label: "label",
+                        reduce: function(label) {
+                          return label.value
                         },
-                        placeholder: "Seleccione una persona"
+                        placeholder: "Seleccione un tripulante",
+                        name: "codificaciones"
                       },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "option",
-                          fn: function(option) {
-                            return [
-                              _vm._v(
-                                "\n                      " +
-                                  _vm._s(option.nombre) +
-                                  " " +
-                                  _vm._s(option.apellido) +
-                                  " (" +
-                                  _vm._s(option.rut) +
-                                  ")\n                  "
-                              )
-                            ]
-                          }
-                        }
-                      ]),
                       model: {
                         value: _vm.codificacion,
                         callback: function($$v) {
@@ -949,13 +1027,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(0)
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row no-gutter" }, [
             _c(
               "div",
-              { staticClass: "vx-col sm:w-1/3 mt-4 w-full flex" },
+              { staticClass: "vx-col sm:w-1/3 mt-6 w-full flex" },
               [
                 _c(
                   "vx-tooltip",
@@ -964,7 +1038,7 @@ var render = function() {
                     _c(
                       "vs-button",
                       {
-                        staticClass: "mr-3",
+                        staticClass: "mt-2 mr-3",
                         attrs: { "icon-pack": "feather", icon: "icon-plus" },
                         on: {
                           click: function($event) {
@@ -985,7 +1059,7 @@ var render = function() {
                     _c(
                       "vs-button",
                       {
-                        staticClass: "mr-4",
+                        staticClass: "mt-2 mr-4",
                         attrs: {
                           "icon-pack": "feather",
                           icon: "icon-arrow-left"
@@ -1003,8 +1077,12 @@ var render = function() {
                 )
               ],
               1
-            )
-          ])
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "vx-row no-gutter" })
         ]
       ),
       _vm._v(" "),

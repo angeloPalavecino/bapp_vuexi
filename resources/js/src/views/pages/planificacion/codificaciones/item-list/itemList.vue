@@ -248,6 +248,15 @@ export default {
         },
          {
           headerName: 'Nombre',
+          filter: true,
+          colId: "nombre",
+          minWidth: 200,
+          valueGetter: function(params) {
+            return params.data.nombre + " " + params.data.apellido;
+        }
+        },
+        /*{
+          headerName: 'Nombre',
           field: 'nombre',
           filter: true,
           minWidth: 200,
@@ -257,7 +266,7 @@ export default {
           field: 'apellido',
           filter: true,
           minWidth: 200,
-        },
+        },*/
         {
           headerName: 'Rut',
           field: 'rut',

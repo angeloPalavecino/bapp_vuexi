@@ -75322,7 +75322,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-edit/:itemId',
       name: 'empresas-edit',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(7), __webpack_require__.e(37)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(21), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-edit/itemEdit.vue */ "./resources/js/src/views/pages/administracion/empresas/item-edit/itemEdit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75342,7 +75342,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/empresas/item-add/',
       name: 'empresas-add',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(7), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(21), __webpack_require__.e(37)]).then(__webpack_require__.bind(null, /*! @/views/pages/administracion/empresas/item-add/itemAdd.vue */ "./resources/js/src/views/pages/administracion/empresas/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -75523,7 +75523,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/administracion/moviles/conductores/item-list/itemlist',
       name: 'conductores',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/conductores/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, /*! ./views/pages/administracion/moviles/conductores/item-list/itemList.vue */ "./resources/js/src/views/pages/administracion/moviles/conductores/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76165,7 +76165,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/horarios/item-add/',
       name: 'horarios-add',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-add/itemAdd.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/pages/planificacion/horarios/item-add/itemAdd.vue */ "./resources/js/src/views/pages/planificacion/horarios/item-add/itemAdd.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -76206,7 +76206,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/pages/planificacion/agendamientos/item-list/itemlist',
       name: 'agendamientos',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/agendamientos/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(91)]).then(__webpack_require__.bind(null, /*! ./views/pages/planificacion/agendamientos/item-list/itemList.vue */ "./resources/js/src/views/pages/planificacion/agendamientos/item-list/itemList.vue"));
       },
       meta: {
         breadcrumb: [{

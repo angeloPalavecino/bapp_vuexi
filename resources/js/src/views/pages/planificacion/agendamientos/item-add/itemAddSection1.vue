@@ -3,9 +3,9 @@
    <div slot="header" class="mb-4">
           <div class="vx-row no-gutter">
             <!-- Month Name -->
-             <div class="vx-col w-1/4 items-center sm:flex hidden">
+             <div class="vx-col w-1/3 items-center sm:flex hidden">
              <div class="con-select w-full p-1" name="empresa" dir="ltr">
-               <label for="" class="vs-select--label">Empresas</label>
+               <label for="" class="vs-select--label">Empresa</label>
                 <v-select :options="empresasOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="empresa" label="razon_social" 
                 ref="empresas" name="empresa" :reduce="razon_social => razon_social.id" class="w-full p-1" 
                 placeholder="Seleccione un empresa"/>
@@ -17,9 +17,9 @@
               </div>
               </div>
 
-               <div class="vx-col w-1/4 items-center sm:flex hidden">
+               <div class="vx-col w-1/3 items-center sm:flex hidden">
                  <div class="con-select w-full p-1" name="sucursal" dir="ltr">
-               <label for="" class="vs-select--label">Sucursales</label>
+               <label for="" class="vs-select--label">Sucursal</label>
                 <v-select :options="sucursalesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="sucursal" label="nombre" 
                 ref="sucursales" name="sucursales" :reduce="nombre => nombre.id" class="w-full p-1" 
                 placeholder="Seleccione una sucursal"/>
@@ -31,18 +31,35 @@
                 </vs-select>-->
               </div>
 
-               <div class="vx-col w-1/4 items-center sm:flex hidden">
+               <div class="vx-col w-1/3 items-center sm:flex hidden">
+                 <div class="con-select w-full p-1" name="sucursal" dir="ltr">
+               <label for="" class="vs-select--label">Centro Costo</label>
+
+                <v-select :options="centrocostoOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="centrocosto" 
+               class="w-full p-1"  placeholder="Seleccione un centro costo" ref="centrocosto" name="centrocosto" 
+               />
+              
+
+              </div>
+              </div>
+
+               <div class="vx-col w-1/3 items-center sm:flex hidden">
 
                <div class="con-select w-full p-1" name="codificacion" dir="ltr">
-               <label for="" class="vs-select--label">Pasajeros</label>
-                <v-select :options="codificacionesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+               <label for="" class="vs-select--label">Tripulante</label>
+
+               <v-select :options="codificacionesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="codificacion" 
+               class="w-full p-1" label="label" :reduce="label => label.value"  placeholder="Seleccione un tripulante" ref="codificaciones" name="codificaciones" 
+               />
+
+               <!-- <v-select :options="codificacionesOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                 v-model="codificacion" label="nombre" 
                 ref="codificaciones" name="codificaciones" :reduce="nombre => nombre.id" class="w-full p-1" 
-                placeholder="Seleccione una persona">
+                placeholder="Seleccione un tripulante">
                  <template v-slot:option="option">
-                      {{ option.nombre }} {{ option.apellido }} ({{ option.rut }})
+                   {{ option.filter }}
                   </template>
-                </v-select>
+                </v-select>-->
 
               </div>
 
@@ -51,7 +68,17 @@
                 <vs-select-item :key="item.id" :value="item.id" :text="item.nombre + ' ' + item.apellido" v-for="item in codificacionesOptions"  />
                 </vs-select>-->
               </div>
-              
+             
+               <div class="vx-col sm:w-1/3 mt-6 w-full flex">
+              <vx-tooltip color="primary" text="Agendar">
+              <vs-button icon-pack="feather" icon="icon-plus" class="mt-2 mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
+              </vx-tooltip>
+               <vx-tooltip color="primary" text="Volver">
+              <vs-button icon-pack="feather" icon="icon-arrow-left" class="mt-2 mr-4" @click="volver()">Volver</vs-button>
+            </vx-tooltip>
+            </div>
+
+             
               <div class="vx-col w-1/4 items-center sm:flex hidden mt-6">
                 <div class="vx-col w-full flex ml-4">
                   <!-- Labels -->
@@ -72,14 +99,7 @@
           </div>
 
           <div class="vx-row no-gutter">
-            <div class="vx-col sm:w-1/3 mt-4 w-full flex">
-              <vx-tooltip color="primary" text="Agendar">
-              <vs-button icon-pack="feather" icon="icon-plus" class="mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
-              </vx-tooltip>
-               <vx-tooltip color="primary" text="Volver">
-              <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" @click="volver()">Volver</vs-button>
-            </vx-tooltip>
-            </div>
+           
           <!-- 
              <div class="vx-col sm:w-1/3 mt-6 w-full flex">
             <label class="vs-input--label mt-1 mr-2">Ver eventos?</label>
@@ -240,10 +260,12 @@ export default {
       empresa:1,
       sucursal:null,
       codificacion: null,
-      
+      centrocosto:null,
+
       empresasOptions:[],
       sucursalesOptions:[],
       codificacionesOptions:[],
+      centrocostoOptions:[],
 
       tipoOptions: [
         { label: 'Zarpe', value: 'Zarpe' },
@@ -267,7 +289,8 @@ export default {
   watch: {
     empresa(obj) {
       this.sucursal = null;
-      this.codificacion =  null;
+      this.codificacion = null;
+      this.centrocosto =  null;
       var item = this.empresasOptions.find((u) => u.id === obj)  
       
       if(item.id == 1){      
@@ -296,12 +319,23 @@ export default {
       this.traeSucursales(obj);
     },
     sucursal(obj){    
-      this.codificacion =  null, 
+      this.centrocosto =  null;
+      this.codificacion = null;
       //this.$store.state.calendar.events = null,
       this.traeHorarios(obj);
-      this.traecodificaciones(obj);
+      this.traecentrocostos(obj);
+    },
+    centrocosto(obj){    
+     
+      this.codificacion = null;
+      //this.$store.state.calendar.events = null,
+      //this.traeHorarios(obj);
+      if(obj != null){
+        this.traecodificaciones(obj.value);
+      }
     },
     codificacion(obj){    
+     
       this.$store.dispatch('calendar/fetchEvents', obj);
     },
   },
@@ -399,11 +433,37 @@ export default {
       }
      
     },
-    traecodificaciones(value) {
+    traecentrocostos(value) {
+      
+      if(value >  0)  {
+        //Combo Centro Costo
+        axios.get(`/api/v1/codificaciones/combocentro/` + value)
+          .then((res) => {
+            this.centrocostoOptions = res.data.items;  
+          })
+          .catch((err) => { 
+
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+          this.$vs.notify({
+                      title:'Error',
+                      text: textError,
+                      color:'danger',
+                      iconPack: 'feather',
+                      icon:'icon-alert-circle'})  
+
+        })  
+
+      }else{
+
+        this.centrocostoOptions = [];
+      }
+     
+    },
+     traecodificaciones(value) {
       
       if(value >  0)  {
         //Combo Codificaciones
-        axios.get(`/api/v1/codificaciones/combo/` + value)
+        axios.get(`/api/v1/codificaciones/combocodificaciones/` + value)
           .then((res) => {
             this.codificacionesOptions = res.data.items;  
           })
@@ -426,7 +486,7 @@ export default {
      
     },
      addEvent() {
-
+       
         var horario = this.horariosOptions.find(element => element.id == this.horario); 
   
         const obj = {  tipo: this.tipo, fechas: this.fechas,codificacion: this.codificacion, horario_id: this.horario}
@@ -572,11 +632,12 @@ export default {
     addNewEventDialog(date) {
         this.clearFields();
         this.activePromptAddEvent = true;
+
     },
     handleDateClick(info) {
       
 
-      if(info.dayEl.style.backgroundColor == 'rgb(204, 229, 235)' ){
+      if(info.dayEl.style.backgroundColor == 'rgb(163, 73, 164)' ){
         const index = this.fechas.indexOf(info.dateStr);
         if (index > -1) {
             this.fechas.splice(index, 1);
@@ -584,7 +645,7 @@ export default {
          info.dayEl.style.backgroundColor = '';
       } else {
         this.fechas.push(info.dateStr);
-        info.dayEl.style.backgroundColor = 'rgb(204, 229, 235)';
+        info.dayEl.style.backgroundColor = 'rgb(163, 73, 164)';
       }
        
  
@@ -632,7 +693,10 @@ export default {
   opacity: 0.65!important;
 }
 
-.fc-sun { background-color:RGB(231, 240, 238) } //RGB(230, 240, 241)
-.fc-sat { background-color:RGB(231, 240, 238) } //RGB(230, 240, 241)
+.fc-sun { background-color:RGB(239, 220 , 239) } //RGB(230, 240, 241)
+.fc-sat { background-color:RGB(239, 220 , 239) } //RGB(230, 240, 241)
+
+td.fc-today {  background:RGB(255 , 174  , 201 ) }
+.fc-disabled-day {  background:RGB(196, 196, 255) !important }
 
 </style>

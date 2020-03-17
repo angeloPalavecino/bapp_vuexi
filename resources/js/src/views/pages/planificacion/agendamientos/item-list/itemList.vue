@@ -189,6 +189,7 @@ import CellRendererStatus from "./cell-renderer/CellRendererStatus.vue"
 //Loading
 import CustomLoadingOverlay from "../../../utils/customLoadingOverlay.js";
 import CustomNoRowsOverlay from "../../../utils/customNoRowsOverlay.js";
+import CustomDateComponent from '../../../utils/customDateComponentVue.js';
 
 export default {
   components: {
@@ -215,8 +216,8 @@ export default {
       estadoFilter: { label: 'Activo', value: true },
       estadoOptions: [
         { label: 'Todos', value: 'all' }, 
-        { label: 'Activo', value: true },
-        { label: 'Vencido', value: false },
+        { label: 'Abierto', value: true },
+        { label: 'Cerrado', value: false },
       ],
 
      /* periodoFilter: { label: 'Todos', value: 'all' },
@@ -248,7 +249,8 @@ export default {
       gridApi: null,
       frameworkComponents : {
         customLoadingOverlay: CustomLoadingOverlay,
-        customNoRowsOverlay: CustomNoRowsOverlay
+        customNoRowsOverlay: CustomNoRowsOverlay,
+        agDateInput: CustomDateComponent
       },
       loadingOverlayComponent : "customLoadingOverlay",
       loadingOverlayComponentParams : { loadingMessage: "Un momento, por favor espere..." },
@@ -315,12 +317,35 @@ export default {
          {
           headerName: 'Fecha',
           field: 'fecha_inicio',
-          filter: true,
-          minWidth: 130,
+          filter: 'agDateColumnFilter',
+          //filter: true,
+          minWidth: 200,
             valueGetter: function(params) {
             var fecha_inicio = new Date(params.data.fecha_inicio).toLocaleDateString('en-GB');
             return fecha_inicio;
           },
+          filterParams: {
+          comparator: (filterLocalDateAtMidnight, cellValue) => {
+            var dateAsString = cellValue;
+            if (dateAsString == null) return -1;
+            var dateParts = dateAsString.split('/');
+            var cellDate = new Date(
+              Number(dateParts[2]),
+              Number(dateParts[1]) - 1,
+              Number(dateParts[0])
+            );
+            if (filterLocalDateAtMidnight.getTime() == cellDate.getTime()) {
+              return 0;
+            }
+            if (cellDate < filterLocalDateAtMidnight) {
+              return -1;
+            }
+            if (cellDate > filterLocalDateAtMidnight) {
+              return 1;
+            }
+          },
+          browserDatePicker: true,
+        },
         },
        /*  {
           headerName: 'Termino',
@@ -347,6 +372,12 @@ export default {
             return params.data.nombre + " " + params.data.apellido;
         }
           
+        },
+        {
+          headerName: 'Centro Costo',
+          field: 'centro_costo',
+          filter: true,
+          minWidth: 150,
         },
         {
           headerName: 'Tipo',
