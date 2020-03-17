@@ -93,9 +93,9 @@ class EmpresaController extends Controller
 
         //Agrega Empresa
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut']));
-        $dv = $empresa['dv'];
-        $razon_social = $empresa['razon_social'];
-        $giro = $empresa['giro'];
+        $dv = strtoupper($empresa['dv']);
+        $razon_social = strtoupper($empresa['razon_social']);
+        $giro = strtoupper($empresa['giro']);
         $d = new DateTime($empresa['fecha_incorporacion']);
         $fecha_incorporacion = $d->format('Y-m-d');
         $habilitado =  $empresa['habilitado'];
@@ -157,6 +157,8 @@ class EmpresaController extends Controller
                 $itemsuc['lng'] = null;
             }         
             $itemsuc["empresa_id"] = $emp->id;
+            $itemsuc["direccion"] = strtoupper($itemsuc['direccion']);
+            $itemsuc["nombre"] = strtoupper($itemsuc['nombre']);
             $sucur = Sucursal::create($itemsuc);
             array_push($auxSuc,$sucur); 
          }
@@ -167,6 +169,7 @@ class EmpresaController extends Controller
 
          foreach ($responsables as $key => $itemres) {
             $itemres["empresa_id"] = $emp->id;
+            $itemres["name"] = strtoupper($itemres['name']);
             $respon = Responsable::create($itemres);
             array_push($auxRes,$respon); 
          }
@@ -293,6 +296,9 @@ class EmpresaController extends Controller
               $itemsuc['lat'] = null;
               $itemsuc['lng'] = null;
            }
+           $itemsuc["direccion"] = strtoupper($itemsuc['direccion']);
+           $itemsuc["nombre"] = strtoupper($itemsuc['nombre']);
+
            if (isset($itemsuc['id'])) {
                 Sucursal::where('id', $itemsuc['id'])->update($itemsuc);
             }else{
@@ -305,7 +311,9 @@ class EmpresaController extends Controller
         $auxres = array_column($responsables, 'id');
         Responsable::whereNotIn('id', $auxres)->delete();
         foreach ($responsables as $keyres => $itemres) {
+            $itemres["name"] = strtoupper($itemres['name']);
             if (isset($itemres['id'])) {
+                
                 Responsable::where('id', $itemres['id'])->update($itemres);
             }else{
                 $itemres['empresa_id'] = $id;
@@ -322,9 +330,9 @@ class EmpresaController extends Controller
         Empresa::where('id', $id)->update(
          array(
                 'rut'                  => strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut'])),
-                'dv'                   => $empresa['dv'],
-                'razon_social'         => $empresa['razon_social'],
-                'giro'                 => $empresa['giro'],
+                'dv'                   => strtoupper($empresa['dv']),
+                'razon_social'         => strtoupper($empresa['razon_social']),
+                'giro'                 => strtoupper($empresa['giro']),
                 'habilitado'           => $empresa['habilitado'],
                 'fecha_incorporacion'  => $d->format('Y-m-d'),
                 'hora_max_agendamiento'=> $empresa['hora_max_agendamiento'], 

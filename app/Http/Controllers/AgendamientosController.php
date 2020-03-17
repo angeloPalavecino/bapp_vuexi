@@ -139,7 +139,7 @@ class AgendamientosController extends Controller
            
         }
 
-        $tipo = $input['tipo'];
+        $tipo = strtoupper($input['tipo']);
         $horario = $input['horario_id'];
         $fechas = $input['fechas'];
         $codificacion = $input['codificacion'];
@@ -281,7 +281,7 @@ class AgendamientosController extends Controller
         }
 
        
-        $tipo = $input['tipo'];
+        $tipo = strtoupper($input['tipo']);
         $horario = $input['horario_id'];
         $horario_text = Horarios::where('id', $horario)->value('horario'); 
         $fechas = explode(" ", $input['fecha']);
@@ -325,7 +325,7 @@ class AgendamientosController extends Controller
         }
 
     
-        $tipo = $input['tipo'];
+        $tipo = strtoupper($input['tipo']);
         $horario = $input['horario_id'];
         $horario_text = Horarios::where('id', $horario)->value('horario'); 
         $fechas = explode("T", $input['fecha']);
@@ -566,7 +566,7 @@ class AgendamientosController extends Controller
             
             $id             = $key+1;
             $rut            = isset($agendamiento['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($agendamiento['Rut']))) : " "; 
-            $tipo           = isset($agendamiento['Tipo']) ? ucwords(self::limpiar_string($agendamiento['Tipo'])) : "";
+            $tipo           = isset($agendamiento['Tipo']) ? strtoupper(self::limpiar_string($agendamiento['Tipo'])) : "";
             $fecha          = isset($agendamiento['Fecha']) ? $agendamiento['Fecha'] : ""; 
             $horario        = isset($agendamiento['Horario']) ? $agendamiento['Horario'] : ""; 
             $valida_rut     = self::validaRut($rut);
@@ -597,7 +597,7 @@ class AgendamientosController extends Controller
             //Validar fechas futuras?? Maximo 1 mes?.
             
             if(empty($rut) || $rut == " " || $valida_rut == false || empty($tipo) || $tipo == " " || empty($horario) 
-                || $horario == " " || empty($fecha) || $fecha == " " || $valida_fecha == false || ($tipo != "Zarpe" && $tipo != "Recogida")
+                || $horario == " " || empty($fecha) || $fecha == " " || $valida_fecha == false || ($tipo != "ZARPE" && $tipo != "RECOGIDA")
                 || empty($codificacion_id) || $codificacion_id == null || empty($horario_id) || $horario_id == null || ($fecha_agendamiento < $fecha_hoy)){
                     
                     $error['id'] = $id;
