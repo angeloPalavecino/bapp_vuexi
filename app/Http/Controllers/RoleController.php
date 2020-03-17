@@ -62,7 +62,7 @@ class RoleController extends Controller
         }
 
         $input = $request->all();
-        $name = $input['name'];
+        $name = strtoupper($input['name']);
         $guard_name = 'api';
 
         //Actualiza Rol
@@ -143,7 +143,7 @@ class RoleController extends Controller
         if(!is_null($role)){
     
             $input = $request->all();
-            $name = $input['name'];
+            $name = strtoupper($input['name']);
            
             //Actualiza Rol
 
