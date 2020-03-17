@@ -46,6 +46,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       item_data: null,
+      item_data_empresas: null,
       item_not_found: false,
       urlApi: "/car/car/"
     };
@@ -64,6 +65,10 @@ __webpack_require__.r(__webpack_exports__);
         Url: this.urlApi
       }).then(function (res) {
         _this.item_data = res.data.item[0];
+        var empresas = res.data.empresas.map(function (value, index) {
+          return value['id'];
+        });
+        _this.item_data_empresas = empresas;
       }).catch(function (err) {
         if (err.response.status === 404) {
           _this.item_not_found = true;
@@ -294,13 +299,17 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     data: {
       type: Object,
       required: true
+    },
+    data_empresas: {
+      type: Array,
+      required: true
     }
   },
   data: function data() {
     return {
       urlApi: "/car/car/",
       data_local: {
-        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        empresas: this.data_empresas ? this.data_empresas : null,
         tipo: this.data.tipo ? this.data.tipo : null,
         marca: this.data.marca ? this.data.marca : null,
         modelo: this.data.modelo ? this.data.modelo : null,
@@ -362,7 +371,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     },
     reset_data: function reset_data() {
       this.data_local = {
-        empresa_id: this.data.empresa_id ? this.data.empresa_id : null,
+        empresas: this.data_empresas ? this.data_empresas : null,
         tipo: this.data.tipo ? this.data.tipo : null,
         marca: this.data.marca ? this.data.marca : null,
         modelo: this.data.modelo ? this.data.modelo : null,
@@ -484,7 +493,10 @@ var render = function() {
             [
               _c("item-edit-section1", {
                 staticClass: "mt-4",
-                attrs: { data: _vm.item_data }
+                attrs: {
+                  data: _vm.item_data,
+                  data_empresas: _vm.item_data_empresas
+                }
               })
             ],
             1
@@ -552,11 +564,11 @@ var render = function() {
                     : ""
                 },
                 model: {
-                  value: _vm.data_local.empresa_id,
+                  value: _vm.data_local.empresas,
                   callback: function($$v) {
-                    _vm.$set(_vm.data_local, "empresa_id", $$v)
+                    _vm.$set(_vm.data_local, "empresas", $$v)
                   },
-                  expression: "data_local.empresa_id"
+                  expression: "data_local.empresas"
                 }
               },
               _vm._l(_vm.empresasOptions, function(item) {

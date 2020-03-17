@@ -277,13 +277,22 @@ class CarController extends Controller
            
         }
         Car::where('id', $id)->update($request->except(['driver_id','empresas']));
-
+        
         $dataDriversHasCars =  array(
             'driver_id'  => $request["driver_id"],
         );
         
         DriversHasCars::where('car_id', $id)->update($dataDriversHasCars);       
 
+        $empresas = $request['empresas'];
+        CarsHasEmpresas::where('car_id', $id)->delete();
+        foreach ($empresas as $key => $empresa) {
+            CarsHasEmpresas::create(array(
+                'empresa_id'  => $empresa,
+                'car_id'      => $id,
+                'habilitado'  => true,
+            ));     
+        }
 
         return response()->json(
             [

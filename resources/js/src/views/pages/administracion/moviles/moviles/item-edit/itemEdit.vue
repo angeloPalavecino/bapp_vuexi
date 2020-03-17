@@ -18,7 +18,7 @@
     </vs-alert>
 
     <vx-card v-if="item_data">
-      <item-edit-section1 class="mt-4" :data="item_data"  />
+      <item-edit-section1 class="mt-4" :data="item_data" :data_empresas="item_data_empresas"  />
     </vx-card>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       item_data: null,
+      item_data_empresas: null,
       item_not_found: false,
       urlApi: "/car/car/",
     }
@@ -50,7 +51,13 @@ export default {
       
       this.$store.dispatch("itemManagement/traerItem", {	Id: itemId, Url: this.urlApi  })
         .then(res => { 
+          
           this.item_data = res.data.item[0]
+          var empresas = res.data.empresas.map(function(value,index) {
+              return value['id'];
+          }); 
+          this.item_data_empresas = empresas; 
+          
           })
         .catch(err => {
           if(err.response.status === 404) {
