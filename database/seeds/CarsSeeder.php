@@ -21,7 +21,7 @@ class CarsSeeder extends Seeder
             'patente' => '-',
             'color' => '-',
             'asientos' => '-',
-            'numero_movil' => 'Sin movil',
+            'numero_movil' => 'SIN MOVIL',
             'habilitado' => 1,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")

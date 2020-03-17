@@ -13,7 +13,7 @@ class RolesSeeder extends Seeder
     {
         DB::table('roles')->insert([
             'id' => 1,
-            'name' => 'Administrador',
+            'name' => 'ADMINISTRADOR',
             'guard_name' => 'api',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
@@ -21,7 +21,7 @@ class RolesSeeder extends Seeder
 
         DB::table('roles')->insert([
             'id' => 2,
-            'name' => 'Conductor',
+            'name' => 'CONDUCTOR',
             'guard_name' => 'api',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")

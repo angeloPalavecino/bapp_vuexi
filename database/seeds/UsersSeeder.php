@@ -15,8 +15,8 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 1,
             'empresa_id' => 1,
-            'name' => 'Administrador',
-            'lastname' => 'Administrador',
+            'name' => 'ADMINISTRADOR',
+            'lastname' => 'ADMINISTRADOR',
             'rut' => '00000000',
             'email' => 'admin@bapp.cl',
             'telefono' => '00000000',
