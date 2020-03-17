@@ -574,10 +574,11 @@ class CarController extends Controller
 
     public function matriz($id)
     {
-        $cars = Car::select(
+        $cars = Car::join('cars_has_empresas', 'cars_has_empresas.car_id', '=', 'cars.id')
+            ->select(
             'cars.id',
-            'cars.numero_movil' )->where('habilitado',true)->where('empresa_id',$id)->get();
-
+            'cars.numero_movil' )->where('cars.habilitado',true)->where('cars_has_empresas.empresa_id',$id)->get();
+    
         return response()->json(
             [
                 'status' => 'success',
