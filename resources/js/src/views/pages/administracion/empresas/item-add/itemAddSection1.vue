@@ -53,7 +53,7 @@
 
              <div class="vx-col md:w-1/2 w-full mt-6">
                
-               <flat-pickr v-model="data_local.fecha_incorporacion" class="w-full select-large" placeholder="Fecha Incorporacion" 
+               <flat-pickr :config="config" v-model="data_local.fecha_incorporacion" class="w-full select-large" placeholder="Fecha Incorporacion" 
                   name="fecha_incorporacion" v-validate="'required'" 
                   />
                   <span class="text-danger text-sm" >{{ errors.first('step-1.fecha_incorporacion') }}</span>
@@ -504,6 +504,10 @@ export default {
       data_local: {
          habilitado : 1,
       },
+
+      config: {
+          dateFormat: 'd-m-Y',       
+      }, 
 
       cicloProduccionOptions: [
         {text: "Por defecto (Mes Completo)", value: 31},

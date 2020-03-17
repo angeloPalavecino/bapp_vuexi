@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use DateTime;
 use App\Models\Empresa;
 use App\Models\Responsable;
 use App\Models\Sucursal;
@@ -95,7 +96,8 @@ class EmpresaController extends Controller
         $dv = $empresa['dv'];
         $razon_social = $empresa['razon_social'];
         $giro = $empresa['giro'];
-        $fecha_incorporacion =  $empresa['fecha_incorporacion'];
+        $d = new DateTime($empresa['fecha_incorporacion']);
+        $fecha_incorporacion = $d->format('Y-m-d');
         $habilitado =  $empresa['habilitado'];
         $hora_max_agendamiento =  $empresa['hora_max_agendamiento'];
        
@@ -312,6 +314,10 @@ class EmpresaController extends Controller
             
         }
 
+        $d = new DateTime($empresa['fecha_incorporacion']);
+
+        //dd( $d->format('Y-m-d'));
+
         //Actualizar Empresa   
         Empresa::where('id', $id)->update(
          array(
@@ -320,7 +326,7 @@ class EmpresaController extends Controller
                 'razon_social'         => $empresa['razon_social'],
                 'giro'                 => $empresa['giro'],
                 'habilitado'           => $empresa['habilitado'],
-                'fecha_incorporacion'  => $empresa['fecha_incorporacion'],
+                'fecha_incorporacion'  => $d->format('Y-m-d'),
                 'hora_max_agendamiento'=> $empresa['hora_max_agendamiento'], 
               )
          );

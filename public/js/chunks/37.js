@@ -686,6 +686,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         dv: this.data.dv ? this.data.dv : null,
         razon_social: this.data.razon_social ? this.data.razon_social : null
       }, _defineProperty(_data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_data_local, "habilitado", this.data.habilitado), _defineProperty(_data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_data_local, "id", this.data.id ? this.data.id : null), _defineProperty(_data_local, "hora_max_agendamiento", this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento : null), _data_local),
+      config: {
+        dateFormat: 'd-m-Y'
+      },
       cicloProduccionOptions: [{
         text: "Por defecto (Mes Completo)",
         value: 31
@@ -748,6 +751,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       types: ['geocode']
     });
     this.autocomplete.addListener('place_changed', this.asignaDireccion);
+    var date = new Date(this.data_local.fecha_incorporacion);
+    this.data_local.fecha_incorporacion = date.toLocaleString('es-ES');
   },
   methods: {
     asignaDireccion: function asignaDireccion() {
@@ -981,21 +986,34 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         rut: this.data.rut ? this.data.rut : null,
         dv: this.data.dv ? this.data.dv : null,
         razon_social: this.data.razon_social ? this.data.razon_social : null
-      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _defineProperty(_this$data_local, "hora_max_agendamiento", this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento : null), _this$data_local), this.responsable = {}, this.responsables = this.data_responsables, this.cantidadResponsables = this.data_responsables.length, this.sucursal = {
+      }, _defineProperty(_this$data_local, "rut", this.data.rut ? this.data.rut : null), _defineProperty(_this$data_local, "giro", this.data.giro ? this.data.giro : null), _defineProperty(_this$data_local, "habilitado", this.data.habilitado), _defineProperty(_this$data_local, "fecha_incorporacion", this.data.fecha_incorporacion ? this.data.fecha_incorporacion : null), _defineProperty(_this$data_local, "id", this.data.id ? this.data.id : null), _defineProperty(_this$data_local, "hora_max_agendamiento", this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento : null), _this$data_local);
+      var date = new Date(this.data_local.fecha_incorporacion);
+      this.data_local.fecha_incorporacion = date.toLocaleString('es-ES');
+      this.responsable = {};
+      this.responsables = this.data_responsables;
+      this.cantidadResponsables = this.data_responsables.length;
+      this.sucursal = {
         matriz: 0
-      }, this.sucursales = this.data_sucursales, this.cantidadSucursales = this.data_sucursales.length, this.ciclofacturacion = {
+      };
+      this.sucursales = this.data_sucursales;
+      this.cantidadSucursales = this.data_sucursales.length;
+      this.ciclofacturacion = {
         id: this.data_cicfacturacion.id ? this.data_cicfacturacion.id : null,
         empresa_id: this.data_cicfacturacion.empresa_id ? this.data_cicfacturacion.empresa_id : null,
         inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio : null,
         fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin : null,
         dias: this.data_cicfacturacion.dias
-      }, this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true, this.cicloproduccion = {
+      };
+      this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true;
+      this.cicloproduccion = {
         id: this.data_cicproduccion.id ? this.data_cicproduccion.id : null,
         empresa_id: this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id : null,
         inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio : null,
         fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin : null,
         dias: this.data_cicproduccion.dias
-      }, this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true, this.$refs.wizard.reset();
+      };
+      this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true;
+      this.$refs.wizard.reset();
       this.errors.clear();
     }
   }
@@ -1362,6 +1380,7 @@ var render = function() {
                           ],
                           staticClass: "w-full select-large",
                           attrs: {
+                            config: _vm.config,
                             placeholder: "Fecha Incorporacion",
                             name: "fecha_incorporacion"
                           },

@@ -246,7 +246,7 @@ export default {
           headerCheckboxSelection: true,
           suppressSizeToFit: true
         },
-      /*   {
+         {
           headerName: 'Nombre',
           field: 'nombre',
           filter: true,
@@ -257,7 +257,7 @@ export default {
           field: 'apellido',
           filter: true,
           minWidth: 200,
-        },*/
+        },
         {
           headerName: 'Rut',
           field: 'rut',

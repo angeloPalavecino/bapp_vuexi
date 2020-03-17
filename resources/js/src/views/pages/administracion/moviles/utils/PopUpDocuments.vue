@@ -144,7 +144,7 @@ export default {
       myElement.style.left = "0px";
 
       this.$refs.tabdocs.activeChild(0);
-      this.$refs.tabdocs.changePositionLine(0);
+      //this.$refs.tabdocs.changePositionLine(0);
 
       this.item_data = {
          tipo_documento:'',

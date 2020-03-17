@@ -47,12 +47,19 @@
       </div>
 
         <div class="vx-col md:w-1/2 w-full mt-2">
-         <vs-input label-placeholder="Ciudad" v-model="data_local.ciudad" class="w-full p-1" name="ciudad" 
-       v-validate="'required'" :danger="(errors.first('ciudad') ? true : false)" 
-       :danger-text="(errors.first('ciudad') ? errors.first('ciudad') : '')" val-icon-danger="clear"/>
+         <vs-input label-placeholder="Direccion" v-model="data_local.direccion" class="w-full p-1" name="direccion" 
+       v-validate="'required'" :danger="(errors.first('direccion') ? true : false)" 
+       :danger-text="(errors.first('direccion') ? errors.first('direccion') : '')" val-icon-danger="clear"/>
       <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
       </div>
-       
+
+      
+      <div class="vx-col md:w-1/2 w-full mt-2">
+         <vs-input label-placeholder="Numeracion" v-model="data_local.numeracion" class="w-full p-1" name="numeracion" 
+       v-validate="'required|numeric'" :danger="(errors.first('numeracion') ? true : false)" 
+       :danger-text="(errors.first('numeracion') ? errors.first('numeracion') : '')" val-icon-danger="clear"/>
+      <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
+      </div>
        
         <div class="vx-col md:w-1/2 w-full mt-2">
          <vs-input label-placeholder="Comuna" v-model="data_local.comuna" class="w-full p-1" name="comuna" 
@@ -61,19 +68,13 @@
       <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
       </div>
 
-      <div class="vx-col md:w-1/2 w-full mt-2">
-         <vs-input label-placeholder="Direccion" v-model="data_local.direccion" class="w-full p-1" name="direccion" 
-       v-validate="'required'" :danger="(errors.first('direccion') ? true : false)" 
-       :danger-text="(errors.first('direccion') ? errors.first('direccion') : '')" val-icon-danger="clear"/>
+        <div class="vx-col md:w-1/2 w-full mt-2">
+         <vs-input label-placeholder="Ciudad" v-model="data_local.ciudad" class="w-full p-1" name="ciudad" 
+       v-validate="'required'" :danger="(errors.first('ciudad') ? true : false)" 
+       :danger-text="(errors.first('ciudad') ? errors.first('ciudad') : '')" val-icon-danger="clear"/>
       <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
       </div>
 
-      <div class="vx-col md:w-1/2 w-full mt-2">
-         <vs-input label-placeholder="Numeracion" v-model="data_local.numeracion" class="w-full p-1" name="numeracion" 
-       v-validate="'required|numeric'" :danger="(errors.first('numeracion') ? true : false)" 
-       :danger-text="(errors.first('numeracion') ? errors.first('numeracion') : '')" val-icon-danger="clear"/>
-      <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
-      </div>
       <div class="vx-col md:w-1/2 w-full mt-2">
          <vs-input label-placeholder="Licencias" v-model="data_local.clase" class="w-full p-1" name="clase" 
        v-validate="'required'" :danger="(errors.first('clase') ? true : false)" 

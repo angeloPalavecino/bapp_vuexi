@@ -211,7 +211,7 @@ var dict = {
     },
     motor: {
       required: "El motor es requerido",
-      numeric: "El n° de motor debe ser numerico"
+      alpha_num: "El n° de motor debe ser alfa-numerico"
     },
     patente: {
       required: "La patente es requerida"
@@ -672,8 +672,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
+                  value: "required|alpha_num",
+                  expression: "'required|alpha_num'"
                 }
               ],
               staticClass: "w-full p-1",

@@ -65,7 +65,7 @@
 
         <div class="vx-col md:w-1/2 w-full mt-2">
          <vs-input label-placeholder="N° Motor" v-model="data_local.motor" class="w-full p-1" name="motor" 
-       v-validate="'required|numeric'" :danger="(errors.first('motor') ? true : false)" 
+       v-validate="'required|alpha_num'" :danger="(errors.first('motor') ? true : false)" 
        :danger-text="(errors.first('motor') ? errors.first('motor') : '')" val-icon-danger="clear"/>
       <!--<span class="text-danger text-sm">{{ errors.first('telefono') }}</span>-->
       </div>
@@ -146,7 +146,7 @@ const dict = {
      },
      motor: {
        required: "El motor es requerido",
-       numeric: "El n° de motor debe ser numerico"
+       alpha_num: "El n° de motor debe ser alfa-numerico"
      },
      patente: {
        required: "La patente es requerida"

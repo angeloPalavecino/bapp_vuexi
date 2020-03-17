@@ -577,6 +577,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       data_local: {
         habilitado: 1
       },
+      config: {
+        dateFormat: 'd-m-Y'
+      },
       cicloProduccionOptions: [{
         text: "Por defecto (Mes Completo)",
         value: 31
@@ -1133,6 +1136,7 @@ var render = function() {
                           ],
                           staticClass: "w-full select-large",
                           attrs: {
+                            config: _vm.config,
                             placeholder: "Fecha Incorporacion",
                             name: "fecha_incorporacion"
                           },

@@ -156,8 +156,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_3__["Validator"].localize('en', dict);
       var myElement = document.querySelector(".line-vs-tabs");
       myElement.style.width = "95px";
       myElement.style.left = "0px";
-      this.$refs.tabdocs.activeChild(0);
-      this.$refs.tabdocs.changePositionLine(0);
+      this.$refs.tabdocs.activeChild(0); //this.$refs.tabdocs.changePositionLine(0);
+
       this.item_data = {
         tipo_documento: '',
         fecha_vencimiento: ''

@@ -304,6 +304,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1535,26 +1536,30 @@ var render = function() {
               _c(
                 "vs-select",
                 {
-                  ref: "comentario",
+                  ref: "codigo",
                   staticClass: "w-full p-1",
                   attrs: {
-                    label: "Comentario",
-                    name: "comentario",
+                    label: "Sectorización ",
+                    name: "codigo",
                     dir: _vm.$vs.rtl ? "rtl" : "ltr",
-                    disabled: _vm.data_local.habilitado == 0 ? false : true
+                    disabled: _vm.data_local.sucursal_id > 0 ? false : true,
+                    danger: _vm.errors.first("codigo") ? true : false,
+                    "danger-text": _vm.errors.first("codigo")
+                      ? _vm.errors.first("codigo")
+                      : ""
                   },
                   model: {
-                    value: _vm.data_local.comentario,
+                    value: _vm.data_local.codigo,
                     callback: function($$v) {
-                      _vm.$set(_vm.data_local, "comentario", $$v)
+                      _vm.$set(_vm.data_local, "codigo", $$v)
                     },
-                    expression: "data_local.comentario"
+                    expression: "data_local.codigo"
                   }
                 },
-                _vm._l(_vm.comentariosOptions, function(item) {
+                _vm._l(_vm.gpatronesOptions, function(item) {
                   return _c("vs-select-item", {
-                    key: item.value,
-                    attrs: { value: item.value, text: item.text }
+                    key: item.id,
+                    attrs: { value: item.id, text: item.codigo }
                   })
                 }),
                 1
@@ -1584,6 +1589,41 @@ var render = function() {
                   expression: "data_local.habilitado"
                 }
               })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+            [
+              _c(
+                "vs-select",
+                {
+                  ref: "comentario",
+                  staticClass: "w-full p-1",
+                  attrs: {
+                    label: "Comentario",
+                    name: "comentario",
+                    dir: _vm.$vs.rtl ? "rtl" : "ltr",
+                    disabled: _vm.data_local.habilitado == 0 ? false : true
+                  },
+                  model: {
+                    value: _vm.data_local.comentario,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_local, "comentario", $$v)
+                    },
+                    expression: "data_local.comentario"
+                  }
+                },
+                _vm._l(_vm.comentariosOptions, function(item) {
+                  return _c("vs-select-item", {
+                    key: item.value,
+                    attrs: { value: item.value, text: item.text }
+                  })
+                }),
+                1
+              )
             ],
             1
           ),

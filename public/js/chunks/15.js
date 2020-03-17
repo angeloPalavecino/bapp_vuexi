@@ -404,20 +404,17 @@ __webpack_require__.r(__webpack_exports__);
         headerCheckboxSelectionFilteredOnly: true,
         headerCheckboxSelection: true,
         suppressSizeToFit: true
-      },
-      /*   {
-          headerName: 'Nombre',
-          field: 'nombre',
-          filter: true,
-          minWidth: 200,
-        },
-         {
-          headerName: 'Apellido',
-          field: 'apellido',
-          filter: true,
-          minWidth: 200,
-        },*/
-      {
+      }, {
+        headerName: 'Nombre',
+        field: 'nombre',
+        filter: true,
+        minWidth: 200
+      }, {
+        headerName: 'Apellido',
+        field: 'apellido',
+        filter: true,
+        minWidth: 200
+      }, {
         headerName: 'Rut',
         field: 'rut',
         filter: true,

@@ -55,7 +55,7 @@
 
              <div class="vx-col md:w-1/2 w-full mt-6">
                
-               <flat-pickr v-model="data_local.fecha_incorporacion" class="w-full select-large" placeholder="Fecha Incorporacion" 
+               <flat-pickr :config="config" v-model="data_local.fecha_incorporacion" class="w-full select-large" placeholder="Fecha Incorporacion" 
                   name="fecha_incorporacion" v-validate="'required'" 
                   />
                   <span class="text-danger text-sm" >{{ errors.first('step-1.fecha_incorporacion') }}</span>
@@ -557,6 +557,10 @@ export default {
         hora_max_agendamiento: this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento: null,
       },
 
+      config: {
+          dateFormat: 'd-m-Y',       
+      }, 
+
       cicloProduccionOptions: [
         {text: "Por defecto (Mes Completo)", value: 31},
         {text: "Personalizado", value: 0},       
@@ -616,6 +620,10 @@ export default {
       
       });
     this.autocomplete.addListener('place_changed', this.asignaDireccion);
+
+    var date = new Date(this.data_local.fecha_incorporacion);
+    this.data_local.fecha_incorporacion = date.toLocaleString('es-ES');
+    
   },
   methods: {
     asignaDireccion() {
@@ -840,17 +848,20 @@ export default {
         fecha_incorporacion : this.data.fecha_incorporacion ? this.data.fecha_incorporacion: null,
         id : this.data.id ? this.data.id: null,
         hora_max_agendamiento: this.data.hora_max_agendamiento ? this.data.hora_max_agendamiento: null,
-      },
+      };
 
-      this.responsable = {},
-      this.responsables = this.data_responsables,
-      this.cantidadResponsables = this.data_responsables.length,
+      var date = new Date(this.data_local.fecha_incorporacion);
+      this.data_local.fecha_incorporacion = date.toLocaleString('es-ES');
+
+      this.responsable = {};
+      this.responsables = this.data_responsables;
+      this.cantidadResponsables = this.data_responsables.length;
 
       this.sucursal = {
          matriz :  0,
-      },
-      this.sucursales = this.data_sucursales,
-      this.cantidadSucursales = this.data_sucursales.length,
+      };
+      this.sucursales = this.data_sucursales;
+      this.cantidadSucursales = this.data_sucursales.length;
       
       this.ciclofacturacion = { 
           id : this.data_cicfacturacion.id ? this.data_cicfacturacion.id: null,
@@ -858,16 +869,18 @@ export default {
           inicio: this.data_cicfacturacion.inicio ? this.data_cicfacturacion.inicio: null,
           fin: this.data_cicfacturacion.fin ? this.data_cicfacturacion.fin: null,
           dias: this.data_cicfacturacion.dias,
-      },
-      this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true,
+      };
+      
+      this.disabledcicfac = this.data_cicfacturacion.dias === 0 ? false : true;
       this.cicloproduccion = {
           id : this.data_cicproduccion.id ? this.data_cicproduccion.id: null,
           empresa_id : this.data_cicproduccion.empresa_id ? this.data_cicproduccion.empresa_id: null,
           inicio: this.data_cicproduccion.inicio ? this.data_cicproduccion.inicio: null,
           fin: this.data_cicproduccion.fin ? this.data_cicproduccion.fin: null,
           dias: this.data_cicproduccion.dias,
-      },
-      this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true,
+      };
+
+      this.disabledcicpro = this.data_cicproduccion.dias === 0 ? false : true;
       
       this.$refs.wizard.reset();
       this.errors.clear();

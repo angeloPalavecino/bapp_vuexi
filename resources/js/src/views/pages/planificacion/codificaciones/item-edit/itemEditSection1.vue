@@ -106,16 +106,23 @@
 
 
   <!--v-validate="'required'"-->
-    <!--   <div class="vx-col md:w-1/2 w-full mt-2">
-        <vs-select v-model="data_local.codigo" label="Codigo" ref="codigo" name="codigo"  
+      <div class="vx-col md:w-1/2 w-full mt-2">
+        <vs-select v-model="data_local.codigo" label="Sectorización " ref="codigo" name="codigo"  
              :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="(data_local.sucursal_id > 0 ? false : true)" 
               class="w-full p-1" 
              :danger="(errors.first('codigo') ? true : false)"
              :danger-text="(errors.first('codigo') ? errors.first('codigo') : '')">  
           <vs-select-item :key="item.id" :value="item.id" :text="item.codigo" v-for="item in gpatronesOptions"  />
           </vs-select>
-      </div>-->
+      </div>
 
+        <div class="vx-col md:w-1/2 w-full mt-5">
+             <label class="vs-input--label ">Habilitado</label>
+              <br/>
+             
+               <vs-switch class="mt-2" @input="checkHabilitado" v-model="data_local.habilitado" />
+           
+        </div>
        
          <div class="vx-col md:w-1/2 w-full mt-2">
         <vs-select v-model="data_local.comentario" label="Comentario" ref="comentario" name="comentario"  
@@ -125,13 +132,7 @@
           </vs-select>
       </div>
 
-       <div class="vx-col md:w-1/2 w-full mt-5">
-             <label class="vs-input--label ">Habilitado</label>
-              <br/>
-             
-               <vs-switch class="mt-2" @input="checkHabilitado" v-model="data_local.habilitado" />
-           
-        </div>
+       
 
     
         <!-- BUTTONS -->

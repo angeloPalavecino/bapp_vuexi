@@ -259,6 +259,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -865,20 +867,55 @@ var render = function() {
               ],
               staticClass: "w-full p-1",
               attrs: {
-                "label-placeholder": "Ciudad",
-                name: "ciudad",
-                danger: _vm.errors.first("ciudad") ? true : false,
-                "danger-text": _vm.errors.first("ciudad")
-                  ? _vm.errors.first("ciudad")
+                "label-placeholder": "Direccion",
+                name: "direccion",
+                danger: _vm.errors.first("direccion") ? true : false,
+                "danger-text": _vm.errors.first("direccion")
+                  ? _vm.errors.first("direccion")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.ciudad,
+                value: _vm.data_local.direccion,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "ciudad", $$v)
+                  _vm.$set(_vm.data_local, "direccion", $$v)
                 },
-                expression: "data_local.ciudad"
+                expression: "data_local.direccion"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
+          [
+            _c("vs-input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                }
+              ],
+              staticClass: "w-full p-1",
+              attrs: {
+                "label-placeholder": "Numeracion",
+                name: "numeracion",
+                danger: _vm.errors.first("numeracion") ? true : false,
+                "danger-text": _vm.errors.first("numeracion")
+                  ? _vm.errors.first("numeracion")
+                  : "",
+                "val-icon-danger": "clear"
+              },
+              model: {
+                value: _vm.data_local.numeracion,
+                callback: function($$v) {
+                  _vm.$set(_vm.data_local, "numeracion", $$v)
+                },
+                expression: "data_local.numeracion"
               }
             })
           ],
@@ -935,55 +972,20 @@ var render = function() {
               ],
               staticClass: "w-full p-1",
               attrs: {
-                "label-placeholder": "Direccion",
-                name: "direccion",
-                danger: _vm.errors.first("direccion") ? true : false,
-                "danger-text": _vm.errors.first("direccion")
-                  ? _vm.errors.first("direccion")
+                "label-placeholder": "Ciudad",
+                name: "ciudad",
+                danger: _vm.errors.first("ciudad") ? true : false,
+                "danger-text": _vm.errors.first("ciudad")
+                  ? _vm.errors.first("ciudad")
                   : "",
                 "val-icon-danger": "clear"
               },
               model: {
-                value: _vm.data_local.direccion,
+                value: _vm.data_local.ciudad,
                 callback: function($$v) {
-                  _vm.$set(_vm.data_local, "direccion", $$v)
+                  _vm.$set(_vm.data_local, "ciudad", $$v)
                 },
-                expression: "data_local.direccion"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "vx-col md:w-1/2 w-full mt-2" },
-          [
-            _c("vs-input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                }
-              ],
-              staticClass: "w-full p-1",
-              attrs: {
-                "label-placeholder": "Numeracion",
-                name: "numeracion",
-                danger: _vm.errors.first("numeracion") ? true : false,
-                "danger-text": _vm.errors.first("numeracion")
-                  ? _vm.errors.first("numeracion")
-                  : "",
-                "val-icon-danger": "clear"
-              },
-              model: {
-                value: _vm.data_local.numeracion,
-                callback: function($$v) {
-                  _vm.$set(_vm.data_local, "numeracion", $$v)
-                },
-                expression: "data_local.numeracion"
+                expression: "data_local.ciudad"
               }
             })
           ],
