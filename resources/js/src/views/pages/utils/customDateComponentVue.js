@@ -4,9 +4,9 @@ import 'flatpickr/dist/flatpickr.css';
 
 export default Vue.extend({
   template: `
-        <div class="ag-input-wrapper custom-date-filter" role="presentation" ref="flatpickr">
+        <div class="ag-input-wrapper" role="presentation" ref="flatpickr">
             <input type="text" ref="eInput" data-input style="width: 100%;" />
-            <a class="input-button" title="clear" data-clear>
+            <a class="input-button" title="Borrar" data-clear>
               <feather-icon icon="XIcon" svgClasses="h-4 w-4 hover:text-danger cursor-pointer"/>
             </a>
         </div>

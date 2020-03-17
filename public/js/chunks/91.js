@@ -1843,7 +1843,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
-  template: "\n        <div class=\"ag-input-wrapper custom-date-filter\" role=\"presentation\" ref=\"flatpickr\">\n            <input type=\"text\" ref=\"eInput\" data-input style=\"width: 100%;\" />\n            <a class=\"input-button\" title=\"clear\" data-clear>\n              <feather-icon icon=\"XIcon\" svgClasses=\"h-4 w-4 hover:text-danger cursor-pointer\"/>\n            </a>\n        </div>\n    ",
+  template: "\n        <div class=\"ag-input-wrapper\" role=\"presentation\" ref=\"flatpickr\">\n            <input type=\"text\" ref=\"eInput\" data-input style=\"width: 100%;\" />\n            <a class=\"input-button\" title=\"Borrar\" data-clear>\n              <feather-icon icon=\"XIcon\" svgClasses=\"h-4 w-4 hover:text-danger cursor-pointer\"/>\n            </a>\n        </div>\n    ",
   data: function data() {
     return {
       date: null
