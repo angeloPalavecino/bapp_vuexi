@@ -155,6 +155,7 @@ class CarController extends Controller
             CarsHasEmpresas::create(array(
                 'empresa_id'  => $empresa,
                 'car_id'      => $idCar,
+                'habilitado'  => true,
             ));     
         }
 

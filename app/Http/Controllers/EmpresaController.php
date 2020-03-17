@@ -278,7 +278,7 @@ class EmpresaController extends Controller
 
          //Actualiza Sucursal   
         $auxsuc = array_column($sucursales, 'id');
-        Sucursal::whereNotIn('id', $auxsuc)->delete();
+        Sucursal::whereNotIn('id', $auxsuc)->where('empresa_id', $id)->delete();
         foreach ($sucursales as $keysuc => $itemsuc) {    
            try {
             $direccion = $itemsuc['direccion'];   
@@ -309,7 +309,7 @@ class EmpresaController extends Controller
 
         //Actualiza Responsable   
         $auxres = array_column($responsables, 'id');
-        Responsable::whereNotIn('id', $auxres)->delete();
+        Responsable::whereNotIn('id', $auxres)->where('empresa_id', $id)->delete();
         foreach ($responsables as $keyres => $itemres) {
             $itemres["name"] = strtoupper($itemres['name']);
             if (isset($itemres['id'])) {
