@@ -23,10 +23,12 @@ class CreateAgendamientosTable extends Migration
             //$table->unsignedBigInteger('observaciones_id')->nullable();
             //$table->unsignedBigInteger('observacionesinternas_id')->nullable();
             $table->unsignedBigInteger('horario_plan');
+            $table->unsignedBigInteger('usuario_id');
             $table->string('tipo');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->tinyInteger('tipo_fecha');
+            //$table->integer('usuario_id');
             $table->timestamps();
            // $table->string('horario_real')->nullable();
            // $table->string('tipo_periodo');
@@ -44,6 +46,10 @@ class CreateAgendamientosTable extends Migration
             $table->foreign('horario_plan')
             ->references('id')
             ->on('horarios');
+
+            $table->foreign('usuario_id')
+            ->references('id')
+            ->on('users');
 
            /* $table->foreign('car_plan_id')
             ->references('id')

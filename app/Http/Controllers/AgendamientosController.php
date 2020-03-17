@@ -174,7 +174,8 @@ class AgendamientosController extends Controller
                                     'tipo'              => $tipo,
                                     'fecha_inicio'      => $fecha_aux,
                                     'fecha_fin'         => $fecha_aux,
-                                    'tipo_fecha'        => 1)
+                                    'tipo_fecha'        => 1,
+                                    'usuario_id'        => 1)//Auth::user()->id
                                 );
                         }
 
@@ -203,6 +204,7 @@ class AgendamientosController extends Controller
        // ->join('cars', 'agendamientos.car_plan_id', '=', 'cars.id')
        // ->join('drivers', 'agendamientos.drivers_plan_id', '=', 'drivers.id')
         ->join('horarios', 'agendamientos.horario_plan', '=', 'horarios.id')
+        ->join('users', 'agendamientos.usuario_id', '=', 'users.id')
         ->select(
             'codificaciones.id as codificacion',
             'codificaciones.rut',
@@ -230,7 +232,9 @@ class AgendamientosController extends Controller
             'agendamientos.tipo',
             'agendamientos.tipo_fecha',
             'agendamientos.created_at',
-            'agendamientos.updated_at')
+            'agendamientos.updated_at',
+            'users.name as nombre_usuario',
+            'users.lastname as apellido_usuario')
             ->where('agendamientos.id', $id)->first();
             
         return response()->json(
@@ -687,8 +691,9 @@ class AgendamientosController extends Controller
                                             'fecha_inicio'      => $fecha_inicio,
                                             'fecha_fin'         => $fecha_inicio,
                                             'tipo_fecha'        => 1,
+                                            'usuario_id'        => 1
                                             
-                                        )
+                                        )//Auth::user()->id
                                     );
                                 }
                     //}else{

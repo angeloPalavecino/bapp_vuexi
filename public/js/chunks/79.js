@@ -541,10 +541,16 @@ var render = function() {
                           _vm._v(" "),
                           _c("tr", [
                             _c("td", { staticClass: "font-semibold" }, [
-                              _vm._v(" ")
+                              _vm._v("Creado por:")
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(" ")])
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.item_data.nombre_usuario) +
+                                  " " +
+                                  _vm._s(_vm.item_data.apellido_usuario)
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("tr", [

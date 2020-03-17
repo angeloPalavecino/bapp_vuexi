@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        
+       
         if ($token = $this->guard()->attempt($credentials)) {
             //dd(Auth::user()->allPermissions);
             return response()->json(['status' => 'success', 'roles' => base64_encode(json_encode(Auth::user()->allPermissions, true))], 200)->header('Authorization', $token);

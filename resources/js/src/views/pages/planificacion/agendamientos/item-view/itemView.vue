@@ -79,8 +79,8 @@
                 <td>{{ item_data.centro_costo }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="font-semibold">Creado por:</td>
+                <td>{{ item_data.nombre_usuario }} {{ item_data.apellido_usuario }}</td>
               </tr>
                <tr>
                 <td class="font-semibold">Sucursal : </td>
