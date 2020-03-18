@@ -16,13 +16,13 @@
         },
         name: 'CellRendererActions',
         methods: {
-          diferencia_horas(dt2, dt1){
+          /*diferencia_horas(dt2, dt1){
 
             var diff =(dt2.getTime() - dt1.getTime()) / 1000;
             diff /= 60;
             return Math.round(diff);
             
-          },
+          },*/
           viewRecord() {
             this.$router.push("../item-view/" + this.params.data.id).catch(() => {})
 
@@ -34,15 +34,18 @@
             */
           },
           editRecord() {
-            
+                      
             var fecha_hoy = new Date();
             var fecha = new Date(this.params.data.fecha_inicio);
-            fecha_hoy.setHours(0,0,0,0);
+           
+            var horas = this.params.data.hora_max_agendamiento.split(':');
+            fecha_hoy.setHours(horas[0],horas[1],horas[2]);
+            //fecha_hoy.setHours(0,0,0,0);
             //var diff = this.diferencia_horas(fecha_hoy,fecha);
             //fecha >= fecha_hoy diff <= 160
             if(fecha >= fecha_hoy){
             
-              this.$router.push("../item-edit/" + this.params.data.id).catch(() => {})
+             this.$router.push("../item-edit/" + this.params.data.id).catch(() => {})
 
             }else{
 
@@ -68,7 +71,10 @@
 
            var fecha_hoy = new Date();
            var fecha = new Date(this.params.data.fecha_inicio);
-           fecha_hoy.setHours(0,0,0,0);
+           
+           var horas = this.params.data.hora_max_agendamiento.split(':');
+           fecha_hoy.setHours(horas[0],horas[1],horas[2]);
+           //fecha_hoy.setHours(0,0,0,0);
            // var diff = this.diferencia_horas(fecha_hoy,fecha);
             //fecha >= fecha_hoy diff <= 160
             if(fecha >= fecha_hoy){

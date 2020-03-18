@@ -24,11 +24,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'CellRendererActions',
   methods: {
-    diferencia_horas: function diferencia_horas(dt2, dt1) {
-      var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    /*diferencia_horas(dt2, dt1){
+       var diff =(dt2.getTime() - dt1.getTime()) / 1000;
       diff /= 60;
       return Math.round(diff);
-    },
+      
+    },*/
     viewRecord: function viewRecord() {
       this.$router.push("../item-view/" + this.params.data.id).catch(function () {});
       /*
@@ -40,7 +41,9 @@ __webpack_require__.r(__webpack_exports__);
     editRecord: function editRecord() {
       var fecha_hoy = new Date();
       var fecha = new Date(this.params.data.fecha_inicio);
-      fecha_hoy.setHours(0, 0, 0, 0); //var diff = this.diferencia_horas(fecha_hoy,fecha);
+      var horas = this.params.data.hora_max_agendamiento.split(':');
+      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
+      //var diff = this.diferencia_horas(fecha_hoy,fecha);
       //fecha >= fecha_hoy diff <= 160
 
       if (fecha >= fecha_hoy) {
@@ -63,7 +66,9 @@ __webpack_require__.r(__webpack_exports__);
     confirmDeleteRecord: function confirmDeleteRecord() {
       var fecha_hoy = new Date();
       var fecha = new Date(this.params.data.fecha_inicio);
-      fecha_hoy.setHours(0, 0, 0, 0); // var diff = this.diferencia_horas(fecha_hoy,fecha);
+      var horas = this.params.data.hora_max_agendamiento.split(':');
+      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
+      // var diff = this.diferencia_horas(fecha_hoy,fecha);
       //fecha >= fecha_hoy diff <= 160
 
       if (fecha >= fecha_hoy) {
@@ -643,7 +648,8 @@ __webpack_require__.r(__webpack_exports__);
     onRowSelected: function onRowSelected(params) {
       var fecha_hoy = new Date();
       var fecha = new Date(params.data.fecha_inicio);
-      fecha_hoy.setHours(0, 0, 0, 0);
+      var horas = params.data.hora_max_agendamiento.split(':');
+      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
 
       if (fecha >= fecha_hoy) {} else {
         /*  this.$vs.dialog({

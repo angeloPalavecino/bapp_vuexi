@@ -454,7 +454,10 @@ export default {
 
       var fecha_hoy = new Date();
       var fecha = new Date(params.data.fecha_inicio);
-      fecha_hoy.setHours(0,0,0,0);
+      
+      var horas = params.data.hora_max_agendamiento.split(':');
+      fecha_hoy.setHours(horas[0],horas[1],horas[2]);
+      //fecha_hoy.setHours(0,0,0,0);
 
       if(fecha >= fecha_hoy){
             
