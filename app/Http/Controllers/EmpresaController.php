@@ -112,7 +112,7 @@ class EmpresaController extends Controller
                 ], 300);           
         }
 
-        $valida_rut = self::validaRut($rut);
+        $valida_rut = self::validaRut($rut.$dv);
         if ($valida_rut == false) {
 
             return response()->json(
@@ -281,7 +281,7 @@ class EmpresaController extends Controller
         if(!is_null($emp)){
 
 
-        $valida_rut = self::validaRut(strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut'])));
+        $valida_rut = self::validaRut(strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut'])).strtoupper($empresa['dv']));
           if ($valida_rut == false) {
     
             return response()->json(
