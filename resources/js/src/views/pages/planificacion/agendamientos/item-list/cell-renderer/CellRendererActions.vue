@@ -35,15 +35,17 @@
           },
           editRecord() {
                       
-            var fecha_hoy = new Date();
+            //var fecha_hoy = new Date();
+            var fecha_max = new Date();
             var fecha = new Date(this.params.data.fecha_inicio);
            
             var horas = this.params.data.hora_max_agendamiento.split(':');
-            fecha_hoy.setHours(horas[0],horas[1],horas[2]);
+            fecha_max.setHours(horas[0],horas[1],horas[2]);
             //fecha_hoy.setHours(0,0,0,0);
             //var diff = this.diferencia_horas(fecha_hoy,fecha);
             //fecha >= fecha_hoy diff <= 160
-            if(fecha >= fecha_hoy){
+            //fecha >= fecha_hoy && fecha_max >= fecha_hoy
+            if(fecha >= fecha_max){
             
              this.$router.push("../item-edit/" + this.params.data.id).catch(() => {})
 
@@ -69,15 +71,17 @@
           },
           confirmDeleteRecord() {
 
-           var fecha_hoy = new Date();
+           //var fecha_hoy = new Date();
+           var fecha_max = new Date();
            var fecha = new Date(this.params.data.fecha_inicio);
            
            var horas = this.params.data.hora_max_agendamiento.split(':');
-           fecha_hoy.setHours(horas[0],horas[1],horas[2]);
+           fecha_max.setHours(horas[0],horas[1],horas[2]);
            //fecha_hoy.setHours(0,0,0,0);
            // var diff = this.diferencia_horas(fecha_hoy,fecha);
             //fecha >= fecha_hoy diff <= 160
-            if(fecha >= fecha_hoy){
+            //fecha >= fecha_hoy && fecha_max >= fecha_hoy
+            if(fecha >= fecha_max){
             
             this.$vs.dialog({
               type: 'confirm',

@@ -185,7 +185,11 @@ __webpack_require__.r(__webpack_exports__);
       urlApi: "/agendamientos/agendamientos/"
     };
   },
-  computed: {},
+  computed: {
+    validateForm: function validateForm() {
+      return this.item_data.estado != false;
+    }
+  },
   methods: {
     chipColor: function chipColor(value) {
       if (value === true) return "success";else if (value === false) return "danger";else return "success";
@@ -253,14 +257,26 @@ __webpack_require__.r(__webpack_exports__);
       Url: urlApi
     }).then(function (res) {
       _this2.item_data = res.data.item;
-      var fecha = new Date();
-      var fecha_fin = new Date(res.data.item.fecha_fin);
+      var fecha_max = new Date();
+      var horas = res.data.item.hora_max_agendamiento.split(':');
+      fecha_max.setHours(horas[0], horas[1], horas[2]);
+      var fecha = new Date(res.data.item.fecha_inicio); //fecha_hoy.setHours(0,0,0,0);
+      //fecha >= fecha_hoy
 
-      if (fecha > fecha_fin) {
-        _this2.item_data.estado = false;
-      } else {
+      if (fecha >= fecha_max) {
         _this2.item_data.estado = true;
+      } else {
+        _this2.item_data.estado = false;
       }
+      /*var fecha = new Date();
+      var fecha_fin = new Date(res.data.item.fecha_fin);
+        
+      if(fecha > fecha_fin){
+         this.item_data.estado = false;
+      }else{
+         this.item_data.estado = true;
+      }*/
+
     }).catch(function (err) {
       if (err.response.status === 404) {
         _this2.item_not_found = true;
@@ -628,8 +644,8 @@ var render = function() {
                                         _vm._v(
                                           _vm._s(
                                             _vm.item_data.estado == false
-                                              ? "Vencido"
-                                              : "Activo"
+                                              ? "Cerrado"
+                                              : "Abierto"
                                           )
                                         )
                                       ])
@@ -695,6 +711,7 @@ var render = function() {
                           attrs: {
                             "icon-pack": "feather",
                             icon: "icon-edit",
+                            disabled: !_vm.validateForm,
                             to: {
                               name: "agendamientos-edit",
                               params: { itemId: _vm.$route.params.itemId }
@@ -738,6 +755,7 @@ var render = function() {
                             type: "border",
                             color: "danger",
                             "icon-pack": "feather",
+                            disabled: !_vm.validateForm,
                             icon: "icon-trash"
                           },
                           on: { click: _vm.confirmDeleteRecord }

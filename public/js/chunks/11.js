@@ -39,14 +39,16 @@ __webpack_require__.r(__webpack_exports__);
       */
     },
     editRecord: function editRecord() {
-      var fecha_hoy = new Date();
+      //var fecha_hoy = new Date();
+      var fecha_max = new Date();
       var fecha = new Date(this.params.data.fecha_inicio);
       var horas = this.params.data.hora_max_agendamiento.split(':');
-      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
+      fecha_max.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
       //var diff = this.diferencia_horas(fecha_hoy,fecha);
       //fecha >= fecha_hoy diff <= 160
+      //fecha >= fecha_hoy && fecha_max >= fecha_hoy
 
-      if (fecha >= fecha_hoy) {
+      if (fecha >= fecha_max) {
         this.$router.push("../item-edit/" + this.params.data.id).catch(function () {});
       } else {
         this.$vs.dialog({
@@ -64,14 +66,16 @@ __webpack_require__.r(__webpack_exports__);
 
     },
     confirmDeleteRecord: function confirmDeleteRecord() {
-      var fecha_hoy = new Date();
+      //var fecha_hoy = new Date();
+      var fecha_max = new Date();
       var fecha = new Date(this.params.data.fecha_inicio);
       var horas = this.params.data.hora_max_agendamiento.split(':');
-      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
+      fecha_max.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
       // var diff = this.diferencia_horas(fecha_hoy,fecha);
       //fecha >= fecha_hoy diff <= 160
+      //fecha >= fecha_hoy && fecha_max >= fecha_hoy
 
-      if (fecha >= fecha_hoy) {
+      if (fecha >= fecha_max) {
         this.$vs.dialog({
           type: 'confirm',
           color: 'danger',
@@ -493,11 +497,14 @@ __webpack_require__.r(__webpack_exports__);
         filter: true,
         minWidth: 110,
         valueGetter: function valueGetter(params) {
-          var fecha_hoy = new Date();
-          var fecha = new Date(params.data.fecha_inicio);
-          fecha_hoy.setHours(0, 0, 0, 0);
+          //var fecha_hoy = new Date();
+          var fecha_max = new Date();
+          var horas = params.data.hora_max_agendamiento.split(':');
+          fecha_max.setHours(horas[0], horas[1], horas[2]);
+          var fecha = new Date(params.data.fecha_inicio); //fecha_hoy.setHours(0,0,0,0);
+          //fecha >= fecha_hoy
 
-          if (fecha >= fecha_hoy) {
+          if (fecha >= fecha_max) {
             return true;
           } else {
             return false;
@@ -646,12 +653,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onRowSelected: function onRowSelected(params) {
-      var fecha_hoy = new Date();
+      //var fecha_hoy = new Date();
+      var fecha_max = new Date();
       var fecha = new Date(params.data.fecha_inicio);
       var horas = params.data.hora_max_agendamiento.split(':');
-      fecha_hoy.setHours(horas[0], horas[1], horas[2]); //fecha_hoy.setHours(0,0,0,0);
+      fecha_max.setHours(horas[0], horas[1], horas[2]); // fecha_hoy.setHours(0,0,0,0);
+      //fecha >= fecha_hoy && fecha_max >= fecha_hoy
 
-      if (fecha >= fecha_hoy) {} else {
+      if (fecha >= fecha_max) {} else {
         /*  this.$vs.dialog({
               color: 'danger',
               title: `Confirmar Eliminacion`,

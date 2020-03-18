@@ -282,11 +282,15 @@ export default {
           filter: true,
           minWidth: 110,
           valueGetter: function(params) {
-            var fecha_hoy = new Date();
+            //var fecha_hoy = new Date();
+            var fecha_max = new Date();
+            var horas = params.data.hora_max_agendamiento.split(':');
+            fecha_max.setHours(horas[0],horas[1],horas[2]);
+            
             var fecha = new Date(params.data.fecha_inicio);
-            fecha_hoy.setHours(0,0,0,0);
-
-            if(fecha >= fecha_hoy){
+            //fecha_hoy.setHours(0,0,0,0);
+            //fecha >= fecha_hoy
+            if(fecha >= fecha_max){
                return true;
             }else{
                return false;
@@ -452,14 +456,15 @@ export default {
   methods: {
     onRowSelected(params) {
 
-      var fecha_hoy = new Date();
+      //var fecha_hoy = new Date();
+      var fecha_max = new Date();
       var fecha = new Date(params.data.fecha_inicio);
       
       var horas = params.data.hora_max_agendamiento.split(':');
-      fecha_hoy.setHours(horas[0],horas[1],horas[2]);
-      //fecha_hoy.setHours(0,0,0,0);
-
-      if(fecha >= fecha_hoy){
+      fecha_max.setHours(horas[0],horas[1],horas[2]);
+     // fecha_hoy.setHours(0,0,0,0);
+      //fecha >= fecha_hoy && fecha_max >= fecha_hoy
+      if(fecha >= fecha_max){
             
 
 

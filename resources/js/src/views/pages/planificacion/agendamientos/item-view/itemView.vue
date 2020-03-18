@@ -110,7 +110,7 @@
                 <td class="font-semibold">Estado : </td>
                 <td>
                   <vs-chip class="ag-grid-cell-chip" :color="chipColor(item_data.estado)">
-                  <span>{{ item_data.estado == false ? 'Vencido':'Activo' }}</span>
+                  <span>{{ item_data.estado == false ? 'Cerrado':'Abierto' }}</span>
                   </vs-chip>    
                 </td>
               </tr>
@@ -145,13 +145,13 @@
          <!-- Buttons -->
           <div class="vx-col w-full flex mt-4" id="account-manage-buttons">
             <vx-tooltip color="primary" text="Editar">
-              <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'agendamientos-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
+              <vs-button icon-pack="feather" icon="icon-edit" class="mr-4"  :disabled="!validateForm" :to="{name: 'agendamientos-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Volver">
               <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" :to="{name: 'agendamientos'}">Volver</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Eliminar">
-              <vs-button type="border" color="danger" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRecord">Eliminar</vs-button>
+              <vs-button type="border" color="danger" icon-pack="feather"  :disabled="!validateForm" icon="icon-trash" @click="confirmDeleteRecord">Eliminar</vs-button>
             </vx-tooltip>
           </div>
            <!-- Buttons -->
@@ -175,6 +175,9 @@ export default {
     }
   },
   computed: {
+    validateForm() {
+        return this.item_data.estado != false;
+    },
   },
   methods: {
     chipColor(value) {
@@ -234,14 +237,27 @@ export default {
           
             this.item_data = res.data.item
 
-            var fecha = new Date();
+            var fecha_max = new Date();
+            var horas = res.data.item.hora_max_agendamiento.split(':');
+            fecha_max.setHours(horas[0],horas[1],horas[2]);
+            
+            var fecha = new Date(res.data.item.fecha_inicio);
+            //fecha_hoy.setHours(0,0,0,0);
+            //fecha >= fecha_hoy
+            if(fecha >= fecha_max){
+               this.item_data.estado = true;
+            }else{
+               this.item_data.estado = false;
+            }
+
+            /*var fecha = new Date();
             var fecha_fin = new Date(res.data.item.fecha_fin);
               
             if(fecha > fecha_fin){
                this.item_data.estado = false;
             }else{
                this.item_data.estado = true;
-            }
+            }*/
           
         })
       .catch(err => {
