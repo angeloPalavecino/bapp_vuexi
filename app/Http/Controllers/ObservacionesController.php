@@ -63,7 +63,7 @@ class ObservacionesController extends Controller
         }
 
         $input = $request->all();
-        $descripcion = $input['descripcion'];
+        $descripcion = strtoupper($input['descripcion']);
 
         $observacion = Observaciones::create(
          array(
@@ -133,7 +133,7 @@ class ObservacionesController extends Controller
         if(!is_null($observacion)){
     
             $input = $request->all();
-            $descripcion = $input['descripcion'];
+            $descripcion = strtoupper($input['descripcion']);
 
         $observacion = Observaciones::where('id', $id)->update(
          array(

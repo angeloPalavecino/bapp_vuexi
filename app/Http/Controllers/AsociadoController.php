@@ -100,6 +100,14 @@ class AsociadoController extends Controller
                 ], 300);           
         }
 
+        $request['name'] = strtoupper($request['name']);
+        $request['lastname'] = strtoupper($request['lastname']);
+        $request['pais'] = strtoupper($request['pais']);
+        $request['ciudad'] = strtoupper($request['ciudad']);
+        $request['comuna'] = strtoupper($request['comuna']);
+        $request['direccion'] = strtoupper($request['direccion']);
+        $request['clase'] = strtoupper($request['clase']);
+        
         $returnAsociado = Driver::create($request->all());
 
         $idDriver = $returnAsociado->id;
@@ -259,6 +267,15 @@ class AsociadoController extends Controller
         }
 
         $request['rut'] = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $request['rut'])); 
+
+        $request['name'] = strtoupper($request['name']);
+        $request['lastname'] = strtoupper($request['lastname']);
+        $request['pais'] = strtoupper($request['pais']);
+        $request['ciudad'] = strtoupper($request['ciudad']);
+        $request['comuna'] = strtoupper($request['comuna']);
+        $request['direccion'] = strtoupper($request['direccion']);
+        $request['clase'] = strtoupper($request['clase']);
+
 
         Driver::where('id', $id)->update($request->all());
         

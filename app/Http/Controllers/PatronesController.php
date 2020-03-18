@@ -79,9 +79,9 @@ class PatronesController extends Controller
         }
         
         $input = $request->all();
-        $codigo = $input['codigo'];
-        $descripcion = $input['descripcion'];
-        $color = $input['color'];
+        $codigo = strtoupper($input['codigo']);
+        $descripcion = strtoupper($input['descripcion']);
+        $color = strtoupper($input['color']);
         $lat = $input['lat'];
         $lng = $input['lng'];
     
@@ -156,9 +156,9 @@ class PatronesController extends Controller
         if(!is_null($patron)){
     
             $input = $request->all();
-            $codigo = $input['codigo'];
-            $descripcion = $input['descripcion'];
-            $color = $input['color'];
+            $codigo = strtoupper($input['codigo']);
+            $descripcion = strtoupper($input['descripcion']);
+            $color = strtoupper($input['color']);
             $lat = $input['lat'];
             $lng = $input['lng'];
            

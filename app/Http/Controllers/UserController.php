@@ -92,8 +92,8 @@ class UserController extends Controller
 
         $input = $request->all();
         $empresa_id = $input['empresa_id'];
-        $name = $input['name'];
-        $lastname = $input['lastname'];
+        $name = strtoupper($input['name']);
+        $lastname = strtoupper($input['lastname']);
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
         $telefono = $input['telefono'];
         $email = $input['email'];
@@ -285,8 +285,8 @@ class UserController extends Controller
     
             $input = $request->all();
             $empresa_id = $input['empresa_id'];
-            $name = $input['name'];
-            $lastname = $input['lastname'];
+            $name = strtoupper($input['name']);
+            $lastname = strtoupper($input['lastname']);
             $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
             $telefono = $input['telefono'];
             $email = $input['email'];

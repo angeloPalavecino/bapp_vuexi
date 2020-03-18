@@ -79,8 +79,8 @@ class FuerazonaController extends Controller
 
         $input = $request->all();
         $sucursal_id = $input['sucursal_id'];
-        $comuna = $input['comuna'];
-        $tipo = $input['tipo'];
+        $comuna = strtoupper($input['comuna']);
+        $tipo = strtoupper($input['tipo']);
         $distancia = $input['distancia'];
 
         $fuerazona = Fuerazona::create(
@@ -173,8 +173,8 @@ class FuerazonaController extends Controller
     
             $input = $request->all();
             $sucursal_id = $input['sucursal_id'];
-            $comuna = $input['comuna'];
-            $tipo = $input['tipo'];
+            $comuna = strtoupper($input['comuna']);
+            $tipo =strtoupper( $input['tipo']);
             $distancia = $input['distancia'];
 
         $fuerazona = Fuerazona::where('id', $id)->update(

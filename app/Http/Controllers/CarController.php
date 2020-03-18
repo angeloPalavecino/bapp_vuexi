@@ -122,6 +122,13 @@ class CarController extends Controller
                 ], 300);           
         }
 
+        $request['tipo'] = strtoupper($request['tipo']);
+        $request['marca'] = strtoupper($request['marca']);
+        $request['modelo'] = strtoupper($request['modelo']);
+        $request['motor'] = strtoupper($request['motor']);
+        $request['patente'] = strtoupper($request['patente']);
+        $request['color'] = strtoupper($request['color']);
+       
         $returnCar = Car::create($request->except(['empresas']));// $request->all()
         $empresas = $request['empresas'];
 
@@ -281,6 +288,13 @@ class CarController extends Controller
         $dataDriversHasCars =  array(
             'driver_id'  => $request["driver_id"],
         );
+        
+        $request['tipo'] = strtoupper($request['tipo']);
+        $request['marca'] = strtoupper($request['marca']);
+        $request['modelo'] = strtoupper($request['modelo']);
+        $request['motor'] = strtoupper($request['motor']);
+        $request['patente'] = strtoupper($request['patente']);
+        $request['color'] = strtoupper($request['color']);
         
         DriversHasCars::where('car_id', $id)->update($dataDriversHasCars);       
 

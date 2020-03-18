@@ -83,8 +83,8 @@ class ExcepcionesController extends Controller
 
         $input = $request->all();
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
-        $direccion = $input['direccion'];
-        $comuna = $input['comuna'];
+        $direccion = strtoupper($input['direccion']);
+        $comuna = strtoupper($input['comuna']);
         $sucursal_id = $input['sucursal_id'];
 
         $existe_excepcion = Excepciones::where('rut', $rut)->first();
@@ -228,8 +228,8 @@ class ExcepcionesController extends Controller
     
             $input = $request->all();
             $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
-            $direccion = $input['direccion'];
-            $comuna = $input['comuna'];
+            $direccion = strtoupper($input['direccion']);
+            $comuna = strtoupper($input['comuna']);
             $sucursal_id = $input['sucursal_id'];
 
             $lat = isset($input['lat']) ? $input['lat'] : null;

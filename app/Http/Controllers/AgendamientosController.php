@@ -757,7 +757,7 @@ class AgendamientosController extends Controller
             'agendamientos.fecha_fin as end',
             'agendamientos.tipo',
              //DB::raw("'event-primary' as classes"),
-             DB::raw("(CASE WHEN agendamientos.tipo = 'Zarpe' THEN '#1AA1C8' ELSE '#28C76F' END) AS color")
+             DB::raw("(CASE WHEN agendamientos.tipo = 'ZARPE' THEN '#1AA1C8' ELSE '#28C76F' END) AS color")
             )
             ->where('codificaciones.id',$id)
             ->get();

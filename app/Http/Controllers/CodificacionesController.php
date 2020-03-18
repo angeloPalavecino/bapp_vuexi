@@ -107,14 +107,14 @@ class CodificacionesController extends Controller
         $input = $request->all();
         $sucursal_id = $input['sucursal_id'];
         $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
-        $codigo = $input['codigo'];
-        $nombre = $input['nombre'];
-        $apellido = $input['apellido'];
-        $direccion = $input['direccion'];
-        $comuna = $input['comuna'];
+        $codigo = strtoupper($input['codigo']);
+        $nombre = strtoupper($input['nombre']);
+        $apellido = strtoupper($input['apellido']);
+        $direccion = strtoupper($input['direccion']);
+        $comuna = strtoupper($input['comuna']);
         $email = $input['email'];
         $telefono = $input['telefono'];
-        $centro_costo = $input['centro_costo'];
+        $centro_costo = strtoupper($input['centro_costo']);
         $lat = $input['lat'];
         $lng = $input['lng'];
         $habilitado = $input['habilitado'];
@@ -293,14 +293,14 @@ class CodificacionesController extends Controller
             $input = $request->all();
             $sucursal_id = $input['sucursal_id'];
             $rut = strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $input['rut'])); 
-            $codigo = $input['codigo'];
-            $nombre = $input['nombre'];
-            $apellido = $input['apellido'];
-            $direccion = $input['direccion'];
-            $comuna = $input['comuna'];
+            $codigo = strtoupper($input['codigo']);
+            $nombre = strtoupper($input['nombre']);
+            $apellido = strtoupper($input['apellido']);
+            $direccion = strtoupper($input['direccion']);
+            $comuna = strtoupper($input['comuna']);
             $email = $input['email'];
             $telefono = $input['telefono'];
-            $centro_costo = $input['centro_costo'];
+            $centro_costo = strtoupper($input['centro_costo']);
             $lat = $input['lat'];
             $lng = $input['lng'];
             $habilitado = $input['habilitado'];
@@ -656,9 +656,9 @@ class CodificacionesController extends Controller
 
             $id = $key+1;
             $rut            = isset($codificacion['Rut']) ? strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", trim($codificacion['Rut']))) : " "; 
-            $direccion      = isset($codificacion['Direccion']) ? self::limpiar_string($codificacion['Direccion']) : "";
-            $comuna         = isset($codificacion['Comuna']) ? self::limpiar_string($codificacion['Comuna']) : ""; 
-            $centro_costo   = (isset($codificacion['Centro_costo'])) ? self::limpiar_string($codificacion['Centro_costo']) : "";
+            $direccion      = isset($codificacion['Direccion']) ? strtoupper(self::limpiar_string($codificacion['Direccion'])) : "";
+            $comuna         = isset($codificacion['Comuna']) ? strtoupper(self::limpiar_string($codificacion['Comuna'])) : ""; 
+            $centro_costo   = (isset($codificacion['Centro_costo'])) ? strtoupper(self::limpiar_string($codificacion['Centro_costo'])) : "";
             $valida_rut     = self::validaRut($rut);
 
                 if(empty($rut) || $rut == " " || $valida_rut == false || empty($direccion) || $direccion == " " || empty($comuna) || $comuna == " " 
@@ -694,11 +694,11 @@ class CodificacionesController extends Controller
 
                 }else{
                     
-                    $nombre     = (isset($codificacion['Nombre'])) ? self::limpiar_string($codificacion['Nombre']) : "Sin nombre"; 
-                    $apellido   = (isset($codificacion['Apellido'])) ? self::limpiar_string($codificacion['Apellido']) : "Sin apellido"; 
-                    $email   = (isset($codificacion['Email'])) ? $codificacion['Email'] : 'Sin mail'; 
-                    $telefono   = (isset($codificacion['Telefono'])) ? self::limpiar_string($codificacion['Telefono']) : "Sin telefono"; 
-                    $direccion_completa = strtoupper($direccion.",".$comuna.",Chile");
+                    $nombre     = (isset($codificacion['Nombre'])) ? strtoupper(self::limpiar_string($codificacion['Nombre'])) : "SIN NOMBRE"; 
+                    $apellido   = (isset($codificacion['Apellido'])) ? strtoupper(self::limpiar_string($codificacion['Apellido'])) : "SIN APELLIDO"; 
+                    $email   = (isset($codificacion['Email'])) ? $codificacion['Email'] : 'SIN EMAIL'; 
+                    $telefono   = (isset($codificacion['Telefono'])) ? self::limpiar_string($codificacion['Telefono']) : "SIN TELEFONO"; 
+                    $direccion_completa = strtoupper($direccion.",".$comuna.",CHILE");
                     $codigo = null;
                     $sucursal = Sucursal::findorfail($sucursal_id);
                     
@@ -725,8 +725,8 @@ class CodificacionesController extends Controller
                 
                             $lat = $excepcion['lat'];
                             $lng = $excepcion['lng']; 
-                            $direccion = $excepcion['direccion'];
-                            $comuna = $excepcion['comuna'];
+                            $direccion = strtoupper($excepcion['direccion']);
+                            $comuna = strtoupper($excepcion['comuna']);
                     
                             if(!is_null($sucursal)){
                                 $latSuc = $sucursal['lat'];

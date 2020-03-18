@@ -79,7 +79,7 @@ class ServiciosKMSController extends Controller
         }
 
         $inputs = $request->all();
-
+        $inputs['descripcion'] = strtoupper($inputs['descripcion']);
         $servkms = ServiciosKMS::create($inputs);
 
         EmpresasHasServKMS::create(array(
@@ -178,8 +178,8 @@ class ServiciosKMSController extends Controller
         if(!is_null($servkms)){
     
         $input = $request->all();
-
-        $descripcion        = $input['descripcion'];
+        
+        $descripcion        = strtoupper($input['descripcion']);
         $cant_psjs          = $input['cant_psjs'];
         $min_servicio       = $input['min_servicio'];
         $kms                = $input['kms'];

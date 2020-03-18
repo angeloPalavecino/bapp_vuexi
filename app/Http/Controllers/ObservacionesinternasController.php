@@ -66,7 +66,7 @@ class ObservacionesinternasController extends Controller
         }
 
         $input = $request->all();
-        $descripcion = $input['descripcion'];
+        $descripcion = strtoupper($input['descripcion']);
 
         $obsinterna = Observacionesinternas::create(
          array(
@@ -134,7 +134,7 @@ class ObservacionesinternasController extends Controller
         if(!is_null($obsinterna)){
     
             $input = $request->all();
-            $descripcion = $input['descripcion'];
+            $descripcion = strtoupper($input['descripcion']);
 
         $obsinterna = Observacionesinternas::where('id', $id)->update(
          array(

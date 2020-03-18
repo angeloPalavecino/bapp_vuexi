@@ -93,9 +93,9 @@ class GruposPatronesController extends Controller
         }
 
         $input = $request->all();
-        $codigo = $input['codigo'];
-        $descripcion = $input['descripcion'];
-        $fuerazona = $input['fuerazona'];
+        $codigo = strtoupper($input['codigo']);
+        $descripcion = strtoupper($input['descripcion']);
+        $fuerazona = strtoupper($input['fuerazona']);
         $patrones = $input['patrones'];
         $sucursales = $input['sucursales'];
 
@@ -229,9 +229,9 @@ class GruposPatronesController extends Controller
         if(!is_null($grupopatron)){
     
             $input = $request->all();
-            $codigo = $input['codigo'];
-            $descripcion = $input['descripcion'];
-            $fuerazona = $input['fuerazona'];
+            $codigo = strtoupper($input['codigo']);
+            $descripcion = strtoupper($input['descripcion']);
+            $fuerazona = strtoupper($input['fuerazona']);
             $patrones = $input['patrones'];
             $sucursales = $input['sucursales'];
            
