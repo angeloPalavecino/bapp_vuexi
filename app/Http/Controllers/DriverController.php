@@ -338,6 +338,16 @@ class DriverController extends Controller
         $request['direccion'] = strtoupper($request['direccion']);
         $request['clase'] = strtoupper($request['clase']);
 
+        $existe_driver = Driver::where('id', '!=' , $id)->where('rut', $request['rut'])->first();
+        if ($existe_driver != null) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El conductor ya se encuentra registrado',
+                ], 300);           
+        }
+
         $valida_rut = self::validaRut($request['rut']);
         if ($valida_rut == false) {
 

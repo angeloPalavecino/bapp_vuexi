@@ -280,6 +280,16 @@ class EmpresaController extends Controller
 
         if(!is_null($emp)){
 
+        $existe_empresa = Empresa::where('id', '!=' , $id)->where('rut', strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut'])))->first();
+        if ($existe_empresa != null) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut ya se encuentra registrado',
+                ], 300);           
+        }
+
 
         $valida_rut = self::validaRut(strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $empresa['rut'])).strtoupper($empresa['dv']));
           if ($valida_rut == false) {

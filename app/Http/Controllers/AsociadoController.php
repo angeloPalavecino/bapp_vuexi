@@ -284,6 +284,16 @@ class AsociadoController extends Controller
         $request['direccion'] = strtoupper($request['direccion']);
         $request['clase'] = strtoupper($request['clase']);
 
+        $existe_asociado = Driver::where('id', '!=' , $id)->where('rut', $request['rut'])->first();
+        if ($existe_asociado != null) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El asociado ya se encuentra registrado',
+                ], 300);           
+        }
+
         $valida_rut = self::validaRut($request['rut']);
         if ($valida_rut == false) {
 

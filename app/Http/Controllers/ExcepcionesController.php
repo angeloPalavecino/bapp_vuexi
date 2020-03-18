@@ -242,7 +242,7 @@ class ExcepcionesController extends Controller
             $comuna = strtoupper($input['comuna']);
             $sucursal_id = $input['sucursal_id'];
 
-            /*$existe_excepcion = Excepciones::wherenot('id', $id)->where('rut', $rut)->first();
+            $existe_excepcion = Excepciones::where('id', '!=' , $id)->where('rut', $rut)->first();
             if ($existe_excepcion != null) {
     
                 return response()->json(
@@ -250,7 +250,7 @@ class ExcepcionesController extends Controller
                         'status' => 'error',
                         'message' => 'El rut ya se encuentra registrado',
                     ], 300);           
-            }*/
+            }
 
             $valida_rut = self::validaRut($rut);
             if ($valida_rut == false) {

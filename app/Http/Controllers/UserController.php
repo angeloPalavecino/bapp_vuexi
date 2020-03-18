@@ -305,6 +305,16 @@ class UserController extends Controller
             $habilitado = $input['habilitado'];
             //$imagen = $input['imagen'];
 
+            $existe_usuario = User::where('id', '!=' , $id)->where('rut',  $rut)->first();
+            if ($existe_usuario != null) {
+    
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'El rut ya se encuentra registrado',
+                    ], 300);           
+            }
+
             $valida_rut = self::validaRut($rut);
             if ($valida_rut == false) {
 
