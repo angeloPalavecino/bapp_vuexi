@@ -101,8 +101,16 @@ class CodificacionesController extends Controller
                 ], 300);           
         }
 
-        
-        
+        $valida_rut = self::validaRut(strtoupper(str_replace(array(".", "-", ",","|","*","'"), "", $request['rut'])));
+        if ($valida_rut == false) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut es invalido',
+                ], 300);           
+        }
+               
 
         $input = $request->all();
         $sucursal_id = $input['sucursal_id'];

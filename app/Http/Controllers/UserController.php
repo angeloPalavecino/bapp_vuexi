@@ -111,6 +111,16 @@ class UserController extends Controller
                 ], 300);           
         }
 
+        $valida_rut = self::validaRut($rut);
+        if ($valida_rut == false) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut es invalido',
+                ], 300);           
+        }
+
         $existe_usuario = User::where('email', $request['email'])->first();
         if ($existe_usuario != null) {
 
@@ -120,6 +130,8 @@ class UserController extends Controller
                     'message' => 'El email ya se encuentra registrado',
                 ], 300);           
         }
+
+        
 
         $user = User::create(
          array(
@@ -293,6 +305,16 @@ class UserController extends Controller
             $habilitado = $input['habilitado'];
             //$imagen = $input['imagen'];
 
+            $valida_rut = self::validaRut($rut);
+            if ($valida_rut == false) {
+
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'El rut es invalido',
+                    ], 300);           
+            }
+
             $datos = Arr::add($datos,'empresa_id', $empresa_id);
             $datos = Arr::add($datos,'name', $name);
             $datos = Arr::add($datos,'lastname', $lastname);
@@ -411,6 +433,41 @@ class UserController extends Controller
                   'status' => 'success',
                   'items' => $cars->toArray(),
               ], 200);
+    }
+
+    function validaRut($rut){
+
+        if (!preg_match("/^[0-9.]+[-]?+[0-9kK]{1}/", $rut)) {
+            return false;
+        }
+
+        if(strpos($rut,"-")==false){
+            $RUT[0] = substr($rut, 0, -1);
+            $RUT[1] = substr($rut, -1);
+        }else{
+            $RUT = explode("-", trim($rut));
+        }
+        $elRut = str_replace(".", "", trim($RUT[0]));
+        $factor = 2;
+        $suma = 0;
+        for($i = strlen($elRut)-1; $i >= 0; $i--):
+            $factor = $factor > 7 ? 2 : $factor;
+            $suma += $elRut{$i}*$factor++;
+        endfor;
+        $resto = $suma % 11;
+        $dv = 11 - $resto;
+        if($dv == 11){
+            $dv=0;
+        }else if($dv == 10){
+            $dv="k";
+        }else{
+            $dv=$dv;
+        }
+       if($dv == trim(strtolower($RUT[1]))){
+           return true;
+       }else{
+           return false;
+       }
     }
 
     

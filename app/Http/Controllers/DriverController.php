@@ -129,6 +129,16 @@ class DriverController extends Controller
                 ], 300);           
         }
 
+        $valida_rut = self::validaRut($request['rut']);
+        if ($valida_rut == false) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut es invalido',
+                ], 300);           
+        }
+
         if($request['car_id'] == 1 ){
             $request['driver_default'] = 0;
         }
@@ -327,6 +337,16 @@ class DriverController extends Controller
         $request['comuna'] = strtoupper($request['comuna']);
         $request['direccion'] = strtoupper($request['direccion']);
         $request['clase'] = strtoupper($request['clase']);
+
+        $valida_rut = self::validaRut($request['rut']);
+        if ($valida_rut == false) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut es invalido',
+                ], 300);           
+        }
 
         Driver::where('id', $id)->update($request->except(['driver_id','car_id']));
 
@@ -664,5 +684,40 @@ class DriverController extends Controller
     {
         $document = Document::where('id', $id)->first();
         return response()->download(storage_path($document->url), $document->name);
+    }
+
+    function validaRut($rut){
+
+        if (!preg_match("/^[0-9.]+[-]?+[0-9kK]{1}/", $rut)) {
+            return false;
+        }
+
+        if(strpos($rut,"-")==false){
+            $RUT[0] = substr($rut, 0, -1);
+            $RUT[1] = substr($rut, -1);
+        }else{
+            $RUT = explode("-", trim($rut));
+        }
+        $elRut = str_replace(".", "", trim($RUT[0]));
+        $factor = 2;
+        $suma = 0;
+        for($i = strlen($elRut)-1; $i >= 0; $i--):
+            $factor = $factor > 7 ? 2 : $factor;
+            $suma += $elRut{$i}*$factor++;
+        endfor;
+        $resto = $suma % 11;
+        $dv = 11 - $resto;
+        if($dv == 11){
+            $dv=0;
+        }else if($dv == 10){
+            $dv="k";
+        }else{
+            $dv=$dv;
+        }
+       if($dv == trim(strtolower($RUT[1]))){
+           return true;
+       }else{
+           return false;
+       }
     }
 }

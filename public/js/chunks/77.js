@@ -397,7 +397,7 @@ __webpack_require__.r(__webpack_exports__);
       this.codificacion = null; //this.$store.state.calendar.events = null,
       //this.traeHorarios(obj);
 
-      if (obj != null) {
+      if (obj.value != null) {
         this.traecodificaciones(obj.value);
       }
     },
@@ -515,7 +515,7 @@ __webpack_require__.r(__webpack_exports__);
     traecodificaciones: function traecodificaciones(value) {
       var _this5 = this;
 
-      if (value > 0) {
+      if (value != null) {
         //Combo Codificaciones
         _axios_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/codificaciones/combocodificaciones/" + value).then(function (res) {
           _this5.codificacionesOptions = res.data.items;

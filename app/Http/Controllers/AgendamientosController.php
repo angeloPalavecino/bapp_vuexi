@@ -619,7 +619,7 @@ class AgendamientosController extends Controller
                         $error['observaciones'][] = "El tipo esta vacia";
                     }
 
-                    if($tipo != "Zarpe" && $tipo != "Recogida"){
+                    if($tipo != "ZARPE" && $tipo != "RECOGIDA"){
                         $error['observaciones'][] = "El tipo no corresponde a Zarpe o Recogida";
                     }
 

@@ -330,7 +330,7 @@ export default {
       this.codificacion = null;
       //this.$store.state.calendar.events = null,
       //this.traeHorarios(obj);
-      if(obj != null){
+      if(obj.value != null){
         this.traecodificaciones(obj.value);
       }
     },
@@ -461,7 +461,7 @@ export default {
     },
      traecodificaciones(value) {
       
-      if(value >  0)  {
+      if(value !=  null)  {
         //Combo Codificaciones
         axios.get(`/api/v1/codificaciones/combocodificaciones/` + value)
           .then((res) => {

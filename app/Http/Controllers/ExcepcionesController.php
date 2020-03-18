@@ -96,6 +96,16 @@ class ExcepcionesController extends Controller
                     'message' => 'El rut ya se encuentra registrado',
                 ], 300);           
         }
+
+        $valida_rut = self::validaRut($rut);
+        if ($valida_rut == false) {
+
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'El rut es invalido',
+                ], 300);           
+        }
         
         $lat = isset($input['lat']) ? $input['lat'] : null;
         $lng = isset($input['lng']) ? $input['lng'] : null;
@@ -231,6 +241,26 @@ class ExcepcionesController extends Controller
             $direccion = strtoupper($input['direccion']);
             $comuna = strtoupper($input['comuna']);
             $sucursal_id = $input['sucursal_id'];
+
+            /*$existe_excepcion = Excepciones::wherenot('id', $id)->where('rut', $rut)->first();
+            if ($existe_excepcion != null) {
+    
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'El rut ya se encuentra registrado',
+                    ], 300);           
+            }*/
+
+            $valida_rut = self::validaRut($rut);
+            if ($valida_rut == false) {
+    
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'El rut es invalido',
+                    ], 300);           
+            }
 
             $lat = isset($input['lat']) ? $input['lat'] : null;
             $lng = isset($input['lng']) ? $input['lng'] : null;
@@ -381,5 +411,40 @@ class ExcepcionesController extends Controller
         }
 
         
+    }
+
+    function validaRut($rut){
+
+        if (!preg_match("/^[0-9.]+[-]?+[0-9kK]{1}/", $rut)) {
+            return false;
+        }
+
+        if(strpos($rut,"-")==false){
+            $RUT[0] = substr($rut, 0, -1);
+            $RUT[1] = substr($rut, -1);
+        }else{
+            $RUT = explode("-", trim($rut));
+        }
+        $elRut = str_replace(".", "", trim($RUT[0]));
+        $factor = 2;
+        $suma = 0;
+        for($i = strlen($elRut)-1; $i >= 0; $i--):
+            $factor = $factor > 7 ? 2 : $factor;
+            $suma += $elRut{$i}*$factor++;
+        endfor;
+        $resto = $suma % 11;
+        $dv = 11 - $resto;
+        if($dv == 11){
+            $dv=0;
+        }else if($dv == 10){
+            $dv="k";
+        }else{
+            $dv=$dv;
+        }
+       if($dv == trim(strtolower($RUT[1]))){
+           return true;
+       }else{
+           return false;
+       }
     }
 }
