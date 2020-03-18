@@ -34,7 +34,7 @@
             */
           },
           editRecord() {
-
+            
             var fecha_hoy = new Date();
             var fecha = new Date(this.params.data.fecha_inicio);
             fecha_hoy.setHours(0,0,0,0);

@@ -85,6 +85,7 @@ class AgendamientosController extends Controller
             'codificaciones.centro_costo',
             'sucursals.nombre as sucursal',
             'empresas.razon_social',
+            'empresas.hora_max_agendamiento',
             //'drivers.name as nombre_conductor_plan',
             //'drivers.lastname as apellido_conductor_plan',
             //'drivers.rut as rut_conductor_plan',

@@ -102,7 +102,6 @@ class AsociadoController extends Controller
 
         $request['name'] = strtoupper($request['name']);
         $request['lastname'] = strtoupper($request['lastname']);
-        $request['pais'] = strtoupper($request['pais']);
         $request['ciudad'] = strtoupper($request['ciudad']);
         $request['comuna'] = strtoupper($request['comuna']);
         $request['direccion'] = strtoupper($request['direccion']);
@@ -270,13 +269,11 @@ class AsociadoController extends Controller
 
         $request['name'] = strtoupper($request['name']);
         $request['lastname'] = strtoupper($request['lastname']);
-        $request['pais'] = strtoupper($request['pais']);
         $request['ciudad'] = strtoupper($request['ciudad']);
         $request['comuna'] = strtoupper($request['comuna']);
         $request['direccion'] = strtoupper($request['direccion']);
         $request['clase'] = strtoupper($request['clase']);
-
-
+       
         Driver::where('id', $id)->update($request->all());
         
         $conductor = $request->get('conductor');

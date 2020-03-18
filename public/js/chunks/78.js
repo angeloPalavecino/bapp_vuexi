@@ -318,10 +318,10 @@ __webpack_require__.r(__webpack_exports__);
       activePromptEditEvent: false,
       tipoOptions: [{
         label: 'Zarpe',
-        value: 'Zarpe'
+        value: 'ZARPE'
       }, {
         label: 'Recogida',
-        value: 'Recogida'
+        value: 'RECOGIDA'
       }],
       horariosOptions: [],
       fechas: [],
@@ -337,7 +337,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     tipoColor: function tipoColor() {
       return function (label) {
-        if (label == "Recogida") return "success";else if (label == "Zarpe") return "primary";
+        if (label == "RECOGIDA") return "success";else if (label == "ZARPE") return "primary";
       };
     },
     CalendarEvents: function CalendarEvents() {
@@ -435,7 +435,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       var color = "";
 
-      if (this.tipo == 'Zarpe') {
+      if (this.tipo == 'ZARPE') {
         color = "#1AA1C8";
       } else {
         color = "#28C76F";

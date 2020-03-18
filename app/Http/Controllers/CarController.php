@@ -283,19 +283,20 @@ class CarController extends Controller
                 ], 300);
            
         }
-        Car::where('id', $id)->update($request->except(['driver_id','empresas']));
-        
-        $dataDriversHasCars =  array(
-            'driver_id'  => $request["driver_id"],
-        );
-        
+
         $request['tipo'] = strtoupper($request['tipo']);
         $request['marca'] = strtoupper($request['marca']);
         $request['modelo'] = strtoupper($request['modelo']);
         $request['motor'] = strtoupper($request['motor']);
         $request['patente'] = strtoupper($request['patente']);
         $request['color'] = strtoupper($request['color']);
+
+        Car::where('id', $id)->update($request->except(['driver_id','empresas']));
         
+        $dataDriversHasCars =  array(
+            'driver_id'  => $request["driver_id"],
+        );
+         
         DriversHasCars::where('car_id', $id)->update($dataDriversHasCars);       
 
         $empresas = $request['empresas'];

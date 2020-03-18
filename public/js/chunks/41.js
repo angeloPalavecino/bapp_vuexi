@@ -305,7 +305,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         direccion: this.data.direccion ? this.data.direccion : null,
         numeracion: this.data.numeracion ? this.data.numeracion : null,
         clase: this.data.clase ? this.data.clase : null,
-        conductor: this.data.conductor ? this.data.conductor : null,
+        conductor: this.data.conductor ? this.data.conductor : false,
         id: this.data.id ? this.data.id : null
       }
     };
@@ -365,7 +365,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         direccion: this.data.direccion ? this.data.direccion : null,
         numeracion: this.data.numeracion ? this.data.numeracion : null,
         clase: this.data.clase ? this.data.clase : null,
-        conductor: this.data.conductor ? this.data.conductor : null,
+        conductor: this.data.conductor ? this.data.conductor : false,
         id: this.data.id ? this.data.id : null
       };
       this.errors.clear();

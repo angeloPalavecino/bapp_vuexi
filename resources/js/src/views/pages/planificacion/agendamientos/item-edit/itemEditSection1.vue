@@ -197,8 +197,8 @@ export default {
 
   
       tipoOptions: [
-        { label: 'Zarpe', value: 'Zarpe' },
-        { label: 'Recogida', value: 'Recogida' },
+        { label: 'Zarpe', value: 'ZARPE' },
+        { label: 'Recogida', value: 'RECOGIDA' },
       ],
 
       horariosOptions:[],
@@ -220,8 +220,8 @@ export default {
   computed: {
     tipoColor() {
         return (label) => {
-            if (label == "Recogida") return "success"
-            else if (label == "Zarpe") return "primary"
+            if (label == "RECOGIDA") return "success"
+            else if (label == "ZARPE") return "primary"
         }
     },
     CalendarEvents() {
@@ -310,7 +310,7 @@ export default {
     editEvent() {
       var horario = this.horariosOptions.find(element => element.id == this.horario); 
       var color = ""
-      if(this.tipo == 'Zarpe'){
+      if(this.tipo == 'ZARPE'){
           color = "#1AA1C8" ;
       }else{
           color = "#28C76F" ;
