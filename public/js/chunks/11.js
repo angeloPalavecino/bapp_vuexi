@@ -526,7 +526,7 @@ __webpack_require__.r(__webpack_exports__);
           }else{
             var periodo = "Permanente";
           }
-           return periodo;
+            return periodo;
         },
       },*/
       {

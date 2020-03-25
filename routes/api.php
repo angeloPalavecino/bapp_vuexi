@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,30 +18,31 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
+Route::post('auth/login', 'Api\\AuthController@login');
+Route::post('auth/register', 'Api\\AuthController@register');
 
 Route::prefix('v1')->group(function () {
 
-    
+
     Route::prefix('auth')->group(function () {
-        // Below mention routes are public, user can access those without any restriction.
-        // Create New User
-        Route::post('register', 'AuthController@register');
-        // Login User
-        Route::post('login', 'AuthController@login');
         
-        // Refresh the JWT Token
-        Route::get('refresh', 'AuthController@refresh');
+        // // Below mention routes are public, user can access those without any restriction.
+        // // Create New User
+        // Route::post('register', 'AuthController@register');
+        // // Login User
+        // Route::post('login', 'AuthController@login');
         
-        // Below mention routes are available only for the authenticated users.
-        Route::middleware('auth:api')->group(function () {
-            // Get user info
-            Route::get('user', 'AuthController@user');
-             // Logout user from application
-            Route::post('logout', 'AuthController@logout');
+        // // Refresh the JWT Token
+        // Route::get('refresh', 'AuthController@refresh');
+        
+        // // Below mention routes are available only for the authenticated users.
+        // Route::middleware('auth:api')->group(function () {
+        //     // Get user info
+        //     Route::get('user', 'AuthController@user');
+        //      // Logout user from application
+        //     Route::post('logout', 'AuthController@logout');
 
-        });
-
-      
+        // });      
     });
     //USUARIOS
     Route::prefix('users')->group(function () {
@@ -61,22 +63,26 @@ Route::prefix('v1')->group(function () {
       //  });
     });
     //ROLES
-    Route::prefix('roles')->group(function () {
-       // Route::middleware('auth:api')->group(function () {
-            // Roles
-            Route::get('roles', 'RoleController@index');
-            Route::get('roles/create', 'RoleController@create');
-            Route::get('roles/{id}', 'RoleController@show');
-            Route::delete('roles/{id}', 'RoleController@destroy');
-            Route::post('roles/borrar', 'RoleController@borrar');
-            Route::put('roles/{id}', 'RoleController@update');
-            Route::post('roles/store', 'RoleController@store');
-            Route::get('roles/{id}/edit', 'RoleController@edit');
-            Route::get('combo', 'RoleController@combo');
-
-
-      // });
+    
+    Route::group([
+      'middleware' => 'jwt.verify',
+    ], function ($router) {    
+      Route::prefix('roles')->group(function () {
+        // Route::middleware('auth:api')->group(function () {
+              // Roles
+              Route::get('roles', 'RoleController@index');
+              Route::get('roles/create', 'RoleController@create');
+              Route::get('roles/{id}', 'RoleController@show');
+              Route::delete('roles/{id}', 'RoleController@destroy');
+              Route::post('roles/borrar', 'RoleController@borrar');
+              Route::put('roles/{id}', 'RoleController@update');
+              Route::post('roles/store', 'RoleController@store');
+              Route::get('roles/{id}/edit', 'RoleController@edit');
+              Route::get('combo', 'RoleController@combo');
+        // });
+      });
     });
+
     //PERMISOS
     Route::prefix('permisos')->group(function () {
         //Route::middleware('auth:api')->group(function () {

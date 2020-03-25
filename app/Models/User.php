@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
 //use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Models\Permission;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UsersHasCars;
 use App\Models\Empresa;
 
-class User extends Authenticatable //implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use HasRoles;
@@ -109,5 +109,21 @@ class User extends Authenticatable //implements JWTSubject
     public function setRutAttribute($value)
     {
         $this->attributes['rut'] = strtoupper($value);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'foo' => 'bar'
+        ];
     }
 }
