@@ -894,7 +894,7 @@ class CodificacionesController extends Controller
         
         $centrocosto = Codificaciones::select(
             'codificaciones.centro_costo as label' ,
-            'codificaciones.centro_costo as value',
+            'codificaciones.centro_costo as value'
             )
             ->distinct()
             ->where('codificaciones.sucursal_id', $id)
@@ -912,7 +912,7 @@ class CodificacionesController extends Controller
         
         $codificaciones = Codificaciones::select(
              DB::raw("CONCAT(codificaciones.nombre, ' ' ,codificaciones.apellido, ' ' ,codificaciones.rut) AS label"),
-            'codificaciones.id as value',
+            'codificaciones.id as value'
             )
             ->where('codificaciones.centro_costo', $id)
             ->where('codificaciones.habilitado', true)
