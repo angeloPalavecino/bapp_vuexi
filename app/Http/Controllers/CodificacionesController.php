@@ -893,7 +893,7 @@ class CodificacionesController extends Controller
     public function combocentro($id){
         
         $centrocosto = Codificaciones::select(
-            'codificaciones.centro_costo as label' ,
+            'codificaciones.centro_costo as label',
             'codificaciones.centro_costo as value'
             )
             ->distinct()
