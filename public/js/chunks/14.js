@@ -445,13 +445,15 @@ var render = function() {
     "div",
     { style: { direction: _vm.$vs.rtl ? "rtl" : "ltr" } },
     [
-      _c("feather-icon", {
-        attrs: {
-          icon: "EyeIcon",
-          svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
-        },
-        on: { click: _vm.viewRecord }
-      })
+      _vm.$can("servplanas.show")
+        ? _c("feather-icon", {
+            attrs: {
+              icon: "EyeIcon",
+              svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
+            },
+            on: { click: _vm.viewRecord }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -626,15 +628,17 @@ var render = function() {
               "vx-tooltip",
               { attrs: { color: "primary", text: "Agregar" } },
               [
-                _c(
-                  "vs-button",
-                  {
-                    staticClass: "sm:mr-4 mb-4 md:mb-0",
-                    attrs: { "icon-pack": "feather", icon: "icon-plus" },
-                    on: { click: _vm.addRecord }
-                  },
-                  [_vm._v("AGREGAR")]
-                )
+                _vm.$can("servplanas.create")
+                  ? _c(
+                      "vs-button",
+                      {
+                        staticClass: "sm:mr-4 mb-4 md:mb-0",
+                        attrs: { "icon-pack": "feather", icon: "icon-plus" },
+                        on: { click: _vm.addRecord }
+                      },
+                      [_vm._v("AGREGAR")]
+                    )
+                  : _vm._e()
               ],
               1
             ),

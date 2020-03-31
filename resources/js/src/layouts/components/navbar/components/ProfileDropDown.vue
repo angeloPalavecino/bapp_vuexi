@@ -6,7 +6,7 @@
       <small>{{ activeUserInfo.email }}</small>
     </div>
 
-    <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
+    <vs-dropdown vs-custom-content  class="cursor-pointer">
 
       <div class="con-img ml-3">
         <img v-if="activeUserInfo.photoURL" key="onlineImg" :src="activeUserInfo.photoURL" 
@@ -55,7 +55,7 @@
 
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="logout">
+            @click="logout" v-if="logged">
             <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Cerrar Sesion</span>
           </li>
@@ -68,11 +68,11 @@
 <script>
 //import firebase from 'firebase/app'
 //import 'firebase/auth'
-
+import { isLogged, setToken } from '../../../../utils/jwtHelper'
 export default {
   data() {
     return {
-
+      logged: isLogged()
     }
   },
   computed: {
@@ -80,12 +80,23 @@ export default {
       return this.$store.state.AppActiveUser
     }
   },
+  async mounted () {
+    this.$jwtEvents.$on('logout', async () => {
+      await this.logout();
+    })
+  },
   methods: {
     perfil() {
         var id = this.$store.state.AppActiveUser.uid;
         this.$router.push('/pages/perfil/' + id).catch(() => {})
     },
-    logout() {
+    async logout () {
+      setToken(null);
+      this.logged = false;
+      window.localStorage.removeItem('userInfo')
+      await this.$router.replace({ name: 'page-login' });
+    },
+    /*logout() {
 
         // if user is logged in via auth0
         //if (this.$auth.profile) this.$auth.logOut();
@@ -99,18 +110,20 @@ export default {
         //    })
        // }
         // If JWT login
-        if(localStorage.getItem("accessToken")) {
-          localStorage.removeItem("accessToken")
-          this.$router.push('/pages/login').catch(() => {})
-        }
+        //if(localStorage.getItem("accessToken")) {
+        //  localStorage.removeItem("accessToken")
+        //  this.$router.push('/pages/login').catch(() => {})
+        //}
 
         // Change role on logout. Same value as initialRole of acj.js
         //this.$acl.change('admin')
-        localStorage.removeItem('userInfo')
+        //localStorage.removeItem('userInfo')
 
         // This is just for demo Purpose. If user clicks on logout -> redirect
-        this.$router.push('/pages/login').catch(() => {})
-    },
+        //this.$router.push('/pages/login').catch(() => {})
+        clearInterval(this.interval);
+        this.$jwtEvents.$emit('logout');
+    },*/
   }
 }
 </script>

@@ -1036,29 +1036,35 @@ var render = function() {
     "div",
     { style: { direction: _vm.$vs.rtl ? "rtl" : "ltr" } },
     [
-      _c("feather-icon", {
-        attrs: {
-          icon: "EyeIcon",
-          svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
-        },
-        on: { click: _vm.viewRecord }
-      }),
+      _vm.$can("agendamientos.show")
+        ? _c("feather-icon", {
+            attrs: {
+              icon: "EyeIcon",
+              svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
+            },
+            on: { click: _vm.viewRecord }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("feather-icon", {
-        attrs: {
-          icon: "Edit3Icon",
-          svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
-        },
-        on: { click: _vm.editRecord }
-      }),
+      _vm.$can("agendamientos.edit")
+        ? _c("feather-icon", {
+            attrs: {
+              icon: "Edit3Icon",
+              svgClasses: "h-5 w-5 mr-4 hover:text-primary cursor-pointer"
+            },
+            on: { click: _vm.editRecord }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("feather-icon", {
-        attrs: {
-          icon: "Trash2Icon",
-          svgClasses: "h-5 w-5 mr-4 hover:text-danger cursor-pointer"
-        },
-        on: { click: _vm.confirmDeleteRecord }
-      })
+      _vm.$can("agendamientos.destroy")
+        ? _c("feather-icon", {
+            attrs: {
+              icon: "Trash2Icon",
+              svgClasses: "h-5 w-5 mr-4 hover:text-danger cursor-pointer"
+            },
+            on: { click: _vm.confirmDeleteRecord }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -1393,15 +1399,20 @@ var render = function() {
                 "vx-tooltip",
                 { attrs: { color: "primary", text: "Importar" } },
                 [
-                  _c(
-                    "vs-button",
-                    {
-                      staticClass: "sm:mr-4 mb-4 md:mb-0",
-                      attrs: { "icon-pack": "feather", icon: "icon-upload" },
-                      on: { click: _vm.importRecord }
-                    },
-                    [_vm._v("IMPORTAR")]
-                  )
+                  _vm.$can("agendamientos.create")
+                    ? _c(
+                        "vs-button",
+                        {
+                          staticClass: "sm:mr-4 mb-4 md:mb-0",
+                          attrs: {
+                            "icon-pack": "feather",
+                            icon: "icon-upload"
+                          },
+                          on: { click: _vm.importRecord }
+                        },
+                        [_vm._v("IMPORTAR")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -1410,15 +1421,17 @@ var render = function() {
                 "vx-tooltip",
                 { attrs: { color: "primary", text: "Agregar" } },
                 [
-                  _c(
-                    "vs-button",
-                    {
-                      staticClass: "sm:mr-4 mb-4 md:mb-0",
-                      attrs: { "icon-pack": "feather", icon: "icon-plus" },
-                      on: { click: _vm.addRecord }
-                    },
-                    [_vm._v("AGREGAR")]
-                  )
+                  _vm.$can("agendamientos.create")
+                    ? _c(
+                        "vs-button",
+                        {
+                          staticClass: "sm:mr-4 mb-4 md:mb-0",
+                          attrs: { "icon-pack": "feather", icon: "icon-plus" },
+                          on: { click: _vm.addRecord }
+                        },
+                        [_vm._v("AGREGAR")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -1465,34 +1478,36 @@ var render = function() {
                   _c(
                     "vs-dropdown-menu",
                     [
-                      _c(
-                        "vs-dropdown-item",
-                        {
-                          on: {
-                            click: function($event) {
-                              return _vm.confirmMassiveDeleteRecord()
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "flex items-center" },
-                            [
-                              _c("feather-icon", {
-                                staticClass: "mr-2",
-                                attrs: {
-                                  icon: "TrashIcon",
-                                  svgClasses: "h-4 w-4"
+                      _vm.$can("agendamientos.destroy")
+                        ? _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.confirmMassiveDeleteRecord()
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Eliminar")])
-                            ],
-                            1
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "flex items-center" },
+                                [
+                                  _c("feather-icon", {
+                                    staticClass: "mr-2",
+                                    attrs: {
+                                      icon: "TrashIcon",
+                                      svgClasses: "h-4 w-4"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("Eliminar")])
+                                ],
+                                1
+                              )
+                            ]
                           )
-                        ]
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "vs-dropdown-item",

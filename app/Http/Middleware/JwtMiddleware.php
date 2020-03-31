@@ -26,6 +26,7 @@ class JwtMiddleware
         try {
 
             JWTAuth::parseToken()->authenticate();
+            
         } catch (JWTException $e) {
             if (
                 $e instanceof TokenExpiredException || $e instanceof TokenBlacklistedException

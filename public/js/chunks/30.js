@@ -801,19 +801,21 @@ var render = function() {
                       "vx-tooltip",
                       { attrs: { color: "primary", text: "Importar" } },
                       [
-                        _c(
-                          "vs-button",
-                          {
-                            staticClass: "mt-6 mr-4 mb-4 md:mb-0",
-                            attrs: {
-                              "icon-pack": "feather",
-                              icon: "icon-upload",
-                              disabled: !_vm.validateForm
-                            },
-                            on: { click: _vm.importar }
-                          },
-                          [_vm._v("Importar")]
-                        )
+                        _vm.$can("agendamientos.store")
+                          ? _c(
+                              "vs-button",
+                              {
+                                staticClass: "mt-6 mr-4 mb-4 md:mb-0",
+                                attrs: {
+                                  "icon-pack": "feather",
+                                  icon: "icon-upload",
+                                  disabled: !_vm.validateForm
+                                },
+                                on: { click: _vm.importar }
+                              },
+                              [_vm._v("Importar")]
+                            )
+                          : _vm._e()
                       ],
                       1
                     )
@@ -1458,7 +1460,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1:
+/***/ 5:
 /*!********************!*\
   !*** fs (ignored) ***!
   \********************/
@@ -1469,7 +1471,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 2:
+/***/ 6:
 /*!************************!*\
   !*** crypto (ignored) ***!
   \************************/
@@ -1480,7 +1482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 3:
+/***/ 7:
 /*!************************!*\
   !*** stream (ignored) ***!
   \************************/

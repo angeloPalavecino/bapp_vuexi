@@ -1187,7 +1187,8 @@ var render = function() {
                               },
                               [_vm._v("Siguiente")]
                             )
-                          : _c(
+                          : _vm.$can("empresas.update")
+                          ? _c(
                               "vs-button",
                               {
                                 staticClass:
@@ -1201,6 +1202,7 @@ var render = function() {
                               },
                               [_vm._v("\n          Actualizar")]
                             )
+                          : _vm._e()
                       ],
                       1
                     )

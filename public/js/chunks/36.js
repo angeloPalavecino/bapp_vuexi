@@ -943,7 +943,8 @@ var render = function() {
                               },
                               [_vm._v("Siguiente")]
                             )
-                          : _c(
+                          : _vm.$can("empresas.store")
+                          ? _c(
                               "vs-button",
                               {
                                 staticClass:
@@ -957,6 +958,7 @@ var render = function() {
                               },
                               [_vm._v("\n          Agregar")]
                             )
+                          : _vm._e()
                       ],
                       1
                     )

@@ -505,18 +505,20 @@ var render = function() {
                   "div",
                   { staticClass: "vx-col md:w-1/2 w-full mt-5" },
                   [
-                    _c(
-                      "vs-button",
-                      {
-                        attrs: { color: "primary", type: "filled" },
-                        on: {
-                          click: function($event) {
-                            return _vm.upload()
-                          }
-                        }
-                      },
-                      [_vm._v("Adjuntar")]
-                    )
+                    _vm.$can("moviles.store")
+                      ? _c(
+                          "vs-button",
+                          {
+                            attrs: { color: "primary", type: "filled" },
+                            on: {
+                              click: function($event) {
+                                return _vm.upload()
+                              }
+                            }
+                          },
+                          [_vm._v("Adjuntar")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )

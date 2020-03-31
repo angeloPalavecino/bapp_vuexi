@@ -66,7 +66,7 @@
           <template v-for="(item, index) in menuItemsUpdated">
 
             <!-- Group Header -->
-            <span v-if="item.header && !verticalNavMenuItemsMin" class="navigation-header truncate" :key="`header-${index}`">
+            <span v-if="item.header && !verticalNavMenuItemsMin && $canArray(item.permisos)" class="navigation-header truncate" :key="`header-${index}`">
               {{ item.header }}
             </span>
             <!-- /Group Header -->
@@ -76,6 +76,7 @@
               <!-- Nav-Item -->
               <v-nav-menu-item
                 v-if="!item.submenu"
+                :permiso="item.permiso"
                 :key="`item-${index}`"
                 :index="index"
                 :to="item.slug !== 'external' ? item.url : null"

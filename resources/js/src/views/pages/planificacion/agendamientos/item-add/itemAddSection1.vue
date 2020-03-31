@@ -71,7 +71,7 @@
              
                <div class="vx-col sm:w-1/3 mt-6 w-full flex">
               <vx-tooltip color="primary" text="Agendar">
-              <vs-button icon-pack="feather" icon="icon-plus" class="mt-2 mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
+              <vs-button v-if="$can('agendamientos.create')" icon-pack="feather" icon="icon-plus" class="mt-2 mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
               </vx-tooltip>
                <vx-tooltip color="primary" text="Volver">
               <vs-button icon-pack="feather" icon="icon-arrow-left" class="mt-2 mr-4" @click="volver()">Volver</vs-button>
@@ -487,35 +487,48 @@ export default {
     },
      addEvent() {
        
-        var horario = this.horariosOptions.find(element => element.id == this.horario); 
-  
-        const obj = {  tipo: this.tipo, fechas: this.fechas,codificacion: this.codificacion, horario_id: this.horario}
-        this.$store.dispatch('calendar/addEvent', obj)
-         .then(()   => { 
+        if(this.$can('agendamientos.store')){
 
-           this.$store.dispatch('calendar/fetchEvents', this.codificacion);
-           this.clearFields();
-           this.fechas = [];
-           let calendarApi = this.$refs.fullCalendar.getApi()
-           calendarApi.render();
-         
-           this.$vs.notify({
-              color: 'success',
-              title: 'Agendamiento Ingresado',
-              text: 'El agendamiento ya fue ingresado'
-            })
+            var horario = this.horariosOptions.find(element => element.id == this.horario); 
+      
+            const obj = {  tipo: this.tipo, fechas: this.fechas,codificacion: this.codificacion, horario_id: this.horario}
+            this.$store.dispatch('calendar/addEvent', obj)
+            .then(()   => { 
 
-          })
-         .catch(err => { 
-           
-          var textError = err.response.status == 300 ? err.response.data.message : err;
-          this.$vs.notify({
-                      title:'Error',
-                      text: textError,
-                      color:'danger',
-                      iconPack: 'feather',
-                      icon:'icon-alert-circle'})  
-          })
+              this.$store.dispatch('calendar/fetchEvents', this.codificacion);
+              this.clearFields();
+              this.fechas = [];
+              let calendarApi = this.$refs.fullCalendar.getApi()
+              calendarApi.render();
+            
+              this.$vs.notify({
+                  color: 'success',
+                  title: 'Agendamiento Ingresado',
+                  text: 'El agendamiento ya fue ingresado'
+                })
+
+              })
+            .catch(err => { 
+              
+              var textError = err.response.status == 300 ? err.response.data.message : err;
+              this.$vs.notify({
+                          title:'Error',
+                          text: textError,
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+              })
+
+          }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para agregar agendamientos',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+          }
     },
      openEditEvent(event) {
       // console.log(event.event);
@@ -527,6 +540,9 @@ export default {
       this.activePromptEditEvent = true;
     },
     editEvent() {
+
+      if(this.$can('agendamientos.update')){
+
       var horario = this.horariosOptions.find(element => element.id == this.horario); 
       var color = ""
       if(this.tipo == 'ZARPE'){
@@ -555,17 +571,42 @@ export default {
                       iconPack: 'feather',
                       icon:'icon-alert-circle'})  
           })
+        
+        }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para editar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
 
     },
     removeEvent() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: `Confirmar Eliminacion`,
-        text: `Este seguro que desea eliminar el siguiente agendamiento`,
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      })
+
+      if(this.$can('agendamientos.destroy')){
+
+          this.$vs.dialog({
+            type: 'confirm',
+            color: 'danger',
+            title: `Confirmar Eliminacion`,
+            text: `Este seguro que desea eliminar el siguiente agendamiento`,
+            accept: this.deleteRecord,
+            acceptText: "Eliminar"
+          })
+
+       }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para eliminar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
     },
      deleteRecord() {
       
@@ -594,6 +635,9 @@ export default {
       event.revert();
     },
      eventDragged(event) {
+
+      if(this.$can('agendamientos.update')){
+
       var agendamiento = event.event;
       const obj = {  id: agendamiento.id, start: agendamiento.start, end: agendamiento.start, title: agendamiento.title, 
       tipo: agendamiento.extendedProps.tipo, fecha: agendamiento.start, codificacion: this.codificacion, horario_id: agendamiento.extendedProps.horario_id, 
@@ -618,6 +662,17 @@ export default {
                       iconPack: 'feather',
                       icon:'icon-alert-circle'})  
           })
+         
+         }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para editar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
 
     },
     clearFields() {

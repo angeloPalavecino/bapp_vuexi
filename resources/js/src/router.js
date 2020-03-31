@@ -10,6 +10,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import {guard} from "./utils/routerHelper";
 
 Vue.use(Router)
 
@@ -34,7 +35,18 @@ const router = new Router({
               {
                 path: '/',
                 name: 'home',
-                component: () => import('./views/Home.vue')
+                component: () => import('./views/Home.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Home' },
+                      { title: 'Home', active: true },
+                  ],
+                  pageTitle: 'Home',
+                  authRequired: true,
+                  permiso : "home.index"
+                  
+              },
                 
               },
               
@@ -53,6 +65,7 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver perfil',
                     authRequired: true,
+                    permiso : "perfil.index"
                     
                 },
               },
@@ -73,7 +86,8 @@ const router = new Router({
                     { title: 'Lista de usuario', active: true },
                     ],
                     pageTitle: 'Lista de usuario',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "users.index"
                 }
               },     
               {
@@ -88,7 +102,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver usuario',
                     authRequired: true,
-                    parent: 'users'
+                    parent: 'users',
+                    permiso : "users.show"
                     
                 },
               },
@@ -104,7 +119,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar usuario',
                     authRequired: true,
-                    parent: 'users'
+                    parent: 'users',
+                    permiso : "users.edit"
                 },
               },
               {
@@ -119,7 +135,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar usuario',
                   authRequired: true,
-                  parent: 'users'
+                  parent: 'users',
+                  permiso : "users.create"
               },
               },
               //Roles
@@ -134,7 +151,8 @@ const router = new Router({
                     { title: 'Lista de roles', active: true },
                     ],
                     pageTitle: 'Lista de roles',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "roles.index"
                 }
               },
               {
@@ -149,7 +167,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver rol',
                     authRequired: true,
-                    parent: 'roles'
+                    parent: 'roles',
+                    permiso : "roles.show"
                 },
               },
               {
@@ -164,7 +183,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar rol',
                     authRequired: true,
-                    parent: 'roles'
+                    parent: 'roles',
+                    permiso : "roles.edit"
                 },
               },
               {
@@ -179,7 +199,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar rol',
                   authRequired: true,
-                  parent: 'roles'
+                  parent: 'roles',
+                  permiso : "roles.create"
               },
               },
               //Observaciones
@@ -194,7 +215,8 @@ const router = new Router({
                     { title: 'Lista de observaciones', active: true },
                     ],
                     pageTitle: 'Lista de observaciones',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "observaciones.index"
                 }
               },
               {
@@ -209,7 +231,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver observacion',
                     authRequired: true,
-                    parent: 'observaciones'
+                    parent: 'observaciones',
+                    permiso : "observaciones.show"
                 },
               },
               {
@@ -224,7 +247,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar observacion',
                     authRequired: true,
-                    parent: 'observaciones'
+                    parent: 'observaciones',
+                    permiso : "observaciones.edit"
                 },
               },
               {
@@ -239,7 +263,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar observacion',
                   authRequired: true,
-                  parent: 'observaciones'
+                  parent: 'observaciones',
+                  permiso : "observaciones.create"
               },
               },
                 //Observaciones internas
@@ -254,7 +279,8 @@ const router = new Router({
                     { title: 'Lista de observaciones internas', active: true },
                     ],
                     pageTitle: 'Lista de observaciones internas',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "obsinternas.index"
                 }
               },
               {
@@ -269,7 +295,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver observacion interna',
                     authRequired: true,
-                    parent: 'obsinternas'
+                    parent: 'obsinternas',
+                    permiso : "obsinternas.show"
                 },
               },
               {
@@ -284,7 +311,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar observacion interna',
                     authRequired: true,
-                    parent: 'obsinternas'
+                    parent: 'obsinternas',
+                    permiso : "obsinternas.edit"
                 },
               },
               {
@@ -299,7 +327,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar observacion interna',
                   authRequired: true,
-                  parent: 'obsinternas'
+                  parent: 'obsinternas',
+                  permiso : "obsinternas.create"
               },
               },
                 //Fuera de zona
@@ -314,7 +343,8 @@ const router = new Router({
                     { title: 'Lista de fuera de zona', active: true },
                     ],
                     pageTitle: 'Lista de fuera de zona',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "fuerazona.index"
                 }
               },
               {
@@ -329,7 +359,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver fuera de zona',
                     authRequired: true,
-                    parent: 'fuerazonas'
+                    parent: 'fuerazonas',
+                    permiso : "fuerazona.show"
                 },
               },
               {
@@ -344,7 +375,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar fuera de zona',
                     authRequired: true,
-                    parent: 'fuerazonas'
+                    parent: 'fuerazonas',
+                    permiso : "fuerazona.edit"
                 },
               },
               {
@@ -359,7 +391,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar fuera de zona',
                   authRequired: true,
-                  parent: 'fuerazonas'
+                  parent: 'fuerazonas',
+                  permiso : "fuerazona.create"
               },
               },
                 //Excepciones
@@ -374,7 +407,8 @@ const router = new Router({
                     { title: 'Lista de excepciones', active: true },
                     ],
                     pageTitle: 'Lista de excepciones',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "excepciones.index"
                 }
               },
               {
@@ -389,7 +423,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver excepcion',
                     authRequired: true,
-                    parent: 'excepciones'
+                    parent: 'excepciones',
+                    permiso : "excepciones.show"
                 },
               },
               {
@@ -404,7 +439,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar excepcion',
                     authRequired: true,
-                    parent: 'excepciones'
+                    parent: 'excepciones',
+                    permiso : "excepciones.edit"
                 },
               },
               {
@@ -419,7 +455,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar excecpion',
                   authRequired: true,
-                  parent: 'excepciones'
+                  parent: 'excepciones',
+                  permiso : "excepciones.create"
               },
               },
               //Empresas
@@ -434,7 +471,8 @@ const router = new Router({
                       { title: 'Lista de empresas', active: true },
                       ],
                       pageTitle: 'Lista de empresas',
-                      authRequired: true
+                      authRequired: true,
+                      permiso : "empresas.index"
                   }
                 },
                 {
@@ -449,7 +487,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Ver empresa',
                       authRequired: true,
-                      parent: 'empresas'
+                      parent: 'empresas',
+                      permiso : "empresas.show"
                   },
                 },
                 {
@@ -464,7 +503,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Editar empresa',
                       authRequired: true,
-                      parent: 'empresas'
+                      parent: 'empresas',
+                      permiso : "empresas.edit"
                   },
                 },
                 {
@@ -479,7 +519,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Agregar empresa',
                     authRequired: true,
-                    parent: 'empresas'
+                    parent: 'empresas',
+                    permiso : "empresas.create"
                 },
                 },
 
@@ -495,7 +536,8 @@ const router = new Router({
                     { title: 'Lista de asociados', active: true },
                     ],
                     pageTitle: 'Lista de asociados',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "moviles.index"
                 }
               },
               {
@@ -510,7 +552,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver asociado',
                     authRequired: true,
-                    parent: 'asociados'
+                    parent: 'asociados',
+                    permiso : "moviles.show"
                 },
               },
               {
@@ -525,7 +568,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar asociado',
                     authRequired: true,
-                    parent: 'asociados'
+                    parent: 'asociados',
+                    permiso : "moviles.edit"
                 },
               },
               {
@@ -540,7 +584,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar asociado',
                   authRequired: true,
-                  parent: 'asociados'
+                  parent: 'asociados',
+                  permiso : "moviles.create"
               },
               },
 
@@ -556,7 +601,8 @@ const router = new Router({
                     { title: 'Lista de moviles', active: true },
                     ],
                     pageTitle: 'Lista de moviles',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "moviles.index"
                 }
               },
               {
@@ -571,7 +617,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver movil',
                     authRequired: true,
-                    parent: 'moviles'
+                    parent: 'moviles',
+                    permiso : "moviles.show"
                 },
               },
               {
@@ -586,7 +633,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar movil',
                     authRequired: true,
-                     parent: 'moviles'
+                     parent: 'moviles',
+                     permiso : "moviles.edit"
                 },
               },
               {
@@ -601,7 +649,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar movil',
                   authRequired: true,
-                   parent: 'moviles'
+                   parent: 'moviles',
+                   permiso : "moviles.create"
               },
               },
 
@@ -617,7 +666,8 @@ const router = new Router({
                     { title: 'Lista de conductores', active: true },
                     ],
                     pageTitle: 'Lista de conductores',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "moviles.index"
                 }
               },
               {
@@ -632,7 +682,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver conductor',
                     authRequired: true,
-                     parent: 'conductores'
+                     parent: 'conductores',
+                     permiso : "moviles.show"
                 },
               },
               {
@@ -647,7 +698,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar conductor',
                     authRequired: true,
-                    parent: 'conductores'
+                    parent: 'conductores',
+                    permiso : "moviles.edit"
                 },
               },
               {
@@ -662,7 +714,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar conductor',
                   authRequired: true,
-                  parent: 'conductores'
+                  parent: 'conductores',
+                  permiso : "moviles.create"
               },
               },
 
@@ -678,7 +731,8 @@ const router = new Router({
                     { title: 'Lista de tarifa pasajeros', active: true },
                     ],
                     pageTitle: 'Lista de tarifa pasajeros',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "servpasajeros.index"
                 }
               },
               {
@@ -693,7 +747,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver tarifa pasajero',
                     authRequired: true,
-                    parent: 'pasajeros'
+                    parent: 'pasajeros',
+                    permiso : "servpasajeros.show"
                 },
               },
               {
@@ -708,7 +763,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar tarifa pasajero',
                     authRequired: true,
-                    parent: 'pasajeros'
+                    parent: 'pasajeros',
+                    permiso : "servpasajeros.edit"
                 },
               },
               {
@@ -723,7 +779,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar tarifa pasajero',
                   authRequired: true,
-                  parent: 'pasajeros'
+                  parent: 'pasajeros',
+                  permiso : "servpasajeros.create"
               },
               },
               
@@ -739,7 +796,8 @@ const router = new Router({
                     { title: 'Lista de tarifas planas', active: true },
                     ],
                     pageTitle: 'Lista de tarifas planas',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "servplanas.index"
                 }
               },
               {
@@ -754,7 +812,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver tarifa plana',
                     authRequired: true,
-                    parent: 'planas'
+                    parent: 'planas',
+                    permiso : "servplanas.show"
                 },
               },
               {
@@ -769,7 +828,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar tarifa plana',
                     authRequired: true,
-                    parent: 'planas'
+                    parent: 'planas',
+                    permiso : "servplanas.edit"
                 },
               },
               {
@@ -784,7 +844,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar tarifa plana',
                   authRequired: true,
-                  parent: 'planas'
+                  parent: 'planas',
+                  permiso : "servplanas.create"
               },
               },
 
@@ -800,7 +861,8 @@ const router = new Router({
                     { title: 'Lista de tarifas kms', active: true },
                     ],
                     pageTitle: 'Lista de tarifas kms',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "servkms.index"
                 }
               },
               {
@@ -815,7 +877,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver tarifa kms',
                     authRequired: true,
-                    parent: 'kms'
+                    parent: 'kms',
+                    permiso : "servkms.show"
                 },
               },
               {
@@ -830,7 +893,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar tarifa kms',
                     authRequired: true,
-                    parent: 'kms'
+                    parent: 'kms',
+                    permiso : "servkms.edit"
                 },
               },
               {
@@ -845,7 +909,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar tarifa kms',
                   authRequired: true,
-                  parent: 'kms'
+                  parent: 'kms',
+                  permiso : "servkms.create"
               },
               },
               // =============================================================================
@@ -864,7 +929,8 @@ const router = new Router({
                     { title: 'Lista de patrones', active: true },
                     ],
                     pageTitle: 'Lista de patrones',
-                    authRequired: true
+                    authRequired: true,
+                    permiso : "patrones.index"
                 }
               },
               {
@@ -879,7 +945,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Ver patron',
                     authRequired: true,
-                    parent: 'patrones'
+                    parent: 'patrones',
+                    permiso : "patrones.show"
                 },
               },
               {
@@ -894,7 +961,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Editar patron',
                     authRequired: true,
-                    parent: 'patrones'
+                    parent: 'patrones',
+                    permiso : "patrones.edit"
                 },
               },
               {
@@ -909,7 +977,8 @@ const router = new Router({
                   ],
                   pageTitle: 'Agregar patron',
                   authRequired: true,
-                  parent: 'patrones'
+                  parent: 'patrones',
+                  permiso : "patrones.create"
               },
               },
 
@@ -925,7 +994,8 @@ const router = new Router({
                       { title: 'Lista de grupos de patrones', active: true },
                       ],
                       pageTitle: 'Lista de grupos de patrones',
-                      authRequired: true
+                      authRequired: true,
+                      permiso : "grupopatrones.index"
                   }
                 },
                 {
@@ -940,7 +1010,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Ver grupo de patron',
                       authRequired: true,
-                      parent: 'gpatrones'
+                      parent: 'gpatrones',
+                      permiso : "grupopatrones.show"
                   },
                 },
                 {
@@ -955,7 +1026,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Editar grupo de patron',
                       authRequired: true,
-                      parent: 'gpatrones'
+                      parent: 'gpatrones',
+                      permiso : "grupopatrones.edit"
                   },
                 },
                 {
@@ -970,7 +1042,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Agregar grupo de patron',
                     authRequired: true,
-                    parent: 'gpatrones'
+                    parent: 'gpatrones',
+                    permiso : "grupopatrones.create"
                 },
                 },
 
@@ -986,7 +1059,8 @@ const router = new Router({
                       { title: 'Lista de codificaciones', active: true },
                       ],
                       pageTitle: 'Lista de codificaciones',
-                      authRequired: true
+                      authRequired: true,
+                      permiso : "codificaciones.index"
                   }
                 },
                 {
@@ -1001,7 +1075,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Ver codificacion',
                       authRequired: true,
-                      parent: 'codificaciones'
+                      parent: 'codificaciones',
+                      permiso : "codificaciones.index"
                   },
                 },
                 {
@@ -1016,7 +1091,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Editar codificacion',
                       authRequired: true,
-                      parent: 'codificaciones'
+                      parent: 'codificaciones',
+                      permiso : "codificaciones.edit"
                   },
                 },
                 {
@@ -1031,7 +1107,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Agregar codificacion',
                     authRequired: true,
-                    parent: 'codificaciones'
+                    parent: 'codificaciones',
+                    permiso : "codificaciones.create"
                 },
                 },
                 {
@@ -1046,7 +1123,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Importar codificaciones',
                       authRequired: true,
-                      parent: 'codificaciones'
+                      parent: 'codificaciones',
+                      permiso : "codificaciones.create"
                   },
                   },
 
@@ -1062,7 +1140,8 @@ const router = new Router({
                       { title: 'Lista de horarios', active: true },
                       ],
                       pageTitle: 'Lista de horarios',
-                      authRequired: true
+                      authRequired: true,
+                      permiso : "horarios.index"
                   }
                 },
                 {
@@ -1077,7 +1156,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Ver horario',
                       authRequired: true,
-                      parent: 'horarios'
+                      parent: 'horarios',
+                      permiso : "horarios.show"
                   },
                 },
                 {
@@ -1092,7 +1172,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Editar horario',
                       authRequired: true,
-                      parent: 'horarios'
+                      parent: 'horarios',
+                      permiso : "horarios.edit"
                   },
                 },
                 {
@@ -1107,7 +1188,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Agregar horario',
                     authRequired: true,
-                    parent: 'horarios'
+                    parent: 'horarios',
+                    permiso : "horarios.create"
                 },
                 },
 
@@ -1123,7 +1205,8 @@ const router = new Router({
                         { title: 'Matriz de codificacion', active: true },
                         ],
                         pageTitle: 'Matriz de codificacion',
-                        authRequired: true
+                        authRequired: true,
+                        permiso : "matriz.index"
                     }
                   },
 
@@ -1139,7 +1222,8 @@ const router = new Router({
                       { title: 'Lista de agendamientos', active: true },
                       ],
                       pageTitle: 'Lista de agendamientos',
-                      authRequired: true
+                      authRequired: true,
+                      permiso : "agendamientos.index"
                   }
                 },
                 {
@@ -1154,7 +1238,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Ver agendamiento',
                       authRequired: true,
-                      parent: 'agendamientos'
+                      parent: 'agendamientos',
+                      permiso : "agendamientos.show"
                   },
                 },
                 {
@@ -1169,7 +1254,8 @@ const router = new Router({
                       ],
                       pageTitle: 'Editar agendamiento',
                       authRequired: true,
-                      parent: 'agendamientos'
+                      parent: 'agendamientos',
+                      permiso : "agendamientos.edit"
                   },
                 },
                 {
@@ -1184,7 +1270,8 @@ const router = new Router({
                     ],
                     pageTitle: 'Agregar agendamiento',
                     authRequired: true,
-                    parent: 'agendamientos'
+                    parent: 'agendamientos',
+                    permiso : "agendamientos.create"
                 },
                 },
                 {
@@ -1199,16 +1286,11 @@ const router = new Router({
                       ],
                       pageTitle: 'Importar agendamientos',
                       authRequired: true,
-                      parent: 'agendamientos'
+                      parent: 'agendamientos',
+                      permiso : "agendamientos.create"
                   },
                   },
               
-
-              {
-                path: '/page2',
-                name: 'page-2',
-                component: () => import('./views/Page2.vue')
-              },
             ],
         },
     // =============================================================================
@@ -1226,7 +1308,26 @@ const router = new Router({
                 name: 'page-login',
                 component: () => import('@/views/pages/Login.vue'),
                 meta: {
+                  authRequired: false,
                   //rule: '*'
+                }
+              },
+              {
+                path: '/pages/lock-screen',
+                name: 'page-lock-screen',
+                component: () => import('@/views/pages/LockScreen.vue'),
+                meta: {
+                  authRequired: false,
+                   // rule: 'editor'
+                }
+              },
+              {
+                path: '/pages/forgot-password',
+                name: 'page-forgot-password',
+                component: () => import('@/views/pages/ForgotPassword.vue'),
+                meta: {
+                    authRequired: false,
+                    //rule: 'editor'
                 }
               },
               {
@@ -1234,9 +1335,18 @@ const router = new Router({
                 name: 'page-error-404',
                 component: () => import('@/views/pages/Error404.vue'),
                 meta: {
+                  authRequired: false,
                   //rule: '*'
                 }
               },
+              {
+                path: '/pages/not-authorized',
+                name: 'page-not-authorized',
+                component: () => import('@/views/pages/NotAuthorized.vue'),
+                meta: {
+                  authRequired: false,
+                }
+            },
             ]
         },
         // Redirect to 404 page, if no match found
@@ -1257,5 +1367,9 @@ router.afterEach(() => {
         appLoading.style.display = "none";
     }
 })
+
+router.beforeEach((to, from, next) => {
+  return guard(to, from, next)
+});
 
 export default router

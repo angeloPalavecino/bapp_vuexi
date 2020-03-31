@@ -38,7 +38,7 @@ v-if="tableData.length && header.length"
         </div>
        <div class="vx-col md:w-auto sm:w-auto w-full">
         <vx-tooltip color="primary" text="Importar">
-                  <vs-button icon-pack="feather" icon="icon-upload" @click="importar" :disabled="!validateForm" 
+                  <vs-button v-if="$can('codificaciones.store')" icon-pack="feather" icon="icon-upload" @click="importar" :disabled="!validateForm" 
                   class="mt-6 mr-4 mb-4 md:mb-0">Importar</vs-button>
                 </vx-tooltip>
          </div>

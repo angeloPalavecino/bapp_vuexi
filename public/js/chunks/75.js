@@ -561,24 +561,29 @@ var render = function() {
                                                   }
                                                 },
                                                 [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-trash",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.confirmDeleteRecord(
-                                                          tr
-                                                        )
-                                                      }
-                                                    }
-                                                  })
+                                                  _vm.$can("servplanas.destroy")
+                                                    ? _c("vs-button", {
+                                                        staticClass: "ml-3",
+                                                        attrs: {
+                                                          radius: "",
+                                                          color: "primary",
+                                                          type: "border",
+                                                          "icon-pack":
+                                                            "feather",
+                                                          icon: "icon-trash",
+                                                          size: "small"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.confirmDeleteRecord(
+                                                              tr
+                                                            )
+                                                          }
+                                                        }
+                                                      })
+                                                    : _vm._e()
                                                 ],
                                                 1
                                               ),
@@ -592,24 +597,29 @@ var render = function() {
                                                   }
                                                 },
                                                 [
-                                                  _c("vs-button", {
-                                                    staticClass: "ml-3",
-                                                    attrs: {
-                                                      radius: "",
-                                                      color: "primary",
-                                                      type: "border",
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-edit",
-                                                      size: "small"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.editRecord(
-                                                          tr
-                                                        )
-                                                      }
-                                                    }
-                                                  })
+                                                  _vm.$can("servplanas.edit")
+                                                    ? _c("vs-button", {
+                                                        staticClass: "ml-3",
+                                                        attrs: {
+                                                          radius: "",
+                                                          color: "primary",
+                                                          type: "border",
+                                                          "icon-pack":
+                                                            "feather",
+                                                          icon: "icon-edit",
+                                                          size: "small"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.editRecord(
+                                                              tr
+                                                            )
+                                                          }
+                                                        }
+                                                      })
+                                                    : _vm._e()
                                                 ],
                                                 1
                                               )
@@ -626,7 +636,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            1772844382
+                            63579968
                           ),
                           model: {
                             value: _vm.selected,
@@ -671,36 +681,41 @@ var render = function() {
                                   _c(
                                     "vs-dropdown-menu",
                                     [
-                                      _c(
-                                        "vs-dropdown-item",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.confirmMassiveDeleteRecord()
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "span",
+                                      _vm.$can("servplanas.destroy")
+                                        ? _c(
+                                            "vs-dropdown-item",
                                             {
-                                              staticClass: "flex items-center"
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.confirmMassiveDeleteRecord()
+                                                }
+                                              }
                                             },
                                             [
-                                              _c("feather-icon", {
-                                                staticClass: "mr-2",
-                                                attrs: {
-                                                  icon: "TrashIcon",
-                                                  svgClasses: "h-4 w-4"
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c("span", [_vm._v("Eliminar")])
-                                            ],
-                                            1
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "flex items-center"
+                                                },
+                                                [
+                                                  _c("feather-icon", {
+                                                    staticClass: "mr-2",
+                                                    attrs: {
+                                                      icon: "TrashIcon",
+                                                      svgClasses: "h-4 w-4"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("span", [
+                                                    _vm._v("Eliminar")
+                                                  ])
+                                                ],
+                                                1
+                                              )
+                                            ]
                                           )
-                                        ]
-                                      )
+                                        : _vm._e()
                                     ],
                                     1
                                   )

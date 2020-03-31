@@ -112,7 +112,7 @@
             <!-- Rol -->
             <div class="vx-col w-1/2 mb-3 mt-4">
               <vs-divider position="left" color="primary">ROL</vs-divider>
-              <h4 style="margin-left: 50px;"> {{ activeUserInfo.rol  }}</h4>
+              <h4 style="margin-left: 50px;"> {{ activeUserInfo.rol }}</h4>
             </div>
              <!-- Email -->
             <div class="vx-col w-1/2 mb-3 mt-4">
@@ -129,12 +129,12 @@
              <!-- Creado -->
             <div class="vx-col w-1/2 mb-3 mt-4">
               <vs-divider position="left" color="primary">CREADO</vs-divider>
-              <h4 style="margin-left: 50px;"> {{ activeUserInfo.creado }}</h4>
+              <h4 style="margin-left: 50px;"> {{ activeUserInfo.created_at }}</h4>
             </div>
             <!-- Actualizado -->
             <div class="vx-col w-1/2 mb-3 mt-4">
               <vs-divider position="left" color="primary">ACTUALIZADO</vs-divider>
-              <h4 style="margin-left: 50px;"> {{ activeUserInfo.actualizado }}</h4>
+              <h4 style="margin-left: 50px;"> {{ activeUserInfo.updated_at }}</h4>
             </div>
             
           </div>

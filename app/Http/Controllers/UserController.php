@@ -391,7 +391,7 @@ class UserController extends Controller
         $emp = Empresa::find($user[0]['empresa_id']);
         
         $user[0]['nombreEmpr'] = $emp['razon_social'];
-        
+       
         return response()->json(
             [
                 'status' => 'success',

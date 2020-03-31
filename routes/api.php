@@ -21,10 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('auth/login', 'Api\\AuthController@login');
 Route::post('auth/register', 'Api\\AuthController@register');
 
+Route::group(['middleware' => 'jwt.verify', ], function ($router) {
 Route::prefix('v1')->group(function () {
 
 
-    Route::prefix('auth')->group(function () {
+    //Route::prefix('auth')->group(function () {
         
         // // Below mention routes are public, user can access those without any restriction.
         // // Create New User
@@ -43,7 +44,7 @@ Route::prefix('v1')->group(function () {
         //     Route::post('logout', 'AuthController@logout');
 
         // });      
-    });
+    //});
     //USUARIOS
     Route::prefix('users')->group(function () {
        // Route::middleware('auth:api')->group(function () {
@@ -64,9 +65,7 @@ Route::prefix('v1')->group(function () {
     });
     //ROLES
     
-    Route::group([
-      'middleware' => 'jwt.verify',
-    ], function ($router) {    
+        
       Route::prefix('roles')->group(function () {
         // Route::middleware('auth:api')->group(function () {
               // Roles
@@ -81,7 +80,7 @@ Route::prefix('v1')->group(function () {
               Route::get('combo', 'RoleController@combo');
         // });
       });
-    });
+    
 
     //PERMISOS
     Route::prefix('permisos')->group(function () {
@@ -483,4 +482,5 @@ Route::prefix('v1')->group(function () {
 
         
 
+});
 });

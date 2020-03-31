@@ -30,7 +30,7 @@
           <div class="vx-row no-gutter">
             <div class="vx-col sm:w-1/3 mt-4 w-full flex">
               <vx-tooltip color="primary" text="Agendar">
-              <vs-button icon-pack="feather" icon="icon-plus" class="mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
+              <vs-button v-if="$can('agendamientos.create')" icon-pack="feather" icon="icon-plus" class="mr-3" @click="promptAddNewEvent(new Date())">AGENDAR</vs-button>
               </vx-tooltip>
                <vx-tooltip color="primary" text="Volver">
               <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" @click="volver()">Volver</vs-button>
@@ -268,6 +268,8 @@ export default {
     },
      addEvent() {
 
+       if(this.$can('agendamientos.store')){
+
         var horario = this.horariosOptions.find(element => element.id == this.horario); 
   
         const obj = {  tipo: this.tipo, fechas: this.fechas,codificacion: this.codificacion, horario_id: this.horario}
@@ -297,6 +299,21 @@ export default {
                       iconPack: 'feather',
                       icon:'icon-alert-circle'})  
           })
+
+         }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para agregar agendamientos',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+          }
+
+
+
+
     },
      openEditEvent(event) {
       
@@ -308,6 +325,9 @@ export default {
       this.activePromptEditEvent = true;
     },
     editEvent() {
+
+       if(this.$can('agendamientos.update')){
+
       var horario = this.horariosOptions.find(element => element.id == this.horario); 
       var color = ""
       if(this.tipo == 'ZARPE'){
@@ -337,16 +357,43 @@ export default {
                       icon:'icon-alert-circle'})  
           })
 
+          }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para editar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
+
     },
     removeEvent() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: `Confirmar Eliminacion`,
-        text: `Este seguro que desea eliminar el siguiente agendamiento`,
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      })
+
+       if(this.$can('agendamientos.destroy')){
+
+          this.$vs.dialog({
+            type: 'confirm',
+            color: 'danger',
+            title: `Confirmar Eliminacion`,
+            text: `Este seguro que desea eliminar el siguiente agendamiento`,
+            accept: this.deleteRecord,
+            acceptText: "Eliminar"
+          })
+
+      }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para eliminar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
+
+
     },
      deleteRecord() {
       
@@ -375,6 +422,9 @@ export default {
       event.revert();
     },
      eventDragged(event) {
+
+       if(this.$can('agendamientos.update')){
+
       var agendamiento = event.event;
       const obj = {  id: agendamiento.id, start: agendamiento.start, end: agendamiento.start, title: agendamiento.title, 
       tipo: agendamiento.extendedProps.tipo, fecha: agendamiento.start, codificacion: this.codificacion, horario_id: agendamiento.extendedProps.horario_id, 
@@ -399,6 +449,17 @@ export default {
                       iconPack: 'feather',
                       icon:'icon-alert-circle'})  
           })
+
+        }else{
+
+              this.$vs.notify({
+                          title:'Error',
+                          text: 'No tiene permisos para editar el agendamiento',
+                          color:'danger',
+                          iconPack: 'feather',
+                          icon:'icon-alert-circle'})  
+
+        }
 
     },
     clearFields() {

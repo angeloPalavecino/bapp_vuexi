@@ -10,17 +10,23 @@
 
 <template>
 	<div id="app" :class="vueAppClasses">
+    <modal-refresh-jwt v-if="$root.$data.authenticationModes.dialogBeforeJwtExpires" />
 		<router-view @setAppClasses="setAppClasses" />
-	</div>
+ 	</div>
+  
 </template>
 
 <script>
 import themeConfig from '@/../themeConfig.js'
+import { isLogged, setToken } from './utils/jwtHelper'
+import ModalRefreshJwt from "./components/ModalRefreshJwt";
 
 export default {
+  components: { ModalRefreshJwt },
   data() {
     return {
       vueAppClasses: [],
+      logged: isLogged()
     }
   },
   watch: {
@@ -57,7 +63,23 @@ export default {
     },
     handleScroll() {
       this.$store.commit('UPDATE_WINDOW_SCROLL_Y', window.scrollY)
+    },
+    async logout () {
+      setToken(null);
+      this.logged = false;
+      await this.$router.replace({ name: 'page-login' });
     }
+  },
+  async mounted () {
+    this.$jwtEvents.$on('tokenExpired', () => {
+      this.logged = false;
+    });
+    this.$jwtEvents.$on('login', () => {
+      this.logged = true;
+    });
+    this.$jwtEvents.$on('logout', async () => {
+      await this.logout();
+    })
   },
   mounted() {
     this.toggleClassInBody(themeConfig.theme)

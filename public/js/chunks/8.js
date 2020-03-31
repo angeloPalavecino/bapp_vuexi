@@ -1475,6 +1475,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_jwtHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/jwtHelper */ "./resources/js/src/utils/jwtHelper.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -1544,42 +1553,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //import firebase from 'firebase/app'
 //import 'firebase/auth'
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      logged: Object(_utils_jwtHelper__WEBPACK_IMPORTED_MODULE_1__["isLogged"])()
+    };
   },
   computed: {
     activeUserInfo: function activeUserInfo() {
       return this.$store.state.AppActiveUser;
     }
   },
+  mounted: function () {
+    var _mounted = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var _this = this;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              this.$jwtEvents.$on('logout',
+              /*#__PURE__*/
+              _asyncToGenerator(
+              /*#__PURE__*/
+              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return _this.logout();
+
+                      case 2:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              })));
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
   methods: {
     perfil: function perfil() {
       var id = this.$store.state.AppActiveUser.uid;
       this.$router.push('/pages/perfil/' + id).catch(function () {});
     },
-    logout: function logout() {
-      // if user is logged in via auth0
-      //if (this.$auth.profile) this.$auth.logOut();
-      // if user is logged in via firebase
-      //const firebaseCurrentUser = firebase.auth().currentUser
-      //if (firebaseCurrentUser) {
-      //    firebase.auth().signOut().then(() => {
-      //        this.$router.push('/pages/login').catch(() => {})
-      //    })
-      // }
-      // If JWT login
-      if (localStorage.getItem("accessToken")) {
-        localStorage.removeItem("accessToken");
-        this.$router.push('/pages/login').catch(function () {});
-      } // Change role on logout. Same value as initialRole of acj.js
-      //this.$acl.change('admin')
+    logout: function () {
+      var _logout = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                Object(_utils_jwtHelper__WEBPACK_IMPORTED_MODULE_1__["setToken"])(null);
+                this.logged = false;
+                window.localStorage.removeItem('userInfo');
+                _context3.next = 5;
+                return this.$router.replace({
+                  name: 'page-login'
+                });
 
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
 
-      localStorage.removeItem('userInfo'); // This is just for demo Purpose. If user clicks on logout -> redirect
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
 
-      this.$router.push('/pages/login').catch(function () {});
-    }
+      return logout;
+    }()
+    /*logout() {
+          // if user is logged in via auth0
+        //if (this.$auth.profile) this.$auth.logOut();
+          // if user is logged in via firebase
+        //const firebaseCurrentUser = firebase.auth().currentUser
+          //if (firebaseCurrentUser) {
+        //    firebase.auth().signOut().then(() => {
+        //        this.$router.push('/pages/login').catch(() => {})
+        //    })
+       // }
+        // If JWT login
+        //if(localStorage.getItem("accessToken")) {
+        //  localStorage.removeItem("accessToken")
+        //  this.$router.push('/pages/login').catch(() => {})
+        //}
+          // Change role on logout. Same value as initialRole of acj.js
+        //this.$acl.change('admin')
+        //localStorage.removeItem('userInfo')
+          // This is just for demo Purpose. If user clicks on logout -> redirect
+        //this.$router.push('/pages/login').catch(() => {})
+        clearInterval(this.interval);
+        this.$jwtEvents.$emit('logout');
+    },*/
+
   }
 });
 
@@ -1693,6 +1781,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+//
 //
 //
 //
@@ -2189,6 +2278,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-nav-menu-group',
@@ -2448,6 +2539,10 @@ __webpack_require__.r(__webpack_exports__);
     isDisabled: {
       type: Boolean,
       default: false
+    },
+    permiso: {
+      type: String,
+      default: ""
     }
   },
   computed: {
@@ -3956,7 +4051,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("span", { staticClass: "vx-logo-text text-primary" }, [
-                  _vm._v("Vuexy")
+                  _vm._v("Bapp")
                 ])
               ],
               1
@@ -4507,7 +4602,7 @@ var render = function() {
             "vs-dropdown",
             {
               staticClass: "cursor-pointer",
-              attrs: { "vs-custom-content": "", "vs-trigger-click": "" }
+              attrs: { "vs-custom-content": "" }
             },
             [
               _c("div", { staticClass: "con-img ml-3" }, [
@@ -4550,24 +4645,29 @@ var render = function() {
                     _vm._v(" "),
                     _c("vs-divider", { staticClass: "m-1" }),
                     _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        staticClass:
-                          "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
-                        on: { click: _vm.logout }
-                      },
-                      [
-                        _c("feather-icon", {
-                          attrs: { icon: "LogOutIcon", svgClasses: "w-4 h-4" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "ml-2" }, [
-                          _vm._v("Cerrar Sesion")
-                        ])
-                      ],
-                      1
-                    )
+                    _vm.logged
+                      ? _c(
+                          "li",
+                          {
+                            staticClass:
+                              "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
+                            on: { click: _vm.logout }
+                          },
+                          [
+                            _c("feather-icon", {
+                              attrs: {
+                                icon: "LogOutIcon",
+                                svgClasses: "w-4 h-4"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "ml-2" }, [
+                              _vm._v("Cerrar Sesion")
+                            ])
+                          ],
+                          1
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -4899,7 +4999,9 @@ var render = function() {
                 [
                   _vm._l(_vm.menuItemsUpdated, function(item, index) {
                     return [
-                      item.header && !_vm.verticalNavMenuItemsMin
+                      item.header &&
+                      !_vm.verticalNavMenuItemsMin &&
+                      _vm.$canArray(item.permisos)
                         ? _c(
                             "span",
                             {
@@ -4922,6 +5024,7 @@ var render = function() {
                                   {
                                     key: "item-" + index,
                                     attrs: {
+                                      permiso: item.permiso,
                                       index: index,
                                       to:
                                         item.slug !== "external"
@@ -5046,75 +5149,84 @@ var render = function() {
       on: { mouseover: _vm.mouseover, mouseout: _vm.mouseout }
     },
     [
-      _c(
-        "div",
-        { staticClass: "group-header w-full", on: { click: _vm.clickGroup } },
-        [
-          _c(
-            "span",
-            { staticClass: "flex items-center w-full" },
+      _vm.$canArray(_vm.group.permisos)
+        ? _c(
+            "div",
+            {
+              staticClass: "group-header w-full",
+              on: { click: _vm.clickGroup }
+            },
             [
-              _vm.group.icon || this.groupIndex > Math.floor(this.groupIndex)
-                ? _c("feather-icon", {
-                    attrs: {
-                      icon: _vm.group.icon || "CircleIcon",
-                      svgClasses: { "w-3 h-3": this.groupIndex % 1 != 0 }
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
               _c(
                 "span",
-                {
-                  directives: [
+                { staticClass: "flex items-center w-full" },
+                [
+                  _vm.group.icon ||
+                  this.groupIndex > Math.floor(this.groupIndex)
+                    ? _c("feather-icon", {
+                        attrs: {
+                          icon: _vm.group.icon || "CircleIcon",
+                          svgClasses: { "w-3 h-3": this.groupIndex % 1 != 0 }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "span",
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.verticalNavMenuItemsMin,
-                      expression: "!verticalNavMenuItemsMin"
-                    }
-                  ],
-                  staticClass: "truncate mr-3 select-none"
-                },
-                [_vm._v(_vm._s(_vm.group.name))]
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.verticalNavMenuItemsMin,
+                          expression: "!verticalNavMenuItemsMin"
+                        }
+                      ],
+                      staticClass: "truncate mr-3 select-none"
+                    },
+                    [_vm._v(_vm._s(_vm.group.name))]
+                  ),
+                  _vm._v(" "),
+                  _vm.group.tag && !_vm.verticalNavMenuItemsMin
+                    ? _c(
+                        "vs-chip",
+                        {
+                          staticClass: "ml-auto mr-4",
+                          attrs: { color: _vm.group.tagColor }
+                        },
+                        [_vm._v(_vm._s(_vm.group.tag))]
+                      )
+                    : _vm._e()
+                ],
+                1
               ),
               _vm._v(" "),
-              _vm.group.tag && !_vm.verticalNavMenuItemsMin
-                ? _c(
-                    "vs-chip",
-                    {
-                      staticClass: "ml-auto mr-4",
-                      attrs: { color: _vm.group.tagColor }
-                    },
-                    [_vm._v(_vm._s(_vm.group.tag))]
-                  )
-                : _vm._e()
+              _c("feather-icon", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.verticalNavMenuItemsMin,
+                    expression: "!verticalNavMenuItemsMin"
+                  }
+                ],
+                class: [
+                  { rotate90: _vm.openItems },
+                  "feather-grp-header-arrow"
+                ],
+                attrs: {
+                  icon: _vm.$vs.rtl ? "ChevronLeftIcon" : "ChevronRightIcon",
+                  "svg-classes": "w-4 h-4"
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "vs-sidebar--tooltip" }, [
+                _vm._v(_vm._s(_vm.group.name))
+              ])
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("feather-icon", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.verticalNavMenuItemsMin,
-                expression: "!verticalNavMenuItemsMin"
-              }
-            ],
-            class: [{ rotate90: _vm.openItems }, "feather-grp-header-arrow"],
-            attrs: {
-              icon: _vm.$vs.rtl ? "ChevronLeftIcon" : "ChevronRightIcon",
-              "svg-classes": "w-4 h-4"
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "vs-sidebar--tooltip" }, [
-            _vm._v(_vm._s(_vm.group.name))
-          ])
-        ],
-        1
-      ),
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "ul",
@@ -5142,6 +5254,7 @@ var render = function() {
                     {
                       attrs: {
                         "icon-small": "",
+                        permiso: groupItem.permiso,
                         index: _vm.groupIndex + "." + index,
                         to:
                           groupItem.slug !== "external" ? groupItem.url : null,
@@ -5211,7 +5324,7 @@ var render = function() {
       ]
     },
     [
-      _vm.to
+      _vm.to && _vm.$can(_vm.permiso)
         ? _c(
             "router-link",
             {
@@ -5237,7 +5350,8 @@ var render = function() {
             ],
             2
           )
-        : _c(
+        : _vm.$can(_vm.permiso)
+        ? _c(
             "a",
             { attrs: { target: _vm.target, href: _vm.href, tabindex: "-1" } },
             [
@@ -5254,6 +5368,7 @@ var render = function() {
             ],
             2
           )
+        : _vm._e()
     ],
     1
   )
@@ -6746,6 +6861,7 @@ __webpack_require__.r(__webpack_exports__);
   header: "Administracion",
   icon: "OthersIcon",
   i18n: "Others",
+  permisos: ["users.index", "roles.index", "excepciones.index", "observaciones.index", "obsinternas.index", "fuerazona.index", "moviles.index", "empresas.index", "servpasajeros.index", "servplanas.index", "servkms.index"],
   items: [{
     url: "/pages/administracion/users/item-list/itemlist",
     name: "Usuarios",
@@ -6765,6 +6881,7 @@ __webpack_require__.r(__webpack_exports__);
     name: "Config. Planificacion",
     icon: "SettingsIcon",
     i18n: "SettingsIcon",
+    permisos: ["excepciones.index", "observaciones.index", "obsinternas.index", "fuerazona.index"],
     submenu: [{
       url: "/pages/administracion/excepciones/item-list/itemlist",
       name: "Excepciones",
@@ -6799,6 +6916,7 @@ __webpack_require__.r(__webpack_exports__);
     name: "Config. Baptner",
     icon: "TruckIcon",
     i18n: "TruckIcon",
+    permisos: ["moviles.index"],
     submenu: [{
       url: "/pages/administracion/moviles/asociados/item-list/itemlist",
       name: "Asociados",
@@ -6833,6 +6951,7 @@ __webpack_require__.r(__webpack_exports__);
     name: "Tarifario",
     icon: "DollarSignIcon",
     i18n: "DollarSignIcon",
+    permisos: ["servpasajeros.index", "servplanas.index", "servkms.index"],
     submenu: [{
       url: "/pages/administracion/tarifas/pasajeros/item-list/itemlist",
       name: "Tarifa Pasajero",
@@ -6860,11 +6979,13 @@ __webpack_require__.r(__webpack_exports__);
   header: "Planificacion",
   icon: "OthersIcon",
   i18n: "Others",
+  permisos: ["patrones.index", "grupopatrones.index", "horarios.index", "matriz.index", "codificaciones.index", "agendamientos.index"],
   items: [{
     url: null,
     name: "Patrones",
     icon: "ClipboardIcon",
     i18n: "ClipboardIcon",
+    permisos: ["patrones.index", "grupopatrones.index"],
     submenu: [{
       url: "/pages/planificacion/patrones/patrones/item-list/itemlist",
       name: "Patrones",

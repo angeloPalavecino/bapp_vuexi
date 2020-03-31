@@ -400,7 +400,7 @@
         <div class="wizard-footer-right">
           <vs-button v-if="!props.isLastStep" @click.native="props.nextTab()" class="wizard-footer-right" :style="props.fillButtonStyle">Siguiente</vs-button>
 
-          <vs-button v-else  @click.native="props.nextTab()" class="wizard-footer-right finish-button" :style="props.fillButtonStyle">
+          <vs-button v-else-if="$can('empresas.update')"  @click.native="props.nextTab()" class="wizard-footer-right finish-button" :style="props.fillButtonStyle">
             Actualizar</vs-button>
           
        

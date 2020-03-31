@@ -58,7 +58,7 @@
 
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
           <vx-tooltip color="primary" text="Agregar">
-            <vs-button icon-pack="feather" icon="icon-plus" class="sm:mr-4 mb-4 md:mb-0" @click="addRecord">AGREGAR</vs-button>
+            <vs-button v-if="$can('moviles.create')" icon-pack="feather" icon="icon-plus" class="sm:mr-4 mb-4 md:mb-0" @click="addRecord">AGREGAR</vs-button>
           </vx-tooltip>
           <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Buscar..." />
          <!--  <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
@@ -73,7 +73,7 @@
 
             <vs-dropdown-menu>
 
-              <vs-dropdown-item @click="confirmMassiveDeleteRecord()">
+              <vs-dropdown-item v-if="$can('moviles.destroy')" @click="confirmMassiveDeleteRecord()">
                 <span class="flex items-center">
                   <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
                   <span>Eliminar</span>

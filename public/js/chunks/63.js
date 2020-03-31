@@ -1230,21 +1230,23 @@ var render = function() {
                     "vx-tooltip",
                     { attrs: { color: "primary", text: "Editar" } },
                     [
-                      _c(
-                        "vs-button",
-                        {
-                          staticClass: "mr-4",
-                          attrs: {
-                            "icon-pack": "feather",
-                            icon: "icon-edit",
-                            to: {
-                              name: "asociados-edit",
-                              params: { itemId: _vm.$route.params.itemId }
-                            }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      )
+                      _vm.$can("moviles.edit")
+                        ? _c(
+                            "vs-button",
+                            {
+                              staticClass: "mr-4",
+                              attrs: {
+                                "icon-pack": "feather",
+                                icon: "icon-edit",
+                                to: {
+                                  name: "asociados-edit",
+                                  params: { itemId: _vm.$route.params.itemId }
+                                }
+                              }
+                            },
+                            [_vm._v("Editar")]
+                          )
+                        : _vm._e()
                     ],
                     1
                   ),
@@ -1273,19 +1275,21 @@ var render = function() {
                     "vx-tooltip",
                     { attrs: { color: "primary", text: "Eliminar" } },
                     [
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            type: "border",
-                            color: "danger",
-                            "icon-pack": "feather",
-                            icon: "icon-trash"
-                          },
-                          on: { click: _vm.confirmDeleteRecord }
-                        },
-                        [_vm._v("Eliminar")]
-                      )
+                      _vm.$can("moviles.destroy")
+                        ? _c(
+                            "vs-button",
+                            {
+                              attrs: {
+                                type: "border",
+                                color: "danger",
+                                "icon-pack": "feather",
+                                icon: "icon-trash"
+                              },
+                              on: { click: _vm.confirmDeleteRecord }
+                            },
+                            [_vm._v("Eliminar")]
+                          )
+                        : _vm._e()
                     ],
                     1
                   )

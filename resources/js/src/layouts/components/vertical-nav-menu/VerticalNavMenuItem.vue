@@ -18,7 +18,7 @@
 
       <router-link
         tabindex="-1"
-        v-if="to"
+        v-if="to && $can(permiso)"
         exact
         :class="[{'router-link-active': activeLink}]"
         :to="to"
@@ -28,7 +28,7 @@
           <slot />
       </router-link>
 
-      <a v-else :target="target" :href="href" tabindex="-1">
+      <a v-else-if="$can(permiso)" :target="target" :href="href" tabindex="-1">
         <vs-icon v-if="!featherIcon" :icon-pack="iconPack" :icon="icon" />
         <feather-icon v-else :class="{'w-3 h-3': iconSmall}" :icon="icon" />
         <slot />
@@ -50,6 +50,7 @@ export default {
     featherIcon : { type: Boolean,                default: true             },
     target      : { type: String,                 default: '_self'          },
     isDisabled  : { type: Boolean,                default: false            },
+    permiso     : { type: String,                 default: ""               },
   },
   computed: {
     activeLink() {

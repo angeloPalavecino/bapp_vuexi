@@ -537,42 +537,52 @@ __webpack_require__.r(__webpack_exports__);
     addEvent: function addEvent() {
       var _this6 = this;
 
-      var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this6.horario;
-      });
-      var obj = {
-        tipo: this.tipo,
-        fechas: this.fechas,
-        codificacion: this.codificacion,
-        horario_id: this.horario
-      };
-      this.$store.dispatch('calendar/addEvent', obj).then(function () {
-        _this6.$store.dispatch('calendar/fetchEvents', _this6.codificacion);
-
-        _this6.clearFields();
-
-        _this6.fechas = [];
-
-        var calendarApi = _this6.$refs.fullCalendar.getApi();
-
-        calendarApi.render();
-
-        _this6.$vs.notify({
-          color: 'success',
-          title: 'Agendamiento Ingresado',
-          text: 'El agendamiento ya fue ingresado'
+      if (this.$can('agendamientos.store')) {
+        var horario = this.horariosOptions.find(function (element) {
+          return element.id == _this6.horario;
         });
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
+        var obj = {
+          tipo: this.tipo,
+          fechas: this.fechas,
+          codificacion: this.codificacion,
+          horario_id: this.horario
+        };
+        this.$store.dispatch('calendar/addEvent', obj).then(function () {
+          _this6.$store.dispatch('calendar/fetchEvents', _this6.codificacion);
 
-        _this6.$vs.notify({
+          _this6.clearFields();
+
+          _this6.fechas = [];
+
+          var calendarApi = _this6.$refs.fullCalendar.getApi();
+
+          calendarApi.render();
+
+          _this6.$vs.notify({
+            color: 'success',
+            title: 'Agendamiento Ingresado',
+            text: 'El agendamiento ya fue ingresado'
+          });
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this6.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.$vs.notify({
           title: 'Error',
-          text: textError,
+          text: 'No tiene permisos para agregar agendamientos',
           color: 'danger',
           iconPack: 'feather',
           icon: 'icon-alert-circle'
         });
-      });
+      }
     },
     openEditEvent: function openEditEvent(event) {
       // console.log(event.event);
@@ -586,55 +596,75 @@ __webpack_require__.r(__webpack_exports__);
     editEvent: function editEvent() {
       var _this7 = this;
 
-      var horario = this.horariosOptions.find(function (element) {
-        return element.id == _this7.horario;
-      });
-      var color = "";
-
-      if (this.tipo == 'ZARPE') {
-        color = "#1AA1C8";
-      } else {
-        color = "#28C76F";
-      }
-
-      var obj = {
-        id: this.id,
-        start: this.fecha,
-        end: this.fecha,
-        title: horario.label,
-        tipo: this.tipo,
-        fecha: this.fecha,
-        codificacion: this.codificacion,
-        horario_id: this.horario,
-        color: color
-      };
-      this.$store.dispatch('calendar/editEvent', obj).then(function () {
-        _this7.$vs.notify({
-          color: 'success',
-          title: 'Agendamiento Actualizado',
-          text: 'El agendamiento ya fue actualizado'
+      if (this.$can('agendamientos.update')) {
+        var horario = this.horariosOptions.find(function (element) {
+          return element.id == _this7.horario;
         });
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
+        var color = "";
 
-        _this7.$vs.notify({
+        if (this.tipo == 'ZARPE') {
+          color = "#1AA1C8";
+        } else {
+          color = "#28C76F";
+        }
+
+        var obj = {
+          id: this.id,
+          start: this.fecha,
+          end: this.fecha,
+          title: horario.label,
+          tipo: this.tipo,
+          fecha: this.fecha,
+          codificacion: this.codificacion,
+          horario_id: this.horario,
+          color: color
+        };
+        this.$store.dispatch('calendar/editEvent', obj).then(function () {
+          _this7.$vs.notify({
+            color: 'success',
+            title: 'Agendamiento Actualizado',
+            text: 'El agendamiento ya fue actualizado'
+          });
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
+
+          _this7.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.$vs.notify({
           title: 'Error',
-          text: textError,
+          text: 'No tiene permisos para editar el agendamiento',
           color: 'danger',
           iconPack: 'feather',
           icon: 'icon-alert-circle'
         });
-      });
+      }
     },
     removeEvent: function removeEvent() {
-      this.$vs.dialog({
-        type: 'confirm',
-        color: 'danger',
-        title: "Confirmar Eliminacion",
-        text: "Este seguro que desea eliminar el siguiente agendamiento",
-        accept: this.deleteRecord,
-        acceptText: "Eliminar"
-      });
+      if (this.$can('agendamientos.destroy')) {
+        this.$vs.dialog({
+          type: 'confirm',
+          color: 'danger',
+          title: "Confirmar Eliminacion",
+          text: "Este seguro que desea eliminar el siguiente agendamiento",
+          accept: this.deleteRecord,
+          acceptText: "Eliminar"
+        });
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: 'No tiene permisos para eliminar el agendamiento',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle'
+        });
+      }
     },
     deleteRecord: function deleteRecord() {
       var _this8 = this;
@@ -667,35 +697,45 @@ __webpack_require__.r(__webpack_exports__);
     eventDragged: function eventDragged(event) {
       var _this9 = this;
 
-      var agendamiento = event.event;
-      var obj = {
-        id: agendamiento.id,
-        start: agendamiento.start,
-        end: agendamiento.start,
-        title: agendamiento.title,
-        tipo: agendamiento.extendedProps.tipo,
-        fecha: agendamiento.start,
-        codificacion: this.codificacion,
-        horario_id: agendamiento.extendedProps.horario_id,
-        color: agendamiento.borderColor
-      };
-      this.$store.dispatch('calendar/eventDragged', obj).then(function () {
-        _this9.$vs.notify({
-          color: 'success',
-          title: 'Agendamiento Actualizado',
-          text: 'El agendamiento ya fue actualizado'
-        });
-      }).catch(function (err) {
-        var textError = err.response.status == 300 ? err.response.data.message : err;
+      if (this.$can('agendamientos.update')) {
+        var agendamiento = event.event;
+        var obj = {
+          id: agendamiento.id,
+          start: agendamiento.start,
+          end: agendamiento.start,
+          title: agendamiento.title,
+          tipo: agendamiento.extendedProps.tipo,
+          fecha: agendamiento.start,
+          codificacion: this.codificacion,
+          horario_id: agendamiento.extendedProps.horario_id,
+          color: agendamiento.borderColor
+        };
+        this.$store.dispatch('calendar/eventDragged', obj).then(function () {
+          _this9.$vs.notify({
+            color: 'success',
+            title: 'Agendamiento Actualizado',
+            text: 'El agendamiento ya fue actualizado'
+          });
+        }).catch(function (err) {
+          var textError = err.response.status == 300 ? err.response.data.message : err;
 
-        _this9.$vs.notify({
+          _this9.$vs.notify({
+            title: 'Error',
+            text: textError,
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle'
+          });
+        });
+      } else {
+        this.$vs.notify({
           title: 'Error',
-          text: textError,
+          text: 'No tiene permisos para editar el agendamiento',
           color: 'danger',
           iconPack: 'feather',
           icon: 'icon-alert-circle'
         });
-      });
+      }
     },
     clearFields: function clearFields() {
       this.horario = "";
@@ -1035,19 +1075,24 @@ var render = function() {
                   "vx-tooltip",
                   { attrs: { color: "primary", text: "Agendar" } },
                   [
-                    _c(
-                      "vs-button",
-                      {
-                        staticClass: "mt-2 mr-3",
-                        attrs: { "icon-pack": "feather", icon: "icon-plus" },
-                        on: {
-                          click: function($event) {
-                            _vm.promptAddNewEvent(new Date())
-                          }
-                        }
-                      },
-                      [_vm._v("AGENDAR")]
-                    )
+                    _vm.$can("agendamientos.create")
+                      ? _c(
+                          "vs-button",
+                          {
+                            staticClass: "mt-2 mr-3",
+                            attrs: {
+                              "icon-pack": "feather",
+                              icon: "icon-plus"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.promptAddNewEvent(new Date())
+                              }
+                            }
+                          },
+                          [_vm._v("AGENDAR")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 ),

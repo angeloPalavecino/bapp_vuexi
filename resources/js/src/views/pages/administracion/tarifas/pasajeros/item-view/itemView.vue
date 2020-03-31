@@ -46,7 +46,7 @@
 
             <vs-dropdown-menu>
 
-              <vs-dropdown-item @click="confirmMassiveDeleteRecord()">
+              <vs-dropdown-item v-if="$can('servpasajeros.destroy')" @click="confirmMassiveDeleteRecord()">
                 <span class="flex items-center">
                   <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
                   <span>Eliminar</span>
@@ -92,10 +92,10 @@
               <vs-td>
                    <div class="flex vx-col w-full sm:w-auto ml-auto mt-2 sm:mt-0" style="justify-content: center;">
                       <vx-tooltip color="primary" text="Eliminar">
-                       <vs-button radius color="primary" type="border" icon-pack="feather" icon="icon-trash" size="small" class="ml-3" @click="confirmDeleteRecord(tr)"></vs-button>
+                       <vs-button v-if="$can('servpasajeros.destroy')" radius color="primary" type="border" icon-pack="feather" icon="icon-trash" size="small" class="ml-3" @click="confirmDeleteRecord(tr)"></vs-button>
                        </vx-tooltip>
                         <vx-tooltip color="primary" text="Editar">
-                       <vs-button radius color="primary" type="border" icon-pack="feather" icon="icon-edit" size="small" class="ml-3" @click="editRecord(tr)"></vs-button>
+                       <vs-button v-if="$can('servpasajeros.edit')" radius color="primary" type="border" icon-pack="feather" icon="icon-edit" size="small" class="ml-3" @click="editRecord(tr)"></vs-button>
                        </vx-tooltip>
                  </div>
             </vs-td>

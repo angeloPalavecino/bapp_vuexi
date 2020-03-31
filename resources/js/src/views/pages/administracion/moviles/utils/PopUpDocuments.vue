@@ -35,7 +35,7 @@
               
               </div>
               <div class="vx-col md:w-1/2 w-full mt-5">
-                <vs-button  @click="upload()" color="primary" type="filled">Adjuntar</vs-button>
+                <vs-button v-if="$can('moviles.store')" @click="upload()" color="primary" type="filled">Adjuntar</vs-button>
               </div>
             </div>  
             <div class="vx-row">

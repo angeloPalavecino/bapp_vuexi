@@ -13,6 +13,9 @@ export default [
   header: "Administracion",
   icon: "OthersIcon",
   i18n: "Others",
+  permisos:["users.index","roles.index","excepciones.index","observaciones.index",
+  "obsinternas.index","fuerazona.index","moviles.index","empresas.index","servpasajeros.index","servplanas.index"
+  ,"servkms.index"],
   items: [
   {
     url: "/pages/administracion/users/item-list/itemlist",
@@ -37,6 +40,7 @@ export default [
     name: "Config. Planificacion",
     icon: "SettingsIcon",
     i18n: "SettingsIcon",
+    permisos:["excepciones.index","observaciones.index","obsinternas.index","fuerazona.index"],
     submenu: [
       {
         url: "/pages/administracion/excepciones/item-list/itemlist",
@@ -77,6 +81,7 @@ export default [
     name: "Config. Baptner", 
     icon: "TruckIcon",
     i18n: "TruckIcon",
+    permisos:["moviles.index"],
     submenu: [
       {
         url: "/pages/administracion/moviles/asociados/item-list/itemlist",
@@ -120,6 +125,7 @@ export default [
     name: "Tarifario", 
     icon: "DollarSignIcon",
     i18n: "DollarSignIcon",
+    permisos:["servpasajeros.index","servplanas.index","servkms.index"],
     submenu: [
       {
         url: "/pages/administracion/tarifas/pasajeros/item-list/itemlist",
@@ -152,12 +158,15 @@ export default [
   header: "Planificacion",
   icon: "OthersIcon",
   i18n: "Others",
+  permisos:["patrones.index","grupopatrones.index","horarios.index","matriz.index",
+  "codificaciones.index","agendamientos.index"],
   items: [
   {
     url: null,
     name: "Patrones", 
     icon: "ClipboardIcon",
     i18n: "ClipboardIcon",
+    permisos:["patrones.index","grupopatrones.index"],
     submenu: [
       {
         url: "/pages/planificacion/patrones/patrones/item-list/itemlist",

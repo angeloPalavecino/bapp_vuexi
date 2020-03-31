@@ -116,13 +116,13 @@
          <!-- Buttons -->
           <div class="vx-col w-full flex mt-4" id="account-manage-buttons">
             <vx-tooltip color="primary" text="Editar">
-              <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'codificaciones-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
+              <vs-button v-if="$can('codificaciones.edit')" icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'codificaciones-edit', params: { itemId: $route.params.itemId }}">Editar</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Volver">
               <vs-button icon-pack="feather" icon="icon-arrow-left" class="mr-4" :to="{name: 'codificaciones'}">Volver</vs-button>
             </vx-tooltip>
             <vx-tooltip color="primary" text="Eliminar">
-              <vs-button type="border" color="danger" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRecord">Eliminar</vs-button>
+              <vs-button v-if="$can('codificaciones.destroy')" type="border" color="danger" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRecord">Eliminar</vs-button>
             </vx-tooltip>
           </div>
            <!-- Buttons -->

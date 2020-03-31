@@ -141,7 +141,7 @@
       <div class="vx-col w-full">
         <div class="mt-3 flex flex-wrap items-center justify-end">
           <vx-tooltip color="primary" text="Guardar">
-              <vs-button class="ml-auto mt-2" @click="confirmarEditar" :disabled="!validateForm">Guardar Cambios</vs-button>
+              <vs-button v-if="$can('codificaciones.update')" class="ml-auto mt-2" @click="confirmarEditar" :disabled="!validateForm">Guardar Cambios</vs-button>
           </vx-tooltip>
           <vx-tooltip color="primary" text="Volver">
               <vs-button icon-pack="feather" icon="icon-arrow-left" class="ml-4 mt-2" :to="{name: 'codificaciones'}">Volver</vs-button>

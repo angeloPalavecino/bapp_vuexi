@@ -21,7 +21,7 @@
     @mouseout  = "mouseout">
 
       <!-- Group Label -->
-      <div @click="clickGroup" class="group-header w-full">
+      <div v-if="$canArray(group.permisos)" @click="clickGroup" class="group-header w-full">
         <span class="flex items-center w-full">
 
           <!-- Group Icon -->
@@ -59,12 +59,14 @@
             :group      = "groupItem"
             :groupIndex = "Number(`${groupIndex}.${index+1}`)"
             :open       = "isGroupActive(groupItem)"
-            :openHover  = "openHover" />
+            :openHover  = "openHover"
+             />
 
           <!-- Else: Item -->
           <v-nav-menu-item
             v-else
             icon-small
+            :permiso="groupItem.permiso"
             :index  = "groupIndex + '.' + index"
             :to="groupItem.slug !== 'external' ? groupItem.url : null"
             :href="groupItem.slug === 'external' ? groupItem.url : null"

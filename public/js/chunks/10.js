@@ -1122,15 +1122,17 @@ var render = function() {
                 "vx-tooltip",
                 { attrs: { color: "primary", text: "Agregar" } },
                 [
-                  _c(
-                    "vs-button",
-                    {
-                      staticClass: "sm:mr-4 mb-4 md:mb-0",
-                      attrs: { "icon-pack": "feather", icon: "icon-plus" },
-                      on: { click: _vm.addRecord }
-                    },
-                    [_vm._v("AGREGAR")]
-                  )
+                  _vm.$can("users.create")
+                    ? _c(
+                        "vs-button",
+                        {
+                          staticClass: "sm:mr-4 mb-4 md:mb-0",
+                          attrs: { "icon-pack": "feather", icon: "icon-plus" },
+                          on: { click: _vm.addRecord }
+                        },
+                        [_vm._v("AGREGAR")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -1177,34 +1179,36 @@ var render = function() {
                   _c(
                     "vs-dropdown-menu",
                     [
-                      _c(
-                        "vs-dropdown-item",
-                        {
-                          on: {
-                            click: function($event) {
-                              return _vm.confirmMassiveDeleteRecord()
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "flex items-center" },
-                            [
-                              _c("feather-icon", {
-                                staticClass: "mr-2",
-                                attrs: {
-                                  icon: "TrashIcon",
-                                  svgClasses: "h-4 w-4"
+                      _vm.$can("users.destroy")
+                        ? _c(
+                            "vs-dropdown-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.confirmMassiveDeleteRecord()
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Eliminar")])
-                            ],
-                            1
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "flex items-center" },
+                                [
+                                  _c("feather-icon", {
+                                    staticClass: "mr-2",
+                                    attrs: {
+                                      icon: "TrashIcon",
+                                      svgClasses: "h-4 w-4"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("Eliminar")])
+                                ],
+                                1
+                              )
+                            ]
                           )
-                        ]
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "vs-dropdown-item",

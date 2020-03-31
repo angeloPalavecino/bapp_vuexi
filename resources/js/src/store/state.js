@@ -23,14 +23,16 @@ const userDefaults = {
   lastname    : "Doe", 
   //about       : "Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.",
   photoURL    : require("@assets/images/portrait/users/avatar.jpg"), // From Auth
-  status      : "online",
-  userRole    : "admin",
+  //status      : "online",
+  //userRole    : "admin",
   email       : "email@email.cl",
   telefono    : "73118560",
   rut         : "163705052",
-  empresa     : "Empresa",
-  creado      : "",
-  actualizado : ""
+  empresa_id     : 1,
+  created_at      : "",
+  updated_at : "",
+  habilitado : 1,
+  imagen : require("@assets/images/portrait/users/avatar.jpg"),
 }
 
 // /////////////////////////////////////////////

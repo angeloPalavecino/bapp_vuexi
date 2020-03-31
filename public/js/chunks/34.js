@@ -870,15 +870,17 @@ var render = function() {
                       "vx-tooltip",
                       { attrs: { color: "primary", text: "Guardar" } },
                       [
-                        _c(
-                          "vs-button",
-                          {
-                            staticClass: "ml-auto mt-2",
-                            attrs: { disabled: !_vm.validateForm },
-                            on: { click: _vm.save_changes }
-                          },
-                          [_vm._v("Guardar Cambios")]
-                        )
+                        _vm.$can("grupopatrones.store")
+                          ? _c(
+                              "vs-button",
+                              {
+                                staticClass: "ml-auto mt-2",
+                                attrs: { disabled: !_vm.validateForm },
+                                on: { click: _vm.save_changes }
+                              },
+                              [_vm._v("Guardar Cambios")]
+                            )
+                          : _vm._e()
                       ],
                       1
                     ),
