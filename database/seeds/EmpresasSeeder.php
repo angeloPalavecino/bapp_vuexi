@@ -17,7 +17,7 @@ class EmpresasSeeder extends Seeder
             'id' => 1,
             'rut' => 00000000,
             'dv' => 0,
-            'razon_social' => 'SIM EMPRESA',
+            'razon_social' => 'SIN EMPRESA',
             'giro' => 'SIN EMPRESA',
             'habilitado' => 1,
             'fecha_incorporacion' => date("Y-m-d H:i:s"),
